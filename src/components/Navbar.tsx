@@ -49,7 +49,8 @@ const Navbar = () => {
               <img 
                 src="/lovable-uploads/f0b45bba-4b33-4147-99b0-bf9d1335bbd9.png" 
                 alt="Transformed Academy Logo" 
-                className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+                className="h-18 w-auto transition-transform duration-300 group-hover:scale-105"
+                style={{ height: '4.5rem' }} /* Increased by 1.5x from original height of 3rem (12px * 4) */
               />
             </Link>
           </div>

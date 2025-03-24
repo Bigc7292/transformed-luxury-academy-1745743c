@@ -38,7 +38,7 @@ const GlitterHearts: React.FC = () => {
   useEffect(() => {
     const generateParticles = () => {
       const newParticles: GlitterParticle[] = [];
-      const count = 80; // Total number of particles
+      const count = 160; // Doubled from 80 to 160 total particles
 
       for (let i = 0; i < count; i++) {
         // Determine if this will be a heart or a glitter particle
