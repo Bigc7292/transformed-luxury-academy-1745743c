@@ -1,12 +1,30 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useEffect } from 'react';
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+import Services from '../components/Services';
+import Benefits from '../components/Benefits';
+import Testimonials from '../components/Testimonials';
+import Cta from '../components/Cta';
+import Footer from '../components/Footer';
+import Chatbot from '../components/Chatbot';
 
 const Index = () => {
+  useEffect(() => {
+    // Scroll to top on page load
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="bg-white min-h-screen">
+      <Navbar />
+      <Hero />
+      <Services />
+      <Benefits />
+      <Testimonials />
+      <Cta />
+      <Footer />
+      <Chatbot />
     </div>
   );
 };
