@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -43,10 +44,12 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center">
-              <div className="text-2xl font-serif text-salon-pink-500 tracking-wider">
-                Transformed<span className="font-cursive ml-1">Academy</span>
-              </div>
+            <Link to="/" className="flex items-center group">
+              <img 
+                src="/lovable-uploads/f0b45bba-4b33-4147-99b0-bf9d1335bbd9.png" 
+                alt="Transformed Academy Logo" 
+                className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+              />
             </Link>
           </div>
 
