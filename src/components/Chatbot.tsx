@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { findBestResponse } from '../services/chatbotService';
 
 interface Message {
   id: number;
@@ -15,6 +16,7 @@ const Chatbot = () => {
     { id: 1, text: "Hi there! I'm your beauty assistant. How can I help you today?", isBot: true }
   ]);
   const [input, setInput] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   const toggleChat = () => {
@@ -28,31 +30,29 @@ const Chatbot = () => {
     // Add user message
     const newId = messages.length + 1;
     setMessages([...messages, { id: newId, text: input, isBot: false }]);
+    
+    const userQuestion = input;
     setInput("");
     
-    // Simulate bot response
+    // Show typing indicator
+    setIsTyping(true);
+    
+    // Process the response based on the user's input
     setTimeout(() => {
-      const botResponses = [
-        "I'd be happy to help you with that! Our aesthetic treatments are designed to enhance your natural beauty.",
-        "That's a great question about our services. Would you like me to book you a consultation with one of our experts?",
-        "We offer a wide range of treatments including lip fillers, botox, and dermal fillers. Which one are you interested in?",
-        "Our treatments are performed by certified professionals with years of experience in aesthetic medicine.",
-        "Would you like to know more about pricing or schedule a consultation?",
-      ];
-      
-      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
-      setMessages(prev => [...prev, { id: prev.length + 1, text: randomResponse, isBot: true }]);
-    }, 1000);
+      const botResponse = findBestResponse(userQuestion);
+      setIsTyping(false);
+      setMessages(prev => [...prev, { id: prev.length + 1, text: botResponse, isBot: true }]);
+    }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds to simulate typing
   };
 
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages]);
+  }, [messages, isTyping]);
 
   return (
-    <div className="chatbot-container">
+    <div className="chatbot-container fixed bottom-6 right-6 z-50 flex flex-col items-end">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -60,7 +60,7 @@ const Chatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-xl shadow-xl w-80 sm:w-96 h-96 mb-4 overflow-hidden flex flex-col border border-salon-pink-100"
+            className="bg-white rounded-xl shadow-xl w-80 sm:w-96 h-[450px] mb-4 overflow-hidden flex flex-col border border-salon-pink-100"
           >
             <div className="bg-salon-pink-500 text-white p-4 flex justify-between items-center">
               <h3 className="font-medium">Beauty Assistant</h3>
@@ -86,6 +86,19 @@ const Chatbot = () => {
                   </div>
                 </div>
               ))}
+              
+              {isTyping && (
+                <div className="mb-4 flex justify-start">
+                  <div className="bg-salon-pink-100 text-gray-800 max-w-[80%] rounded-lg p-3">
+                    <div className="flex space-x-1 items-center">
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></div>
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></div>
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
               <div ref={messagesEndRef} />
             </div>
             
