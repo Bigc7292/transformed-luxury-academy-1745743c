@@ -8,6 +8,7 @@ import Testimonials from '../components/Testimonials';
 import Cta from '../components/Cta';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
+import GlitterHearts from '../components/GlitterHearts';
 
 const Index = () => {
   useEffect(() => {
@@ -18,6 +19,7 @@ const Index = () => {
   return (
     <div className="bg-white min-h-screen">
       <Navbar />
+      <GlitterHearts />
       <main>
         <Hero />
         <Services />

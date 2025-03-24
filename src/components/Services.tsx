@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Star, Zap } from 'lucide-react';
+import { Heart, Star, Zap, Sparkles, Scissors } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const servicesList = [
   {
@@ -10,7 +11,13 @@ const servicesList = [
     description: "Enhance your lips with our premium dermal fillers for a naturally fuller look.",
     icon: <Heart className="w-8 h-8 text-salon-pink-400" />,
     image: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=2070&auto=format&fit=crop",
-    link: "/services/lip-fillers"
+    link: "/services/lip-fillers",
+    promo: {
+      show: true,
+      text: "Kayla's Signature Lips Masterclass - Now £499",
+      originalPrice: "£799",
+      currentPrice: "£499"
+    }
   },
   {
     id: 2,
@@ -27,6 +34,22 @@ const servicesList = [
     icon: <Zap className="w-8 h-8 text-salon-pink-400" />,
     image: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=2070&auto=format&fit=crop",
     link: "/services/dermal-fillers"
+  },
+  {
+    id: 4,
+    title: "Body Sculpting",
+    description: "Non-surgical body contouring treatments to help you feel confident in your body.",
+    icon: <Sparkles className="w-8 h-8 text-salon-pink-400" />,
+    image: "/lovable-uploads/f9ad279c-c69d-4621-992f-ceb06912b33a.png",
+    link: "/services/body-sculpting"
+  },
+  {
+    id: 5,
+    title: "Post-Op Aftercare",
+    description: "Specialized aftercare services to ensure optimal results from cosmetic procedures.",
+    icon: <Scissors className="w-8 h-8 text-salon-pink-400" />,
+    image: "/lovable-uploads/9adc42fb-5f82-4bfe-8397-c5b42685de06.png",
+    link: "/services/post-op-aftercare"
   }
 ];
 
@@ -82,20 +105,37 @@ const Services = () => {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  {service.promo && service.promo.show && (
+                    <div className="absolute top-4 right-4 bg-salon-pink-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                      Special Offer
+                    </div>
+                  )}
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
                   <div className="mb-4">{service.icon}</div>
                   <h3 className="text-xl font-serif text-salon-pink-700 mb-2">{service.title}</h3>
                   <p className="text-gray-600 mb-6 flex-grow">{service.description}</p>
-                  <a 
-                    href={service.link} 
+                  
+                  {service.promo && service.promo.show && (
+                    <div className="mb-4 bg-salon-pink-50 p-3 rounded-md">
+                      <p className="text-salon-pink-700 font-medium">{service.promo.text}</p>
+                      <div className="flex items-center mt-1">
+                        <span className="line-through text-gray-500 text-sm mr-2">{service.promo.originalPrice}</span>
+                        <span className="text-salon-pink-600 font-bold">{service.promo.currentPrice}</span>
+                      </div>
+                    </div>
+                  )}
+                  
+                  <Link 
+                    to={service.link} 
                     className="text-salon-pink-500 hover:text-salon-pink-600 font-medium inline-flex items-center mt-auto"
                   >
                     Learn More
                     <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                     </svg>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </motion.div>
@@ -103,9 +143,9 @@ const Services = () => {
         </motion.div>
 
         <div className="text-center mt-12">
-          <a href="/services" className="btn-secondary">
-            View All Services
-          </a>
+          <Link to="/price-list" className="btn-secondary">
+            View Price List
+          </Link>
         </div>
       </div>
     </section>

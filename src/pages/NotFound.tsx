@@ -3,6 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import GlitterHearts from "../components/GlitterHearts";
 
 const NotFound = () => {
   const location = useLocation();
@@ -17,6 +18,7 @@ const NotFound = () => {
   return (
     <div className="min-h-screen flex flex-col bg-salon-pink-50">
       <Navbar />
+      <GlitterHearts />
       <div className="flex-grow flex items-center justify-center py-20">
         <div className="text-center max-w-md px-4">
           <h1 className="text-6xl font-serif font-bold mb-4 text-salon-pink-500">404</h1>
