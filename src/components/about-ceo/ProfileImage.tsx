@@ -9,8 +9,16 @@ interface ProfileImageProps {
 }
 
 const ProfileImage: React.FC<ProfileImageProps> = ({ imgSrc, animatedAwards }) => {
+  // Define the positions for each award image
+  const positions = [
+    { angle: 0, distance: 350 },    // North position (previously East)
+    { angle: 90, distance: 350 },   // East position (adjusted)
+    { angle: 180, distance: 350 },  // South position (adjusted)
+    { angle: 270, distance: 350 },  // West position
+  ];
+
   return (
-    <div className="relative mb-20">
+    <div className="relative mb-36"> {/* Increased bottom margin to prevent text overlap */}
       <div className="flex justify-center">
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
@@ -33,20 +41,20 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ imgSrc, animatedAwards }) =
       
       {/* Rotating Awards Around Main Image */}
       <div className="absolute inset-0 flex items-center justify-center">
-        {[0, 1, 2, 3].map((index) => (
+        {positions.map((position, index) => (
           <motion.div
             key={index}
             className="absolute"
             initial={{ 
-              rotate: index * 90,
-              x: Math.cos(index * Math.PI/2) * 350,
-              y: Math.sin(index * Math.PI/2) * 350,
+              rotate: position.angle,
+              x: Math.cos(position.angle * Math.PI/180) * position.distance,
+              y: Math.sin(position.angle * Math.PI/180) * position.distance,
               opacity: 0 
             }}
             animate={{ 
-              rotate: [index * 90, index * 90 + 360],
-              x: Math.cos(index * Math.PI/2) * 350,
-              y: Math.sin(index * Math.PI/2) * 350,
+              rotate: [position.angle, position.angle + 360],
+              x: Math.cos(position.angle * Math.PI/180) * position.distance,
+              y: Math.sin(position.angle * Math.PI/180) * position.distance,
               opacity: 1 
             }}
             transition={{ 
