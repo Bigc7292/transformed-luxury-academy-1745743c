@@ -6,74 +6,81 @@ import Footer from '../components/Footer';
 import GlitterHearts from '../components/GlitterHearts';
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Award, Trophy } from 'lucide-react';
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
 
-// Define award data
+// Define award data with updated images
 const awardsData = [
   {
     id: 1,
+    title: "Training Provider of the Year Finalist",
+    organization: "International Aesthetics Awards",
+    image: "/lovable-uploads/1e121da5-17d8-46d1-81c6-9307454a0f85.png"
+  },
+  {
+    id: 2,
+    title: "Judge Certificate - Blonde Specialist of the Year",
+    organization: "The Female Boss Awards 2024",
+    image: "/lovable-uploads/e5f63014-1269-4f57-9add-853a574d10b0.png"
+  },
+  {
+    id: 3,
+    title: "Regional Winner - Best Aesthetics of the Year",
+    organization: "UK Hair Awards & GB Beauty Awards 2024",
+    image: "/lovable-uploads/2deee9a2-c632-46fd-ae2d-050a8e3c4c09.png"
+  },
+  {
+    id: 4,
+    title: "Regional Winner - Training Academy of the Year",
+    organization: "UK Hair Awards & GB Beauty Awards 2024",
+    image: "/lovable-uploads/931de925-2945-4448-931f-b8cc65a64e27.png"
+  },
+  {
+    id: 5,
     title: "2023 Finalist - BEST FOR AESTHETICS",
     organization: "UK Hair and Beauty Awards",
     image: "/lovable-uploads/c20a0102-7efc-4503-9cc6-6107cef67eb4.png"
   },
   {
-    id: 2,
+    id: 6,
     title: "HBA Finalist 2023",
     organization: "Health & Beauty Awards",
     image: "/lovable-uploads/0a19fcec-2207-4a8e-b6db-a24008e884d2.png"
   },
   {
-    id: 3,
+    id: 7,
     title: "CPD Accredited Training Provider",
     organization: "CPD Certification Service",
     image: "/lovable-uploads/a58ca5da-7e1d-49cf-acde-e6bbaa2e47ad.png"
   },
   {
-    id: 4,
+    id: 8,
     title: "UK Aesthetics & Beauty Awards Finalist",
     organization: "Aesthetics Practitioner of the Year 2023",
     image: "/lovable-uploads/bf300266-5a42-4d71-b7a6-ffe14b5c4c25.png"
   },
   {
-    id: 5,
+    id: 9,
     title: "District Top 10 - Best Colour Salon",
     organization: "UK Hair and Beauty Awards",
     image: "/lovable-uploads/0af2a434-fccc-46d7-b9f6-0e338984c4ef.png"
   },
   {
-    id: 6,
+    id: 10,
     title: "Beauty & Aesthetics Awards Nomination",
     organization: "Beauty & Aesthetics Awards 2023",
     image: "/lovable-uploads/dd497299-2b17-4b24-891a-a81ad32eb2a0.png"
   },
   {
-    id: 7,
-    title: "International Aesthetics Awards Entrant",
-    organization: "International Aesthetics Awards 2023",
-    image: "/lovable-uploads/b2095e89-c866-4d6a-b49e-c6dd7917c10e.png"
-  },
-  {
-    id: 8,
-    title: "Finalist Colourist Of The Year",
-    organization: "Salon Awards - West Midlands 2023",
-    image: "/lovable-uploads/e5265ce6-ce54-4f9c-8628-8039f70699f4.png"
-  },
-  {
-    id: 9,
-    title: "International Aesthetics Awards 2023",
-    organization: "International Aesthetics Awards",
-    image: "/lovable-uploads/e5b301a6-068e-4a8d-8dc1-bb23c603adba.png"
-  },
-  {
-    id: 10,
+    id: 11,
     title: "Female Boss Awards Finalist 2024",
     organization: "Best Training Academy 2024",
     image: "/lovable-uploads/748df893-1f06-4522-8f79-7eb46864bf20.png"
-  },
-  {
-    id: 11,
-    title: "Official Female Boss Judge",
-    organization: "Best Aesthetics Training Academy 2025",
-    image: "/lovable-uploads/61f31930-d2fd-47db-8e01-72f2db80f078.png"
   }
 ];
 
@@ -97,6 +104,7 @@ const trainingCourses = [
 
 const AboutCeo = () => {
   const [visibleAwards, setVisibleAwards] = useState<number[]>([]);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     // Initialize with no visible awards
@@ -122,7 +130,7 @@ const AboutCeo = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-pink-50 to-white">
       <Navbar />
       <GlitterHearts />
       
@@ -131,7 +139,7 @@ const AboutCeo = () => {
           {/* Hero Section */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-salon-pink-800 mb-4">
-              Meet <span className="text-salon-pink-500">Nikki Dee</span>
+              Meet <span className="text-salon-pink-500">Kayla</span>
             </h1>
             <h2 className="text-2xl md:text-3xl font-serif text-salon-pink-600 mb-6">
               Founder & CEO of Transformed Academy
@@ -139,7 +147,7 @@ const AboutCeo = () => {
             <div className="max-w-3xl mx-auto">
               <p className="text-lg text-gray-700 mb-8">
                 With extensive experience and recognition in the beauty and aesthetics industry, 
-                Nikki Dee has established herself as a leading figure and educator in the field. 
+                Kayla has established herself as a leading figure and educator in the field. 
                 Her passion for excellence and innovation has led to multiple awards and accolades.
               </p>
             </div>
@@ -150,7 +158,72 @@ const AboutCeo = () => {
             </div>
           </div>
           
-          {/* Awards Section */}
+          {/* Main Image with Rotating Awards */}
+          <div className="relative mb-20">
+            <div className="flex justify-center">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+                className="relative z-10 rounded-full overflow-hidden border-8 border-gold shadow-2xl"
+                style={{ 
+                  width: '320px', 
+                  height: '320px',
+                  borderColor: 'rgba(212, 175, 55, 0.8)'
+                }}
+              >
+                <img 
+                  src="/lovable-uploads/decb2b79-3774-449a-b7b7-479a89096676.png" 
+                  alt="Kayla - Founder & CEO" 
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+            </div>
+            
+            {/* Rotating Awards Around Main Image */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              {[0, 1, 2, 3].map((index) => (
+                <motion.div
+                  key={index}
+                  className="absolute"
+                  initial={{ 
+                    rotate: index * 90,
+                    x: Math.cos(index * Math.PI/2) * 350,
+                    y: Math.sin(index * Math.PI/2) * 350,
+                    opacity: 0 
+                  }}
+                  animate={{ 
+                    rotate: [index * 90, index * 90 + 360],
+                    x: Math.cos(index * Math.PI/2) * 350,
+                    y: Math.sin(index * Math.PI/2) * 350,
+                    opacity: 1 
+                  }}
+                  transition={{ 
+                    rotate: { 
+                      repeat: Infinity, 
+                      duration: 60, 
+                      ease: "linear",
+                      delay: index * 0.5
+                    },
+                    opacity: { duration: 1, delay: 1 + index * 0.2 }
+                  }}
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.1, zIndex: 20 }}
+                    className="bg-white rounded-lg shadow-lg overflow-hidden w-40 h-40"
+                  >
+                    <img 
+                      src={awardsData[index].image} 
+                      alt={awardsData[index].title}
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Awards Carousel */}
           <section className="mb-20">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-salon-pink-800 mb-3">
@@ -161,42 +234,49 @@ const AboutCeo = () => {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {awardsData.map((award, index) => (
-                <motion.div
-                  key={award.id}
-                  initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                  animate={visibleAwards.includes(index) ? 
-                    { opacity: 1, y: 0, scale: 1 } : 
-                    { opacity: 0, y: 50, scale: 0.9 }
-                  }
-                  transition={{ 
-                    duration: 0.5,
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 15
-                  }}
-                  className="flex flex-col h-full"
-                >
-                  <Card className="h-full bg-white hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-salon-pink-100 hover:border-salon-pink-300">
-                    <div className="relative pt-[100%] overflow-hidden bg-black">
-                      <img 
-                        src={award.image} 
-                        alt={award.title}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                      />
-                    </div>
-                    <CardContent className="p-5 text-center">
-                      <div className="flex items-center justify-center mb-3">
-                        <Award className="h-5 w-5 text-salon-pink-500 mr-2" />
-                        <h3 className="font-serif font-medium text-lg text-salon-pink-800">{award.title}</h3>
-                      </div>
-                      <p className="text-gray-600">{award.organization}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
+            <Carousel className="w-full max-w-5xl mx-auto">
+              <CarouselContent>
+                {awardsData.map((award) => (
+                  <CarouselItem key={award.id} className="md:basis-1/2 lg:basis-1/3">
+                    <motion.div
+                      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ 
+                        duration: 0.5,
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 15
+                      }}
+                      className="h-full p-1"
+                    >
+                      <Card className="h-full bg-white hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-salon-pink-100 hover:border-salon-pink-300">
+                        <div className="relative pt-[100%] overflow-hidden bg-black">
+                          <img 
+                            src={award.image} 
+                            alt={award.title}
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                          />
+                        </div>
+                        <CardContent className="p-5 text-center">
+                          <div className="flex items-center justify-center mb-3">
+                            <Award className="h-5 w-5 text-salon-pink-500 mr-2" />
+                            <h3 className="font-serif font-medium text-lg text-salon-pink-800">{award.title}</h3>
+                          </div>
+                          <p className="text-gray-600">{award.organization}</p>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="absolute -left-4 top-1/2 -translate-y-1/2">
+                <CarouselPrevious className="h-10 w-10 bg-white/80 border-salon-pink-200 text-salon-pink-700 hover:bg-salon-pink-100" />
+              </div>
+              <div className="absolute -right-4 top-1/2 -translate-y-1/2">
+                <CarouselNext className="h-10 w-10 bg-white/80 border-salon-pink-200 text-salon-pink-700 hover:bg-salon-pink-100" />
+              </div>
+            </Carousel>
           </section>
           
           {/* Training Courses Section */}
@@ -207,7 +287,7 @@ const AboutCeo = () => {
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 Take your career to the next level with personalized training from an industry expert. 
-                Nikki provides one-to-one courses designed to give you the skills and confidence needed to excel.
+                Kayla provides one-to-one courses designed to give you the skills and confidence needed to excel.
               </p>
             </div>
             
@@ -273,7 +353,7 @@ const AboutCeo = () => {
               </blockquote>
               
               <p className="text-right font-serif text-salon-pink-700 font-medium">
-                — Nikki Dee, Founder & CEO
+                — Kayla, Founder & CEO
               </p>
             </motion.div>
           </section>
@@ -291,7 +371,7 @@ const AboutCeo = () => {
                 Begin Your Aesthetics Journey Today
               </h2>
               <p className="text-lg mb-8 max-w-2xl mx-auto">
-                Take the first step towards a successful career in aesthetics with expert training from Nikki Dee.
+                Take the first step towards a successful career in aesthetics with expert training from Kayla.
                 Limited spots available for one-to-one training sessions.
               </p>
               <motion.a
