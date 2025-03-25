@@ -8,7 +8,7 @@ const heartShapes = [
   "M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z",
 ];
 
-// Define pink color variants
+// Define pink color variants with more variety
 const pinkShades = [
   '#FFDEE2', // Soft Pink
   '#FF83AD', // Medium Pink
@@ -16,6 +16,10 @@ const pinkShades = [
   '#FFB6C1', // Light Pink
   '#FFC0CB', // Pink
   '#DB5584', // Dark Pink
+  '#FF9EC3', // Pastel Pink
+  '#FD3A73', // Hot Pink
+  '#FAA0C7', // Barbie Pink
+  '#EF8FAD', // Rose Pink
 ];
 
 type GlitterParticle = {
