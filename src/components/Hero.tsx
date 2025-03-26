@@ -3,6 +3,40 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const Hero = () => {
+  // Animation variants for text sweep effect
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const wordVariants = {
+    hidden: (i: number) => ({
+      opacity: 0,
+      x: i % 2 === 0 ? -50 : 50, // Even words come from left, odd from right
+    }),
+    show: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: "spring",
+        damping: 12,
+      }
+    }
+  };
+
+  // The words to be animated
+  const animatedText = [
+    "Premium", "Advanced", "Aesthetics", "Treatments,", "Skin", 
+    "Analysis", "Specialist,", "Hair", "Care", "Treatments", 
+    "And", "Fully", "Qualified", "Level", "5", "Educator"
+  ];
+
   return (
     <div className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-salon-pink-50 to-white">
       <div className="absolute inset-0">
@@ -18,11 +52,26 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="mb-8"
             >
-              <span className="text-salon-pink-400 text-lg font-medium">Premium Aesthetics</span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-salon-pink-800 mt-2 leading-tight">Discover Your <span className="text-salon-pink-500">True Beauty</span></h1>
-              <p className="mt-6 text-lg text-gray-600 max-w-lg mx-auto lg:mx-0">
-                Transform your appearance with our expert aesthetic treatments at Transformed Academy and Salon. Where beauty meets science.
-              </p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-salon-pink-800 mt-2 leading-tight">Transformed <span className="text-salon-pink-500">Academy and Salon</span></h1>
+              
+              {/* Animated sweeping text */}
+              <motion.div 
+                variants={container}
+                initial="hidden"
+                animate="show"
+                className="mt-6 flex flex-wrap justify-center lg:justify-start"
+              >
+                {animatedText.map((word, i) => (
+                  <motion.span
+                    key={i}
+                    custom={i}
+                    variants={wordVariants}
+                    className="text-lg text-gray-600 mr-2 mb-1"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </motion.div>
             </motion.div>
             
             <motion.div 
@@ -69,11 +118,10 @@ const Hero = () => {
               transition={{ duration: 0.8 }}
               className="relative z-10"
             >
-              <img 
-                src="/lovable-uploads/3c7bd4cf-0544-4f55-9e75-b320ceda3772.png" 
-                alt="Aesthetic treatment" 
-                className="rounded-lg shadow-2xl max-w-full h-auto object-cover"
-              />
+              {/* Placeholder for image that was removed */}
+              <div className="rounded-lg shadow-2xl max-w-full h-96 bg-salon-pink-100 flex items-center justify-center">
+                <p className="text-salon-pink-600 font-medium">Image Placeholder</p>
+              </div>
               <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
                 <div className="flex items-center">
                   <div className="flex -space-x-2">

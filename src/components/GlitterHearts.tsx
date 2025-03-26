@@ -42,7 +42,7 @@ const GlitterHearts: React.FC = () => {
   useEffect(() => {
     const generateParticles = () => {
       const newParticles: GlitterParticle[] = [];
-      const count = 160; // Doubled from 80 to 160 total particles
+      const count = 80; // Reduced from 160 to 80 total particles (half)
 
       for (let i = 0; i < count; i++) {
         // Determine if this will be a heart or a glitter particle
@@ -52,7 +52,7 @@ const GlitterHearts: React.FC = () => {
           id: i,
           x: Math.random() * 100, // Random position across the screen (%)
           y: -10 - Math.random() * 100, // Start above the viewport
-          size: isHeart ? 3 + Math.random() * 10 : 1 + Math.random() * 3, // Hearts are bigger
+          size: isHeart ? 3 + Math.random() * 7 : 1 + Math.random() * 2, // Hearts are bigger but slightly smaller than before
           color: pinkShades[Math.floor(Math.random() * pinkShades.length)],
           rotation: Math.random() * 360,
           delay: Math.random() * 10, // Random delay for staggered animation

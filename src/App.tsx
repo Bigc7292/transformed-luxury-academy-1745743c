@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Routes, Route } from "react-router-dom";
+import SeoHead from "./components/SeoHead";
 import Index from "./pages/Index";
 import PriceList from "./pages/PriceList";
 import Gallery from "./pages/Gallery";
@@ -17,6 +18,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <SeoHead />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/price-list" element={<PriceList />} />
