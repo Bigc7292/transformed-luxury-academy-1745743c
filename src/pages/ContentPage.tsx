@@ -19,7 +19,7 @@ const ContentPage: React.FC = () => {
     if (!category) return undefined;
     
     const validCategories: ContentCategory[] = [
-      "promotional", "staff", "awards", "ceo", "founder"
+      "promotional", "staff", "awards", "ceo", "partner"
     ];
     
     return validCategories.includes(category as ContentCategory) 
@@ -35,7 +35,7 @@ const ContentPage: React.FC = () => {
       case "staff": return "Our Staff";
       case "awards": return "Awards & Recognition";
       case "ceo": return "CEO Spotlight";
-      case "founder": return "Founder's Journey";
+      case "partner": return "Partner's Journey";
       default: return "All Content";
     }
   };
@@ -46,7 +46,7 @@ const ContentPage: React.FC = () => {
       case "staff": return "Meet the talented team behind Transformed Academy & Salon.";
       case "awards": return "Celebrating our achievements and recognition in the industry.";
       case "ceo": return "Learn more about our visionary CEO.";
-      case "founder": return "Discover the journey of our founder.";
+      case "partner": return "Discover the journey of our valued partners.";
       default: return "Browse our complete media library.";
     }
   };
