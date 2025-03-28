@@ -15,35 +15,38 @@ import AdminAuth from "./pages/AdminAuth";
 import AdminInbox from "./pages/AdminInbox";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <SeoHead />
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/price-list" element={<PriceList />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/about-kayla" element={<AboutCeo />} />
-        <Route path="/content" element={<ContentPage />} />
-        <Route path="/content/:category" element={<ContentPage />} />
-        <Route path="/admin/auth" element={<AdminAuth />} />
-        <Route path="/admin/content" element={<AdminContentPage />} />
-        <Route path="/admin/inbox" element={<AdminInbox />} />
-        <Route path="/services" element={<NotFound />} />
-        <Route path="/services/:service" element={<NotFound />} />
-        <Route path="/about" element={<NotFound />} />
-        <Route path="/contact" element={<NotFound />} />
-        <Route path="/booking" element={<NotFound />} />
-        <Route path="/privacy-policy" element={<NotFound />} />
-        <Route path="/terms-of-service" element={<NotFound />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  // Create a new QueryClient instance inside the component
+  const queryClient = new QueryClient();
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <SeoHead />
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/price-list" element={<PriceList />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/about-kayla" element={<AboutCeo />} />
+          <Route path="/content" element={<ContentPage />} />
+          <Route path="/content/:category" element={<ContentPage />} />
+          <Route path="/admin/auth" element={<AdminAuth />} />
+          <Route path="/admin/content" element={<AdminContentPage />} />
+          <Route path="/admin/inbox" element={<AdminInbox />} />
+          <Route path="/services" element={<NotFound />} />
+          <Route path="/services/:service" element={<NotFound />} />
+          <Route path="/about" element={<NotFound />} />
+          <Route path="/contact" element={<NotFound />} />
+          <Route path="/booking" element={<NotFound />} />
+          <Route path="/privacy-policy" element={<NotFound />} />
+          <Route path="/terms-of-service" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
