@@ -1,8 +1,16 @@
 
+import { supabase } from "@/integrations/supabase/client";
+
 // Define types for our conversation data
 export interface ChatbotResponse {
   keywords: string[];
   response: string;
+}
+
+export interface ChatMessage {
+  id?: number;
+  text: string;
+  isBot: boolean;
 }
 
 // Create a data structure with predefined responses based on keywords
@@ -66,6 +74,10 @@ export const chatbotResponses: ChatbotResponse[] = [
   {
     keywords: ['thank', 'thanks'],
     response: "You're very welcome! Is there anything else I can help you with today?"
+  },
+  {
+    keywords: ['contact', 'inquiry', 'question', 'form'],
+    response: "I'd be happy to help you get in touch with our team. You can use the contact form in this chat to send your inquiry directly, and a team member will get back to you soon."
   }
 ];
 
@@ -89,4 +101,64 @@ export const findBestResponse = (userInput: string): string => {
   
   // Default response if no matches
   return "I'm not sure I understand. Could you rephrase that, or ask about our services, pricing, booking, or aftercare?";
+};
+
+// Save chat messages to the database
+export const saveChatConversation = async (userMessage: string, botResponse: string, sessionId: string): Promise<void> => {
+  try {
+    const { error } = await supabase
+      .from("chat_history")
+      .insert({
+        user_message: userMessage,
+        bot_response: botResponse,
+        session_id: sessionId
+      });
+      
+    if (error) {
+      console.error("Error saving chat conversation:", error);
+    }
+  } catch (error) {
+    console.error("Error in saveChatConversation:", error);
+  }
+};
+
+// Get chat history by session ID
+export const getChatHistory = async (sessionId: string): Promise<{ user_message: string; bot_response: string; created_at: string }[]> => {
+  const { data, error } = await supabase
+    .from("chat_history")
+    .select("user_message, bot_response, created_at")
+    .eq("session_id", sessionId)
+    .order("created_at", { ascending: true });
+    
+  if (error) {
+    console.error("Error fetching chat history:", error);
+    return [];
+  }
+  
+  return data || [];
+};
+
+// Get all chat sessions for admin view
+export const getAllChatSessions = async (): Promise<{ session_id: string; created_at: string }[]> => {
+  const { data, error } = await supabase
+    .from("chat_history")
+    .select("session_id, created_at")
+    .order("created_at", { ascending: false });
+    
+  if (error) {
+    console.error("Error fetching chat sessions:", error);
+    return [];
+  }
+  
+  // Get unique session IDs
+  const uniqueSessions = Array.from(new Set(data.map(item => item.session_id)))
+    .map(sessionId => {
+      const session = data.find(item => item.session_id === sessionId);
+      return {
+        session_id: sessionId,
+        created_at: session!.created_at
+      };
+    });
+    
+  return uniqueSessions;
 };

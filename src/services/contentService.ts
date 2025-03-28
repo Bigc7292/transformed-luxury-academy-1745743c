@@ -44,6 +44,66 @@ export const contentService = {
     return this.getContent({ featured: true });
   },
 
+  async getContentById(id: string): Promise<ContentItem | null> {
+    const { data, error } = await supabase
+      .from("content")
+      .select("*")
+      .eq("id", id)
+      .single();
+      
+    if (error) {
+      console.error("Error fetching content item:", error);
+      return null;
+    }
+    
+    return data;
+  },
+  
+  async createContent(content: Partial<ContentItem>): Promise<{ success: boolean; data?: ContentItem; error?: string }> {
+    const { data, error } = await supabase
+      .from("content")
+      .insert(content)
+      .select()
+      .single();
+      
+    if (error) {
+      console.error("Error creating content:", error);
+      return { success: false, error: error.message };
+    }
+    
+    return { success: true, data };
+  },
+  
+  async updateContent(id: string, content: Partial<ContentItem>): Promise<{ success: boolean; data?: ContentItem; error?: string }> {
+    const { data, error } = await supabase
+      .from("content")
+      .update(content)
+      .eq("id", id)
+      .select()
+      .single();
+      
+    if (error) {
+      console.error("Error updating content:", error);
+      return { success: false, error: error.message };
+    }
+    
+    return { success: true, data };
+  },
+  
+  async deleteContent(id: string): Promise<{ success: boolean; error?: string }> {
+    const { error } = await supabase
+      .from("content")
+      .delete()
+      .eq("id", id);
+      
+    if (error) {
+      console.error("Error deleting content:", error);
+      return { success: false, error: error.message };
+    }
+    
+    return { success: true };
+  },
+
   async incrementViewCount(id: string): Promise<void> {
     // First, get the current view_count
     const { data, error: fetchError } = await supabase

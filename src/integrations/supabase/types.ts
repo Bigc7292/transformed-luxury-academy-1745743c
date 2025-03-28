@@ -9,6 +9,51 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      admin_users: {
+        Row: {
+          created_at: string
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      chat_history: {
+        Row: {
+          bot_response: string
+          created_at: string
+          id: string
+          session_id: string
+          user_message: string
+        }
+        Insert: {
+          bot_response: string
+          created_at?: string
+          id?: string
+          session_id: string
+          user_message: string
+        }
+        Update: {
+          bot_response?: string
+          created_at?: string
+          id?: string
+          session_id?: string
+          user_message?: string
+        }
+        Relationships: []
+      }
       content: {
         Row: {
           category: Database["public"]["Enums"]["content_category"]
@@ -75,6 +120,45 @@ export type Database = {
         }
         Relationships: []
       }
+      customer_inquiries: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          phone: string | null
+          session_id: string | null
+          status: string
+          topic: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          phone?: string | null
+          session_id?: string | null
+          status?: string
+          topic: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          phone?: string | null
+          session_id?: string | null
+          status?: string
+          topic?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       url_links: {
         Row: {
           created_at: string | null
@@ -98,7 +182,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
     }
     Enums: {
       content_category: "promotional" | "staff" | "awards" | "ceo" | "founder"
