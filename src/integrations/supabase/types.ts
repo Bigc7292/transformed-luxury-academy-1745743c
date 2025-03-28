@@ -9,6 +9,72 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      content: {
+        Row: {
+          category: Database["public"]["Enums"]["content_category"]
+          created_at: string
+          description: string | null
+          display_order: number | null
+          downloads: number | null
+          id: string
+          is_featured: boolean | null
+          likes: number | null
+          media_type: Database["public"]["Enums"]["media_type"]
+          meta_description: string | null
+          meta_keywords: string | null
+          meta_robots: string | null
+          meta_title: string | null
+          metadata: Json | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          url: string
+          view_count: number | null
+        }
+        Insert: {
+          category: Database["public"]["Enums"]["content_category"]
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          downloads?: number | null
+          id?: string
+          is_featured?: boolean | null
+          likes?: number | null
+          media_type: Database["public"]["Enums"]["media_type"]
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_robots?: string | null
+          meta_title?: string | null
+          metadata?: Json | null
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string
+          url: string
+          view_count?: number | null
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["content_category"]
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          downloads?: number | null
+          id?: string
+          is_featured?: boolean | null
+          likes?: number | null
+          media_type?: Database["public"]["Enums"]["media_type"]
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_robots?: string | null
+          meta_title?: string | null
+          metadata?: Json | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          url?: string
+          view_count?: number | null
+        }
+        Relationships: []
+      }
       url_links: {
         Row: {
           created_at: string | null
@@ -35,7 +101,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      content_category: "promotional" | "staff" | "awards" | "ceo" | "founder"
+      media_type: "image" | "video"
     }
     CompositeTypes: {
       [_ in never]: never

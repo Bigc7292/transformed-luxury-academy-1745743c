@@ -9,6 +9,8 @@ import Index from "./pages/Index";
 import PriceList from "./pages/PriceList";
 import Gallery from "./pages/Gallery";
 import AboutCeo from "./pages/AboutCeo";
+import ContentPage from "./pages/ContentPage";
+import AdminContentPage from "./pages/AdminContentPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +26,9 @@ const App = () => (
         <Route path="/price-list" element={<PriceList />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/about-kayla" element={<AboutCeo />} />
+        <Route path="/content" element={<ContentPage />} />
+        <Route path="/content/:category" element={<ContentPage />} />
+        <Route path="/admin/content" element={<AdminContentPage />} />
         <Route path="/services" element={<NotFound />} />
         <Route path="/services/:service" element={<NotFound />} />
         <Route path="/about" element={<NotFound />} />
