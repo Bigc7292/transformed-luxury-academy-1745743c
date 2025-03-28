@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import FileUpload from "../components/FileUpload";
 import {
   Table,
   TableBody,
@@ -85,6 +86,8 @@ const AdminContentPage: React.FC = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
   const [contentToDelete, setContentToDelete] = useState<ContentItem | null>(null);
+  const [isUploadingMedia, setIsUploadingMedia] = useState(false);
+  const [isUploadingThumbnail, setIsUploadingThumbnail] = useState(false);
 
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -292,6 +295,26 @@ const AdminContentPage: React.FC = () => {
     navigate("/admin/auth");
   };
 
+  const handleMediaUploadComplete = (url: string) => {
+    setNewContent(prev => ({ ...prev, url }));
+    setIsUploadingMedia(false);
+  };
+
+  const handleThumbnailUploadComplete = (url: string) => {
+    setNewContent(prev => ({ ...prev, thumbnail_url: url }));
+    setIsUploadingThumbnail(false);
+  };
+
+  const handleEditMediaUploadComplete = (url: string) => {
+    setSelectedContent(prev => prev ? { ...prev, url } : null);
+    setIsUploadingMedia(false);
+  };
+
+  const handleEditThumbnailUploadComplete = (url: string) => {
+    setSelectedContent(prev => prev ? { ...prev, thumbnail_url: url } : null);
+    setIsUploadingThumbnail(false);
+  };
+
   if (error) {
     return (
       <div className="min-h-screen bg-white">
@@ -453,31 +476,104 @@ const AdminContentPage: React.FC = () => {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="url" className="text-right">
-                      Media URL
+                  <div className="grid grid-cols-4 items-start gap-4">
+                    <Label htmlFor="url" className="text-right pt-2">
+                      Media
                     </Label>
-                    <Input
-                      id="url"
-                      name="url"
-                      value={newContent.url || ''}
-                      onChange={(e) => handleInputChange(e, true)}
-                      className="col-span-3"
-                      required
-                    />
+                    <div className="col-span-3">
+                      <div className="flex flex-col gap-2">
+                        {newContent.url ? (
+                          <div className="relative group">
+                            {newContent.media_type === "image" ? (
+                              <img 
+                                src={newContent.url} 
+                                alt="Preview" 
+                                className="w-full h-40 object-cover rounded-md" 
+                              />
+                            ) : (
+                              <video 
+                                src={newContent.url} 
+                                className="w-full h-40 object-cover rounded-md" 
+                                controls 
+                              />
+                            )}
+                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="text-white border-white hover:bg-white/20"
+                                onClick={() => setNewContent(prev => ({ ...prev, url: "" }))}
+                              >
+                                Replace
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <FileUpload 
+                            onUploadComplete={handleMediaUploadComplete}
+                            accept={newContent.media_type === "image" ? "image/*" : "video/*"}
+                            label={`Upload ${newContent.media_type === "image" ? "Image" : "Video"}`}
+                            uploadPath={newContent.category}
+                          />
+                        )}
+                        
+                        <p className="text-xs text-gray-500 mt-1">Or enter URL directly:</p>
+                        <Input
+                          id="url"
+                          name="url"
+                          value={newContent.url}
+                          onChange={(e) => handleInputChange(e, true)}
+                          placeholder="https://"
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="thumbnail_url" className="text-right">
-                      Thumbnail URL
+                  
+                  <div className="grid grid-cols-4 items-start gap-4">
+                    <Label htmlFor="thumbnail_url" className="text-right pt-2">
+                      Thumbnail
                     </Label>
-                    <Input
-                      id="thumbnail_url"
-                      name="thumbnail_url"
-                      value={newContent.thumbnail_url || ''}
-                      onChange={(e) => handleInputChange(e, true)}
-                      className="col-span-3"
-                    />
+                    <div className="col-span-3">
+                      <div className="flex flex-col gap-2">
+                        {newContent.thumbnail_url ? (
+                          <div className="relative group">
+                            <img 
+                              src={newContent.thumbnail_url} 
+                              alt="Thumbnail" 
+                              className="w-full h-32 object-cover rounded-md" 
+                            />
+                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="text-white border-white hover:bg-white/20"
+                                onClick={() => setNewContent(prev => ({ ...prev, thumbnail_url: "" }))}
+                              >
+                                Replace
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <FileUpload 
+                            onUploadComplete={handleThumbnailUploadComplete}
+                            accept="image/*"
+                            label="Upload Thumbnail"
+                            uploadPath="thumbnails"
+                          />
+                        )}
+                        
+                        <p className="text-xs text-gray-500 mt-1">Or enter URL directly:</p>
+                        <Input
+                          id="thumbnail_url"
+                          name="thumbnail_url"
+                          value={newContent.thumbnail_url || ''}
+                          onChange={(e) => handleInputChange(e, true)}
+                          placeholder="https://"
+                        />
+                      </div>
+                    </div>
                   </div>
+                  
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="is_featured" className="text-right">
                       Featured
@@ -667,29 +763,101 @@ const AdminContentPage: React.FC = () => {
                                         </SelectContent>
                                       </Select>
                                     </div>
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                      <Label htmlFor="edit-url" className="text-right">
-                                        Media URL
+                                    <div className="grid grid-cols-4 items-start gap-4">
+                                      <Label htmlFor="edit-url" className="text-right pt-2">
+                                        Media
                                       </Label>
-                                      <Input
-                                        id="edit-url"
-                                        name="url"
-                                        value={selectedContent.url}
-                                        onChange={handleInputChange}
-                                        className="col-span-3"
-                                      />
+                                      <div className="col-span-3">
+                                        <div className="flex flex-col gap-2">
+                                          {selectedContent.url ? (
+                                            <div className="relative group">
+                                              {selectedContent.media_type === "image" ? (
+                                                <img 
+                                                  src={selectedContent.url} 
+                                                  alt="Preview" 
+                                                  className="w-full h-40 object-cover rounded-md" 
+                                                />
+                                              ) : (
+                                                <video 
+                                                  src={selectedContent.url} 
+                                                  className="w-full h-40 object-cover rounded-md" 
+                                                  controls 
+                                                />
+                                              )}
+                                              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                <Button 
+                                                  variant="outline" 
+                                                  size="sm" 
+                                                  className="text-white border-white hover:bg-white/20"
+                                                  onClick={() => setSelectedContent(prev => prev ? { ...prev, url: "" } : null)}
+                                                >
+                                                  Replace
+                                                </Button>
+                                              </div>
+                                            </div>
+                                          ) : (
+                                            <FileUpload 
+                                              onUploadComplete={handleEditMediaUploadComplete}
+                                              accept={selectedContent.media_type === "image" ? "image/*" : "video/*"}
+                                              label={`Upload ${selectedContent.media_type === "image" ? "Image" : "Video"}`}
+                                              uploadPath={selectedContent.category}
+                                            />
+                                          )}
+                                          
+                                          <p className="text-xs text-gray-500 mt-1">Or enter URL directly:</p>
+                                          <Input
+                                            id="edit-url"
+                                            name="url"
+                                            value={selectedContent.url}
+                                            onChange={handleInputChange}
+                                            placeholder="https://"
+                                          />
+                                        </div>
+                                      </div>
                                     </div>
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                      <Label htmlFor="edit-thumbnail" className="text-right">
-                                        Thumbnail URL
+                                    <div className="grid grid-cols-4 items-start gap-4">
+                                      <Label htmlFor="edit-thumbnail" className="text-right pt-2">
+                                        Thumbnail
                                       </Label>
-                                      <Input
-                                        id="edit-thumbnail"
-                                        name="thumbnail_url"
-                                        value={selectedContent.thumbnail_url || ''}
-                                        onChange={handleInputChange}
-                                        className="col-span-3"
-                                      />
+                                      <div className="col-span-3">
+                                        <div className="flex flex-col gap-2">
+                                          {selectedContent.thumbnail_url ? (
+                                            <div className="relative group">
+                                              <img 
+                                                src={selectedContent.thumbnail_url} 
+                                                alt="Thumbnail" 
+                                                className="w-full h-32 object-cover rounded-md" 
+                                              />
+                                              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                <Button 
+                                                  variant="outline" 
+                                                  size="sm" 
+                                                  className="text-white border-white hover:bg-white/20"
+                                                  onClick={() => setSelectedContent(prev => prev ? { ...prev, thumbnail_url: "" } : null)}
+                                                >
+                                                  Replace
+                                                </Button>
+                                              </div>
+                                            </div>
+                                          ) : (
+                                            <FileUpload 
+                                              onUploadComplete={handleEditThumbnailUploadComplete}
+                                              accept="image/*"
+                                              label="Upload Thumbnail"
+                                              uploadPath="thumbnails"
+                                            />
+                                          )}
+                                          
+                                          <p className="text-xs text-gray-500 mt-1">Or enter URL directly:</p>
+                                          <Input
+                                            id="edit-thumbnail"
+                                            name="thumbnail_url"
+                                            value={selectedContent.thumbnail_url || ''}
+                                            onChange={handleInputChange}
+                                            placeholder="https://"
+                                          />
+                                        </div>
+                                      </div>
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
                                       <Label htmlFor="edit-featured" className="text-right">

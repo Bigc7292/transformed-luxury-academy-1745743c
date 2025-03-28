@@ -133,5 +133,37 @@ export const contentService = {
     if (updateError) {
       console.error("Error incrementing view count:", updateError);
     }
+  },
+
+  async uploadMediaFile(file: File, path: string): Promise<{ success: boolean; url?: string; error?: string }> {
+    try {
+      // Generate a unique filename
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2, 15)}-${Date.now()}.${fileExt}`;
+      const filePath = `${path}/${fileName}`;
+      
+      // Upload the file to Supabase storage
+      const { data, error } = await supabase.storage
+        .from('content-media')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
+      
+      if (error) {
+        console.error('Error uploading file:', error);
+        return { success: false, error: error.message };
+      }
+      
+      // Get the public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('content-media')
+        .getPublicUrl(data.path);
+      
+      return { success: true, url: publicUrl };
+    } catch (error: any) {
+      console.error('Error in file upload:', error);
+      return { success: false, error: error.message || 'Failed to upload file' };
+    }
   }
 };
