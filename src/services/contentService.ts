@@ -45,7 +45,10 @@ export const contentService = {
   },
 
   async incrementViewCount(id: string): Promise<void> {
-    const { error } = await supabase.rpc('increment_view_count', { content_id: id });
+    // Use PostgreSQL's rpc function to increment the view count
+    const { error } = await supabase.rpc('increment_view_count', { 
+      content_id: id 
+    });
     
     if (error) {
       console.error("Error incrementing view count:", error);
