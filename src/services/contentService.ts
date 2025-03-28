@@ -45,14 +45,30 @@ export const contentService = {
   },
 
   async incrementViewCount(id: string): Promise<void> {
-    // Use the increment() function to directly add 1 to the view_count column
-    const { error } = await supabase
+    // First, get the current view_count
+    const { data, error: fetchError } = await supabase
       .from("content")
-      .update({ view_count: supabase.sql`${supabase.raw("view_count")} + 1` })
+      .select("view_count")
+      .eq("id", id)
+      .single();
+    
+    if (fetchError) {
+      console.error("Error fetching view count:", fetchError);
+      return;
+    }
+    
+    // Increment the view_count
+    const currentCount = data.view_count || 0;
+    const newCount = currentCount + 1;
+    
+    // Update with the new count
+    const { error: updateError } = await supabase
+      .from("content")
+      .update({ view_count: newCount })
       .eq("id", id);
     
-    if (error) {
-      console.error("Error incrementing view count:", error);
+    if (updateError) {
+      console.error("Error incrementing view count:", updateError);
     }
   }
 };
