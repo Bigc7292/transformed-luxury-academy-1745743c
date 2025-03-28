@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -58,13 +57,23 @@ import {
   Inbox
 } from "lucide-react";
 
+type ContentFormState = {
+  title: string;
+  description: string;
+  category: ContentCategory;
+  media_type: MediaType;
+  url: string;
+  thumbnail_url: string;
+  is_featured: boolean;
+};
+
 const AdminContentPage: React.FC = () => {
   const [categoryFilter, setCategoryFilter] = useState<ContentCategory | 'all'>('all');
   const [mediaTypeFilter, setMediaTypeFilter] = useState<MediaType | 'all'>('all');
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [selectedContent, setSelectedContent] = useState<ContentItem | null>(null);
-  const [newContent, setNewContent] = useState<Partial<ContentItem>>({
+  const [newContent, setNewContent] = useState<ContentFormState>({
     title: '',
     description: '',
     category: 'promotional',
@@ -81,7 +90,6 @@ const AdminContentPage: React.FC = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  // Check if user is authenticated and is an admin
   useEffect(() => {
     const checkAdmin = async () => {
       const { data } = await supabase.auth.getSession();
@@ -96,7 +104,6 @@ const AdminContentPage: React.FC = () => {
         return;
       }
       
-      // Check if user is an admin
       const { data: adminData, error } = await supabase
         .from("admin_users")
         .select("*")
@@ -116,15 +123,13 @@ const AdminContentPage: React.FC = () => {
     checkAdmin();
   }, [navigate, toast]);
 
-  // Fetch content data
   const { data: content, isLoading, error } = useQuery({
     queryKey: ["admin-content"],
     queryFn: () => contentService.getContent(),
   });
 
-  // Create content mutation
   const createContentMutation = useMutation({
-    mutationFn: (content: Partial<ContentItem>) => contentService.createContent(content),
+    mutationFn: (content: ContentFormState) => contentService.createContent(content),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-content"] });
       setIsCreateDialogOpen(false);
@@ -133,7 +138,6 @@ const AdminContentPage: React.FC = () => {
         description: "The content has been successfully created.",
       });
       
-      // Reset new content form
       setNewContent({
         title: '',
         description: '',
@@ -153,7 +157,6 @@ const AdminContentPage: React.FC = () => {
     }
   });
 
-  // Update content mutation
   const updateContentMutation = useMutation({
     mutationFn: ({ id, content }: { id: string; content: Partial<ContentItem> }) => 
       contentService.updateContent(id, content),
@@ -174,7 +177,6 @@ const AdminContentPage: React.FC = () => {
     }
   });
 
-  // Delete content mutation
   const deleteContentMutation = useMutation({
     mutationFn: (id: string) => contentService.deleteContent(id),
     onSuccess: () => {
@@ -196,7 +198,6 @@ const AdminContentPage: React.FC = () => {
     }
   });
 
-  // Filter content based on the selected filters
   const filteredContent = content?.filter(item => {
     if (categoryFilter !== 'all' && item.category !== categoryFilter) return false;
     if (mediaTypeFilter !== 'all' && item.media_type !== mediaTypeFilter) return false;
@@ -218,6 +219,15 @@ const AdminContentPage: React.FC = () => {
   };
 
   const handleCreate = () => {
+    if (!newContent.title || !newContent.url) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields (title and URL).",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     createContentMutation.mutate(newContent);
   };
 
