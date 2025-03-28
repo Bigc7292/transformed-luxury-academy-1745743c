@@ -45,10 +45,10 @@ export const contentService = {
   },
 
   async incrementViewCount(id: string): Promise<void> {
-    // Instead of using RPC, directly update the view_count column
+    // Use the increment() function to directly add 1 to the view_count column
     const { error } = await supabase
       .from("content")
-      .update({ view_count: supabase.rpc('increment', { value: 1 }) })
+      .update({ view_count: supabase.sql`${supabase.raw("view_count")} + 1` })
       .eq("id", id);
     
     if (error) {
