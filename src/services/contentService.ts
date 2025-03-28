@@ -1,6 +1,12 @@
-
 import { supabase } from "@/integrations/supabase/client";
 import { ContentFilter, ContentItem, ContentCategory } from "@/types/content";
+
+type CreateContentPayload = {
+  category: ContentCategory;
+  media_type: ContentItem['media_type'];
+  title: string;
+  url: string;
+} & Partial<Omit<ContentItem, 'category' | 'media_type' | 'title' | 'url'>>;
 
 export const contentService = {
   async getContent(filter: ContentFilter = {}): Promise<ContentItem[]> {
@@ -59,7 +65,7 @@ export const contentService = {
     return data;
   },
   
-  async createContent(content: Partial<ContentItem>): Promise<{ success: boolean; data?: ContentItem; error?: string }> {
+  async createContent(content: CreateContentPayload): Promise<{ success: boolean; data?: ContentItem; error?: string }> {
     const { data, error } = await supabase
       .from("content")
       .insert(content)
@@ -105,7 +111,6 @@ export const contentService = {
   },
 
   async incrementViewCount(id: string): Promise<void> {
-    // First, get the current view_count
     const { data, error: fetchError } = await supabase
       .from("content")
       .select("view_count")
@@ -117,11 +122,9 @@ export const contentService = {
       return;
     }
     
-    // Increment the view_count
     const currentCount = data.view_count || 0;
     const newCount = currentCount + 1;
     
-    // Update with the new count
     const { error: updateError } = await supabase
       .from("content")
       .update({ view_count: newCount })
