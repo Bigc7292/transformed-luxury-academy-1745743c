@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,56 +8,16 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import FileUpload from "../components/FileUpload";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import {
-  Pencil,
-  Trash2,
-  Image,
-  Video,
-  Eye,
-  ThumbsUp,
-  Download,
-  AlertTriangle,
-  Plus,
-  RefreshCw,
-  LogOut,
-  Inbox
-} from "lucide-react";
+import { LogOut, Inbox, Upload } from "lucide-react";
+
+// Import admin components
+import ContentFilters from "@/components/admin/ContentFilters";
+import ContentList from "@/components/admin/ContentList";
+import CreateContentDialog from "@/components/admin/CreateContentDialog";
+import EditContentDialog from "@/components/admin/EditContentDialog";
+import DeleteContentDialog from "@/components/admin/DeleteContentDialog";
+import BulkUploadDialog from "@/components/admin/BulkUploadDialog";
 
 type ContentFormState = {
   title: string;
@@ -73,6 +34,7 @@ const AdminContentPage: React.FC = () => {
   const [mediaTypeFilter, setMediaTypeFilter] = useState<MediaType | 'all'>('all');
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isBulkUploadDialogOpen, setIsBulkUploadDialogOpen] = useState(false);
   const [selectedContent, setSelectedContent] = useState<ContentItem | null>(null);
   const [newContent, setNewContent] = useState<ContentFormState>({
     title: '',
@@ -84,10 +46,7 @@ const AdminContentPage: React.FC = () => {
     is_featured: false
   });
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [deleteConfirmText, setDeleteConfirmText] = useState('');
   const [contentToDelete, setContentToDelete] = useState<ContentItem | null>(null);
-  const [isUploadingMedia, setIsUploadingMedia] = useState(false);
-  const [isUploadingThumbnail, setIsUploadingThumbnail] = useState(false);
 
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -186,7 +145,6 @@ const AdminContentPage: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ["admin-content"] });
       setIsDeleteDialogOpen(false);
       setContentToDelete(null);
-      setDeleteConfirmText('');
       toast({
         title: "Content Deleted",
         description: "The content has been successfully deleted.",
@@ -239,9 +197,9 @@ const AdminContentPage: React.FC = () => {
     setIsDeleteDialogOpen(true);
   };
 
-  const confirmDelete = () => {
+  const handleConfirmDelete = (confirmText: string) => {
     if (!contentToDelete || !contentToDelete.id) return;
-    if (deleteConfirmText.toLowerCase() !== 'delete') {
+    if (confirmText.toLowerCase() !== 'delete') {
       toast({
         title: "Confirmation Failed",
         description: "Please type 'delete' to confirm.",
@@ -297,22 +255,26 @@ const AdminContentPage: React.FC = () => {
 
   const handleMediaUploadComplete = (url: string) => {
     setNewContent(prev => ({ ...prev, url }));
-    setIsUploadingMedia(false);
   };
 
   const handleThumbnailUploadComplete = (url: string) => {
     setNewContent(prev => ({ ...prev, thumbnail_url: url }));
-    setIsUploadingThumbnail(false);
   };
 
   const handleEditMediaUploadComplete = (url: string) => {
     setSelectedContent(prev => prev ? { ...prev, url } : null);
-    setIsUploadingMedia(false);
   };
 
   const handleEditThumbnailUploadComplete = (url: string) => {
     setSelectedContent(prev => prev ? { ...prev, thumbnail_url: url } : null);
-    setIsUploadingThumbnail(false);
+  };
+
+  const handleBulkUploadComplete = () => {
+    queryClient.invalidateQueries({ queryKey: ["admin-content"] });
+    toast({
+      title: "Bulk Upload Complete",
+      description: "Your content has been uploaded successfully.",
+    });
   };
 
   if (error) {
@@ -354,615 +316,72 @@ const AdminContentPage: React.FC = () => {
           </div>
         </div>
 
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle>Content Filters</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col md:flex-row gap-4">
-            <div className="w-full md:w-1/2">
-              <label className="block text-sm font-medium mb-1">Category</label>
-              <Select 
-                value={categoryFilter} 
-                onValueChange={(value) => setCategoryFilter(value as ContentCategory | 'all')}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Categories</SelectItem>
-                  <SelectItem value="promotional">Promotional</SelectItem>
-                  <SelectItem value="staff">Staff</SelectItem>
-                  <SelectItem value="awards">Awards</SelectItem>
-                  <SelectItem value="ceo">CEO</SelectItem>
-                  <SelectItem value="founder">Founder</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="w-full md:w-1/2">
-              <label className="block text-sm font-medium mb-1">Media Type</label>
-              <Select 
-                value={mediaTypeFilter} 
-                onValueChange={(value) => setMediaTypeFilter(value as MediaType | 'all')}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select media type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Media Types</SelectItem>
-                  <SelectItem value="image">Images</SelectItem>
-                  <SelectItem value="video">Videos</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="flex justify-between items-center mb-6">
+          <ContentFilters 
+            categoryFilter={categoryFilter}
+            setCategoryFilter={setCategoryFilter}
+            mediaTypeFilter={mediaTypeFilter}
+            setMediaTypeFilter={setMediaTypeFilter}
+          />
+          
+          <Button
+            onClick={() => setIsBulkUploadDialogOpen(true)}
+            variant="outline"
+            className="flex items-center gap-2"
+          >
+            <Upload size={16} /> Bulk Upload
+          </Button>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Content List</CardTitle>
-            <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-              <DialogTrigger asChild>
-                <Button className="bg-salon-pink-600 hover:bg-salon-pink-700 flex items-center gap-2">
-                  <Plus size={16} /> Add New Content
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-lg">
-                <DialogHeader>
-                  <DialogTitle>Add New Content</DialogTitle>
-                  <DialogDescription>
-                    Create a new content item to be displayed on the website.
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="title" className="text-right">
-                      Title
-                    </Label>
-                    <Input
-                      id="title"
-                      name="title"
-                      value={newContent.title}
-                      onChange={(e) => handleInputChange(e, true)}
-                      className="col-span-3"
-                      required
-                    />
-                  </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="description" className="text-right">
-                      Description
-                    </Label>
-                    <Textarea
-                      id="description"
-                      name="description"
-                      value={newContent.description || ''}
-                      onChange={(e) => handleInputChange(e, true)}
-                      className="col-span-3"
-                    />
-                  </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="category" className="text-right">
-                      Category
-                    </Label>
-                    <Select
-                      value={newContent.category}
-                      onValueChange={(value) => handleSelectChange(value, 'category', true)}
-                    >
-                      <SelectTrigger className="col-span-3">
-                        <SelectValue placeholder="Select category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="promotional">Promotional</SelectItem>
-                        <SelectItem value="staff">Staff</SelectItem>
-                        <SelectItem value="awards">Awards</SelectItem>
-                        <SelectItem value="ceo">CEO</SelectItem>
-                        <SelectItem value="founder">Founder</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="media_type" className="text-right">
-                      Media Type
-                    </Label>
-                    <Select
-                      value={newContent.media_type}
-                      onValueChange={(value) => handleSelectChange(value, 'media_type', true)}
-                    >
-                      <SelectTrigger className="col-span-3">
-                        <SelectValue placeholder="Select media type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="image">Image</SelectItem>
-                        <SelectItem value="video">Video</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="grid grid-cols-4 items-start gap-4">
-                    <Label htmlFor="url" className="text-right pt-2">
-                      Media
-                    </Label>
-                    <div className="col-span-3">
-                      <div className="flex flex-col gap-2">
-                        {newContent.url ? (
-                          <div className="relative group">
-                            {newContent.media_type === "image" ? (
-                              <img 
-                                src={newContent.url} 
-                                alt="Preview" 
-                                className="w-full h-40 object-cover rounded-md" 
-                              />
-                            ) : (
-                              <video 
-                                src={newContent.url} 
-                                className="w-full h-40 object-cover rounded-md" 
-                                controls 
-                              />
-                            )}
-                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                              <Button 
-                                variant="outline" 
-                                size="sm" 
-                                className="text-white border-white hover:bg-white/20"
-                                onClick={() => setNewContent(prev => ({ ...prev, url: "" }))}
-                              >
-                                Replace
-                              </Button>
-                            </div>
-                          </div>
-                        ) : (
-                          <FileUpload 
-                            onUploadComplete={handleMediaUploadComplete}
-                            accept={newContent.media_type === "image" ? "image/*" : "video/*"}
-                            label={`Upload ${newContent.media_type === "image" ? "Image" : "Video"}`}
-                            uploadPath={newContent.category}
-                          />
-                        )}
-                        
-                        <p className="text-xs text-gray-500 mt-1">Or enter URL directly:</p>
-                        <Input
-                          id="url"
-                          name="url"
-                          value={newContent.url}
-                          onChange={(e) => handleInputChange(e, true)}
-                          placeholder="https://"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-4 items-start gap-4">
-                    <Label htmlFor="thumbnail_url" className="text-right pt-2">
-                      Thumbnail
-                    </Label>
-                    <div className="col-span-3">
-                      <div className="flex flex-col gap-2">
-                        {newContent.thumbnail_url ? (
-                          <div className="relative group">
-                            <img 
-                              src={newContent.thumbnail_url} 
-                              alt="Thumbnail" 
-                              className="w-full h-32 object-cover rounded-md" 
-                            />
-                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                              <Button 
-                                variant="outline" 
-                                size="sm" 
-                                className="text-white border-white hover:bg-white/20"
-                                onClick={() => setNewContent(prev => ({ ...prev, thumbnail_url: "" }))}
-                              >
-                                Replace
-                              </Button>
-                            </div>
-                          </div>
-                        ) : (
-                          <FileUpload 
-                            onUploadComplete={handleThumbnailUploadComplete}
-                            accept="image/*"
-                            label="Upload Thumbnail"
-                            uploadPath="thumbnails"
-                          />
-                        )}
-                        
-                        <p className="text-xs text-gray-500 mt-1">Or enter URL directly:</p>
-                        <Input
-                          id="thumbnail_url"
-                          name="thumbnail_url"
-                          value={newContent.thumbnail_url || ''}
-                          onChange={(e) => handleInputChange(e, true)}
-                          placeholder="https://"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="is_featured" className="text-right">
-                      Featured
-                    </Label>
-                    <div className="col-span-3 flex items-center space-x-2">
-                      <Switch
-                        id="is_featured"
-                        checked={newContent.is_featured || false}
-                        onCheckedChange={(checked) => handleSwitchChange(checked, 'is_featured', true)}
-                      />
-                      <Label htmlFor="is_featured">
-                        {newContent.is_featured ? 'Yes' : 'No'}
-                      </Label>
-                    </div>
-                  </div>
-                </div>
-                <DialogFooter>
-                  <Button 
-                    variant="outline" 
-                    onClick={() => setIsCreateDialogOpen(false)}
-                  >
-                    Cancel
-                  </Button>
-                  <Button 
-                    onClick={handleCreate} 
-                    className="bg-salon-pink-600 hover:bg-salon-pink-700"
-                    disabled={createContentMutation.isPending}
-                  >
-                    {createContentMutation.isPending ? (
-                      <>
-                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                        Creating...
-                      </>
-                    ) : 'Create Content'}
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </CardHeader>
-          <CardContent>
-            <div className="rounded-md border overflow-hidden">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead>Stats</TableHead>
-                    <TableHead>Created</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {isLoading ? (
-                    <TableRow>
-                      <TableCell colSpan={6} className="text-center py-8">
-                        <div className="flex justify-center items-center">
-                          <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                          Loading content...
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ) : filteredContent?.length === 0 ? (
-                    <TableRow>
-                      <TableCell colSpan={6} className="text-center py-8">
-                        No content found matching your filters.
-                      </TableCell>
-                    </TableRow>
-                  ) : (
-                    filteredContent?.map((item) => (
-                      <TableRow key={item.id}>
-                        <TableCell className="font-medium">
-                          <div className="flex items-center">
-                            {item.is_featured && (
-                              <span className="inline-block h-2 w-2 rounded-full bg-yellow-400 mr-2" title="Featured"></span>
-                            )}
-                            {item.title}
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          {item.media_type === "image" ? (
-                            <span className="flex items-center">
-                              <Image className="h-4 w-4 mr-1" /> Image
-                            </span>
-                          ) : (
-                            <span className="flex items-center">
-                              <Video className="h-4 w-4 mr-1" /> Video
-                            </span>
-                          )}
-                        </TableCell>
-                        <TableCell>
-                          <span className="capitalize">{item.category}</span>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex space-x-3 text-xs text-gray-500">
-                            <span className="flex items-center">
-                              <Eye className="h-3 w-3 mr-1" /> {item.view_count || 0}
-                            </span>
-                            <span className="flex items-center">
-                              <ThumbsUp className="h-3 w-3 mr-1" /> {item.likes || 0}
-                            </span>
-                            <span className="flex items-center">
-                              <Download className="h-3 w-3 mr-1" /> {item.downloads || 0}
-                            </span>
-                          </div>
-                        </TableCell>
-                        <TableCell>{new Date(item.created_at).toLocaleDateString()}</TableCell>
-                        <TableCell className="text-right">
-                          <div className="flex space-x-2 justify-end">
-                            <Dialog open={isEditDialogOpen && selectedContent?.id === item.id} onOpenChange={setIsEditDialogOpen}>
-                              <DialogTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  onClick={() => handleEdit(item)}
-                                >
-                                  <Pencil className="h-4 w-4" />
-                                </Button>
-                              </DialogTrigger>
-                              <DialogContent className="sm:max-w-lg">
-                                <DialogHeader>
-                                  <DialogTitle>Edit Content</DialogTitle>
-                                  <DialogDescription>
-                                    Make changes to the content item.
-                                  </DialogDescription>
-                                </DialogHeader>
-                                {selectedContent && (
-                                  <div className="grid gap-4 py-4">
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                      <Label htmlFor="edit-title" className="text-right">
-                                        Title
-                                      </Label>
-                                      <Input
-                                        id="edit-title"
-                                        name="title"
-                                        value={selectedContent.title}
-                                        onChange={handleInputChange}
-                                        className="col-span-3"
-                                      />
-                                    </div>
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                      <Label htmlFor="edit-description" className="text-right">
-                                        Description
-                                      </Label>
-                                      <Textarea
-                                        id="edit-description"
-                                        name="description"
-                                        value={selectedContent.description || ''}
-                                        onChange={handleInputChange}
-                                        className="col-span-3"
-                                      />
-                                    </div>
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                      <Label htmlFor="edit-category" className="text-right">
-                                        Category
-                                      </Label>
-                                      <Select
-                                        value={selectedContent.category}
-                                        onValueChange={(value) => handleSelectChange(value, 'category')}
-                                      >
-                                        <SelectTrigger className="col-span-3">
-                                          <SelectValue placeholder="Select category" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                          <SelectItem value="promotional">Promotional</SelectItem>
-                                          <SelectItem value="staff">Staff</SelectItem>
-                                          <SelectItem value="awards">Awards</SelectItem>
-                                          <SelectItem value="ceo">CEO</SelectItem>
-                                          <SelectItem value="founder">Founder</SelectItem>
-                                        </SelectContent>
-                                      </Select>
-                                    </div>
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                      <Label htmlFor="edit-media-type" className="text-right">
-                                        Media Type
-                                      </Label>
-                                      <Select
-                                        value={selectedContent.media_type}
-                                        onValueChange={(value) => handleSelectChange(value, 'media_type')}
-                                      >
-                                        <SelectTrigger className="col-span-3">
-                                          <SelectValue placeholder="Select media type" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                          <SelectItem value="image">Image</SelectItem>
-                                          <SelectItem value="video">Video</SelectItem>
-                                        </SelectContent>
-                                      </Select>
-                                    </div>
-                                    <div className="grid grid-cols-4 items-start gap-4">
-                                      <Label htmlFor="edit-url" className="text-right pt-2">
-                                        Media
-                                      </Label>
-                                      <div className="col-span-3">
-                                        <div className="flex flex-col gap-2">
-                                          {selectedContent.url ? (
-                                            <div className="relative group">
-                                              {selectedContent.media_type === "image" ? (
-                                                <img 
-                                                  src={selectedContent.url} 
-                                                  alt="Preview" 
-                                                  className="w-full h-40 object-cover rounded-md" 
-                                                />
-                                              ) : (
-                                                <video 
-                                                  src={selectedContent.url} 
-                                                  className="w-full h-40 object-cover rounded-md" 
-                                                  controls 
-                                                />
-                                              )}
-                                              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                <Button 
-                                                  variant="outline" 
-                                                  size="sm" 
-                                                  className="text-white border-white hover:bg-white/20"
-                                                  onClick={() => setSelectedContent(prev => prev ? { ...prev, url: "" } : null)}
-                                                >
-                                                  Replace
-                                                </Button>
-                                              </div>
-                                            </div>
-                                          ) : (
-                                            <FileUpload 
-                                              onUploadComplete={handleEditMediaUploadComplete}
-                                              accept={selectedContent.media_type === "image" ? "image/*" : "video/*"}
-                                              label={`Upload ${selectedContent.media_type === "image" ? "Image" : "Video"}`}
-                                              uploadPath={selectedContent.category}
-                                            />
-                                          )}
-                                          
-                                          <p className="text-xs text-gray-500 mt-1">Or enter URL directly:</p>
-                                          <Input
-                                            id="edit-url"
-                                            name="url"
-                                            value={selectedContent.url}
-                                            onChange={handleInputChange}
-                                            placeholder="https://"
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="grid grid-cols-4 items-start gap-4">
-                                      <Label htmlFor="edit-thumbnail" className="text-right pt-2">
-                                        Thumbnail
-                                      </Label>
-                                      <div className="col-span-3">
-                                        <div className="flex flex-col gap-2">
-                                          {selectedContent.thumbnail_url ? (
-                                            <div className="relative group">
-                                              <img 
-                                                src={selectedContent.thumbnail_url} 
-                                                alt="Thumbnail" 
-                                                className="w-full h-32 object-cover rounded-md" 
-                                              />
-                                              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                <Button 
-                                                  variant="outline" 
-                                                  size="sm" 
-                                                  className="text-white border-white hover:bg-white/20"
-                                                  onClick={() => setSelectedContent(prev => prev ? { ...prev, thumbnail_url: "" } : null)}
-                                                >
-                                                  Replace
-                                                </Button>
-                                              </div>
-                                            </div>
-                                          ) : (
-                                            <FileUpload 
-                                              onUploadComplete={handleEditThumbnailUploadComplete}
-                                              accept="image/*"
-                                              label="Upload Thumbnail"
-                                              uploadPath="thumbnails"
-                                            />
-                                          )}
-                                          
-                                          <p className="text-xs text-gray-500 mt-1">Or enter URL directly:</p>
-                                          <Input
-                                            id="edit-thumbnail"
-                                            name="thumbnail_url"
-                                            value={selectedContent.thumbnail_url || ''}
-                                            onChange={handleInputChange}
-                                            placeholder="https://"
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                      <Label htmlFor="edit-featured" className="text-right">
-                                        Featured
-                                      </Label>
-                                      <div className="col-span-3 flex items-center space-x-2">
-                                        <Switch
-                                          id="edit-featured"
-                                          checked={selectedContent.is_featured || false}
-                                          onCheckedChange={(checked) => handleSwitchChange(checked, 'is_featured')}
-                                        />
-                                        <Label htmlFor="edit-featured">
-                                          {selectedContent.is_featured ? 'Yes' : 'No'}
-                                        </Label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                )}
-                                <DialogFooter>
-                                  <Button 
-                                    variant="outline" 
-                                    onClick={() => setIsEditDialogOpen(false)}
-                                  >
-                                    Cancel
-                                  </Button>
-                                  <Button 
-                                    onClick={handleUpdate} 
-                                    className="bg-salon-pink-600 hover:bg-salon-pink-700"
-                                    disabled={updateContentMutation.isPending}
-                                  >
-                                    {updateContentMutation.isPending ? (
-                                      <>
-                                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                                        Saving...
-                                      </>
-                                    ) : 'Save Changes'}
-                                  </Button>
-                                </DialogFooter>
-                              </DialogContent>
-                            </Dialog>
-                            <Dialog open={isDeleteDialogOpen && contentToDelete?.id === item.id} onOpenChange={setIsDeleteDialogOpen}>
-                              <DialogTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="text-red-500 hover:text-red-700"
-                                  onClick={() => handleDelete(item)}
-                                >
-                                  <Trash2 className="h-4 w-4" />
-                                </Button>
-                              </DialogTrigger>
-                              <DialogContent>
-                                <DialogHeader>
-                                  <DialogTitle className="flex items-center gap-2 text-red-600">
-                                    <AlertTriangle className="h-5 w-5" /> Delete Content
-                                  </DialogTitle>
-                                  <DialogDescription>
-                                    This action cannot be undone. This will permanently delete the content from the system.
-                                  </DialogDescription>
-                                </DialogHeader>
-                                <div className="py-4">
-                                  <p className="mb-4">
-                                    Please type <span className="font-semibold">delete</span> to confirm.
-                                  </p>
-                                  <Input 
-                                    value={deleteConfirmText} 
-                                    onChange={(e) => setDeleteConfirmText(e.target.value)} 
-                                    placeholder="Type 'delete' to confirm" 
-                                  />
-                                </div>
-                                <DialogFooter>
-                                  <Button 
-                                    variant="outline" 
-                                    onClick={() => {
-                                      setIsDeleteDialogOpen(false);
-                                      setDeleteConfirmText('');
-                                    }}
-                                  >
-                                    Cancel
-                                  </Button>
-                                  <Button 
-                                    variant="destructive" 
-                                    onClick={confirmDelete}
-                                    disabled={deleteConfirmText.toLowerCase() !== 'delete' || deleteContentMutation.isPending}
-                                  >
-                                    {deleteContentMutation.isPending ? (
-                                      <>
-                                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                                        Deleting...
-                                      </>
-                                    ) : 'Delete Content'}
-                                  </Button>
-                                </DialogFooter>
-                              </DialogContent>
-                            </Dialog>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
-            </div>
-          </CardContent>
-        </Card>
+        <ContentList
+          content={content}
+          isLoading={isLoading}
+          error={error}
+          filteredContent={filteredContent}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+          setIsCreateDialogOpen={setIsCreateDialogOpen}
+        />
+
+        <CreateContentDialog
+          isOpen={isCreateDialogOpen}
+          setIsOpen={setIsCreateDialogOpen}
+          newContent={newContent}
+          handleInputChange={(e) => handleInputChange(e, true)}
+          handleSelectChange={(value, name) => handleSelectChange(value, name, true)}
+          handleSwitchChange={(checked, name) => handleSwitchChange(checked, name, true)}
+          handleCreate={handleCreate}
+          handleMediaUploadComplete={handleMediaUploadComplete}
+          handleThumbnailUploadComplete={handleThumbnailUploadComplete}
+          isCreating={createContentMutation.isPending}
+        />
+
+        <EditContentDialog
+          isOpen={isEditDialogOpen && !!selectedContent}
+          setIsOpen={setIsEditDialogOpen}
+          selectedContent={selectedContent}
+          handleInputChange={(e) => handleInputChange(e, false)}
+          handleSelectChange={(value, name) => handleSelectChange(value, name, false)}
+          handleSwitchChange={(checked, name) => handleSwitchChange(checked, name, false)}
+          handleUpdate={handleUpdate}
+          handleMediaUploadComplete={handleEditMediaUploadComplete}
+          handleThumbnailUploadComplete={handleEditThumbnailUploadComplete}
+          isUpdating={updateContentMutation.isPending}
+        />
+
+        <DeleteContentDialog
+          isOpen={isDeleteDialogOpen && !!contentToDelete}
+          setIsOpen={setIsDeleteDialogOpen}
+          contentToDelete={contentToDelete}
+          handleConfirmDelete={handleConfirmDelete}
+          isDeleting={deleteContentMutation.isPending}
+        />
+
+        <BulkUploadDialog
+          isOpen={isBulkUploadDialogOpen}
+          setIsOpen={setIsBulkUploadDialogOpen}
+          onUploadComplete={handleBulkUploadComplete}
+        />
       </div>
       <Footer />
     </div>
