@@ -1,6 +1,6 @@
 
 import React from "react";
-import { ContentItem, MediaType } from "@/types/content";
+import { ContentItem, MediaType, PAGE_LOCATIONS, PAGE_SECTIONS } from "@/types/content";
 import {
   Table,
   TableBody,
@@ -26,7 +26,11 @@ import {
   Video,
   Plus,
   RefreshCw,
+  Check,
+  X,
+  Star,
 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface ContentListProps {
   content: ContentItem[] | undefined;
@@ -46,6 +50,17 @@ const ContentList: React.FC<ContentListProps> = ({
   handleDelete,
   setIsCreateDialogOpen,
 }) => {
+  const getPageLocationLabel = (value: string | null | undefined) => {
+    if (!value) return "Not Assigned";
+    const location = PAGE_LOCATIONS.find(loc => loc.value === value);
+    return location ? location.label : value;
+  };
+  
+  const getPageSectionLabel = (value: string | null | undefined) => {
+    if (!value) return "Not Assigned";
+    return PAGE_SECTIONS[value as keyof typeof PAGE_SECTIONS] || value;
+  };
+  
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
@@ -65,6 +80,8 @@ const ContentList: React.FC<ContentListProps> = ({
                 <TableHead>Title</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>Category</TableHead>
+                <TableHead>Placement</TableHead>
+                <TableHead>Status</TableHead>
                 <TableHead>Stats</TableHead>
                 <TableHead>Created</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
@@ -73,7 +90,7 @@ const ContentList: React.FC<ContentListProps> = ({
             <TableBody>
               {isLoading ? (
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center py-8">
+                  <TableCell colSpan={8} className="text-center py-8">
                     <div className="flex justify-center items-center">
                       <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
                       Loading content...
@@ -82,13 +99,13 @@ const ContentList: React.FC<ContentListProps> = ({
                 </TableRow>
               ) : error ? (
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center py-8 text-red-500">
+                  <TableCell colSpan={8} className="text-center py-8 text-red-500">
                     Error loading content. Please try again later.
                   </TableCell>
                 </TableRow>
               ) : filteredContent?.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center py-8">
+                  <TableCell colSpan={8} className="text-center py-8">
                     No content found matching your filters.
                   </TableCell>
                 </TableRow>
@@ -98,7 +115,7 @@ const ContentList: React.FC<ContentListProps> = ({
                     <TableCell className="font-medium">
                       <div className="flex items-center">
                         {item.is_featured && (
-                          <span className="inline-block h-2 w-2 rounded-full bg-yellow-400 mr-2" title="Featured"></span>
+                          <Star className="h-4 w-4 text-yellow-400 mr-2" />
                         )}
                         {item.title}
                       </div>
@@ -116,6 +133,33 @@ const ContentList: React.FC<ContentListProps> = ({
                     </TableCell>
                     <TableCell>
                       <span className="capitalize">{item.category}</span>
+                    </TableCell>
+                    <TableCell>
+                      {item.page_location ? (
+                        <div className="flex flex-col">
+                          <span className="text-xs font-medium">
+                            {getPageLocationLabel(item.page_location)}
+                          </span>
+                          {item.page_section && (
+                            <span className="text-xs text-gray-500">
+                              {getPageSectionLabel(item.page_section)}
+                            </span>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-xs text-gray-500">Not placed</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {item.active !== false ? (
+                        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                          <Check className="h-3 w-3 mr-1" /> Active
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline" className="bg-gray-50 text-gray-700 border-gray-200">
+                          <X className="h-3 w-3 mr-1" /> Hidden
+                        </Badge>
+                      )}
                     </TableCell>
                     <TableCell>
                       <div className="flex space-x-3 text-xs text-gray-500">

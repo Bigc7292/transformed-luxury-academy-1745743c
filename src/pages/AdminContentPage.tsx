@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { contentService } from "@/services/contentService";
-import { ContentCategory, ContentItem, MediaType } from "@/types/content";
+import { ContentCategory, ContentItem, MediaType, PageSection } from "@/types/content";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "../components/Navbar";
@@ -27,11 +27,16 @@ type ContentFormState = {
   url: string;
   thumbnail_url: string;
   is_featured: boolean;
+  page_location?: string;
+  page_section?: PageSection;
+  active?: boolean;
 };
 
 const AdminContentPage: React.FC = () => {
   const [categoryFilter, setCategoryFilter] = useState<ContentCategory | 'all'>('all');
   const [mediaTypeFilter, setMediaTypeFilter] = useState<MediaType | 'all'>('all');
+  const [pageLocationFilter, setPageLocationFilter] = useState<string | 'all'>('all');
+  const [activeFilter, setActiveFilter] = useState<boolean | 'all'>('all');
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isBulkUploadDialogOpen, setIsBulkUploadDialogOpen] = useState(false);
@@ -43,7 +48,10 @@ const AdminContentPage: React.FC = () => {
     media_type: 'image',
     url: '',
     thumbnail_url: '',
-    is_featured: false
+    is_featured: false,
+    page_location: '',
+    page_section: undefined,
+    active: true
   });
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [contentToDelete, setContentToDelete] = useState<ContentItem | null>(null);
@@ -107,7 +115,10 @@ const AdminContentPage: React.FC = () => {
         media_type: 'image',
         url: '',
         thumbnail_url: '',
-        is_featured: false
+        is_featured: false,
+        page_location: '',
+        page_section: undefined,
+        active: true
       });
     },
     onError: (error: any) => {
@@ -162,6 +173,11 @@ const AdminContentPage: React.FC = () => {
   const filteredContent = content?.filter(item => {
     if (categoryFilter !== 'all' && item.category !== categoryFilter) return false;
     if (mediaTypeFilter !== 'all' && item.media_type !== mediaTypeFilter) return false;
+    if (pageLocationFilter !== 'all') {
+      if (pageLocationFilter === '' && item.page_location) return false;
+      if (pageLocationFilter !== '' && item.page_location !== pageLocationFilter) return false;
+    }
+    if (activeFilter !== 'all' && item.active !== activeFilter) return false;
     return true;
   });
 
@@ -322,6 +338,10 @@ const AdminContentPage: React.FC = () => {
             setCategoryFilter={setCategoryFilter}
             mediaTypeFilter={mediaTypeFilter}
             setMediaTypeFilter={setMediaTypeFilter}
+            pageLocationFilter={pageLocationFilter}
+            setPageLocationFilter={setPageLocationFilter}
+            activeFilter={activeFilter}
+            setActiveFilter={setActiveFilter}
           />
           
           <Button

@@ -1,6 +1,5 @@
 
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
@@ -9,41 +8,41 @@ import Testimonials from '../components/Testimonials';
 import Cta from '../components/Cta';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
-import GlitterHearts from '../components/GlitterHearts';
+import ContentCarousel from '@/components/content/ContentCarousel';
+import ContentGrid from '@/components/content/ContentGrid';
+import { PageSection } from '@/types/content';
 
 const Index = () => {
-  const location = useLocation();
-  
-  // Only show GlitterHearts on home page and about-kayla page
-  const showGlitterHearts = location.pathname === '/' || location.pathname === '/about-kayla';
-
-  useEffect(() => {
-    // Scroll to top on page load
-    window.scrollTo(0, 0);
-
-    // Add SEO meta tags dynamically
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Transformed Academy and Salon offers Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments And Fully Qualified Level 5 Educator. Book your consultation today.');
-    }
-
-    const ogDescription = document.querySelector('meta[property="og:description"]');
-    if (ogDescription) {
-      ogDescription.setAttribute('content', 'Discover Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments at Transformed Academy and Salon. Fully Qualified Level 5 Educator.');
-    }
-  }, []);
-
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white">
       <Navbar />
-      {showGlitterHearts && <GlitterHearts />}
-      <main>
-        <Hero />
-        <Services />
-        <Benefits />
-        <Testimonials />
-        <Cta />
-      </main>
+      <Hero />
+      
+      {/* Dynamic featured section with content from admin */}
+      <ContentCarousel 
+        pageLocation="home"
+        pageSection="home_carousel"
+        title="Experience the Transformation"
+        description="See our latest transformations and special offers"
+        autoPlay={true}
+        interval={5000}
+      />
+      
+      <Services />
+      
+      {/* Content grid showing featured items managed by admin */}
+      <ContentGrid 
+        pageLocation="home"
+        pageSection="home_featured"
+        title="Featured Content"
+        description="Explore our featured content showcasing our best services and results"
+        columns={3}
+        limit={3}
+      />
+      
+      <Benefits />
+      <Testimonials />
+      <Cta />
       <Footer />
       <Chatbot />
     </div>

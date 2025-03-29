@@ -56,6 +56,7 @@ export type Database = {
       }
       content: {
         Row: {
+          active: boolean | null
           category: Database["public"]["Enums"]["content_category"]
           created_at: string
           description: string | null
@@ -70,6 +71,8 @@ export type Database = {
           meta_robots: string | null
           meta_title: string | null
           metadata: Json | null
+          page_location: string | null
+          page_section: Database["public"]["Enums"]["page_section"] | null
           thumbnail_url: string | null
           title: string
           updated_at: string
@@ -77,6 +80,7 @@ export type Database = {
           view_count: number | null
         }
         Insert: {
+          active?: boolean | null
           category: Database["public"]["Enums"]["content_category"]
           created_at?: string
           description?: string | null
@@ -91,6 +95,8 @@ export type Database = {
           meta_robots?: string | null
           meta_title?: string | null
           metadata?: Json | null
+          page_location?: string | null
+          page_section?: Database["public"]["Enums"]["page_section"] | null
           thumbnail_url?: string | null
           title: string
           updated_at?: string
@@ -98,6 +104,7 @@ export type Database = {
           view_count?: number | null
         }
         Update: {
+          active?: boolean | null
           category?: Database["public"]["Enums"]["content_category"]
           created_at?: string
           description?: string | null
@@ -112,6 +119,8 @@ export type Database = {
           meta_robots?: string | null
           meta_title?: string | null
           metadata?: Json | null
+          page_location?: string | null
+          page_section?: Database["public"]["Enums"]["page_section"] | null
           thumbnail_url?: string | null
           title?: string
           updated_at?: string
@@ -172,6 +181,15 @@ export type Database = {
     Enums: {
       content_category: "promotional" | "staff" | "awards" | "ceo" | "founder"
       media_type: "image" | "video"
+      page_section:
+        | "home_hero"
+        | "home_featured"
+        | "home_carousel"
+        | "about_gallery"
+        | "services_showcase"
+        | "gallery_main"
+        | "gallery_featured"
+        | "content_page_featured"
     }
     CompositeTypes: {
       [_ in never]: never

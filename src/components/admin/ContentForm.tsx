@@ -1,5 +1,6 @@
+
 import React from "react";
-import { ContentCategory, ContentItem, MediaType } from "@/types/content";
+import { ContentCategory, ContentItem, MediaType, PageSection, PAGE_LOCATIONS, PAGE_SECTIONS } from "@/types/content";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -13,7 +14,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import FileUpload from "@/components/FileUpload";
-import { RefreshCw } from "lucide-react";
 
 interface ContentFormProps {
   content: ContentItem | Partial<ContentItem>;
@@ -101,6 +101,69 @@ const ContentForm: React.FC<ContentFormProps> = ({
           </SelectContent>
         </Select>
       </div>
+      
+      {/* New fields for page location and section */}
+      <div className="grid grid-cols-4 items-center gap-4">
+        <Label htmlFor={`${prefix}page_location`} className="text-right">
+          Page Location
+        </Label>
+        <Select
+          value={content.page_location || ''}
+          onValueChange={(value) => handleSelectChange(value, 'page_location')}
+        >
+          <SelectTrigger className="col-span-3">
+            <SelectValue placeholder="Select page location" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="">Not Assigned</SelectItem>
+            {PAGE_LOCATIONS.map((location) => (
+              <SelectItem key={location.value} value={location.value}>
+                {location.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      
+      <div className="grid grid-cols-4 items-center gap-4">
+        <Label htmlFor={`${prefix}page_section`} className="text-right">
+          Page Section
+        </Label>
+        <Select
+          value={content.page_section || ''}
+          onValueChange={(value) => handleSelectChange(value, 'page_section')}
+          disabled={!content.page_location}
+        >
+          <SelectTrigger className="col-span-3">
+            <SelectValue placeholder="Select page section" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="">Not Assigned</SelectItem>
+            {Object.entries(PAGE_SECTIONS).map(([value, label]) => (
+              <SelectItem key={value} value={value}>
+                {label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      
+      <div className="grid grid-cols-4 items-center gap-4">
+        <Label htmlFor={`${prefix}active`} className="text-right">
+          Active
+        </Label>
+        <div className="col-span-3 flex items-center space-x-2">
+          <Switch
+            id={`${prefix}active`}
+            checked={content.active !== false} // Default to true if undefined
+            onCheckedChange={(checked) => handleSwitchChange(checked, 'active')}
+          />
+          <Label htmlFor={`${prefix}active`}>
+            {content.active !== false ? 'Visible on website' : 'Hidden'}
+          </Label>
+        </div>
+      </div>
+      
       <div className="grid grid-cols-4 items-start gap-4">
         <Label htmlFor={`${prefix}url`} className="text-right pt-2">
           Media

@@ -1,5 +1,6 @@
+
 import { supabase } from "@/integrations/supabase/client";
-import { ContentFilter, ContentItem, ContentCategory, DatabaseContentCategory } from "@/types/content";
+import { ContentFilter, ContentItem, ContentCategory, DatabaseContentCategory, PageSection } from "@/types/content";
 import { Database } from "@/integrations/supabase/types";
 
 type CreateContentPayload = {
@@ -7,7 +8,10 @@ type CreateContentPayload = {
   media_type: ContentItem['media_type'];
   title: string;
   url: string;
-} & Partial<Omit<ContentItem, 'category' | 'media_type' | 'title' | 'url'>>;
+  page_location?: string;
+  page_section?: PageSection;
+  active?: boolean;
+} & Partial<Omit<ContentItem, 'category' | 'media_type' | 'title' | 'url' | 'page_location' | 'page_section' | 'active'>>;
 
 // Helper to map frontend categories to database categories
 const mapToDatabaseCategory = (category: ContentCategory): DatabaseContentCategory => {
@@ -50,6 +54,19 @@ export const contentService = {
     if (filter.featured !== undefined) {
       query = query.eq("is_featured", filter.featured);
     }
+    
+    // Add new filters for page location and section
+    if (filter.pageLocation) {
+      query = query.eq("page_location", filter.pageLocation);
+    }
+    
+    if (filter.pageSection) {
+      query = query.eq("page_section", filter.pageSection);
+    }
+    
+    if (filter.active !== undefined) {
+      query = query.eq("active", filter.active);
+    }
 
     if (filter.limit) {
       query = query.limit(filter.limit);
@@ -72,6 +89,14 @@ export const contentService = {
 
   async getFeaturedContent(): Promise<ContentItem[]> {
     return this.getContent({ featured: true });
+  },
+  
+  async getContentForPageSection(pageLocation: string, pageSection: PageSection): Promise<ContentItem[]> {
+    return this.getContent({ 
+      pageLocation,
+      pageSection,
+      active: true
+    });
   },
 
   async getContentById(id: string): Promise<ContentItem | null> {

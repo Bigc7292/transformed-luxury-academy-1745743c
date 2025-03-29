@@ -1,9 +1,10 @@
 
-import { supabase } from "@/integrations/supabase/client";
-import { ContentCategory, ContentItem, MediaType, DatabaseContentCategory } from "@/types/content";
-import { Database } from "@/integrations/supabase/types";
+import { contentService } from "@/services/contentService";
+import { ContentCategory, MediaType, PageSection } from "@/types/content";
+import Papa from "papaparse";
 
-export interface BulkContentItem {
+// Type for validated CSV item
+type ValidatedContentItem = {
   title: string;
   description?: string;
   category: ContentCategory;
@@ -11,158 +12,141 @@ export interface BulkContentItem {
   url: string;
   thumbnail_url?: string;
   is_featured?: boolean;
-}
-
-// Helper to map frontend categories to database categories
-const mapToDatabaseCategory = (category: ContentCategory): DatabaseContentCategory => {
-  if (category === "partner") return "founder";
-  if (category === "videos") return "promotional";
-  return category as DatabaseContentCategory;
+  page_location?: string;
+  page_section?: PageSection;
+  active?: boolean;
 };
 
-export const uploadBulkContent = async (
-  items: BulkContentItem[]
-): Promise<{ success: boolean; count: number; errors: string[] }> => {
-  if (!items.length) {
-    return { success: false, count: 0, errors: ["No items provided"] };
-  }
-
-  const errors: string[] = [];
-  let successCount = 0;
-
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
-    
-    try {
-      // Validate required fields
-      if (!item.title || !item.url || !item.category || !item.media_type) {
-        errors.push(`Item ${i + 1}: Missing required fields`);
-        continue;
-      }
-
-      // Map frontend categories to database categories
-      const dbCategory = mapToDatabaseCategory(item.category);
-
-      // Insert into database
-      const { data, error } = await supabase
-        .from("content")
-        .insert({
-          title: item.title,
-          description: item.description || null,
-          category: dbCategory,
-          media_type: item.media_type,
-          url: item.url,
-          thumbnail_url: item.thumbnail_url || null,
-          is_featured: item.is_featured || false
-        })
-        .select()
-        .single();
-
-      if (error) {
-        errors.push(`Item ${i + 1} (${item.title}): ${error.message}`);
-      } else {
-        successCount++;
-        console.log(`Successfully uploaded item ${i + 1}: ${item.title}`);
-      }
-    } catch (err: any) {
-      errors.push(`Item ${i + 1} (${item.title}): ${err.message || "Unknown error"}`);
-    }
-  }
-
-  return {
-    success: successCount > 0,
-    count: successCount,
-    errors: errors,
-  };
-};
-
-// Helper function to parse and validate CSV content
-export const parseCsvContent = (
-  csvContent: string
-): { items: BulkContentItem[]; errors: string[] } => {
-  const lines = csvContent.split("\n").filter(line => line.trim());
-  const errors: string[] = [];
-  const items: BulkContentItem[] = [];
-
-  // Expected header: title,description,category,media_type,url,thumbnail_url,is_featured
-  const headerLine = lines[0];
-  const expectedHeaders = ["title", "description", "category", "media_type", "url", "thumbnail_url", "is_featured"];
-  const headers = headerLine.split(",").map(h => h.trim().toLowerCase());
+// Parse and validate CSV content
+export const parseCsvContent = (csvText: string): { 
+  items: ValidatedContentItem[];
+  errors: string[];
+} => {
+  const validCategories = [
+    "promotional", "staff", "awards", "ceo", "founder", "partner", "videos"
+  ];
   
-  // Validate headers
-  for (const expected of expectedHeaders) {
-    if (!headers.includes(expected)) {
-      errors.push(`Missing header: ${expected}`);
-    }
-  }
+  const validMediaTypes = ["image", "video"];
   
-  if (errors.length) {
+  const validPageSections = [
+    "home_hero", "home_featured", "home_carousel", "about_gallery", 
+    "services_showcase", "gallery_main", "gallery_featured", "content_page_featured"
+  ];
+  
+  const errors: string[] = [];
+  const items: ValidatedContentItem[] = [];
+  
+  let parseResult;
+  try {
+    parseResult = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+  } catch (e) {
+    errors.push("Invalid CSV format. Please check your input.");
     return { items, errors };
   }
-
-  // Process data rows
-  for (let i = 1; i < lines.length; i++) {
-    const line = lines[i];
-    const values = line.split(",").map(v => v.trim());
-    
-    // Skip empty lines
-    if (values.length < 5) {
-      errors.push(`Line ${i + 1}: Not enough values`);
-      continue;
-    }
-
-    // Map CSV values to object
-    const headerIndexMap: { [key: string]: number } = {};
-    headers.forEach((header, index) => {
-      headerIndexMap[header] = index;
-    });
-
-    const validCategories: ContentCategory[] = ["promotional", "staff", "awards", "ceo", "partner", "videos"];
-    const validMediaTypes: MediaType[] = ["image", "video"];
-
-    const category = values[headerIndexMap["category"]] as ContentCategory;
-    const mediaType = values[headerIndexMap["media_type"]] as MediaType;
-    
-    // Validate category and media_type
-    if (!validCategories.includes(category)) {
-      errors.push(`Line ${i + 1}: Invalid category "${category}". Valid options are: ${validCategories.join(", ")}`);
-      continue;
-    }
-    
-    if (!validMediaTypes.includes(mediaType)) {
-      errors.push(`Line ${i + 1}: Invalid media_type "${mediaType}". Valid options are: ${validMediaTypes.join(", ")}`);
-      continue;
-    }
-
-    const item: BulkContentItem = {
-      title: values[headerIndexMap["title"]],
-      description: values[headerIndexMap["description"]] || undefined,
-      category: category,
-      media_type: mediaType,
-      url: values[headerIndexMap["url"]],
-      thumbnail_url: values[headerIndexMap["thumbnail_url"]] || undefined,
-      is_featured: values[headerIndexMap["is_featured"]]?.toLowerCase() === "true" || false
-    };
-
-    // Validate required fields
-    if (!item.title) {
-      errors.push(`Line ${i + 1}: Missing title`);
-      continue;
-    }
-    
-    if (!item.url) {
-      errors.push(`Line ${i + 1}: Missing URL`);
-      continue;
-    }
-
-    items.push(item);
+  
+  if (parseResult.errors.length > 0) {
+    errors.push(...parseResult.errors.map(err => `CSV parse error: ${err.message} at row ${err.row}`));
+    return { items, errors };
   }
-
+  
+  parseResult.data.forEach((row: any, index: number) => {
+    const rowNum = index + 2; // +2 because index is 0-based and we have headers
+    
+    // Validate required fields
+    if (!row.title) {
+      errors.push(`Row ${rowNum}: Missing title`);
+      return;
+    }
+    
+    if (!row.category) {
+      errors.push(`Row ${rowNum}: Missing category`);
+      return;
+    }
+    
+    if (!validCategories.includes(row.category)) {
+      errors.push(`Row ${rowNum}: Invalid category "${row.category}". Valid categories are: ${validCategories.join(", ")}`);
+      return;
+    }
+    
+    if (!row.media_type) {
+      errors.push(`Row ${rowNum}: Missing media_type`);
+      return;
+    }
+    
+    if (!validMediaTypes.includes(row.media_type)) {
+      errors.push(`Row ${rowNum}: Invalid media_type "${row.media_type}". Valid types are: ${validMediaTypes.join(", ")}`);
+      return;
+    }
+    
+    if (!row.url) {
+      errors.push(`Row ${rowNum}: Missing url`);
+      return;
+    }
+    
+    // Validate page section if provided
+    if (row.page_section && !validPageSections.includes(row.page_section)) {
+      errors.push(`Row ${rowNum}: Invalid page_section "${row.page_section}". Valid sections are: ${validPageSections.join(", ")}`);
+      return;
+    }
+    
+    // Convert boolean values
+    const is_featured = row.is_featured === "true" || row.is_featured === "yes" || row.is_featured === "1";
+    const active = row.active !== "false" && row.active !== "no" && row.active !== "0";
+    
+    // Add validated item
+    items.push({
+      title: row.title,
+      description: row.description || undefined,
+      category: row.category as ContentCategory,
+      media_type: row.media_type as MediaType,
+      url: row.url,
+      thumbnail_url: row.thumbnail_url || undefined,
+      is_featured,
+      page_location: row.page_location || undefined,
+      page_section: row.page_section as PageSection || undefined,
+      active
+    });
+  });
+  
   return { items, errors };
 };
 
-// Helper function to create a CSV template
+// Upload bulk content
+export const uploadBulkContent = async (items: ValidatedContentItem[]): Promise<{
+  success: boolean;
+  count: number;
+  errors: string[];
+}> => {
+  if (!items.length) {
+    return { success: false, count: 0, errors: ["No valid items to upload"] };
+  }
+  
+  const uploadErrors: string[] = [];
+  let successCount = 0;
+  
+  for (const item of items) {
+    try {
+      const result = await contentService.createContent(item);
+      if (result.success) {
+        successCount++;
+      } else {
+        uploadErrors.push(`Failed to upload "${item.title}": ${result.error}`);
+      }
+    } catch (e: any) {
+      uploadErrors.push(`Error uploading "${item.title}": ${e.message}`);
+    }
+  }
+  
+  return {
+    success: successCount > 0,
+    count: successCount,
+    errors: uploadErrors
+  };
+};
+
+// Get CSV template
 export const getCsvTemplate = (): string => {
-  return "title,description,category,media_type,url,thumbnail_url,is_featured\n" +
-         "Example Title,Description of content,promotional,image,https://example.com/image.jpg,https://example.com/thumbnail.jpg,false";
+  return `title,description,category,media_type,url,thumbnail_url,is_featured,page_location,page_section,active
+"Example Title","Example description","promotional","image","https://example.com/image.jpg","https://example.com/thumbnail.jpg","false","home","home_featured","true"
+"Another Example","Another description","staff","video","https://example.com/video.mp4","https://example.com/thumbnail.jpg","true","gallery","gallery_main","true"`;
 };
