@@ -1,6 +1,7 @@
 
 import { supabase } from "@/integrations/supabase/client";
 import { ContentCategory, ContentItem, MediaType } from "@/types/content";
+import { Database } from "@/integrations/supabase/types";
 
 export interface BulkContentItem {
   title: string;
@@ -32,13 +33,21 @@ export const uploadBulkContent = async (
         continue;
       }
 
+      // Map frontend categories to database categories
+      let dbCategory = item.category;
+      if (item.category === "partner") {
+        dbCategory = "founder";
+      } else if (item.category === "videos") {
+        dbCategory = "promotional";
+      }
+
       // Insert into database
       const { data, error } = await supabase
         .from("content")
         .insert({
           title: item.title,
           description: item.description || null,
-          category: item.category,
+          category: dbCategory as Database["public"]["Enums"]["content_category"],
           media_type: item.media_type,
           url: item.url,
           thumbnail_url: item.thumbnail_url || null,
@@ -106,7 +115,7 @@ export const parseCsvContent = (
       headerIndexMap[header] = index;
     });
 
-    const validCategories: ContentCategory[] = ["promotional", "staff", "awards", "ceo", "founder"];
+    const validCategories: ContentCategory[] = ["promotional", "staff", "awards", "ceo", "partner", "videos"];
     const validMediaTypes: MediaType[] = ["image", "video"];
 
     const category = values[headerIndexMap["category"]] as ContentCategory;

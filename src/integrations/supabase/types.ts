@@ -159,24 +159,6 @@ export type Database = {
         }
         Relationships: []
       }
-      url_links: {
-        Row: {
-          created_at: string | null
-          id: number
-          url: string
-        }
-        Insert: {
-          created_at?: string | null
-          id?: number
-          url: string
-        }
-        Update: {
-          created_at?: string | null
-          id?: number
-          url?: string
-        }
-        Relationships: []
-      }
     }
     Views: {
       [_ in never]: never
