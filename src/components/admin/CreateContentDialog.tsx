@@ -1,6 +1,6 @@
 
 import React from "react";
-import { ContentCategory, MediaType } from "@/types/content";
+import { ContentCategory, MediaType, ContentItem } from "@/types/content";
 import {
   Dialog,
   DialogContent,
@@ -56,7 +56,7 @@ const CreateContentDialog: React.FC<CreateContentDialogProps> = ({
           </DialogDescription>
         </DialogHeader>
         <ContentForm 
-          content={newContent}
+          content={newContent as Partial<ContentItem>}
           handleInputChange={handleInputChange}
           handleSelectChange={handleSelectChange}
           handleSwitchChange={handleSwitchChange}

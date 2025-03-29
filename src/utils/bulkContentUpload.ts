@@ -1,6 +1,6 @@
 
 import { supabase } from "@/integrations/supabase/client";
-import { ContentCategory, ContentItem, MediaType } from "@/types/content";
+import { ContentCategory, ContentItem, MediaType, DatabaseContentCategory } from "@/types/content";
 import { Database } from "@/integrations/supabase/types";
 
 export interface BulkContentItem {
@@ -12,6 +12,13 @@ export interface BulkContentItem {
   thumbnail_url?: string;
   is_featured?: boolean;
 }
+
+// Helper to map frontend categories to database categories
+const mapToDatabaseCategory = (category: ContentCategory): DatabaseContentCategory => {
+  if (category === "partner") return "founder";
+  if (category === "videos") return "promotional";
+  return category as DatabaseContentCategory;
+};
 
 export const uploadBulkContent = async (
   items: BulkContentItem[]
@@ -34,12 +41,7 @@ export const uploadBulkContent = async (
       }
 
       // Map frontend categories to database categories
-      let dbCategory = item.category;
-      if (item.category === "partner") {
-        dbCategory = "founder";
-      } else if (item.category === "videos") {
-        dbCategory = "promotional";
-      }
+      const dbCategory = mapToDatabaseCategory(item.category);
 
       // Insert into database
       const { data, error } = await supabase
@@ -47,7 +49,7 @@ export const uploadBulkContent = async (
         .insert({
           title: item.title,
           description: item.description || null,
-          category: dbCategory as Database["public"]["Enums"]["content_category"],
+          category: dbCategory,
           media_type: item.media_type,
           url: item.url,
           thumbnail_url: item.thumbnail_url || null,

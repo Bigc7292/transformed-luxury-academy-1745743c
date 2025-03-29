@@ -1,6 +1,6 @@
-
 import { supabase } from "@/integrations/supabase/client";
-import { ContentFilter, ContentItem, ContentCategory } from "@/types/content";
+import { ContentFilter, ContentItem, ContentCategory, DatabaseContentCategory } from "@/types/content";
+import { Database } from "@/integrations/supabase/types";
 
 type CreateContentPayload = {
   category: ContentCategory;
@@ -8,6 +8,26 @@ type CreateContentPayload = {
   title: string;
   url: string;
 } & Partial<Omit<ContentItem, 'category' | 'media_type' | 'title' | 'url'>>;
+
+// Helper to map frontend categories to database categories
+const mapToDatabaseCategory = (category: ContentCategory): DatabaseContentCategory => {
+  if (category === "partner") return "founder";
+  if (category === "videos") return "promotional";
+  return category as DatabaseContentCategory;
+};
+
+// Helper to filter content items based on frontend-specific categories
+const filterByFrontendCategory = (items: ContentItem[], category?: ContentCategory): ContentItem[] => {
+  if (!category) return items;
+  
+  if (category === "videos") {
+    return items.filter(item => item.media_type === "video");
+  } else if (category === "partner") {
+    return items.filter(item => item.category === "founder");
+  }
+  
+  return items.filter(item => item.category === category);
+};
 
 export const contentService = {
   async getContent(filter: ContentFilter = {}): Promise<ContentItem[]> {
@@ -17,17 +37,10 @@ export const contentService = {
       .order("display_order", { ascending: true })
       .order("created_at", { ascending: false });
 
-    if (filter.category) {
-      // For categories that are in the Supabase enum, we can directly query
-      // For custom categories, we need to handle them in the frontend
-      const baseCategories = ["promotional", "staff", "awards", "ceo", "founder"];
-      if (baseCategories.includes(filter.category as string)) {
-        query = query.eq("category", filter.category);
-      } else if (filter.category === "partner") {
-        query = query.eq("category", "founder");
-      }
-      // For "videos" category, we'll handle it on the frontend
-      // since it's not in the database yet
+    // Handle standard database categories
+    if (filter.category && filter.category !== "videos") {
+      const dbCategory = mapToDatabaseCategory(filter.category);
+      query = query.eq("category", dbCategory);
     }
 
     if (filter.mediaType) {
@@ -49,15 +62,8 @@ export const contentService = {
       throw error;
     }
 
-    // Post-processing for special categories that need frontend handling
-    let result = data || [];
-    if (filter.category === "videos") {
-      result = result.filter(item => item.media_type === "video");
-    } else if (filter.category === "partner") {
-      result = result.filter(item => item.category === "founder");
-    }
-
-    return result;
+    // Post-process for frontend-specific categories
+    return filterByFrontendCategory(data || [], filter.category);
   },
 
   async getContentByCategory(category: ContentCategory): Promise<ContentItem[]> {
@@ -84,21 +90,14 @@ export const contentService = {
   },
   
   async createContent(content: CreateContentPayload): Promise<{ success: boolean; data?: ContentItem; error?: string }> {
-    // Map our frontend categories to database categories
-    let dbCategory = content.category;
-    if (content.category === "partner") {
-      dbCategory = "founder";
-    } else if (content.category === "videos") {
-      // For videos category, we'll use promotional as a fallback
-      // until the database is updated
-      dbCategory = "promotional";
-    }
+    // Map frontend categories to database categories
+    const dbCategory = mapToDatabaseCategory(content.category);
 
     const { data, error } = await supabase
       .from("content")
       .insert({
         ...content,
-        category: dbCategory as Database["public"]["Enums"]["content_category"]
+        category: dbCategory
       })
       .select()
       .single();
@@ -112,13 +111,11 @@ export const contentService = {
   },
   
   async updateContent(id: string, content: Partial<ContentItem>): Promise<{ success: boolean; data?: ContentItem; error?: string }> {
-    // Handle category mapping for updates too
+    // Handle category mapping for updates
     let updateData = { ...content };
     
-    if (content.category === "partner") {
-      updateData.category = "founder";
-    } else if (content.category === "videos") {
-      updateData.category = "promotional";
+    if (content.category) {
+      updateData.category = mapToDatabaseCategory(content.category as ContentCategory);
     }
 
     const { data, error } = await supabase
