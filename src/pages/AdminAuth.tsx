@@ -10,6 +10,12 @@ import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+// List of authorized admin emails
+const AUTHORIZED_ADMIN_EMAILS = [
+  "drivendatadynamics@gmail.com",
+  "transformwiththecolourist@gmail.com"
+];
+
 const AdminAuth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,15 +28,17 @@ const AdminAuth = () => {
     const checkSession = async () => {
       const { data, error } = await supabase.auth.getSession();
       if (data.session) {
-        // Check if user is an admin
-        const { data: adminData } = await supabase
-          .from("admin_users")
-          .select("*")
-          .eq("user_id", data.session.user.id)
-          .single();
-          
-        if (adminData) {
+        // Check if user's email is in the authorized list
+        if (AUTHORIZED_ADMIN_EMAILS.includes(data.session.user.email || "")) {
           navigate("/admin/content");
+        } else {
+          // Unauthorized user, sign them out
+          await supabase.auth.signOut();
+          toast({
+            title: "Access Denied",
+            description: "Your email is not authorized for admin access.",
+            variant: "destructive",
+          });
         }
       }
     };
@@ -41,21 +49,15 @@ const AdminAuth = () => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (session && event === "SIGNED_IN") {
-          // Check if the signed-in user is an admin
-          const { data: adminData } = await supabase
-            .from("admin_users")
-            .select("*")
-            .eq("user_id", session.user.id)
-            .single();
-            
-          if (adminData) {
+          // Check if the signed-in user's email is authorized
+          if (AUTHORIZED_ADMIN_EMAILS.includes(session.user.email || "")) {
             navigate("/admin/content");
           } else {
-            // User is not an admin, sign them out
+            // User is not authorized, sign them out
             await supabase.auth.signOut();
             toast({
               title: "Access Denied",
-              description: "Your account does not have admin privileges.",
+              description: "Your email is not authorized for admin access.",
               variant: "destructive",
             });
           }
@@ -68,6 +70,17 @@ const AdminAuth = () => {
   
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // First check if the email is authorized
+    if (!AUTHORIZED_ADMIN_EMAILS.includes(email)) {
+      toast({
+        title: "Access Denied",
+        description: "This email is not authorized for admin access.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setLoading(true);
     
     try {
@@ -97,6 +110,17 @@ const AdminAuth = () => {
   
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Check if the email is authorized before attempting registration
+    if (!AUTHORIZED_ADMIN_EMAILS.includes(email)) {
+      toast({
+        title: "Registration Denied",
+        description: "Only authorized emails can register for admin access.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setLoading(true);
     
     try {
@@ -109,7 +133,7 @@ const AdminAuth = () => {
       
       toast({
         title: "Registration successful",
-        description: "Please check your email to confirm your account, then contact the site administrator to grant you admin privileges.",
+        description: "Please check your email to confirm your account.",
       });
     } catch (error: any) {
       toast({
@@ -212,8 +236,16 @@ const AdminAuth = () => {
               </TabsContent>
             </Tabs>
           </CardContent>
-          <CardFooter className="flex justify-center text-sm text-gray-500">
-            <p>Note: New accounts require admin approval.</p>
+          <CardFooter className="flex flex-col space-y-2 text-sm text-gray-500">
+            <p>Note: Admin access is restricted to authorized emails only.</p>
+            <div className="text-xs bg-gray-100 p-2 rounded-md w-full">
+              <p className="font-medium text-gray-700">Authorized emails:</p>
+              <ul className="mt-1 list-disc pl-5">
+                {AUTHORIZED_ADMIN_EMAILS.map((email, index) => (
+                  <li key={index}>{email}</li>
+                ))}
+              </ul>
+            </div>
           </CardFooter>
         </Card>
       </div>
