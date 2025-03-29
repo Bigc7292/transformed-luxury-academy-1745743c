@@ -6,6 +6,7 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,21 +25,37 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  const toggleSubmenu = (menu: string) => {
+    setOpenSubmenu(openSubmenu === menu ? null : menu);
+  };
+
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/services" },
-    { name: "Price List", path: "/price-list" },
+    { 
+      name: "Services", 
+      path: "#",
+      hasSubmenu: true,
+      submenu: [
+        { name: "Lip Fillers", path: "/services/lip-fillers" },
+        { name: "Botox", path: "/services/botox" },
+        { name: "Dermal Fillers", path: "/services/dermal-fillers" },
+        { name: "Jawline Fillers", path: "/services/jawline-fillers" },
+      ]
+    },
+    { 
+      name: "Meet the Team", 
+      path: "#",
+      hasSubmenu: true,
+      submenu: [
+        { name: "Meet Kayla CEO", path: "/about-kayla" },
+        { name: "Partnership with Dr...", path: "/partnership" },
+        { name: "Staff", path: "/staff" },
+      ]
+    },
     { name: "Gallery", path: "/gallery" },
-    { name: "Meet Kayla", path: "/about-kayla" },
     { name: "About", path: "/about" },
     { name: "Contact", path: "/contact" },
-  ];
-
-  const serviceDropdown = [
-    { name: "Lip Fillers", path: "/services/lip-fillers" },
-    { name: "Botox", path: "/services/botox" },
-    { name: "Dermal Fillers", path: "/services/dermal-fillers" },
-    { name: "Jawline Fillers", path: "/services/jawline-fillers" },
+    { name: "Admin Login", path: "/admin/auth" },
   ];
 
   return (
@@ -59,19 +76,22 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
-              item.name === "Services" ? (
+              item.hasSubmenu ? (
                 <div key={index} className="relative group">
-                  <button className="flex items-center text-salon-pink-800 hover:text-salon-pink-500 transition-colors group-hover:text-salon-pink-500">
-                    Services <ChevronDown size={16} className="ml-1 transition-transform group-hover:rotate-180" />
+                  <button 
+                    className="flex items-center text-salon-pink-800 hover:text-salon-pink-500 transition-colors group-hover:text-salon-pink-500"
+                    onClick={() => toggleSubmenu(item.name)}
+                  >
+                    {item.name} <ChevronDown size={16} className={`ml-1 transition-transform duration-200 ${openSubmenu === item.name ? 'rotate-180' : ''}`} />
                   </button>
                   <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden transform opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 origin-top-left z-50 invisible group-hover:visible">
-                    {serviceDropdown.map((service, idx) => (
+                    {item.submenu.map((subItem, idx) => (
                       <Link
                         key={idx}
-                        to={service.path}
+                        to={subItem.path}
                         className="block px-4 py-3 text-sm text-salon-pink-800 hover:bg-salon-pink-50 border-b border-salon-pink-100 last:border-b-0"
                       >
-                        {service.name}
+                        {subItem.name}
                       </Link>
                     ))}
                   </div>
@@ -110,21 +130,24 @@ const Navbar = () => {
       <div className={`md:hidden transition-all duration-300 ease-in-out transform ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 pointer-events-none'} overflow-hidden bg-white`}>
         <div className="px-4 pt-2 pb-5 space-y-1">
           {navItems.map((item, index) => (
-            item.name === "Services" ? (
+            item.hasSubmenu ? (
               <div key={index} className="py-2">
-                <div className="flex items-center justify-between text-salon-pink-800 py-2">
-                  <span>Services</span>
-                  <ChevronDown size={16} />
+                <div 
+                  className="flex items-center justify-between text-salon-pink-800 py-2 cursor-pointer"
+                  onClick={() => toggleSubmenu(item.name)}
+                >
+                  <span>{item.name}</span>
+                  <ChevronDown size={16} className={`transition-transform duration-200 ${openSubmenu === item.name ? 'rotate-180' : ''}`} />
                 </div>
-                <div className="pl-4 py-2 space-y-2">
-                  {serviceDropdown.map((service, idx) => (
+                <div className={`pl-4 py-2 space-y-2 ${openSubmenu === item.name ? 'block' : 'hidden'}`}>
+                  {item.submenu.map((subItem, idx) => (
                     <Link
                       key={idx}
-                      to={service.path}
+                      to={subItem.path}
                       className="block text-salon-pink-600 hover:text-salon-pink-500 py-2"
                       onClick={toggleMenu}
                     >
-                      {service.name}
+                      {subItem.name}
                     </Link>
                   ))}
                 </div>
