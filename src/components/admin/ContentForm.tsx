@@ -1,4 +1,3 @@
-
 import React from "react";
 import { ContentCategory, ContentItem, MediaType } from "@/types/content";
 import { Input } from "@/components/ui/input";
@@ -80,7 +79,8 @@ const ContentForm: React.FC<ContentFormProps> = ({
             <SelectItem value="staff">Staff</SelectItem>
             <SelectItem value="awards">Awards</SelectItem>
             <SelectItem value="ceo">CEO</SelectItem>
-            <SelectItem value="founder">Founder</SelectItem>
+            <SelectItem value="partner">Partner</SelectItem>
+            <SelectItem value="videos">Videos</SelectItem>
           </SelectContent>
         </Select>
       </div>

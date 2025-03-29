@@ -19,7 +19,7 @@ const ContentPage: React.FC = () => {
     if (!category) return undefined;
     
     const validCategories: ContentCategory[] = [
-      "promotional", "staff", "awards", "ceo", "partner"
+      "promotional", "staff", "awards", "ceo", "partner", "videos"
     ];
     
     return validCategories.includes(category as ContentCategory) 
@@ -36,6 +36,7 @@ const ContentPage: React.FC = () => {
       case "awards": return "Awards & Recognition";
       case "ceo": return "CEO Spotlight";
       case "partner": return "Partner's Journey";
+      case "videos": return "Videos Collection";
       default: return "All Content";
     }
   };
@@ -47,6 +48,7 @@ const ContentPage: React.FC = () => {
       case "awards": return "Celebrating our achievements and recognition in the industry.";
       case "ceo": return "Learn more about our visionary CEO.";
       case "partner": return "Discover the journey of our valued partners.";
+      case "videos": return "Watch our collection of videos about our academy and salon.";
       default: return "Browse our complete media library.";
     }
   };
