@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Lock } from "lucide-react"; 
 
 // List of authorized admin emails
 const AUTHORIZED_ADMIN_EMAILS = [
@@ -183,17 +184,26 @@ const AdminAuth = () => {
                   <Label htmlFor="pin-code">PIN Code</Label>
                   <div className="flex justify-center">
                     <InputOTP 
-                      maxLength={4} 
+                      maxLength={4}
                       value={pinCode}
                       onChange={setPinCode}
+                      autoFocus
                       render={({ slots }) => (
                         <InputOTPGroup>
                           {slots.map((slot, index) => (
-                            <InputOTPSlot key={index} {...slot} index={index} className="w-16 h-16 text-xl" />
+                            <InputOTPSlot 
+                              key={index} 
+                              {...slot} 
+                              index={index} 
+                              className="w-16 h-16 text-xl"
+                            />
                           ))}
                         </InputOTPGroup>
                       )}
                     />
+                  </div>
+                  <div className="text-center text-sm text-gray-500 mt-2 flex items-center justify-center">
+                    <Lock size={14} className="mr-1"/> Secured with encryption
                   </div>
                 </div>
                 
