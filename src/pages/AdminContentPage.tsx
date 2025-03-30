@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -74,13 +73,13 @@ const AdminContentPage: React.FC = () => {
         return;
       }
       
-      const { data: adminData, error } = await supabase
+      const adminCheckQuery = await supabase
         .from("admin_users")
         .select("*")
-        .eq("user_id", data.session.user.id)
+        .eq("email", data.session.user.email)
         .single();
         
-      if (error || !adminData) {
+      if (adminCheckQuery.error || !adminCheckQuery.data) {
         toast({
           title: "Access Denied",
           description: "You do not have permission to access this area.",
