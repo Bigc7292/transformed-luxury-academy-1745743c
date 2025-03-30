@@ -5,73 +5,45 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { Label } from "@/components/ui/label";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 // List of authorized admin emails
 const AUTHORIZED_ADMIN_EMAILS = [
   "drivendatadynamics@gmail.com",
-  "transformwiththecolourist@gmail.com"
+  "admin@test.com",
+  "transformedacademyandsalon@gmail.com"
 ];
 
 const AdminAuth = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [pinCode, setPinCode] = useState("");
   const [loading, setLoading] = useState(false);
+  const [step, setStep] = useState<"email" | "pin">("email");
+  const [openSheet, setOpenSheet] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
   
   // Check if user is already logged in and redirect to admin page
   useEffect(() => {
     const checkSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
+      const { data } = await supabase.auth.getSession();
       if (data.session) {
-        // Check if user's email is in the authorized list
-        if (AUTHORIZED_ADMIN_EMAILS.includes(data.session.user.email || "")) {
-          navigate("/admin/content");
-        } else {
-          // Unauthorized user, sign them out
-          await supabase.auth.signOut();
-          toast({
-            title: "Access Denied",
-            description: "Your email is not authorized for admin access.",
-            variant: "destructive",
-          });
-        }
+        navigate("/admin/content");
       }
     };
     
     checkSession();
-    
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (session && event === "SIGNED_IN") {
-          // Check if the signed-in user's email is authorized
-          if (AUTHORIZED_ADMIN_EMAILS.includes(session.user.email || "")) {
-            navigate("/admin/content");
-          } else {
-            // User is not authorized, sign them out
-            await supabase.auth.signOut();
-            toast({
-              title: "Access Denied",
-              description: "Your email is not authorized for admin access.",
-              variant: "destructive",
-            });
-          }
-        }
-      }
-    );
-    
-    return () => subscription.unsubscribe();
-  }, [navigate, toast]);
+  }, [navigate]);
   
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // First check if the email is authorized
+    // Check if the email is authorized
     if (!AUTHORIZED_ADMIN_EMAILS.includes(email)) {
       toast({
         title: "Access Denied",
@@ -84,22 +56,22 @@ const AdminAuth = () => {
     setLoading(true);
     
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      // Check if email exists in admin_users table
+      const { data, error } = await supabase
+        .from('admin_users')
+        .select('*')
+        .eq('email', email)
+        .single();
       
-      if (error) throw error;
-      
-      if (data.user) {
-        toast({
-          title: "Login successful",
-          description: "Welcome to the admin panel",
-        });
+      if (error) {
+        throw error;
       }
+      
+      // If email is valid, move to PIN entry step
+      setStep("pin");
     } catch (error: any) {
       toast({
-        title: "Login failed",
+        title: "Email verification failed",
         description: error.message,
         variant: "destructive",
       });
@@ -108,14 +80,13 @@ const AdminAuth = () => {
     }
   };
   
-  const handleRegister = async (e: React.FormEvent) => {
+  const handlePinSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Check if the email is authorized before attempting registration
-    if (!AUTHORIZED_ADMIN_EMAILS.includes(email)) {
+    if (pinCode.length < 4) {
       toast({
-        title: "Registration Denied",
-        description: "Only authorized emails can register for admin access.",
+        title: "Invalid PIN",
+        description: "PIN must be at least 4 digits long.",
         variant: "destructive",
       });
       return;
@@ -124,26 +95,48 @@ const AdminAuth = () => {
     setLoading(true);
     
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-      });
+      // Verify PIN against the admin_users table
+      const { data, error } = await supabase
+        .from('admin_users')
+        .select('*')
+        .eq('email', email)
+        .eq('otp', pinCode)
+        .single();
       
-      if (error) throw error;
+      if (error || !data) {
+        throw new Error("Invalid PIN code. Please try again.");
+      }
+      
+      // When PIN is correct, manually set a session for admin
+      // Since we're not using Supabase Auth directly, we'll implement a custom auth flow
+      // Store admin info in localStorage for simplicity
+      localStorage.setItem('adminUser', JSON.stringify({
+        email: email,
+        isAdmin: true,
+        timestamp: new Date().getTime()
+      }));
       
       toast({
-        title: "Registration successful",
-        description: "Please check your email to confirm your account.",
+        title: "Login successful",
+        description: "Welcome to the admin panel",
       });
+      
+      navigate("/admin/content");
     } catch (error: any) {
       toast({
-        title: "Registration failed",
+        title: "Login failed",
         description: error.message,
         variant: "destructive",
       });
+      // Reset PIN on failure
+      setPinCode("");
     } finally {
       setLoading(false);
     }
+  };
+  
+  const handleResetPin = () => {
+    setOpenSheet(true);
   };
   
   return (
@@ -156,85 +149,74 @@ const AdminAuth = () => {
               Admin Access
             </CardTitle>
             <CardDescription className="text-center">
-              This area is restricted to authorized administrators only.
+              {step === "email" 
+                ? "Enter your email to access the admin panel" 
+                : "Enter your 4-digit PIN code"}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="login" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6">
-                <TabsTrigger value="login">Login</TabsTrigger>
-                <TabsTrigger value="register">Register</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="login">
-                <form onSubmit={handleLogin} className="space-y-4">
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium">Email Address</label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      placeholder="admin@example.com"
+            {step === "email" ? (
+              <form onSubmit={handleEmailSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email Address</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    placeholder="admin@example.com"
+                    className="w-full"
+                  />
+                </div>
+                <Button 
+                  type="submit" 
+                  className="w-full bg-salon-pink-600 hover:bg-salon-pink-700" 
+                  disabled={loading}
+                >
+                  {loading ? "Verifying..." : "Continue"}
+                </Button>
+              </form>
+            ) : (
+              <form onSubmit={handlePinSubmit} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="pin-code">PIN Code</Label>
+                  <div className="flex justify-center">
+                    <InputOTP 
+                      maxLength={4} 
+                      value={pinCode}
+                      onChange={setPinCode}
+                      render={({ slots }) => (
+                        <InputOTPGroup>
+                          {slots.map((slot, index) => (
+                            <InputOTPSlot key={index} {...slot} index={index} className="w-16 h-16 text-xl" />
+                          ))}
+                        </InputOTPGroup>
+                      )}
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label htmlFor="password" className="text-sm font-medium">Password</label>
-                    <Input
-                      id="password"
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      placeholder="••••••••"
-                    />
-                  </div>
+                </div>
+                
+                <div className="space-y-4">
                   <Button 
                     type="submit" 
                     className="w-full bg-salon-pink-600 hover:bg-salon-pink-700" 
                     disabled={loading}
                   >
-                    {loading ? "Logging in..." : "Login"}
+                    {loading ? "Verifying..." : "Login"}
                   </Button>
-                </form>
-              </TabsContent>
-              
-              <TabsContent value="register">
-                <form onSubmit={handleRegister} className="space-y-4">
-                  <div className="space-y-2">
-                    <label htmlFor="reg-email" className="text-sm font-medium">Email Address</label>
-                    <Input
-                      id="reg-email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      placeholder="admin@example.com"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="reg-password" className="text-sm font-medium">Password</label>
-                    <Input
-                      id="reg-password"
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      placeholder="••••••••"
-                      minLength={6}
-                    />
-                  </div>
+                  
                   <Button 
-                    type="submit" 
-                    className="w-full bg-salon-pink-600 hover:bg-salon-pink-700" 
-                    disabled={loading}
+                    type="button"
+                    variant="outline" 
+                    className="w-full" 
+                    onClick={() => setStep("email")}
                   >
-                    {loading ? "Registering..." : "Register"}
+                    Back to Email
                   </Button>
-                </form>
-              </TabsContent>
-            </Tabs>
+                </div>
+              </form>
+            )}
           </CardContent>
           <CardFooter className="flex flex-col space-y-2 text-sm text-gray-500">
             <p>Note: Admin access is restricted to authorized emails only.</p>
@@ -246,9 +228,37 @@ const AdminAuth = () => {
                 ))}
               </ul>
             </div>
+            {step === "pin" && (
+              <Button 
+                type="button" 
+                variant="link" 
+                className="text-salon-pink-600 hover:text-salon-pink-700 p-0 h-auto mt-2" 
+                onClick={handleResetPin}
+              >
+                Forgot PIN?
+              </Button>
+            )}
           </CardFooter>
         </Card>
       </div>
+      
+      <Sheet open={openSheet} onOpenChange={setOpenSheet}>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Reset PIN Code</SheetTitle>
+            <SheetDescription>
+              Please contact the system administrator to reset your PIN code. 
+              Default PINs are set to "1234".
+            </SheetDescription>
+          </SheetHeader>
+          <div className="mt-6">
+            <Button className="w-full" onClick={() => setOpenSheet(false)}>
+              Close
+            </Button>
+          </div>
+        </SheetContent>
+      </Sheet>
+      
       <Footer />
     </div>
   );

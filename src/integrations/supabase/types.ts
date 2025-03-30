@@ -11,22 +11,22 @@ export type Database = {
     Tables: {
       admin_users: {
         Row: {
-          created_at: string
-          id: string
-          updated_at: string
-          user_id: string
+          email: string
+          id: number
+          otp: string
+          password: string
         }
         Insert: {
-          created_at?: string
-          id?: string
-          updated_at?: string
-          user_id: string
+          email: string
+          id?: never
+          otp: string
+          password: string
         }
         Update: {
-          created_at?: string
-          id?: string
-          updated_at?: string
-          user_id?: string
+          email?: string
+          id?: never
+          otp?: string
+          password?: string
         }
         Relationships: []
       }
