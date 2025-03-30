@@ -108,14 +108,14 @@ const ContentForm: React.FC<ContentFormProps> = ({
           Page Location
         </Label>
         <Select
-          value={content.page_location || ''}
+          value={content.page_location || 'not_assigned'}
           onValueChange={(value) => handleSelectChange(value, 'page_location')}
         >
           <SelectTrigger className="col-span-3">
             <SelectValue placeholder="Select page location" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Not Assigned</SelectItem>
+            <SelectItem value="not_assigned">Not Assigned</SelectItem>
             {PAGE_LOCATIONS.map((location) => (
               <SelectItem key={location.value} value={location.value}>
                 {location.label}
@@ -130,15 +130,15 @@ const ContentForm: React.FC<ContentFormProps> = ({
           Page Section
         </Label>
         <Select
-          value={content.page_section || ''}
+          value={content.page_section || 'not_assigned'}
           onValueChange={(value) => handleSelectChange(value, 'page_section')}
-          disabled={!content.page_location}
+          disabled={!content.page_location || content.page_location === 'not_assigned'}
         >
           <SelectTrigger className="col-span-3">
             <SelectValue placeholder="Select page section" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Not Assigned</SelectItem>
+            <SelectItem value="not_assigned">Not Assigned</SelectItem>
             {Object.entries(PAGE_SECTIONS).map(([value, label]) => (
               <SelectItem key={value} value={value}>
                 {label}

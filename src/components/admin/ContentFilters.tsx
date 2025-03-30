@@ -83,7 +83,7 @@ const ContentFilters: React.FC<ContentFiltersProps> = ({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Pages</SelectItem>
-              <SelectItem value="">Not Assigned</SelectItem>
+              <SelectItem value="not_assigned">Not Assigned</SelectItem>
               {PAGE_LOCATIONS.map((location) => (
                 <SelectItem key={location.value} value={location.value}>
                   {location.label}

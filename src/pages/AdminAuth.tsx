@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
@@ -109,8 +108,6 @@ const AdminAuth = () => {
       }
       
       // When PIN is correct, manually set a session for admin
-      // Since we're not using Supabase Auth directly, we'll implement a custom auth flow
-      // Store admin info in localStorage for simplicity
       localStorage.setItem('adminUser', JSON.stringify({
         email: email,
         isAdmin: true,
