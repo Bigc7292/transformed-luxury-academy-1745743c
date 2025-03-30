@@ -168,6 +168,7 @@ const AdminAuth = () => {
                     required
                     placeholder="admin@example.com"
                     className="w-full"
+                    autoFocus
                   />
                 </div>
                 <Button 
@@ -211,7 +212,7 @@ const AdminAuth = () => {
                   <Button 
                     type="submit" 
                     className="w-full bg-salon-pink-600 hover:bg-salon-pink-700" 
-                    disabled={loading}
+                    disabled={loading || pinCode.length < 4}
                   >
                     {loading ? "Verifying..." : "Login"}
                   </Button>
