@@ -23,14 +23,13 @@ export const useAdminAuth = () => {
         return;
       }
       
-      // Cast the query to avoid deep type inference
+      // Simplify the query to avoid TypeScript inference issues
       const { data: adminData, error: adminError } = await supabase
         .from("admin_users")
-        .select("email")
-        .eq("email", data.session.user.email || "")
-        .limit(1) as { data: any[], error: any };
+        .select("*")
+        .eq("email", data.session.user.email || "");
         
-      if (adminError || adminData.length === 0) {
+      if (adminError || !adminData || adminData.length === 0) {
         console.error("Admin check error:", adminError);
         toast({
           title: "Access Denied",
