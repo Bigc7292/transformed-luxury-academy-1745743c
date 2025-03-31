@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -106,9 +105,8 @@ const AdminContentPage: React.FC = () => {
     queryFn: () => contentService.getContent(),
   });
 
-  // Fixed mutations with simplified type annotations
-  const createContentMutation = useMutation<MutationResult, Error, ContentFormState>({
-    mutationFn: (content) => contentService.createContent(content),
+  const createContentMutation = useMutation({
+    mutationFn: (contentData: ContentFormState) => contentService.createContent(contentData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-content"] });
       setIsCreateDialogOpen(false);
@@ -130,7 +128,7 @@ const AdminContentPage: React.FC = () => {
         active: true
       });
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       toast({
         title: "Creation Failed",
         description: error.message || "There was an error creating the content.",
@@ -139,12 +137,9 @@ const AdminContentPage: React.FC = () => {
     }
   });
 
-  const updateContentMutation = useMutation<
-    MutationResult, 
-    Error, 
-    { id: string; content: Partial<ContentItem> }
-  >({
-    mutationFn: ({ id, content }) => contentService.updateContent(id, content),
+  const updateContentMutation = useMutation({
+    mutationFn: (params: { id: string; content: Partial<ContentItem> }) => 
+      contentService.updateContent(params.id, params.content),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-content"] });
       setIsEditDialogOpen(false);
@@ -153,7 +148,7 @@ const AdminContentPage: React.FC = () => {
         description: "The content has been successfully updated.",
       });
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       toast({
         title: "Update Failed",
         description: error.message || "There was an error updating the content.",
@@ -162,12 +157,8 @@ const AdminContentPage: React.FC = () => {
     }
   });
 
-  const deleteContentMutation = useMutation<
-    { success: boolean; error?: string }, 
-    Error, 
-    string
-  >({
-    mutationFn: (id) => contentService.deleteContent(id),
+  const deleteContentMutation = useMutation({
+    mutationFn: (id: string) => contentService.deleteContent(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-content"] });
       setIsDeleteDialogOpen(false);
@@ -177,7 +168,7 @@ const AdminContentPage: React.FC = () => {
         description: "The content has been successfully deleted.",
       });
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       toast({
         title: "Deletion Failed",
         description: error.message || "There was an error deleting the content.",
@@ -186,7 +177,6 @@ const AdminContentPage: React.FC = () => {
     }
   });
 
-  // Filter content with proper type annotation
   const filteredContent: ContentItem[] | undefined = content?.filter(item => {
     if (categoryFilter !== 'all' && item.category !== categoryFilter) return false;
     if (mediaTypeFilter !== 'all' && item.media_type !== mediaTypeFilter) return false;
