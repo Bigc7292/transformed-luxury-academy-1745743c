@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -19,6 +18,7 @@ export type Service = {
   image?: string;
   price?: string;
   bookingUrl?: string;
+  services?: string[]; // Add this property to the Service type
 };
 
 // All services organized by category
