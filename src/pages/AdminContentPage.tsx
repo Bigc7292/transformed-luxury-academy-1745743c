@@ -32,6 +32,12 @@ type ContentFormState = {
   active?: boolean;
 };
 
+// Define update params type to fix the missing type error
+interface UpdateParams {
+  id: string;
+  content: Partial<ContentItem>;
+}
+
 // Type definitions for service responses to avoid deep nesting
 type ContentServiceResponse = {
   success: boolean;
@@ -105,12 +111,8 @@ const AdminContentPage: React.FC = () => {
     queryFn: () => contentService.getContent(),
   });
 
-  const createContentMutation = useMutation<
-    ContentServiceResponse, 
-    Error,
-    ContentFormState
-  >({
-    mutationFn: (contentData) => contentService.createContent(contentData),
+  const createContentMutation = useMutation({
+    mutationFn: (contentData: ContentFormState) => contentService.createContent(contentData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-content"] });
       setIsCreateDialogOpen(false);
@@ -132,7 +134,7 @@ const AdminContentPage: React.FC = () => {
         active: true
       });
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       toast({
         title: "Creation Failed",
         description: error.message || "There was an error creating the content.",
@@ -141,12 +143,8 @@ const AdminContentPage: React.FC = () => {
     }
   });
 
-  const updateContentMutation = useMutation<
-    ContentServiceResponse,
-    Error,
-    UpdateParams
-  >({
-    mutationFn: (params) => contentService.updateContent(params.id, params.content),
+  const updateContentMutation = useMutation({
+    mutationFn: (params: UpdateParams) => contentService.updateContent(params.id, params.content),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-content"] });
       setIsEditDialogOpen(false);
@@ -155,7 +153,7 @@ const AdminContentPage: React.FC = () => {
         description: "The content has been successfully updated.",
       });
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       toast({
         title: "Update Failed",
         description: error.message || "There was an error updating the content.",
@@ -164,12 +162,8 @@ const AdminContentPage: React.FC = () => {
     }
   });
 
-  const deleteContentMutation = useMutation<
-    ContentServiceResponse,
-    Error,
-    string
-  >({
-    mutationFn: (id) => contentService.deleteContent(id),
+  const deleteContentMutation = useMutation({
+    mutationFn: (id: string) => contentService.deleteContent(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-content"] });
       setIsDeleteDialogOpen(false);
@@ -179,7 +173,7 @@ const AdminContentPage: React.FC = () => {
         description: "The content has been successfully deleted.",
       });
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       toast({
         title: "Deletion Failed",
         description: error.message || "There was an error deleting the content.",
