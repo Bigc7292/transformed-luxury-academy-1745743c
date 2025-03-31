@@ -11,22 +11,22 @@ export type Database = {
     Tables: {
       admin_users: {
         Row: {
-          email: string
-          id: number
-          otp: string
-          password: string
+          created_at: string | null
+          id: string
+          role: string
+          user_id: string
         }
         Insert: {
-          email: string
-          id?: never
-          otp: string
-          password: string
+          created_at?: string | null
+          id?: string
+          role: string
+          user_id?: string
         }
         Update: {
-          email?: string
-          id?: never
-          otp?: string
-          password?: string
+          created_at?: string | null
+          id?: string
+          role?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -126,6 +126,24 @@ export type Database = {
           updated_at?: string
           url?: string
           view_count?: number | null
+        }
+        Relationships: []
+      }
+      custom_users: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
         }
         Relationships: []
       }
