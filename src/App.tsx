@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Index from './pages/Index';
 import AboutCeo from './pages/AboutCeo';
 import Gallery from './pages/Gallery';
@@ -13,20 +14,18 @@ import ServicesPage from './pages/ServicesPage';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/about-ceo" element={<AboutCeo />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/price-list" element={<PriceList />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/admin/auth" element={<AdminAuth />} />
-        <Route path="/admin/content" element={<AdminContentPage />} />
-        <Route path="/admin/inbox" element={<AdminInbox />} />
-        <Route path="/content/:id" element={<ContentPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/about-ceo" element={<AboutCeo />} />
+      <Route path="/gallery" element={<Gallery />} />
+      <Route path="/price-list" element={<PriceList />} />
+      <Route path="/services" element={<ServicesPage />} />
+      <Route path="/admin/auth" element={<AdminAuth />} />
+      <Route path="/admin/content" element={<AdminContentPage />} />
+      <Route path="/admin/inbox" element={<AdminInbox />} />
+      <Route path="/content/:id" element={<ContentPage />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 
