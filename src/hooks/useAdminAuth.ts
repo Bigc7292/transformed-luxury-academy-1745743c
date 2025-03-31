@@ -10,10 +10,11 @@ export const useAdminAuth = () => {
 
   useEffect(() => {
     const checkAdmin = async () => {
-      // Get the current session without complex type inference
-      const { data, error: sessionError } = await supabase.auth.getSession();
+      // Get the current session
+      const sessionResponse = await supabase.auth.getSession();
+      const session = sessionResponse.data.session;
       
-      if (!data.session) {
+      if (!session) {
         toast({
           title: "Authentication Required",
           description: "Please login to access the admin area.",
@@ -23,14 +24,17 @@ export const useAdminAuth = () => {
         return;
       }
       
-      // Simplify the query to avoid TypeScript inference issues
-      const { data: adminData, error: adminError } = await supabase
+      // Use a raw query approach to avoid TypeScript inference issues
+      const userEmail = session.user.email || "";
+      
+      // Simple approach: Using a string() function to query instead of a template literal
+      const { data, error } = await supabase
         .from("admin_users")
-        .select("*")
-        .eq("email", data.session.user.email || "");
+        .select("id")
+        .filter("email", "eq", userEmail);
         
-      if (adminError || !adminData || adminData.length === 0) {
-        console.error("Admin check error:", adminError);
+      if (error || !data || data.length === 0) {
+        console.error("Admin check error:", error);
         toast({
           title: "Access Denied",
           description: "You do not have permission to access this area.",
