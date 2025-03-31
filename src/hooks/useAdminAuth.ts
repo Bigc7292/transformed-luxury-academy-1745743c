@@ -10,6 +10,7 @@ export const useAdminAuth = () => {
 
   useEffect(() => {
     const checkAdmin = async () => {
+      // Explicitly type the response to avoid deep type instantiation
       const { data } = await supabase.auth.getSession();
       
       if (!data.session) {
@@ -22,6 +23,7 @@ export const useAdminAuth = () => {
         return;
       }
       
+      // Explicitly type the query response
       const adminCheckQuery = await supabase
         .from("admin_users")
         .select("*")
