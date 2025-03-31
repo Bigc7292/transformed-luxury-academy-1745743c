@@ -1,202 +1,45 @@
-import React, { useState, useEffect } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { contentService } from "@/services/contentService";
-import { ContentCategory, ContentItem, MediaType, PageSection } from "@/types/content";
-import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Button } from "@/components/ui/button";
-import { LogOut, Inbox, Upload } from "lucide-react";
+
+// Import custom hooks
+import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { useContentMutations } from "@/hooks/useContentMutations";
+import { useContentFilters } from "@/hooks/useContentFilters";
+import { useContentForm } from "@/hooks/useContentForm";
+import { useContentDialogs } from "@/hooks/useContentDialogs";
 
 // Import admin components
-import ContentFilters from "@/components/admin/ContentFilters";
+import AdminHeader from "@/components/admin/AdminHeader";
+import AdminFilterBar from "@/components/admin/AdminFilterBar";
 import ContentList from "@/components/admin/ContentList";
 import CreateContentDialog from "@/components/admin/CreateContentDialog";
 import EditContentDialog from "@/components/admin/EditContentDialog";
 import DeleteContentDialog from "@/components/admin/DeleteContentDialog";
 import BulkUploadDialog from "@/components/admin/BulkUploadDialog";
 
-// Define a simple type for form state to avoid recursive type issues
-type ContentFormState = {
-  title: string;
-  description: string;
-  category: ContentCategory;
-  media_type: MediaType;
-  url: string;
-  thumbnail_url: string;
-  is_featured: boolean;
-  page_location?: string;
-  page_section?: PageSection;
-  active?: boolean;
-};
-
-// Define update params type to fix the missing type error
-interface UpdateParams {
-  id: string;
-  content: Partial<ContentItem>;
-}
-
-// Type definitions for service responses to avoid deep nesting
-type ContentServiceResponse = {
-  success: boolean;
-  data?: ContentItem;
-  error?: string;
-};
-
 const AdminContentPage: React.FC = () => {
-  const [categoryFilter, setCategoryFilter] = useState<ContentCategory | 'all'>('all');
-  const [mediaTypeFilter, setMediaTypeFilter] = useState<MediaType | 'all'>('all');
-  const [pageLocationFilter, setPageLocationFilter] = useState<string | 'all'>('all');
-  const [activeFilter, setActiveFilter] = useState<boolean | 'all'>('all');
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const [isBulkUploadDialogOpen, setIsBulkUploadDialogOpen] = useState(false);
-  const [selectedContent, setSelectedContent] = useState<ContentItem | null>(null);
-  const [newContent, setNewContent] = useState<ContentFormState>({
-    title: '',
-    description: '',
-    category: 'promotional',
-    media_type: 'image',
-    url: '',
-    thumbnail_url: '',
-    is_featured: false,
-    page_location: '',
-    page_section: undefined,
-    active: true
-  });
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [contentToDelete, setContentToDelete] = useState<ContentItem | null>(null);
-
-  const navigate = useNavigate();
   const { toast } = useToast();
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    const checkAdmin = async () => {
-      const { data } = await supabase.auth.getSession();
-      
-      if (!data.session) {
-        toast({
-          title: "Authentication Required",
-          description: "Please login to access the admin area.",
-          variant: "destructive",
-        });
-        navigate("/admin/auth");
-        return;
-      }
-      
-      const adminCheckQuery = await supabase
-        .from("admin_users")
-        .select("*")
-        .eq("email", data.session.user.email)
-        .single();
-        
-      if (adminCheckQuery.error || !adminCheckQuery.data) {
-        toast({
-          title: "Access Denied",
-          description: "You do not have permission to access this area.",
-          variant: "destructive",
-        });
-        navigate("/");
-      }
-    };
-    
-    checkAdmin();
-  }, [navigate, toast]);
-
+  const { handleLogout } = useAdminAuth();
+  const { createContentMutation, updateContentMutation, deleteContentMutation } = useContentMutations();
+  
   const { data: content, isLoading, error } = useQuery({
     queryKey: ["admin-content"],
     queryFn: () => contentService.getContent(),
   });
 
-  const createContentMutation = useMutation({
-    mutationFn: (contentData: ContentFormState) => contentService.createContent(contentData),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin-content"] });
-      setIsCreateDialogOpen(false);
-      toast({
-        title: "Content Created",
-        description: "The content has been successfully created.",
-      });
-      
-      setNewContent({
-        title: '',
-        description: '',
-        category: 'promotional',
-        media_type: 'image',
-        url: '',
-        thumbnail_url: '',
-        is_featured: false,
-        page_location: '',
-        page_section: undefined,
-        active: true
-      });
-    },
-    onError: (error: Error) => {
-      toast({
-        title: "Creation Failed",
-        description: error.message || "There was an error creating the content.",
-        variant: "destructive",
-      });
-    }
-  });
-
-  const updateContentMutation = useMutation({
-    mutationFn: (params: UpdateParams) => contentService.updateContent(params.id, params.content),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin-content"] });
-      setIsEditDialogOpen(false);
-      toast({
-        title: "Content Updated",
-        description: "The content has been successfully updated.",
-      });
-    },
-    onError: (error: Error) => {
-      toast({
-        title: "Update Failed",
-        description: error.message || "There was an error updating the content.",
-        variant: "destructive",
-      });
-    }
-  });
-
-  const deleteContentMutation = useMutation({
-    mutationFn: (id: string) => contentService.deleteContent(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin-content"] });
-      setIsDeleteDialogOpen(false);
-      setContentToDelete(null);
-      toast({
-        title: "Content Deleted",
-        description: "The content has been successfully deleted.",
-      });
-    },
-    onError: (error: Error) => {
-      toast({
-        title: "Deletion Failed",
-        description: error.message || "There was an error deleting the content.",
-        variant: "destructive",
-      });
-    }
-  });
-
-  const filteredContent: ContentItem[] = content ? content.filter(item => {
-    if (categoryFilter !== 'all' && item.category !== categoryFilter) return false;
-    if (mediaTypeFilter !== 'all' && item.media_type !== mediaTypeFilter) return false;
-    if (pageLocationFilter !== 'all') {
-      if (pageLocationFilter === 'not_assigned' && item.page_location) return false;
-      if (pageLocationFilter !== 'not_assigned' && item.page_location !== pageLocationFilter) return false;
-    }
-    if (activeFilter !== 'all' && item.active !== activeFilter) return false;
-    return true;
-  }) : [];
-
-  const handleEdit = (item: ContentItem) => {
-    setSelectedContent(item);
-    setIsEditDialogOpen(true);
-  };
+  const { filters, filteredContent } = useContentFilters(content);
+  const { selectedContent, setSelectedContent, newContent, setNewContent, handlers } = useContentForm();
+  const { dialogState, dialogHandlers } = useContentDialogs();
+  
+  // Connect the setSelectedContent function from useContentDialogs to the actual function from useContentForm
+  React.useEffect(() => {
+    dialogHandlers.setSelectedContent(setSelectedContent);
+  }, [dialogHandlers, setSelectedContent]);
 
   const handleUpdate = () => {
     if (!selectedContent || !selectedContent.id) return;
@@ -218,15 +61,23 @@ const AdminContentPage: React.FC = () => {
     }
     
     createContentMutation.mutate(newContent);
-  };
-
-  const handleDelete = (item: ContentItem) => {
-    setContentToDelete(item);
-    setIsDeleteDialogOpen(true);
+    setNewContent({
+      title: '',
+      description: '',
+      category: 'promotional',
+      media_type: 'image',
+      url: '',
+      thumbnail_url: '',
+      is_featured: false,
+      page_location: '',
+      page_section: undefined,
+      active: true
+    });
+    dialogState.setIsCreateDialogOpen(false);
   };
 
   const handleConfirmDelete = (confirmText: string) => {
-    if (!contentToDelete || !contentToDelete.id) return;
+    if (!dialogState.contentToDelete || !dialogState.contentToDelete.id) return;
     if (confirmText.toLowerCase() !== 'delete') {
       toast({
         title: "Confirmation Failed",
@@ -236,69 +87,11 @@ const AdminContentPage: React.FC = () => {
       return;
     }
     
-    deleteContentMutation.mutate(contentToDelete.id);
-  };
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
-    isForNewContent: boolean = false
-  ) => {
-    const { name, value } = e.target;
-    
-    if (isForNewContent) {
-      setNewContent(prev => ({ ...prev, [name]: value }));
-    } else {
-      setSelectedContent(prev => prev ? { ...prev, [name]: value } : null);
-    }
-  };
-
-  const handleSwitchChange = (checked: boolean, name: string, isForNewContent: boolean = false) => {
-    if (isForNewContent) {
-      setNewContent(prev => ({ ...prev, [name]: checked }));
-    } else {
-      setSelectedContent(prev => prev ? { ...prev, [name]: checked } : null);
-    }
-  };
-
-  const handleSelectChange = (
-    value: string, 
-    name: string, 
-    isForNewContent: boolean = false
-  ) => {
-    if (isForNewContent) {
-      setNewContent(prev => ({ ...prev, [name]: value }));
-    } else {
-      setSelectedContent(prev => prev ? { ...prev, [name]: value } : null);
-    }
-  };
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    toast({
-      title: "Logged Out",
-      description: "You have been successfully logged out."
-    });
-    navigate("/admin/auth");
-  };
-
-  const handleMediaUploadComplete = (url: string) => {
-    setNewContent(prev => ({ ...prev, url }));
-  };
-
-  const handleThumbnailUploadComplete = (url: string) => {
-    setNewContent(prev => ({ ...prev, thumbnail_url: url }));
-  };
-
-  const handleEditMediaUploadComplete = (url: string) => {
-    setSelectedContent(prev => prev ? { ...prev, url } : null);
-  };
-
-  const handleEditThumbnailUploadComplete = (url: string) => {
-    setSelectedContent(prev => prev ? { ...prev, thumbnail_url: url } : null);
+    deleteContentMutation.mutate(dialogState.contentToDelete.id);
   };
 
   const handleBulkUploadComplete = () => {
-    queryClient.invalidateQueries({ queryKey: ["admin-content"] });
+    // We don't need to do anything special here, as the useContentMutations hook handles the queries invalidation
     toast({
       title: "Bulk Upload Complete",
       description: "Your content has been uploaded successfully.",
@@ -323,95 +116,60 @@ const AdminContentPage: React.FC = () => {
     <div className="min-h-screen bg-white">
       <Navbar />
       <div className="container mx-auto pt-32 pb-20 px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-serif text-salon-pink-700">
-            Content Management
-          </h1>
-          <div className="flex space-x-4">
-            <Button
-              onClick={() => navigate("/admin/inbox")}
-              className="bg-salon-pink-600 hover:bg-salon-pink-700 flex items-center gap-2"
-            >
-              <Inbox size={16} /> Customer Inquiries
-            </Button>
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              className="border-red-500 text-red-600 hover:bg-red-50 flex items-center gap-2"
-            >
-              <LogOut size={16} /> Logout
-            </Button>
-          </div>
-        </div>
-
-        <div className="flex justify-between items-center mb-6">
-          <ContentFilters 
-            categoryFilter={categoryFilter}
-            setCategoryFilter={setCategoryFilter}
-            mediaTypeFilter={mediaTypeFilter}
-            setMediaTypeFilter={setMediaTypeFilter}
-            pageLocationFilter={pageLocationFilter}
-            setPageLocationFilter={setPageLocationFilter}
-            activeFilter={activeFilter}
-            setActiveFilter={setActiveFilter}
-          />
-          
-          <Button
-            onClick={() => setIsBulkUploadDialogOpen(true)}
-            variant="outline"
-            className="flex items-center gap-2"
-          >
-            <Upload size={16} /> Bulk Upload
-          </Button>
-        </div>
+        <AdminHeader title="Content Management" handleLogout={handleLogout} />
+        
+        <AdminFilterBar 
+          {...filters}
+          setIsBulkUploadDialogOpen={dialogState.setIsBulkUploadDialogOpen}
+        />
 
         <ContentList
           content={content}
           isLoading={isLoading}
           error={error}
           filteredContent={filteredContent}
-          handleEdit={handleEdit}
-          handleDelete={handleDelete}
-          setIsCreateDialogOpen={setIsCreateDialogOpen}
+          handleEdit={dialogHandlers.handleEdit}
+          handleDelete={dialogHandlers.handleDelete}
+          setIsCreateDialogOpen={dialogState.setIsCreateDialogOpen}
         />
 
         <CreateContentDialog
-          isOpen={isCreateDialogOpen}
-          setIsOpen={setIsCreateDialogOpen}
+          isOpen={dialogState.isCreateDialogOpen}
+          setIsOpen={dialogState.setIsCreateDialogOpen}
           newContent={newContent}
-          handleInputChange={(e) => handleInputChange(e, true)}
-          handleSelectChange={(value, name) => handleSelectChange(value, name, true)}
-          handleSwitchChange={(checked, name) => handleSwitchChange(checked, name, true)}
+          handleInputChange={(e) => handlers.handleInputChange(e, true)}
+          handleSelectChange={(value, name) => handlers.handleSelectChange(value, name, true)}
+          handleSwitchChange={(checked, name) => handlers.handleSwitchChange(checked, name, true)}
           handleCreate={handleCreate}
-          handleMediaUploadComplete={handleMediaUploadComplete}
-          handleThumbnailUploadComplete={handleThumbnailUploadComplete}
+          handleMediaUploadComplete={handlers.handleMediaUploadComplete}
+          handleThumbnailUploadComplete={handlers.handleThumbnailUploadComplete}
           isCreating={createContentMutation.isPending}
         />
 
         <EditContentDialog
-          isOpen={isEditDialogOpen && !!selectedContent}
-          setIsOpen={setIsEditDialogOpen}
+          isOpen={dialogState.isEditDialogOpen && !!selectedContent}
+          setIsOpen={dialogState.setIsEditDialogOpen}
           selectedContent={selectedContent}
-          handleInputChange={(e) => handleInputChange(e, false)}
-          handleSelectChange={(value, name) => handleSelectChange(value, name, false)}
-          handleSwitchChange={(checked, name) => handleSwitchChange(checked, name, false)}
+          handleInputChange={(e) => handlers.handleInputChange(e, false)}
+          handleSelectChange={(value, name) => handlers.handleSelectChange(value, name, false)}
+          handleSwitchChange={(checked, name) => handlers.handleSwitchChange(checked, name, false)}
           handleUpdate={handleUpdate}
-          handleMediaUploadComplete={handleEditMediaUploadComplete}
-          handleThumbnailUploadComplete={handleEditThumbnailUploadComplete}
+          handleMediaUploadComplete={handlers.handleEditMediaUploadComplete}
+          handleThumbnailUploadComplete={handlers.handleEditThumbnailUploadComplete}
           isUpdating={updateContentMutation.isPending}
         />
 
         <DeleteContentDialog
-          isOpen={isDeleteDialogOpen && !!contentToDelete}
-          setIsOpen={setIsDeleteDialogOpen}
-          contentToDelete={contentToDelete}
+          isOpen={dialogState.isDeleteDialogOpen && !!dialogState.contentToDelete}
+          setIsOpen={dialogState.setIsDeleteDialogOpen}
+          contentToDelete={dialogState.contentToDelete}
           handleConfirmDelete={handleConfirmDelete}
           isDeleting={deleteContentMutation.isPending}
         />
 
         <BulkUploadDialog
-          isOpen={isBulkUploadDialogOpen}
-          setIsOpen={setIsBulkUploadDialogOpen}
+          isOpen={dialogState.isBulkUploadDialogOpen}
+          setIsOpen={dialogState.setIsBulkUploadDialogOpen}
           onUploadComplete={handleBulkUploadComplete}
         />
       </div>
