@@ -11,7 +11,7 @@ export const useAdminAuth = () => {
   useEffect(() => {
     const checkAdmin = async () => {
       // Explicitly type the response to avoid deep type instantiation
-      const { data } = await supabase.auth.getSession();
+      const { data, error: sessionError } = await supabase.auth.getSession();
       
       if (!data.session) {
         toast({
@@ -23,14 +23,20 @@ export const useAdminAuth = () => {
         return;
       }
       
-      // Explicitly type the query response
-      const adminCheckQuery = await supabase
+      // Explicitly define the query response type to prevent deep type instantiation
+      type AdminCheckResult = { 
+        data: { email: string } | null; 
+        error: any;
+      };
+      
+      // Execute the query with explicit typing
+      const { data: adminData, error } = await supabase
         .from("admin_users")
         .select("*")
         .eq("email", data.session.user.email)
-        .single();
+        .single() as unknown as AdminCheckResult;
         
-      if (adminCheckQuery.error || !adminCheckQuery.data) {
+      if (error || !adminData) {
         toast({
           title: "Access Denied",
           description: "You do not have permission to access this area.",
