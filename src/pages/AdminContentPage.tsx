@@ -19,7 +19,7 @@ import EditContentDialog from "@/components/admin/EditContentDialog";
 import DeleteContentDialog from "@/components/admin/DeleteContentDialog";
 import BulkUploadDialog from "@/components/admin/BulkUploadDialog";
 
-// Define a simpler type for form state to avoid recursive type issues
+// Define a simple type for form state to avoid recursive type issues
 type ContentFormState = {
   title: string;
   description: string;
@@ -31,6 +31,13 @@ type ContentFormState = {
   page_location?: string;
   page_section?: PageSection;
   active?: boolean;
+};
+
+// Define simplified types for mutation results
+type MutationResult = {
+  success: boolean;
+  data?: ContentItem;
+  error?: string;
 };
 
 const AdminContentPage: React.FC = () => {
@@ -99,9 +106,9 @@ const AdminContentPage: React.FC = () => {
     queryFn: () => contentService.getContent(),
   });
 
-  // Fix: Explicitly type the mutation functions to avoid deep type instantiation
-  const createContentMutation = useMutation({
-    mutationFn: (content: ContentFormState) => contentService.createContent(content),
+  // Fixed mutations with simplified type annotations
+  const createContentMutation = useMutation<MutationResult, Error, ContentFormState>({
+    mutationFn: (content) => contentService.createContent(content),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-content"] });
       setIsCreateDialogOpen(false);
@@ -123,7 +130,7 @@ const AdminContentPage: React.FC = () => {
         active: true
       });
     },
-    onError: (error: any) => {
+    onError: (error) => {
       toast({
         title: "Creation Failed",
         description: error.message || "There was an error creating the content.",
@@ -132,9 +139,12 @@ const AdminContentPage: React.FC = () => {
     }
   });
 
-  const updateContentMutation = useMutation({
-    mutationFn: ({ id, content }: { id: string; content: Partial<ContentItem> }) => 
-      contentService.updateContent(id, content),
+  const updateContentMutation = useMutation<
+    MutationResult, 
+    Error, 
+    { id: string; content: Partial<ContentItem> }
+  >({
+    mutationFn: ({ id, content }) => contentService.updateContent(id, content),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-content"] });
       setIsEditDialogOpen(false);
@@ -143,7 +153,7 @@ const AdminContentPage: React.FC = () => {
         description: "The content has been successfully updated.",
       });
     },
-    onError: (error: any) => {
+    onError: (error) => {
       toast({
         title: "Update Failed",
         description: error.message || "There was an error updating the content.",
@@ -152,8 +162,12 @@ const AdminContentPage: React.FC = () => {
     }
   });
 
-  const deleteContentMutation = useMutation({
-    mutationFn: (id: string) => contentService.deleteContent(id),
+  const deleteContentMutation = useMutation<
+    { success: boolean; error?: string }, 
+    Error, 
+    string
+  >({
+    mutationFn: (id) => contentService.deleteContent(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-content"] });
       setIsDeleteDialogOpen(false);
@@ -163,7 +177,7 @@ const AdminContentPage: React.FC = () => {
         description: "The content has been successfully deleted.",
       });
     },
-    onError: (error: any) => {
+    onError: (error) => {
       toast({
         title: "Deletion Failed",
         description: error.message || "There was an error deleting the content.",
@@ -172,13 +186,13 @@ const AdminContentPage: React.FC = () => {
     }
   });
 
-  // Explicitly define the type for filtered content to be either undefined or ContentItem array
-  const filteredContent = content?.filter(item => {
+  // Filter content with proper type annotation
+  const filteredContent: ContentItem[] | undefined = content?.filter(item => {
     if (categoryFilter !== 'all' && item.category !== categoryFilter) return false;
     if (mediaTypeFilter !== 'all' && item.media_type !== mediaTypeFilter) return false;
     if (pageLocationFilter !== 'all') {
-      if (pageLocationFilter === '' && item.page_location) return false;
-      if (pageLocationFilter !== '' && item.page_location !== pageLocationFilter) return false;
+      if (pageLocationFilter === 'not_assigned' && item.page_location) return false;
+      if (pageLocationFilter !== 'not_assigned' && item.page_location !== pageLocationFilter) return false;
     }
     if (activeFilter !== 'all' && item.active !== activeFilter) return false;
     return true;
