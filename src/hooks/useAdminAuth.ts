@@ -23,15 +23,15 @@ export const useAdminAuth = () => {
         return;
       }
       
-      // Use a string-based approach to avoid TypeScript inference issues
-      const result = await supabase
+      // Cast the query to avoid deep type inference
+      const { data: adminData, error: adminError } = await supabase
         .from("admin_users")
         .select("email")
         .eq("email", data.session.user.email || "")
-        .limit(1);
+        .limit(1) as { data: any[], error: any };
         
-      if (result.error || result.data.length === 0) {
-        console.error("Admin check error:", result.error);
+      if (adminError || adminData.length === 0) {
+        console.error("Admin check error:", adminError);
         toast({
           title: "Access Denied",
           description: "You do not have permission to access this area.",
