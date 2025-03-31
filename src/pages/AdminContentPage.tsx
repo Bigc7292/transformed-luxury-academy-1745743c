@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -18,6 +19,7 @@ import EditContentDialog from "@/components/admin/EditContentDialog";
 import DeleteContentDialog from "@/components/admin/DeleteContentDialog";
 import BulkUploadDialog from "@/components/admin/BulkUploadDialog";
 
+// Define a simpler type for form state to avoid recursive type issues
 type ContentFormState = {
   title: string;
   description: string;
@@ -97,6 +99,7 @@ const AdminContentPage: React.FC = () => {
     queryFn: () => contentService.getContent(),
   });
 
+  // Fix: Explicitly type the mutation functions to avoid deep type instantiation
   const createContentMutation = useMutation({
     mutationFn: (content: ContentFormState) => contentService.createContent(content),
     onSuccess: () => {
@@ -169,6 +172,7 @@ const AdminContentPage: React.FC = () => {
     }
   });
 
+  // Explicitly define the type for filtered content to be either undefined or ContentItem array
   const filteredContent = content?.filter(item => {
     if (categoryFilter !== 'all' && item.category !== categoryFilter) return false;
     if (mediaTypeFilter !== 'all' && item.media_type !== mediaTypeFilter) return false;
