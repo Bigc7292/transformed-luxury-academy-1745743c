@@ -10,7 +10,7 @@ export const useAdminAuth = () => {
 
   useEffect(() => {
     const checkAdmin = async () => {
-      // Explicitly type the response to avoid deep type instantiation
+      // Get the current session without complex type inference
       const { data, error: sessionError } = await supabase.auth.getSession();
       
       if (!data.session) {
@@ -23,20 +23,15 @@ export const useAdminAuth = () => {
         return;
       }
       
-      // Explicitly define the query response type to prevent deep type instantiation
-      type AdminCheckResult = { 
-        data: { email: string } | null; 
-        error: any;
-      };
-      
-      // Execute the query with explicit typing
-      const { data: adminData, error } = await supabase
+      // Use a simpler approach without relying on complex type inference
+      const { error } = await supabase
         .from("admin_users")
-        .select("*")
+        .select("email")
         .eq("email", data.session.user.email)
-        .single() as unknown as AdminCheckResult;
+        .maybeSingle();
         
-      if (error || !adminData) {
+      if (error) {
+        console.error("Admin check error:", error);
         toast({
           title: "Access Denied",
           description: "You do not have permission to access this area.",
