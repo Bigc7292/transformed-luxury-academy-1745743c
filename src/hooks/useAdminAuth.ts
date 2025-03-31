@@ -10,34 +10,51 @@ export const useAdminAuth = () => {
 
   useEffect(() => {
     const checkAdmin = async () => {
-      // Get the current session
-      const sessionResponse = await supabase.auth.getSession();
-      const session = sessionResponse.data.session;
-      
-      if (!session) {
-        toast({
-          title: "Authentication Required",
-          description: "Please login to access the admin area.",
-          variant: "destructive",
-        });
-        navigate("/admin/auth");
-        return;
-      }
-      
-      // Use a raw query approach to avoid TypeScript inference issues
-      const userEmail = session.user.email || "";
-      
-      // Simple approach: Using a string() function to query instead of a template literal
-      const { data, error } = await supabase
-        .from("admin_users")
-        .select("id")
-        .filter("email", "eq", userEmail);
+      try {
+        // Get the current session
+        const { data: sessionData } = await supabase.auth.getSession();
+        const session = sessionData.session;
         
-      if (error || !data || data.length === 0) {
-        console.error("Admin check error:", error);
+        if (!session) {
+          toast({
+            title: "Authentication Required",
+            description: "Please login to access the admin area.",
+            variant: "destructive",
+          });
+          navigate("/admin/auth");
+          return;
+        }
+        
+        // Query admin_users table with a simpler approach
+        const { data, error } = await supabase
+          .from("admin_users")
+          .select("id")
+          .eq("email", session.user.email);
+          
+        if (error) {
+          console.error("Admin check error:", error);
+          toast({
+            title: "Database Error",
+            description: "There was an error checking your admin status.",
+            variant: "destructive",
+          });
+          navigate("/");
+          return;
+        }
+        
+        if (!data || data.length === 0) {
+          toast({
+            title: "Access Denied",
+            description: "You do not have permission to access this area.",
+            variant: "destructive",
+          });
+          navigate("/");
+        }
+      } catch (error) {
+        console.error("Admin auth error:", error);
         toast({
-          title: "Access Denied",
-          description: "You do not have permission to access this area.",
+          title: "Authentication Error",
+          description: "There was an error checking your permissions.",
           variant: "destructive",
         });
         navigate("/");
