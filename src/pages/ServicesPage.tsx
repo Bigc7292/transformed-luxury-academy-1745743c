@@ -12,6 +12,33 @@ const ServicesPage = () => {
 
   return (
     <div className="bg-white min-h-screen">
+      <style>
+        {`
+          @keyframes slideshow {
+            0%, 20% {
+              opacity: 1;
+            }
+            25%, 95% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+          
+          .animate-slideshow > div {
+            animation: slideshow 15s infinite;
+          }
+          
+          .animation-delay:nth-child(2) {
+            animation-delay: 5s;
+          }
+          
+          .animation-delay:nth-child(3) {
+            animation-delay: 10s;
+          }
+        `}
+      </style>
       <Navbar />
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4">

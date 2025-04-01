@@ -17,9 +17,10 @@ export type Service = {
   title: string;
   description: string;
   image?: string;
+  additionalImages?: string[]; // Add support for multiple images
   price?: string;
   bookingUrl?: string;
-  services?: string[]; // Add this property to the Service type
+  services?: string[];
 };
 
 // All services organized by category
@@ -39,7 +40,11 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'coloring',
         title: 'Coloring and Mixologist',
         description: 'Expert color services tailored to your style',
-        image: '/lovable-uploads/b7c4f4b3-48c7-4a65-a775-75b4d5c3b8a1.png',
+        image: '/lovable-uploads/3c7bd4cf-0544-4f55-9e75-b320ceda3772.png',
+        additionalImages: [
+          '/lovable-uploads/51fa7eec-6b73-4b98-819b-d2575ce05fcb.png',
+          '/lovable-uploads/ce69ddac-6f4c-4cb7-b591-5dbba81af027.png'
+        ],
       },
       {
         id: 'cutting',
@@ -76,7 +81,19 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'lip-filler',
         title: 'Advanced Lip Filler',
         description: 'Expert lip enhancement for the perfect pout',
-        image: '/lovable-uploads/b92ba5ab-62d8-4c08-9782-98c1a4819fb6.png',
+        image: '/lovable-uploads/61f31930-d2fd-47db-8e01-72f2db80f078.png',
+      },
+      {
+        id: '8-point-facelift',
+        title: '8 Point Facelift',
+        description: 'Comprehensive facial contouring and rejuvenation',
+        image: '/lovable-uploads/743b6640-23a9-4d20-a013-f22057993267.png',
+      },
+      {
+        id: 'anti-wrinkle',
+        title: 'Anti-Wrinkle Treatments',
+        description: 'Reduce fine lines and wrinkles with our specialized treatments',
+        image: '/lovable-uploads/25674aa6-db90-4635-9083-d20f0a04a266.png',
       },
       {
         id: 'facial-profiling',
@@ -88,19 +105,19 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'advanced-facials',
         title: 'Advanced Facials',
         description: 'Luxurious facials for radiant skin',
-        image: '/lovable-uploads/fa442b87-5232-499f-8164-96640479614e.png',
+        image: '/lovable-uploads/e5265ce6-ce54-4f9c-8628-8039f70699f4.png',
       },
       {
         id: 'vitamin-injections',
         title: 'Vitamin Injections',
         description: 'Boost your health and appearance with vitamin therapy',
-        image: '/lovable-uploads/086220f4-edf3-4c4f-9b99-3299d315e475.png',
+        image: '/lovable-uploads/7a78c101-3725-41bf-b715-8db6d3d78668.png',
       },
       {
         id: 'fat-dissolving',
         title: 'Fat Dissolving',
         description: 'Non-surgical fat reduction treatments',
-        image: '/lovable-uploads/fb86cf7b-83f5-4eb3-8f06-100fa87d3fef.png',
+        image: '/lovable-uploads/b2095e89-c866-4d6a-b49e-c6dd7917c10e.png',
       },
       {
         id: 'threads',
@@ -112,7 +129,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'skin-boosters',
         title: 'Skin Boosters',
         description: 'Deep hydration and skin rejuvenation',
-        image: '/lovable-uploads/0889c7e0-8ea1-4f31-822f-69f5771c5d0b.png',
+        image: '/lovable-uploads/9adc42fb-5f82-4bfe-8397-c5b42685de06.png',
       },
       {
         id: 'polynucleotides',
@@ -131,6 +148,12 @@ export const serviceCategories: ServiceCategory[] = [
         title: 'Exosome Boosters',
         description: 'Cutting-edge skin rejuvenation',
         image: '/lovable-uploads/76e6d989-51c6-4d02-8fb5-1fac3a120187.png',
+      },
+      {
+        id: 'mens-clinic',
+        title: 'Men\'s Clinic',
+        description: 'Specialized aesthetic treatments for men',
+        image: '/lovable-uploads/f0b45bba-4b33-4147-99b0-bf9d1335bbd9.png',
       }
     ]
   },
@@ -155,13 +178,13 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'booty-lifts',
         title: 'XXXL Booty Lifts',
         description: 'Non-surgical enhancement for your curves',
-        image: '/lovable-uploads/b18db363-0029-46b9-b20f-38c961d06bd1.png',
+        image: '/lovable-uploads/d1f9d632-ee8c-4d3c-bd05-9ca3b9e5a83d.png',
       },
       {
         id: 'body-massage',
         title: 'Body Massage',
         description: 'Relaxing and therapeutic massages',
-        image: '/lovable-uploads/5b01d43a-d438-4f51-a6e1-e7c04d416661.png',
+        image: '/lovable-uploads/e5b301a6-068e-4a8d-8dc1-bb23c603adba.png',
       }
     ]
   },
@@ -174,7 +197,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'lashes',
         title: 'Lashes',
         description: 'Beautiful lash extensions and lifting',
-        image: '/lovable-uploads/1f13befe-d934-4e16-8769-6ab71143ae48.png',
+        image: '/lovable-uploads/c1bc6ba4-d386-4e0b-9d64-c526363e2f65.png',
       },
       {
         id: 'waxing',
@@ -332,12 +355,29 @@ const ServicesList: React.FC<ServicesListProps> = ({ categoryId }) => {
                   className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col"
                 >
                   {service.image && (
-                    <div className="relative h-40 overflow-hidden">
+                    <div className="relative h-60 overflow-hidden">
                       <img 
                         src={service.image} 
                         alt={service.title} 
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                       />
+                      {service.additionalImages && service.additionalImages.length > 0 && (
+                        <div className="absolute inset-0 animate-slideshow">
+                          {service.additionalImages.map((img, index) => (
+                            <div 
+                              key={index} 
+                              className="absolute inset-0 opacity-0 animation-delay"
+                              style={{animationDelay: `${(index + 1) * 5}s`}}
+                            >
+                              <img 
+                                src={img} 
+                                alt={`${service.title} ${index + 1}`} 
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                     </div>
                   )}
