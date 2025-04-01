@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { ContentItem } from '@/types/content';
 
 // Define the service category structure
 export type ServiceCategory = {
@@ -21,6 +21,7 @@ export type Service = {
   price?: string;
   bookingUrl?: string;
   services?: string[];
+  contentItemId?: string; // Reference to content item
 };
 
 // All services organized by category
@@ -298,11 +299,23 @@ export const serviceCategories: ServiceCategory[] = [
 // The booking URL for all services
 const BOOKING_URL = 'https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw';
 
+// Helper function to find a content item for a service
+const findContentForService = (service: Service, contentItems?: ContentItem[]): ContentItem | undefined => {
+  if (!contentItems || contentItems.length === 0) return undefined;
+  
+  // Try to match by title (case insensitive)
+  return contentItems.find(item => 
+    item.title.toLowerCase().includes(service.title.toLowerCase()) || 
+    service.title.toLowerCase().includes(item.title.toLowerCase())
+  );
+};
+
 interface ServicesListProps {
   categoryId?: string; // Optional: to filter and show only specific category
+  contentItems?: ContentItem[]; // Content items from database
 }
 
-const ServicesList: React.FC<ServicesListProps> = ({ categoryId }) => {
+const ServicesList: React.FC<ServicesListProps> = ({ categoryId, contentItems }) => {
   // Filter categories if categoryId is provided
   const categories = categoryId 
     ? serviceCategories.filter(cat => cat.id === categoryId) 
@@ -348,71 +361,81 @@ const ServicesList: React.FC<ServicesListProps> = ({ categoryId }) => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {category.services.map((service) => (
-                <motion.div
-                  key={service.id}
-                  variants={itemVariants}
-                  className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col"
-                >
-                  {service.image && (
-                    <div className="relative h-60 overflow-hidden">
-                      <img 
-                        src={service.image} 
-                        alt={service.title} 
-                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                      />
-                      {service.additionalImages && service.additionalImages.length > 0 && (
-                        <div className="absolute inset-0 animate-slideshow">
-                          {service.additionalImages.map((img, index) => (
-                            <div 
-                              key={index} 
-                              className="absolute inset-0 opacity-0 animation-delay"
-                              style={{animationDelay: `${(index + 1) * 5}s`}}
-                            >
-                              <img 
-                                src={img} 
-                                alt={`${service.title} ${index + 1}`} 
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                          ))}
+              {category.services.map((service) => {
+                // Try to find matching content item
+                const contentItem = findContentForService(service, contentItems);
+                
+                // Use content item image if available, otherwise fallback to the hardcoded image
+                const imageUrl = contentItem ? contentItem.url : service.image;
+                
+                return (
+                  <motion.div
+                    key={service.id}
+                    variants={itemVariants}
+                    className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col"
+                  >
+                    {imageUrl && (
+                      <div className="relative h-64 overflow-hidden">
+                        <img 
+                          src={imageUrl} 
+                          alt={service.title} 
+                          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                        />
+                        {service.additionalImages && service.additionalImages.length > 0 && (
+                          <div className="absolute inset-0 animate-slideshow">
+                            {service.additionalImages.map((img, index) => (
+                              <div 
+                                key={index} 
+                                className="absolute inset-0 opacity-0 animation-delay"
+                                style={{animationDelay: `${(index + 1) * 5}s`}}
+                              >
+                                <img 
+                                  src={img} 
+                                  alt={`${service.title} ${index + 1}`} 
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                      </div>
+                    )}
+                    <div className="p-5 flex flex-col flex-grow">
+                      <h3 className="text-xl font-serif text-salon-pink-700 mb-2">{service.title}</h3>
+                      <p className="text-gray-600 mb-4 flex-grow">
+                        {contentItem?.description || service.description}
+                      </p>
+                      
+                      {service.services && (
+                        <div className="mb-4">
+                          <h4 className="text-sm font-medium text-gray-700 mb-2">Includes:</h4>
+                          <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            {service.services.map((subService, idx) => (
+                              <li key={idx}>{subService}</li>
+                            ))}
+                          </ul>
                         </div>
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                      
+                      {service.price && (
+                        <div className="mb-4">
+                          <span className="text-salon-pink-600 font-bold">{service.price}</span>
+                        </div>
+                      )}
+                      
+                      <a 
+                        href={BOOKING_URL} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="btn-primary text-center mt-auto"
+                      >
+                        BOOK NOW
+                      </a>
                     </div>
-                  )}
-                  <div className="p-5 flex flex-col flex-grow">
-                    <h3 className="text-xl font-serif text-salon-pink-700 mb-2">{service.title}</h3>
-                    <p className="text-gray-600 mb-4 flex-grow">{service.description}</p>
-                    
-                    {service.services && (
-                      <div className="mb-4">
-                        <h4 className="text-sm font-medium text-gray-700 mb-2">Includes:</h4>
-                        <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
-                          {service.services.map((subService, idx) => (
-                            <li key={idx}>{subService}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    
-                    {service.price && (
-                      <div className="mb-4">
-                        <span className="text-salon-pink-600 font-bold">{service.price}</span>
-                      </div>
-                    )}
-                    
-                    <a 
-                      href={BOOKING_URL} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="btn-primary text-center mt-auto"
-                    >
-                      BOOK NOW
-                    </a>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </motion.div>
