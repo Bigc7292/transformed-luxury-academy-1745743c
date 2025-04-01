@@ -45,7 +45,10 @@ const ServicesList: React.FC<ServicesListProps> = ({ contentItems }) => {
     const defaultSection = "Services";
     
     contentItems.forEach(item => {
-      const section = item.metadata?.section as string || defaultSection;
+      // Safely access section from metadata
+      const metadata = item.metadata as Record<string, unknown> || {};
+      const section = (metadata.section as string) || defaultSection;
+      
       if (!grouped[section]) {
         grouped[section] = [];
       }
@@ -75,8 +78,9 @@ const ServicesList: React.FC<ServicesListProps> = ({ contentItems }) => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {items.map((service) => {
-                // Process thumbnail URLs from metadata if available
-                const thumbnails = service.metadata?.thumbnails as string[] || [];
+                // Safely process thumbnail URLs from metadata if available
+                const metadata = service.metadata as Record<string, unknown> || {};
+                const thumbnails = (metadata.thumbnails as string[]) || [];
                 
                 return (
                   <motion.div
@@ -116,11 +120,11 @@ const ServicesList: React.FC<ServicesListProps> = ({ contentItems }) => {
                       </p>
                       
                       {/* Display included services if available in metadata */}
-                      {service.metadata?.includes && Array.isArray(service.metadata.includes) && service.metadata.includes.length > 0 && (
+                      {metadata.includes && Array.isArray(metadata.includes) && (metadata.includes as string[]).length > 0 && (
                         <div className="mb-4">
                           <h4 className="text-sm font-medium text-gray-700 mb-2">Includes:</h4>
                           <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
-                            {(service.metadata.includes as string[]).map((subService, idx) => (
+                            {(metadata.includes as string[]).map((subService, idx) => (
                               <li key={idx}>{subService}</li>
                             ))}
                           </ul>
@@ -128,9 +132,9 @@ const ServicesList: React.FC<ServicesListProps> = ({ contentItems }) => {
                       )}
                       
                       {/* Display price if available in metadata */}
-                      {service.metadata?.price && (
+                      {metadata.price && (
                         <div className="mb-4">
-                          <span className="text-salon-pink-600 font-bold">{service.metadata.price as string}</span>
+                          <span className="text-salon-pink-600 font-bold">{metadata.price as string}</span>
                         </div>
                       )}
                       

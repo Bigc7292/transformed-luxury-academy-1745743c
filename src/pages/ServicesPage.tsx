@@ -13,8 +13,8 @@ import ContentGrid from '@/components/content/ContentGrid';
 const ServicesPage = () => {
   // Fetch content for services showcase
   const { data: serviceContent, isLoading } = useQuery({
-    queryKey: ['content', 'services', 'services_tab_content'],
-    queryFn: () => contentService.getContentForPageSection('services', 'services_tab_content'),
+    queryKey: ['content', 'services', 'services_showcase'],
+    queryFn: () => contentService.getContentForPageSection('services', 'services_showcase'),
   });
 
   // Group content items by category (derived from description field)
