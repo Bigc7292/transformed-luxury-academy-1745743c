@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import Navbar from '../components/Navbar';
@@ -8,40 +8,17 @@ import Chatbot from '../components/Chatbot';
 import ServicesList from '../components/ServicesList';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { contentService } from '@/services/contentService';
+import { serviceCategories } from '../components/ServicesList';
 import ContentGrid from '@/components/content/ContentGrid';
 
 const ServicesPage = () => {
+  const [activeCategory, setActiveCategory] = useState('all');
+
   // Fetch content for services showcase
   const { data: serviceContent, isLoading } = useQuery({
     queryKey: ['content', 'services', 'services_showcase'],
     queryFn: () => contentService.getContentForPageSection('services', 'services_showcase'),
   });
-
-  // Group content items by category (derived from description field)
-  const contentByCategory = React.useMemo(() => {
-    if (!serviceContent) return {};
-    
-    const grouped: Record<string, typeof serviceContent> = {};
-    
-    // Create an "all" category that contains all items
-    grouped['all'] = serviceContent;
-    
-    // Group items by their category (from description field)
-    serviceContent.forEach(item => {
-      const category = item.description?.toLowerCase() || 'uncategorized';
-      if (!grouped[category]) {
-        grouped[category] = [];
-      }
-      grouped[category].push(item);
-    });
-    
-    return grouped;
-  }, [serviceContent]);
-  
-  // Get unique categories for tab navigation
-  const categories = React.useMemo(() => {
-    return Object.keys(contentByCategory).filter(category => category !== 'all');
-  }, [contentByCategory]);
 
   return (
     <div className="bg-white min-h-screen">
@@ -99,47 +76,37 @@ const ServicesPage = () => {
           )}
 
           <div className="mb-10">
-            {isLoading ? (
-              <div className="flex justify-center py-12">
-                <div className="animate-pulse h-12 w-12 rounded-full bg-salon-pink-200"></div>
-              </div>
-            ) : serviceContent && serviceContent.length > 0 ? (
-              <Tabs defaultValue="all" className="w-full">
-                <div className="flex justify-center mb-8 overflow-x-auto">
-                  <TabsList className="bg-salon-pink-50 p-1">
+            <Tabs defaultValue="all" className="w-full">
+              <div className="flex justify-center mb-8 overflow-x-auto">
+                <TabsList className="bg-salon-pink-50 p-1">
+                  <TabsTrigger 
+                    value="all"
+                    className="data-[state=active]:bg-salon-pink-100 data-[state=active]:text-salon-pink-800"
+                  >
+                    All Services
+                  </TabsTrigger>
+                  {serviceCategories.map(category => (
                     <TabsTrigger 
-                      value="all"
+                      key={category.id} 
+                      value={category.id}
                       className="data-[state=active]:bg-salon-pink-100 data-[state=active]:text-salon-pink-800"
                     >
-                      All Services
+                      {category.name}
                     </TabsTrigger>
-                    {categories.map(category => (
-                      <TabsTrigger 
-                        key={category} 
-                        value={category}
-                        className="data-[state=active]:bg-salon-pink-100 data-[state=active]:text-salon-pink-800"
-                      >
-                        {category.charAt(0).toUpperCase() + category.slice(1)}
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
-                </div>
-                
-                <TabsContent value="all">
-                  <ServicesList contentItems={contentByCategory['all']} />
-                </TabsContent>
-                
-                {categories.map(category => (
-                  <TabsContent key={category} value={category}>
-                    <ServicesList contentItems={contentByCategory[category]} />
-                  </TabsContent>
-                ))}
-              </Tabs>
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-gray-500">No services found. Please add services in the admin panel.</p>
+                  ))}
+                </TabsList>
               </div>
-            )}
+              
+              <TabsContent value="all">
+                <ServicesList contentItems={serviceContent} />
+              </TabsContent>
+              
+              {serviceCategories.map(category => (
+                <TabsContent key={category.id} value={category.id}>
+                  <ServicesList categoryId={category.id} contentItems={serviceContent} />
+                </TabsContent>
+              ))}
+            </Tabs>
           </div>
 
           <div className="bg-salon-pink-50 rounded-lg p-8 text-center mt-16">

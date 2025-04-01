@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import { serviceCategories } from '../data/serviceCategories';
+import { serviceCategories } from './ServicesList';
 
 const Navbar = () => {
   const location = useLocation();
