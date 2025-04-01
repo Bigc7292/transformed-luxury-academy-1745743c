@@ -1,10 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import { serviceCategories } from '../data/serviceCategories';
 
 const Navbar = () => {
-  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
@@ -34,19 +33,21 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { 
       name: "Services", 
-      path: "/services",
+      path: "#",
       hasSubmenu: true,
-      submenu: serviceCategories.map(category => ({
-        name: category.name,
-        path: `/services#${category.id}`
-      }))
+      submenu: [
+        { name: "Lip Fillers", path: "/services/lip-fillers" },
+        { name: "Botox", path: "/services/botox" },
+        { name: "Dermal Fillers", path: "/services/dermal-fillers" },
+        { name: "Jawline Fillers", path: "/services/jawline-fillers" },
+      ]
     },
     { 
       name: "Meet the Team", 
       path: "#",
       hasSubmenu: true,
       submenu: [
-        { name: "Meet Kayla CEO", path: "/about-ceo" },
+        { name: "Meet Kayla CEO", path: "/about-kayla" },
         { name: "Partnership with Dr...", path: "/partnership" },
         { name: "Staff", path: "/staff" },
       ]
@@ -77,22 +78,12 @@ const Navbar = () => {
             {navItems.map((item, index) => (
               item.hasSubmenu ? (
                 <div key={index} className="relative group">
-                  <Link 
-                    to={item.path !== "#" ? item.path : "#"}
-                    className={`flex items-center transition-colors group-hover:text-salon-pink-500 ${
-                      location.pathname === item.path
-                        ? 'text-salon-pink-500'
-                        : 'text-salon-pink-800'
-                    }`}
-                    onClick={(e) => {
-                      if (item.path === "#") {
-                        e.preventDefault();
-                        toggleSubmenu(item.name);
-                      }
-                    }}
+                  <button 
+                    className="flex items-center text-salon-pink-800 hover:text-salon-pink-500 transition-colors group-hover:text-salon-pink-500"
+                    onClick={() => toggleSubmenu(item.name)}
                   >
                     {item.name} <ChevronDown size={16} className={`ml-1 transition-transform duration-200 ${openSubmenu === item.name ? 'rotate-180' : ''}`} />
-                  </Link>
+                  </button>
                   <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden transform opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 origin-top-left z-50 invisible group-hover:visible">
                     {item.submenu.map((subItem, idx) => (
                       <Link
@@ -109,24 +100,18 @@ const Navbar = () => {
                 <Link
                   key={index}
                   to={item.path}
-                  className={`transition-colors hover:text-salon-pink-500 ${
-                    location.pathname === item.path
-                      ? 'text-salon-pink-500'
-                      : 'text-salon-pink-800'
-                  }`}
+                  className="text-salon-pink-800 hover:text-salon-pink-500 transition-colors"
                 >
                   {item.name}
                 </Link>
               )
             ))}
-            <a
-              href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/booking"
               className="bg-salon-pink-400 text-white px-5 py-2 rounded-full hover:bg-salon-pink-500 transition-colors"
             >
               Book Now
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -151,11 +136,7 @@ const Navbar = () => {
                   className="flex items-center justify-between text-salon-pink-800 py-2 cursor-pointer"
                   onClick={() => toggleSubmenu(item.name)}
                 >
-                  {item.path !== "#" ? (
-                    <Link to={item.path} className="block w-full">{item.name}</Link>
-                  ) : (
-                    <span>{item.name}</span>
-                  )}
+                  <span>{item.name}</span>
                   <ChevronDown size={16} className={`transition-transform duration-200 ${openSubmenu === item.name ? 'rotate-180' : ''}`} />
                 </div>
                 <div className={`pl-4 py-2 space-y-2 ${openSubmenu === item.name ? 'block' : 'hidden'}`}>
@@ -175,11 +156,7 @@ const Navbar = () => {
               <Link
                 key={index}
                 to={item.path}
-                className={`block py-3 border-b border-salon-pink-100 last:border-b-0 hover:text-salon-pink-500 ${
-                  location.pathname === item.path
-                    ? 'text-salon-pink-500'
-                    : 'text-salon-pink-800'
-                }`}
+                className="block text-salon-pink-800 hover:text-salon-pink-500 py-3 border-b border-salon-pink-100 last:border-b-0"
                 onClick={toggleMenu}
               >
                 {item.name}
@@ -187,15 +164,13 @@ const Navbar = () => {
             )
           ))}
           <div className="pt-2">
-            <a
-              href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/booking"
               className="block w-full text-center bg-salon-pink-400 text-white px-5 py-3 rounded-full hover:bg-salon-pink-500 transition-colors"
               onClick={toggleMenu}
             >
               Book Now
-            </a>
+            </Link>
           </div>
         </div>
       </div>

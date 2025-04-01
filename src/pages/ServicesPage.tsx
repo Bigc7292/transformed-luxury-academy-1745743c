@@ -1,54 +1,17 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useQuery } from '@tanstack/react-query';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
-import ServicesList from '../components/ServicesList';
+import ServicesList, { serviceCategories } from '../components/ServicesList';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { contentService } from '@/services/contentService';
-import { serviceCategories } from '../data/serviceCategories';
-import ContentGrid from '@/components/content/ContentGrid';
 
 const ServicesPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  // Fetch content for services showcase
-  const { data: serviceContent, isLoading } = useQuery({
-    queryKey: ['content', 'services', 'services_showcase'],
-    queryFn: () => contentService.getContentForPageSection('services', 'services_showcase'),
-  });
-
   return (
     <div className="bg-white min-h-screen">
-      <style>
-        {`
-          @keyframes slideshow {
-            0%, 20% {
-              opacity: 1;
-            }
-            25%, 95% {
-              opacity: 0;
-            }
-            100% {
-              opacity: 1;
-            }
-          }
-          
-          .animate-slideshow > div {
-            animation: slideshow 15s infinite;
-          }
-          
-          .animation-delay:nth-child(2) {
-            animation-delay: 5s;
-          }
-          
-          .animation-delay:nth-child(3) {
-            animation-delay: 10s;
-          }
-        `}
-      </style>
       <Navbar />
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4">
@@ -64,20 +27,9 @@ const ServicesPage = () => {
             </p>
           </motion.div>
 
-          {/* Display content from Supabase if available */}
-          {serviceContent && serviceContent.length > 0 && (
-            <ContentGrid 
-              pageLocation="services"
-              pageSection="services_showcase"
-              title="Featured Services"
-              columns={3}
-              className="mb-16"
-            />
-          )}
-
           <div className="mb-10">
             <Tabs defaultValue="all" className="w-full">
-              <div className="flex justify-center mb-8 overflow-x-auto">
+              <div className="flex justify-center mb-8">
                 <TabsList className="bg-salon-pink-50 p-1">
                   <TabsTrigger 
                     value="all"
@@ -98,12 +50,12 @@ const ServicesPage = () => {
               </div>
               
               <TabsContent value="all">
-                <ServicesList contentItems={serviceContent} />
+                <ServicesList />
               </TabsContent>
               
               {serviceCategories.map(category => (
                 <TabsContent key={category.id} value={category.id}>
-                  <ServicesList categoryId={category.id} contentItems={serviceContent} />
+                  <ServicesList categoryId={category.id} />
                 </TabsContent>
               ))}
             </Tabs>

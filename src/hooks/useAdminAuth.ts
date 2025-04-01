@@ -25,11 +25,11 @@ export const useAdminAuth = () => {
           return;
         }
         
-        // Use a simplified query to avoid type recursion issues
+        // Query admin_users table with a simpler approach
         const { data, error } = await supabase
           .from("admin_users")
           .select("id")
-          .filter("email", "eq", session.user.email || '');
+          .eq("email", session.user.email);
           
         if (error) {
           console.error("Admin check error:", error);
@@ -42,7 +42,6 @@ export const useAdminAuth = () => {
           return;
         }
         
-        // Check if data is empty
         if (!data || data.length === 0) {
           toast({
             title: "Access Denied",
