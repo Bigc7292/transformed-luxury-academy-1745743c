@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -38,7 +39,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'coloring',
         title: 'Coloring and Mixologist',
         description: 'Expert color services tailored to your style',
-        image: 'https://images.unsplash.com/photo-1560869713-7d9acb7bbc19?q=80&w=1000',
+        image: '/lovable-uploads/b7c4f4b3-48c7-4a65-a775-75b4d5c3b8a1.png',
       },
       {
         id: 'cutting',
@@ -69,13 +70,13 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'dermal-filler',
         title: 'Advanced Dermal Filler',
         description: 'Premium dermal fillers for natural-looking volume',
-        image: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=1000',
+        image: '/lovable-uploads/8dbdafb8-9a7a-4826-bfaa-7873e0ef9cdb.png',
       },
       {
         id: 'lip-filler',
         title: 'Advanced Lip Filler',
         description: 'Expert lip enhancement for the perfect pout',
-        image: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=1000',
+        image: '/lovable-uploads/b92ba5ab-62d8-4c08-9782-98c1a4819fb6.png',
       },
       {
         id: 'facial-profiling',
@@ -87,19 +88,19 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'advanced-facials',
         title: 'Advanced Facials',
         description: 'Luxurious facials for radiant skin',
-        image: 'https://images.unsplash.com/photo-1596315314910-48e3668f7879?q=80&w=1000',
+        image: '/lovable-uploads/fa442b87-5232-499f-8164-96640479614e.png',
       },
       {
         id: 'vitamin-injections',
         title: 'Vitamin Injections',
         description: 'Boost your health and appearance with vitamin therapy',
-        image: 'https://images.unsplash.com/photo-1584308972272-9e4e7685e80f?q=80&w=1000',
+        image: '/lovable-uploads/086220f4-edf3-4c4f-9b99-3299d315e475.png',
       },
       {
         id: 'fat-dissolving',
         title: 'Fat Dissolving',
         description: 'Non-surgical fat reduction treatments',
-        image: 'https://images.unsplash.com/photo-1591085686350-798c0f9faa7f?q=80&w=1000',
+        image: '/lovable-uploads/fb86cf7b-83f5-4eb3-8f06-100fa87d3fef.png',
       },
       {
         id: 'threads',
@@ -111,7 +112,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'skin-boosters',
         title: 'Skin Boosters',
         description: 'Deep hydration and skin rejuvenation',
-        image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=1000',
+        image: '/lovable-uploads/0889c7e0-8ea1-4f31-822f-69f5771c5d0b.png',
       },
       {
         id: 'polynucleotides',
@@ -129,7 +130,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'exosome-boosters',
         title: 'Exosome Boosters',
         description: 'Cutting-edge skin rejuvenation',
-        image: 'https://images.unsplash.com/photo-1629196914696-39fa40771213?q=80&w=1000',
+        image: '/lovable-uploads/76e6d989-51c6-4d02-8fb5-1fac3a120187.png',
       }
     ]
   },
@@ -142,7 +143,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'facial-sculpting',
         title: 'Facial Sculpting',
         description: 'Non-surgical facial contouring and definition',
-        image: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=1000',
+        image: '/lovable-uploads/8e9cb4a4-6bbf-42d8-84f5-001b3dd73d83.png',
       },
       {
         id: 'body-sculpting',
@@ -154,13 +155,13 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'booty-lifts',
         title: 'XXXL Booty Lifts',
         description: 'Non-surgical enhancement for your curves',
-        image: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=1000',
+        image: '/lovable-uploads/b18db363-0029-46b9-b20f-38c961d06bd1.png',
       },
       {
         id: 'body-massage',
         title: 'Body Massage',
         description: 'Relaxing and therapeutic massages',
-        image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1000',
+        image: '/lovable-uploads/5b01d43a-d438-4f51-a6e1-e7c04d416661.png',
       }
     ]
   },
@@ -173,7 +174,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'lashes',
         title: 'Lashes',
         description: 'Beautiful lash extensions and lifting',
-        image: 'https://images.unsplash.com/photo-1533392151650-269f96231f65?q=80&w=1000',
+        image: '/lovable-uploads/1f13befe-d934-4e16-8769-6ab71143ae48.png',
       },
       {
         id: 'waxing',
@@ -228,7 +229,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'anti-wrinkle',
         title: 'Anti Wrinkle Training',
         description: 'Learn anti-wrinkle injection techniques',
-        image: 'https://images.unsplash.com/photo-1581302113604-855669885709?q=80&w=1000',
+        image: '/lovable-uploads/cd40ae91-79e0-41fe-a857-a7ff0bbe5a3a.png',
       },
       {
         id: 'dermal-filler-training',
@@ -240,7 +241,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'advanced-anti-wrinkle',
         title: 'Advanced Anti Wrinkle',
         description: 'Advanced techniques for anti-wrinkle treatments',
-        image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1000',
+        image: '/lovable-uploads/df253e17-6488-4b1c-bd69-2c4f58d238c6.png',
       },
       {
         id: 'advanced-dermal-filler-training',

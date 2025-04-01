@@ -29,7 +29,7 @@ const ServicesPage = () => {
 
           <div className="mb-10">
             <Tabs defaultValue="all" className="w-full">
-              <div className="flex justify-center mb-8">
+              <div className="flex justify-center mb-8 overflow-x-auto">
                 <TabsList className="bg-salon-pink-50 p-1">
                   <TabsTrigger 
                     value="all"
