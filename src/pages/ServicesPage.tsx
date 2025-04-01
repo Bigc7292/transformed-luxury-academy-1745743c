@@ -8,7 +8,7 @@ import Chatbot from '../components/Chatbot';
 import ServicesList from '../components/ServicesList';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { contentService } from '@/services/contentService';
-import { serviceCategories } from '../components/ServicesList';
+import { serviceCategories } from '../data/serviceCategories';
 import ContentGrid from '@/components/content/ContentGrid';
 
 const ServicesPage = () => {
