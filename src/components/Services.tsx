@@ -24,7 +24,7 @@ const Services = () => {
     }
   };
 
-  // Get three featured services from different categories
+  // Get featured services from different categories
   const featuredServices = [
     serviceCategories[1].services[1], // Advanced Lip Filler
     serviceCategories[0].services[0], // Hair Extensions
@@ -84,12 +84,9 @@ const Services = () => {
                     href={BOOKING_URL} 
                     target="_blank"
                     rel="noopener noreferrer" 
-                    className="text-salon-pink-500 hover:text-salon-pink-600 font-medium inline-flex items-center mt-auto"
+                    className="btn-primary text-center"
                   >
                     BOOK NOW
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                    </svg>
                   </a>
                 </div>
               </div>

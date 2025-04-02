@@ -1,11 +1,11 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
 import ServicesList from '../components/ServicesList';
-import { serviceCategories } from '../data/serviceCategories';
+import { serviceCategories, BOOKING_URL } from '../data/serviceCategories';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const ServicesPage = () => {
@@ -66,7 +66,7 @@ const ServicesPage = () => {
               Book your appointment today and experience the difference with our premium treatments.
             </p>
             <a 
-              href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw" 
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
