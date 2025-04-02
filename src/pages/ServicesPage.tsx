@@ -1,6 +1,7 @@
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
@@ -9,6 +10,28 @@ import { serviceCategories, BOOKING_URL } from '../data/serviceCategories';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const ServicesPage = () => {
+  const location = useLocation();
+  const tabsRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    // Check if there's a hash in the URL and set the tab accordingly
+    if (location.hash) {
+      const categoryId = location.hash.substring(1); // Remove the # from the hash
+      
+      // Wait for a tick to ensure the component is fully rendered
+      setTimeout(() => {
+        // Find the tab element and click it
+        const tabElement = document.getElementById(categoryId);
+        if (tabElement) {
+          tabElement.click();
+          
+          // Smooth scroll to the tab section
+          tabsRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 0);
+    }
+  }, [location.hash]);
+
   return (
     <div className="bg-white min-h-screen">
       <Navbar />
@@ -26,7 +49,7 @@ const ServicesPage = () => {
             </p>
           </motion.div>
 
-          <div className="mb-10">
+          <div className="mb-10" ref={tabsRef}>
             <Tabs defaultValue="all" className="w-full">
               <div className="flex justify-center mb-8 overflow-x-auto">
                 <TabsList className="bg-salon-pink-50 p-1">
@@ -64,7 +87,7 @@ const ServicesPage = () => {
           <div className="bg-salon-pink-50 rounded-lg p-8 text-center mt-16">
             <h2 className="text-2xl font-serif text-salon-pink-700 mb-4">Ready to Transform Your Look?</h2>
             <p className="text-gray-600 mb-6">
-              Book your appointment today and experience the difference with our premium treatments.
+              Experience the difference with our premium treatments.
             </p>
             <a 
               href={BOOKING_URL}
