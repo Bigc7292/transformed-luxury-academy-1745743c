@@ -28,7 +28,7 @@ const ServicesPage = () => {
           // Smooth scroll to the tab section
           tabsRef.current?.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 0);
+      }, 100); // Increase timeout to ensure DOM is ready
     }
   }, [location.hash]);
 
