@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { serviceCategories } from '../data/serviceCategories';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,14 +34,12 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { 
       name: "Services", 
-      path: "#",
+      path: "/services",
       hasSubmenu: true,
-      submenu: [
-        { name: "Lip Fillers", path: "/services/lip-fillers" },
-        { name: "Botox", path: "/services/botox" },
-        { name: "Dermal Fillers", path: "/services/dermal-fillers" },
-        { name: "Jawline Fillers", path: "/services/jawline-fillers" },
-      ]
+      submenu: serviceCategories.map(category => ({
+        name: category.name,
+        path: `/services#${category.id}`
+      }))
     },
     { 
       name: "Meet the Team", 
@@ -90,6 +89,10 @@ const Navbar = () => {
                         key={idx}
                         to={subItem.path}
                         className="block px-4 py-3 text-sm text-salon-pink-800 hover:bg-salon-pink-50 border-b border-salon-pink-100 last:border-b-0"
+                        onClick={() => {
+                          toggleSubmenu('');
+                          if (isOpen) toggleMenu();
+                        }}
                       >
                         {subItem.name}
                       </Link>

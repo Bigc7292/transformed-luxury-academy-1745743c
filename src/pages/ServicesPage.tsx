@@ -41,6 +41,7 @@ const ServicesPage = () => {
                       key={category.id} 
                       value={category.id}
                       className="data-[state=active]:bg-salon-pink-100 data-[state=active]:text-salon-pink-800"
+                      id={category.id}
                     >
                       {category.name}
                     </TabsTrigger>
