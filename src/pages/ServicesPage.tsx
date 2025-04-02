@@ -4,12 +4,11 @@ import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
-import ServicesList, { serviceCategories } from '../components/ServicesList';
+import ServicesList from '../components/ServicesList';
+import { serviceCategories } from '../data/serviceCategories';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const ServicesPage = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
-
   return (
     <div className="bg-white min-h-screen">
       <Navbar />
@@ -29,7 +28,7 @@ const ServicesPage = () => {
 
           <div className="mb-10">
             <Tabs defaultValue="all" className="w-full">
-              <div className="flex justify-center mb-8">
+              <div className="flex justify-center mb-8 overflow-x-auto">
                 <TabsList className="bg-salon-pink-50 p-1">
                   <TabsTrigger 
                     value="all"

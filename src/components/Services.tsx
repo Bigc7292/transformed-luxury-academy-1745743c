@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import ServicesList from './ServicesList';
 import { Link } from 'react-router-dom';
+import { serviceCategories, BOOKING_URL } from '../data/serviceCategories';
 
 const Services = () => {
   const containerVariants = {
@@ -24,6 +24,13 @@ const Services = () => {
     }
   };
 
+  // Get three featured services from different categories
+  const featuredServices = [
+    serviceCategories[1].services[1], // Advanced Lip Filler
+    serviceCategories[0].services[0], // Hair Extensions
+    serviceCategories[2].services[0], // Facial Sculpting
+  ];
+
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -35,7 +42,7 @@ const Services = () => {
           </p>
         </div>
 
-        {/* Display just a preview of services - limited to 3 from the first few categories */}
+        {/* Display just a preview of services - limited to 3 from different categories */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -43,100 +50,51 @@ const Services = () => {
           viewport={{ once: true, amount: 0.3 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {/* Featured services preview */}
-          <motion.div variants={itemVariants} className="group">
-            <div className="service-card h-full flex flex-col">
-              <div className="relative overflow-hidden rounded-t-lg h-48">
-                <img 
-                  src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=2070&auto=format&fit=crop" 
-                  alt="Lip Fillers" 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute top-4 right-4 bg-salon-pink-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                  Special Offer
+          {featuredServices.map((service, index) => (
+            <motion.div key={index} variants={itemVariants} className="group">
+              <div className="service-card h-full flex flex-col">
+                <div className="relative overflow-hidden rounded-t-lg h-48">
+                  <img 
+                    src={service.image} 
+                    alt={service.title} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  {index === 0 && (
+                    <div className="absolute top-4 right-4 bg-salon-pink-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                      Special Offer
+                    </div>
+                  )}
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-xl font-serif text-salon-pink-700 mb-2">{service.title}</h3>
+                  <p className="text-gray-600 mb-6 flex-grow">{service.description}</p>
+                  
+                  {index === 0 && (
+                    <div className="mb-4 bg-salon-pink-50 p-3 rounded-md">
+                      <p className="text-salon-pink-700 font-medium">Kayla's Signature Lips Masterclass - Now £499</p>
+                      <div className="flex items-center mt-1">
+                        <span className="line-through text-gray-500 text-sm mr-2">£799</span>
+                        <span className="text-salon-pink-600 font-bold">£499</span>
+                      </div>
+                    </div>
+                  )}
+                  
+                  <a 
+                    href={BOOKING_URL} 
+                    target="_blank"
+                    rel="noopener noreferrer" 
+                    className="text-salon-pink-500 hover:text-salon-pink-600 font-medium inline-flex items-center mt-auto"
+                  >
+                    BOOK NOW
+                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                  </a>
                 </div>
               </div>
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-serif text-salon-pink-700 mb-2">Lip Fillers</h3>
-                <p className="text-gray-600 mb-6 flex-grow">Enhance your lips with our premium dermal fillers for a naturally fuller look.</p>
-                <div className="mb-4 bg-salon-pink-50 p-3 rounded-md">
-                  <p className="text-salon-pink-700 font-medium">Kayla's Signature Lips Masterclass - Now £499</p>
-                  <div className="flex items-center mt-1">
-                    <span className="line-through text-gray-500 text-sm mr-2">£799</span>
-                    <span className="text-salon-pink-600 font-bold">£499</span>
-                  </div>
-                </div>
-                <a 
-                  href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw" 
-                  target="_blank"
-                  rel="noopener noreferrer" 
-                  className="text-salon-pink-500 hover:text-salon-pink-600 font-medium inline-flex items-center mt-auto"
-                >
-                  BOOK NOW
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div variants={itemVariants} className="group">
-            <div className="service-card h-full flex flex-col">
-              <div className="relative overflow-hidden rounded-t-lg h-48">
-                <img 
-                  src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=2070&auto=format&fit=crop" 
-                  alt="Botox Treatment" 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-serif text-salon-pink-700 mb-2">Botox Treatment</h3>
-                <p className="text-gray-600 mb-6 flex-grow">Reduce fine lines and wrinkles with our safe and effective Botox treatments.</p>
-                <a 
-                  href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw" 
-                  target="_blank"
-                  rel="noopener noreferrer" 
-                  className="text-salon-pink-500 hover:text-salon-pink-600 font-medium inline-flex items-center mt-auto"
-                >
-                  BOOK NOW
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div variants={itemVariants} className="group">
-            <div className="service-card h-full flex flex-col">
-              <div className="relative overflow-hidden rounded-t-lg h-48">
-                <img 
-                  src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=2070&auto=format&fit=crop" 
-                  alt="Dermal Fillers" 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-serif text-salon-pink-700 mb-2">Dermal Fillers</h3>
-                <p className="text-gray-600 mb-6 flex-grow">Restore volume and youthfulness with our premium dermal fillers.</p>
-                <a 
-                  href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw" 
-                  target="_blank"
-                  rel="noopener noreferrer" 
-                  className="text-salon-pink-500 hover:text-salon-pink-600 font-medium inline-flex items-center mt-auto"
-                >
-                  BOOK NOW
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          ))}
         </motion.div>
 
         <div className="text-center mt-12">
