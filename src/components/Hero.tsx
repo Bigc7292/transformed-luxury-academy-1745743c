@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -118,8 +119,8 @@ const Hero = () => {
               className="relative z-10"
             >
               <img 
-                src="/lovable-uploads/9a85e5ad-72e9-470b-bf98-bcd2ebda3d43.png"
-                alt="Training Provider of the Year Finalist"
+                src="/lovable-uploads/e9970eb7-790f-4f07-bf19-ccdeea2a0c76.png"
+                alt="Aesthetics Training Hereford"
                 className="rounded-lg shadow-2xl max-w-full h-96 object-cover"
               />
               <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
