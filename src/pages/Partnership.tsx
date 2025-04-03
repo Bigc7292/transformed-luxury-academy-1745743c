@@ -24,7 +24,7 @@ const Partnership = () => {
             >
               <div className="rounded-xl overflow-hidden shadow-xl">
                 <img 
-                  src="/lovable-uploads/dd497299-2b17-4b24-891a-a81ad32eb2a0.png"
+                  src="/lovable-uploads/5530f599-fd6c-4347-9ebc-1cf7eff9870c.png"
                   alt="Dr. Martin" 
                   className="w-full h-auto object-cover"
                 />
@@ -57,15 +57,15 @@ const Partnership = () => {
               
               <div className="prose prose-pink max-w-none">
                 <p className="mb-4 text-lg leading-relaxed">
-                  Qualified in Dental surgery 1993, Dr. Martin had a part time hospital post at University Hospital Coventry from 1995 to 2007. His field was head and neck trauma and Maxillofacial Surgery. He has taught undergraduate final year Dental Students at Birmingham Dental School. He left in 2012 to continue his work as general dental practitioner as a partner in Warwick.
+                  Qualified in Dental surgery 1993, Had a part time hospital post University Hospital Coventry from 1995 to 2007. My field was head and neck trauma and Maxillofacial Surgery. I have taught undergraduate final year Dental Students at Birmingham Dental School. I left in 2012 to continue my work as general dental practitioner as a partner in Warwick.
                 </p>
                 
                 <p className="mb-4 text-lg leading-relaxed">
-                  Dr. Martin has been trained by Prof Bob Khanna in facial aesthetics from Botox to Dermal fillers to fat dissolving and is now fully trained in non surgical face and neck lifts using Aptos threads which can last for over 2 years as compared to PDO threads of 6 to 9 months.
+                  I have been trained by Prof Bob Khanna in facial aesthetics from Botox to Dermal fillers to fat dissolving and I'm now fully trained in non-surgical face and neck lifts using Aptos threads which can last for over 2 years as compared PDO threads of 6 to 9 months.
                 </p>
                 
                 <p className="mb-4 text-lg leading-relaxed">
-                  He is also trained in Xosomes and Polynucleotides for skin rejuvenation. Most if not all of his aesthetics work is undertaken via Cannula which is safer than needles, creates less bruising and in conjunction with brand Pluryal, creates amazing results.
+                  I am also trained in Xosomes and Polynucleotides for skin rejuvenation. Most if not all of aesthetics work is undertaken via Cannula which is safer than needles, creates less bruising and in conjunction with brand Pluryal create amazing results.
                 </p>
                 
                 <blockquote className="bg-salon-pink-50 border-l-4 border-salon-pink-300 p-4 my-6">
@@ -75,7 +75,7 @@ const Partnership = () => {
                 </blockquote>
                 
                 <div className="bg-salon-beige-50 p-6 rounded-lg mt-8">
-                  <h3 className="text-xl font-semibold text-salon-pink-800 mb-4">Specialized Training & Credentials</h3>
+                  <h3 className="text-xl font-semibold text-salon-pink-800 mb-4">Credentials</h3>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>BDS - Bachelor of Dental Surgery</li>
                     <li>DPDS - Diploma in Postgraduate Dental Studies</li>
