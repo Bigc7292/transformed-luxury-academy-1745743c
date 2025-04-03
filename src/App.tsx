@@ -11,6 +11,7 @@ import AdminInbox from './pages/AdminInbox';
 import ContentPage from './pages/ContentPage';
 import NotFound from './pages/NotFound';
 import ServicesPage from './pages/ServicesPage';
+import MediaShowcase from './pages/MediaShowcase';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/price-list" element={<PriceList />} />
       <Route path="/services" element={<ServicesPage />} />
+      <Route path="/media-showcase" element={<MediaShowcase />} />
       <Route path="/admin/auth" element={<AdminAuth />} />
       <Route path="/admin/content" element={<AdminContentPage />} />
       <Route path="/admin/inbox" element={<AdminInbox />} />

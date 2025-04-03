@@ -52,6 +52,7 @@ const Navbar = () => {
       ]
     },
     { name: "Gallery", path: "/gallery" },
+    { name: "Media Showcase", path: "/media-showcase" },
     { name: "About", path: "/about" },
     { name: "Contact", path: "/contact" },
     { name: "Admin Login", path: "/admin/auth" },
