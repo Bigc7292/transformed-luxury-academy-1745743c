@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -68,7 +69,7 @@ const Navbar = () => {
       hasSubmenu: true,
       submenu: [
         { name: "Meet Kayla CEO", path: "/about-ceo" },
-        { name: "Partnership with Dr...", path: "/partnership" },
+        { name: "Partnership with Dr. Martin", path: "/partnership" },
         { name: "Staff", path: "/staff" },
       ]
     },
