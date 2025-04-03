@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -40,7 +39,7 @@ const Hero = () => {
   return (
     <div className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-salon-pink-50 to-white">
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[url('/lovable-uploads/3c7bd4cf-0544-4f55-9e75-b320ceda3772.png')] bg-center bg-cover opacity-10"></div>
+        <div className="absolute inset-0 bg-[url('/lovable-uploads/c9e5a294-68aa-41e6-94d7-e8655ed4ec4e.png')] bg-center bg-cover opacity-10"></div>
       </div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 pt-20">
@@ -118,10 +117,11 @@ const Hero = () => {
               transition={{ duration: 0.8 }}
               className="relative z-10"
             >
-              {/* Placeholder for image that was removed */}
-              <div className="rounded-lg shadow-2xl max-w-full h-96 bg-salon-pink-100 flex items-center justify-center">
-                <p className="text-salon-pink-600 font-medium">Image Placeholder</p>
-              </div>
+              <img 
+                src="/lovable-uploads/c9e5a294-68aa-41e6-94d7-e8655ed4ec4e.png"
+                alt="Aesthetic Training Hereford"
+                className="rounded-lg shadow-2xl max-w-full h-96 object-cover"
+              />
               <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
                 <div className="flex items-center">
                   <div className="flex -space-x-2">
