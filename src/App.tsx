@@ -11,7 +11,11 @@ import AdminInbox from './pages/AdminInbox';
 import ContentPage from './pages/ContentPage';
 import NotFound from './pages/NotFound';
 import ServicesPage from './pages/ServicesPage';
+<<<<<<< HEAD
 import MediaShowcase from './pages/MediaShowcase';
+=======
+import Partnership from './pages/Partnership';
+>>>>>>> 51fe82acdc934e5bc7148026a3822ea85a297d74
 
 function App() {
   return (
@@ -21,7 +25,11 @@ function App() {
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/price-list" element={<PriceList />} />
       <Route path="/services" element={<ServicesPage />} />
+<<<<<<< HEAD
       <Route path="/media-showcase" element={<MediaShowcase />} />
+=======
+      <Route path="/partnership" element={<Partnership />} />
+>>>>>>> 51fe82acdc934e5bc7148026a3822ea85a297d74
       <Route path="/admin/auth" element={<AdminAuth />} />
       <Route path="/admin/content" element={<AdminContentPage />} />
       <Route path="/admin/inbox" element={<AdminInbox />} />

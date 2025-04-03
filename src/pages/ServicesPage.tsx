@@ -1,54 +1,39 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { useQuery } from '@tanstack/react-query';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
 import ServicesList from '../components/ServicesList';
+import { serviceCategories, BOOKING_URL } from '../data/serviceCategories';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { contentService } from '@/services/contentService';
-import { serviceCategories } from '../data/serviceCategories';
-import ContentGrid from '@/components/content/ContentGrid';
 
 const ServicesPage = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
-
-  // Fetch content for services showcase
-  const { data: serviceContent, isLoading } = useQuery({
-    queryKey: ['content', 'services', 'services_showcase'],
-    queryFn: () => contentService.getContentForPageSection('services', 'services_showcase'),
-  });
+  const location = useLocation();
+  const tabsRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    // Check if there's a hash in the URL and set the tab accordingly
+    if (location.hash) {
+      const categoryId = location.hash.substring(1); // Remove the # from the hash
+      
+      // Wait for a tick to ensure the component is fully rendered
+      setTimeout(() => {
+        // Find the tab element and click it
+        const tabElement = document.getElementById(categoryId);
+        if (tabElement) {
+          tabElement.click();
+          
+          // Smooth scroll to the tab section
+          tabsRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100); // Increase timeout to ensure DOM is ready
+    }
+  }, [location.hash]);
 
   return (
     <div className="bg-white min-h-screen">
-      <style>
-        {`
-          @keyframes slideshow {
-            0%, 20% {
-              opacity: 1;
-            }
-            25%, 95% {
-              opacity: 0;
-            }
-            100% {
-              opacity: 1;
-            }
-          }
-          
-          .animate-slideshow > div {
-            animation: slideshow 15s infinite;
-          }
-          
-          .animation-delay:nth-child(2) {
-            animation-delay: 5s;
-          }
-          
-          .animation-delay:nth-child(3) {
-            animation-delay: 10s;
-          }
-        `}
-      </style>
       <Navbar />
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4">
@@ -64,18 +49,7 @@ const ServicesPage = () => {
             </p>
           </motion.div>
 
-          {/* Display content from Supabase if available */}
-          {serviceContent && serviceContent.length > 0 && (
-            <ContentGrid 
-              pageLocation="services"
-              pageSection="services_showcase"
-              title="Featured Services"
-              columns={3}
-              className="mb-16"
-            />
-          )}
-
-          <div className="mb-10">
+          <div className="mb-10" ref={tabsRef}>
             <Tabs defaultValue="all" className="w-full">
               <div className="flex justify-center mb-8 overflow-x-auto">
                 <TabsList className="bg-salon-pink-50 p-1">
@@ -90,6 +64,7 @@ const ServicesPage = () => {
                       key={category.id} 
                       value={category.id}
                       className="data-[state=active]:bg-salon-pink-100 data-[state=active]:text-salon-pink-800"
+                      id={category.id}
                     >
                       {category.name}
                     </TabsTrigger>
@@ -98,12 +73,12 @@ const ServicesPage = () => {
               </div>
               
               <TabsContent value="all">
-                <ServicesList contentItems={serviceContent} />
+                <ServicesList />
               </TabsContent>
               
               {serviceCategories.map(category => (
                 <TabsContent key={category.id} value={category.id}>
-                  <ServicesList categoryId={category.id} contentItems={serviceContent} />
+                  <ServicesList categoryId={category.id} />
                 </TabsContent>
               ))}
             </Tabs>
@@ -112,10 +87,10 @@ const ServicesPage = () => {
           <div className="bg-salon-pink-50 rounded-lg p-8 text-center mt-16">
             <h2 className="text-2xl font-serif text-salon-pink-700 mb-4">Ready to Transform Your Look?</h2>
             <p className="text-gray-600 mb-6">
-              Book your appointment today and experience the difference with our premium treatments.
+              Experience the difference with our premium treatments.
             </p>
             <a 
-              href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw" 
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"

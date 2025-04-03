@@ -29,20 +29,8 @@ import {
   Check,
   X,
   Star,
-  FileImage,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 interface ContentListProps {
   content: ContentItem[] | undefined;
@@ -71,27 +59,6 @@ const ContentList: React.FC<ContentListProps> = ({
   const getPageSectionLabel = (value: string | null | undefined) => {
     if (!value) return "Not Assigned";
     return PAGE_SECTIONS[value as keyof typeof PAGE_SECTIONS] || value;
-  };
-
-  const renderPreview = (item: ContentItem) => {
-    if (item.media_type === "video") {
-      return (
-        <video 
-          src={item.url} 
-          poster={item.thumbnail_url || undefined}
-          className="w-full h-40 object-cover rounded"
-          controls
-        />
-      );
-    }
-    
-    return (
-      <img 
-        src={item.url} 
-        alt={item.title} 
-        className="w-full h-40 object-cover rounded"
-      />
-    );
   };
   
   return (
@@ -150,24 +117,7 @@ const ContentList: React.FC<ContentListProps> = ({
                         {item.is_featured && (
                           <Star className="h-4 w-4 text-yellow-400 mr-2" />
                         )}
-                        <HoverCard>
-                          <HoverCardTrigger asChild>
-                            <span className="cursor-help">{item.title}</span>
-                          </HoverCardTrigger>
-                          <HoverCardContent className="w-80 p-0">
-                            <div className="flex flex-col">
-                              {renderPreview(item)}
-                              <div className="p-3">
-                                <h4 className="font-semibold">{item.title}</h4>
-                                {item.description && (
-                                  <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
-                                    {item.description}
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                          </HoverCardContent>
-                        </HoverCard>
+                        {item.title}
                       </div>
                     </TableCell>
                     <TableCell>
@@ -227,70 +177,21 @@ const ContentList: React.FC<ContentListProps> = ({
                     <TableCell>{new Date(item.created_at).toLocaleDateString()}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex space-x-2 justify-end">
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => handleEdit(item)}
-                              >
-                                <Pencil className="h-4 w-4" />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Edit</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                        
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="text-red-500 hover:text-red-700"
-                                onClick={() => handleDelete(item)}
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Delete</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                        
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <HoverCard>
-                                <HoverCardTrigger asChild>
-                                  <Button variant="ghost" size="icon">
-                                    <FileImage className="h-4 w-4 text-blue-500" />
-                                  </Button>
-                                </HoverCardTrigger>
-                                <HoverCardContent className="w-80 p-0">
-                                  <div className="flex flex-col">
-                                    {renderPreview(item)}
-                                    <div className="p-3">
-                                      <h4 className="font-semibold">{item.title}</h4>
-                                      {item.description && (
-                                        <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
-                                          {item.description}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </div>
-                                </HoverCardContent>
-                              </HoverCard>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Preview</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleEdit(item)}
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="text-red-500 hover:text-red-700"
+                          onClick={() => handleDelete(item)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
                       </div>
                     </TableCell>
                   </TableRow>
