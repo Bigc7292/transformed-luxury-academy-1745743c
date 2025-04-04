@@ -12,6 +12,7 @@ import ContentPage from './pages/ContentPage';
 import NotFound from './pages/NotFound';
 import ServicesPage from './pages/ServicesPage';
 import Partnership from './pages/Partnership';
+import Staff from './pages/Staff';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/price-list" element={<PriceList />} />
       <Route path="/services" element={<ServicesPage />} />
       <Route path="/partnership" element={<Partnership />} />
+      <Route path="/staff" element={<Staff />} />
       <Route path="/admin/auth" element={<AdminAuth />} />
       <Route path="/admin/content" element={<AdminContentPage />} />
       <Route path="/admin/inbox" element={<AdminInbox />} />
