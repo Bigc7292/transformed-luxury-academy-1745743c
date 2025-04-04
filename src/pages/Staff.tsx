@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users } from 'lucide-react';
@@ -12,18 +11,18 @@ const Staff = () => {
   const teamMembers = [
     {
       id: 1,
-      name: "Jake",
+      name: "Lee",
       role: "Makeup Artist",
       image: "/lovable-uploads/0ee68060-f085-4e57-84f8-ff9acf725159.png",
-      bio: "Specializing in bold, creative makeup looks with a focus on eye art. Jake brings 5 years of experience creating stunning transformations that help clients express their unique style.",
+      bio: "Specializing in bold, creative makeup looks with a focus on eye art. Lee brings 5 years of experience creating stunning transformations that help clients express their unique style.",
       specialties: ["Creative Makeup", "Eye Art", "Color Theory", "Bridal Makeup"]
     },
     {
       id: 2,
-      name: "Emma",
+      name: "Hope",
       role: "Senior Stylist",
       image: "/lovable-uploads/ab614c89-36fc-49c3-b517-5d56a36ced26.png",
-      bio: "With a passion for hair styling and an eye for detail, Emma creates personalized looks that enhance each client's natural beauty. Her friendly approach puts everyone at ease.",
+      bio: "With a passion for hair styling and an eye for detail, Hope creates personalized looks that enhance each client's natural beauty. Her friendly approach puts everyone at ease.",
       specialties: ["Hair Coloring", "Styling", "Hair Treatments", "Extensions"]
     },
     {
