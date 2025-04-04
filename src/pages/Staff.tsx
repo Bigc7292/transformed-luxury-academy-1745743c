@@ -14,7 +14,7 @@ const Staff = () => {
       name: "Lee",
       role: "Makeup Artist",
       image: "/lovable-uploads/0ee68060-f085-4e57-84f8-ff9acf725159.png",
-      bio: "Specializing in bold, creative makeup looks with a focus on eye art. Lee brings 5 years of experience creating stunning transformations that help clients express their unique style.",
+      bio: "I'm Lee, Award winning Makeup Artist and Beauty specialist of 10 years, I am so excited to bring my full glam make-up appointments, 1-1s and masterclasses to Hereford. I first started my journey working as MUA for Kik Milano before being head hunted by Charlotte Tilbury's Artistry Team, I was a pro artist and product specialist for 3 years working backstage during fashion week, back and forth London and high end, department stores, I then went onto being regional makeup artist for Lancome Paris.",
       specialties: ["Creative Makeup", "Eye Art", "Color Theory", "Bridal Makeup"]
     },
     {
@@ -22,7 +22,7 @@ const Staff = () => {
       name: "Hope",
       role: "Senior Stylist",
       image: "/lovable-uploads/ab614c89-36fc-49c3-b517-5d56a36ced26.png",
-      bio: "With a passion for hair styling and an eye for detail, Hope creates personalized looks that enhance each client's natural beauty. Her friendly approach puts everyone at ease.",
+      bio: "Hi I'm Hope, I'm 28 years old and looking to perfect my technique in the salon. I love that I can make an impact on how people feel, at times people come into the salon sometimes not feeling their best selves and then they'll leave feeling replenished and like a brand new person from the conversation, cuts or the beautiful new set of highlights.\n\nI studied Hairdressing in London with a multi award winning salon back in 2023 and havent wanted to be anywhere else in my career since, I absolutely adore doing hair and have found it to be such an asset to my lifestyle due to being paid doing something I feel is a hobby!\n\nSince starting with Transformed Salon I've been learning lots of different techniques, skills and about various amazing products in the hair industry as well doing educational training days and working within a lovely team with some of the nicest girls who all share the same passion.",
       specialties: ["Hair Coloring", "Styling", "Hair Treatments", "Extensions"]
     },
     {
