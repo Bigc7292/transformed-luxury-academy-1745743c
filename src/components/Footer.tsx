@@ -1,11 +1,11 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
+import { FaInstagram } from 'react-icons/fa'; // Import Instagram icon from react-icons
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
+
   return (
     <footer className="bg-white border-t border-salon-pink-100">
       <div className="container mx-auto px-4 py-12">
@@ -19,19 +19,19 @@ const Footer = () => {
             <p className="text-gray-600 mb-6">
               Premium aesthetic treatments to enhance your natural beauty. Our salon combines artistry with medical expertise.
             </p>
-            <div className="flex space-x-4">
-              <a href="https://instagram.com" className="w-10 h-10 rounded-full bg-salon-pink-100 flex items-center justify-center hover:bg-salon-pink-200 transition-colors" aria-label="Instagram">
-                <Instagram size={20} className="text-salon-pink-500" />
-              </a>
-              <a href="https://facebook.com" className="w-10 h-10 rounded-full bg-salon-pink-100 flex items-center justify-center hover:bg-salon-pink-200 transition-colors" aria-label="Facebook">
-                <Facebook size={20} className="text-salon-pink-500" />
-              </a>
-              <a href="https://twitter.com" className="w-10 h-10 rounded-full bg-salon-pink-100 flex items-center justify-center hover:bg-salon-pink-200 transition-colors" aria-label="Twitter">
-                <Twitter size={20} className="text-salon-pink-500" />
+            <div className="social-icons">
+              <a
+                href="https://www.instagram.com/aestheticstraininghereford?igsh=MWp1dzlmeHU4cXRmbw=="
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit our Instagram"
+                style={{ color: '#E1306C', fontSize: '24px', margin: '0 10px' }} // Instagram color and styling
+              >
+                <FaInstagram />
               </a>
             </div>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-serif text-salon-pink-700 mb-6">Quick Links</h3>
             <ul className="space-y-4">
@@ -52,7 +52,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-serif text-salon-pink-700 mb-6">Services</h3>
             <ul className="space-y-4">
@@ -73,13 +73,14 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-serif text-salon-pink-700 mb-6">Contact Us</h3>
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin size={20} className="text-salon-pink-500 mr-2 mt-1 flex-shrink-0" />
-                <span className="text-gray-600">123 Beauty Lane, Aesthetic City, AC 12345</span>
+                <span className="text-gray-600">SALONS IN HEREFORD AND CARDIFF 
+                  38 WIDEMARSH STREET HEREFORD HR4 9EP</span>
               </li>
               <li className="flex items-center">
                 <Phone size={20} className="text-salon-pink-500 mr-2 flex-shrink-0" />
@@ -92,7 +93,7 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-salon-pink-100 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm mb-4 md:mb-0">
             &copy; {currentYear} Transformed Academy and Salon. All rights reserved.

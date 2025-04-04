@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { contentService } from "@/services/contentService";
@@ -73,8 +72,8 @@ const ContentCarousel: React.FC<ContentCarouselProps> = ({
     return (
       <div className="relative h-96 w-full overflow-hidden rounded-lg">
         <img 
-          src={item.url} 
-          alt={item.title} 
+          src="public/lovable-uploads/decb2b79-3774-449a-b7b7-479a89096676.png" 
+          alt="Treatment Image" 
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent">
