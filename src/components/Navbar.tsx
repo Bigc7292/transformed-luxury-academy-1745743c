@@ -70,7 +70,7 @@ const Navbar = () => {
       submenu: [
         { name: "Meet Kayla CEO", path: "/about-ceo" },
         { name: "Partnership with Dr. Martin", path: "/partnership" },
-        { name: "Staff", path: "/staff" },
+        { name: "Our Staff", path: "/staff" },
       ]
     },
     { name: "Gallery", path: "/gallery" },
