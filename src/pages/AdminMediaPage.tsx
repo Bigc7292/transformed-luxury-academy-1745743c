@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { contentService } from "@/services/contentService";
@@ -9,31 +8,29 @@ import Footer from "../components/Footer";
 // Import custom hooks
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useContentMutations } from "@/hooks/useContentMutations";
-import { useContentFilters } from "@/hooks/useContentFilters";
 import { useContentForm } from "@/hooks/useContentForm";
 import { useContentDialogs } from "@/hooks/useContentDialogs";
 
 // Import admin components
 import AdminHeader from "@/components/admin/AdminHeader";
-import AdminFilterBar from "@/components/admin/AdminFilterBar";
+import AdminMediaShowcase from "@/components/admin/AdminMediaShowcase";
 import AdminInstructions from "@/components/admin/AdminInstructions";
-import ContentList from "@/components/admin/ContentList";
+import S3VideoImporter from "@/components/admin/S3VideoImporter";
 import CreateContentDialog from "@/components/admin/CreateContentDialog";
 import EditContentDialog from "@/components/admin/EditContentDialog";
 import DeleteContentDialog from "@/components/admin/DeleteContentDialog";
-import BulkUploadDialog from "@/components/admin/BulkUploadDialog";
 
-const AdminContentPage: React.FC = () => {
+const AdminMediaPage: React.FC = () => {
   const { toast } = useToast();
   const { handleLogout } = useAdminAuth();
   const { createContentMutation, updateContentMutation, deleteContentMutation } = useContentMutations();
 
+  // Fetch all content for reference
   const { data: content, isLoading, error } = useQuery({
     queryKey: ["admin-content"],
     queryFn: () => contentService.getContent(),
   });
 
-  const { filters, filteredContent } = useContentFilters(content);
   const { selectedContent, setSelectedContent, newContent, setNewContent, handlers } = useContentForm();
   const { dialogState, dialogHandlers } = useContentDialogs();
 
@@ -41,6 +38,23 @@ const AdminContentPage: React.FC = () => {
   React.useEffect(() => {
     dialogHandlers.setSelectedContent(setSelectedContent);
   }, [dialogHandlers, setSelectedContent]);
+
+  // Set default values for new content specific to media showcase
+  const handleCreateMediaContent = () => {
+    setNewContent({
+      title: '',
+      description: '',
+      category: 'promotional',
+      media_type: 'image',
+      url: '',
+      thumbnail_url: '',
+      is_featured: false,
+      page_location: 'media', // Pre-set to media page
+      page_section: 'gallery_featured', // Default to featured section
+      active: true
+    });
+    dialogState.setIsCreateDialogOpen(true);
+  };
 
   const handleUpdate = () => {
     if (!selectedContent || !selectedContent.id) return;
@@ -70,8 +84,8 @@ const AdminContentPage: React.FC = () => {
       url: '',
       thumbnail_url: '',
       is_featured: false,
-      page_location: '',
-      page_section: undefined,
+      page_location: 'media',
+      page_section: 'gallery_featured',
       active: true
     });
     dialogState.setIsCreateDialogOpen(false);
@@ -89,14 +103,6 @@ const AdminContentPage: React.FC = () => {
     }
 
     deleteContentMutation.mutate(dialogState.contentToDelete.id);
-  };
-
-  const handleBulkUploadComplete = () => {
-    // We don't need to do anything special here, as the useContentMutations hook handles the queries invalidation
-    toast({
-      title: "Bulk Upload Complete",
-      description: "Your content has been uploaded successfully.",
-    });
   };
 
   if (error) {
@@ -117,23 +123,19 @@ const AdminContentPage: React.FC = () => {
     <div className="min-h-screen bg-white">
       <Navbar />
       <div className="container mx-auto pt-32 pb-20 px-4">
-        <AdminHeader title="Content Management" handleLogout={handleLogout} />
+        <AdminHeader title="Content & Media Management" handleLogout={handleLogout} />
 
         <AdminInstructions />
 
-        <AdminFilterBar
-          {...filters}
-          setIsBulkUploadDialogOpen={dialogState.setIsBulkUploadDialogOpen}
-        />
+        <S3VideoImporter onVideoAdded={() => {
+          // Refetch content when a new video is added
+          window.location.reload();
+        }} />
 
-        <ContentList
-          content={content}
-          isLoading={isLoading}
-          error={error}
-          filteredContent={filteredContent}
-          handleEdit={dialogHandlers.handleEdit}
-          handleDelete={dialogHandlers.handleDelete}
-          setIsCreateDialogOpen={dialogState.setIsCreateDialogOpen}
+        <AdminMediaShowcase
+          onCreateContent={handleCreateMediaContent}
+          onEditContent={dialogHandlers.handleEdit}
+          onDeleteContent={dialogHandlers.handleDelete}
         />
 
         <CreateContentDialog
@@ -169,16 +171,10 @@ const AdminContentPage: React.FC = () => {
           handleConfirmDelete={handleConfirmDelete}
           isDeleting={deleteContentMutation.isPending}
         />
-
-        <BulkUploadDialog
-          isOpen={dialogState.isBulkUploadDialogOpen}
-          setIsOpen={dialogState.setIsBulkUploadDialogOpen}
-          onUploadComplete={handleBulkUploadComplete}
-        />
       </div>
       <Footer />
     </div>
   );
 };
 
-export default AdminContentPage;
+export default AdminMediaPage;

@@ -1,8 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import { serviceCategories } from '../data/serviceCategories';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,18 +33,26 @@ const Navbar = () => {
   const handleNavigation = (path: string) => {
     if (path.includes('#')) {
       const [routePath, hash] = path.split('#');
-      
+
       if (window.location.pathname === '/services' && routePath === '/services') {
+        // We're already on the services page, just need to switch tabs
         const element = document.getElementById(hash);
         if (element) {
+          // First click the element to activate the tab
           element.click();
-          element.scrollIntoView({ behavior: 'smooth' });
+          // Then scroll to the tab section
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
         }
         setIsOpen(false);
         return;
+      } else {
+        // We need to navigate to the services page first, then handle the hash
+        // Store the hash in sessionStorage so we can retrieve it after navigation
+        sessionStorage.setItem('pendingHash', hash);
+        navigate(routePath);
       }
-      
-      navigate(path);
     } else {
       navigate(path);
     }
@@ -54,17 +61,9 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { 
-      name: "Services", 
-      path: "/services",
-      hasSubmenu: true,
-      submenu: serviceCategories.map(category => ({
-        name: category.name,
-        path: `/services#${category.id}`
-      }))
-    },
-    { 
-      name: "Meet the Team", 
+    { name: "Services", path: "/services" },
+    {
+      name: "Meet the Team",
       path: "#",
       hasSubmenu: true,
       submenu: [
@@ -74,7 +73,6 @@ const Navbar = () => {
       ]
     },
     { name: "Gallery", path: "/gallery" },
-    { name: "Media Showcase", path: "/media-showcase" },
     { name: "About", path: "/about" },
     { name: "Contact", path: "/contact" },
     { name: "Admin Login", path: "/admin/auth" },
@@ -86,9 +84,9 @@ const Navbar = () => {
         <div className="flex justify-between h-20">
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center group">
-              <img 
-                src="/lovable-uploads/f0b45bba-4b33-4147-99b0-bf9d1335bbd9.png" 
-                alt="Transformed Academy Logo" 
+              <img
+                src="/lovable-uploads/f0b45bba-4b33-4147-99b0-bf9d1335bbd9.png"
+                alt="Transformed Academy Logo"
                 className="h-18 w-auto transition-transform duration-300 group-hover:scale-105"
                 style={{ height: '4.5rem' }}
               />
@@ -99,7 +97,7 @@ const Navbar = () => {
             {navItems.map((item, index) => (
               item.hasSubmenu ? (
                 <div key={index} className="relative group">
-                  <button 
+                  <button
                     className="flex items-center text-salon-pink-800 hover:text-salon-pink-500 transition-colors group-hover:text-salon-pink-500"
                     onClick={() => toggleSubmenu(item.name)}
                   >
@@ -151,7 +149,7 @@ const Navbar = () => {
           {navItems.map((item, index) => (
             item.hasSubmenu ? (
               <div key={index} className="py-2">
-                <div 
+                <div
                   className="flex items-center justify-between text-salon-pink-800 py-2 cursor-pointer"
                   onClick={() => toggleSubmenu(item.name)}
                 >

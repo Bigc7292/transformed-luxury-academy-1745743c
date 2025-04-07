@@ -43,7 +43,7 @@ const Services = () => {
         </div>
 
         {/* Display just a preview of services - limited to 3 from different categories */}
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -52,14 +52,24 @@ const Services = () => {
         >
           {featuredServices.map((service, index) => (
             <motion.div key={index} variants={itemVariants} className="group">
-              <div className="service-card h-full flex flex-col">
-                <div className="relative overflow-hidden rounded-t-lg h-48">
-                  <img 
-                    src={service.image} 
-                    alt={service.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="service-card h-full flex flex-col shadow-lg rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:translate-y-[-2px]">
+                <div className="relative overflow-hidden rounded-t-lg h-56 sm:h-64 md:h-72">
+                  {index === 0 ? (
+                    <img
+                      src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/lip_fillers_image.jpg"
+                      alt="Lip Fillers Service"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  ) : (
+                    <>
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </>
+                  )}
                   {index === 0 && (
                     <div className="absolute top-4 right-4 bg-salon-pink-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                       Special Offer
@@ -67,9 +77,9 @@ const Services = () => {
                   )}
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-xl font-serif text-salon-pink-700 mb-2">{service.title}</h3>
-                  <p className="text-gray-600 mb-6 flex-grow">{service.description}</p>
-                  
+                  <h3 className="text-xl md:text-2xl font-serif text-salon-pink-700 mb-3">{service.title}</h3>
+                  <p className="text-gray-600 mb-6 flex-grow leading-relaxed">{service.description}</p>
+
                   {index === 0 && (
                     <div className="mb-4 bg-salon-pink-50 p-3 rounded-md">
                       <p className="text-salon-pink-700 font-medium">Kayla's Signature Lips Masterclass - Now £499</p>
@@ -79,11 +89,11 @@ const Services = () => {
                       </div>
                     </div>
                   )}
-                  
-                  <a 
-                    href={BOOKING_URL} 
+
+                  <a
+                    href={BOOKING_URL}
                     target="_blank"
-                    rel="noopener noreferrer" 
+                    rel="noopener noreferrer"
                     className="btn-primary text-center"
                   >
                     BOOK NOW

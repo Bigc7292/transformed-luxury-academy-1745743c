@@ -11,23 +11,52 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 const ServicesPage = () => {
   const location = useLocation();
   const tabsRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
-    // Check if there's a hash in the URL and set the tab accordingly
-    if (location.hash) {
-      const categoryId = location.hash.substring(1); // Remove the # from the hash
-      
+    // Function to handle tab selection and scrolling
+    const handleTabSelection = (categoryId: string) => {
       // Wait for a tick to ensure the component is fully rendered
       setTimeout(() => {
         // Find the tab element and click it
         const tabElement = document.getElementById(categoryId);
         if (tabElement) {
           tabElement.click();
-          
+
           // Smooth scroll to the tab section
           tabsRef.current?.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          console.log(`Tab element with ID ${categoryId} not found`);
+
+          // Check if the category exists in our data
+          const categoryExists = serviceCategories.some(cat => cat.id === categoryId);
+          if (categoryExists) {
+            console.log(`Category ${categoryId} exists in data but element not found, trying again...`);
+            // Try again with a longer delay
+            setTimeout(() => {
+              const retryElement = document.getElementById(categoryId);
+              if (retryElement) {
+                retryElement.click();
+                tabsRef.current?.scrollIntoView({ behavior: 'smooth' });
+              }
+            }, 500);
+          }
         }
-      }, 100); // Increase timeout to ensure DOM is ready
+      }, 200); // Increase timeout to ensure DOM is ready
+    };
+
+    // Check if there's a hash in the URL and set the tab accordingly
+    if (location.hash) {
+      const categoryId = location.hash.substring(1); // Remove the # from the hash
+      handleTabSelection(categoryId);
+    } else {
+      // Check if there's a pending hash in sessionStorage
+      const pendingHash = sessionStorage.getItem('pendingHash');
+      if (pendingHash) {
+        // Clear the pending hash
+        sessionStorage.removeItem('pendingHash');
+        // Handle the tab selection
+        handleTabSelection(pendingHash);
+      }
     }
   }, [location.hash]);
 
@@ -52,29 +81,31 @@ const ServicesPage = () => {
             <Tabs defaultValue="all" className="w-full">
               <div className="flex justify-center mb-8 overflow-x-auto">
                 <TabsList className="bg-salon-pink-50 p-1">
-                  <TabsTrigger 
+                  <TabsTrigger
                     value="all"
                     className="data-[state=active]:bg-salon-pink-100 data-[state=active]:text-salon-pink-800"
+                    id="all"
                   >
                     All Services
                   </TabsTrigger>
                   {serviceCategories.map(category => (
-                    <TabsTrigger 
-                      key={category.id} 
+                    <TabsTrigger
+                      key={category.id}
                       value={category.id}
                       className="data-[state=active]:bg-salon-pink-100 data-[state=active]:text-salon-pink-800"
                       id={category.id}
+                      data-category-id={category.id}
                     >
                       {category.name}
                     </TabsTrigger>
                   ))}
                 </TabsList>
               </div>
-              
+
               <TabsContent value="all">
                 <ServicesList />
               </TabsContent>
-              
+
               {serviceCategories.map(category => (
                 <TabsContent key={category.id} value={category.id}>
                   <ServicesList categoryId={category.id} />
@@ -88,7 +119,7 @@ const ServicesPage = () => {
             <p className="text-gray-600 mb-6">
               Experience the difference with our premium treatments.
             </p>
-            <a 
+            <a
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"

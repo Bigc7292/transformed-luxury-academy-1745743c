@@ -37,6 +37,7 @@ export const PAGE_LOCATIONS = [
   { value: "about", label: "About Page" },
   { value: "services", label: "Services Page" },
   { value: "gallery", label: "Gallery Page" },
+  { value: "media", label: "Media Showcase Page" },
   { value: "content", label: "Content Page" }
 ];
 
@@ -48,5 +49,8 @@ export const PAGE_SECTIONS: Record<PageSection, string> = {
   services_showcase: "Services Showcase",
   gallery_main: "Main Gallery",
   gallery_featured: "Featured Gallery Items",
-  content_page_featured: "Content Page Featured"
+  content_page_featured: "Content Page Featured",
+  media_featured: "Media Showcase Featured",
+  media_gallery: "Media Showcase Gallery",
+  media_videos: "Media Showcase Videos"
 };

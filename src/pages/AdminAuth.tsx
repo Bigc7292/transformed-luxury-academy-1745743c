@@ -33,6 +33,7 @@ const AdminAuth = () => {
     const checkSession = async () => {
       const { data } = await supabase.auth.getSession();
       if (data.session) {
+        // Redirect to admin content page by default
         navigate("/admin/content");
       }
     };
@@ -42,7 +43,7 @@ const AdminAuth = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!AUTHORIZED_ADMIN_EMAILS.includes(email)) {
       toast({
         title: "Access Denied",
@@ -96,7 +97,7 @@ const AdminAuth = () => {
 
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!AUTHORIZED_ADMIN_EMAILS.includes(resetEmail)) {
       toast({
         title: "Access Denied",
@@ -119,7 +120,7 @@ const AdminAuth = () => {
         title: "Password reset email sent",
         description: "Please check your email for the password reset link",
       });
-      
+
       setIsResetModalOpen(false);
     } catch (error: any) {
       toast({
@@ -165,7 +166,7 @@ const AdminAuth = () => {
                   />
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
@@ -180,7 +181,7 @@ const AdminAuth = () => {
                     className="pl-10 pr-10"
                     placeholder="Enter your password"
                   />
-                  <div 
+                  <div
                     className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
                     onClick={() => setShowPassword(!showPassword)}
                   >
@@ -192,19 +193,19 @@ const AdminAuth = () => {
                   </div>
                 </div>
               </div>
-              
-              <Button 
-                type="submit" 
+
+              <Button
+                type="submit"
                 className="w-full bg-salon-pink-600 hover:bg-salon-pink-700"
                 disabled={loading}
               >
                 {loading ? "Signing in..." : "Sign In"}
               </Button>
-              
+
               <div className="text-center mt-4">
-                <Button 
-                  type="button" 
-                  variant="link" 
+                <Button
+                  type="button"
+                  variant="link"
                   className="text-sm text-salon-pink-600"
                   onClick={() => setIsResetModalOpen(true)}
                 >
@@ -213,7 +214,7 @@ const AdminAuth = () => {
               </div>
             </form>
           </CardContent>
-          
+
           <div className="text-xs bg-gray-100 p-4 mx-6 mb-6 rounded-md">
             <p className="font-medium text-gray-700">Authorized emails:</p>
             <ul className="mt-1 list-disc pl-5">
@@ -224,7 +225,7 @@ const AdminAuth = () => {
           </div>
         </Card>
       </div>
-      
+
       <Dialog open={isResetModalOpen} onOpenChange={setIsResetModalOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
@@ -257,7 +258,7 @@ const AdminAuth = () => {
           </form>
         </DialogContent>
       </Dialog>
-      
+
       <Footer />
     </div>
   );

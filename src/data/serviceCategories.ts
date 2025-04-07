@@ -120,8 +120,8 @@ export const serviceCategories: ServiceCategory[] = [
         image: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1000',
       },
       {
-        id: 'apotos-threads',
-        title: 'APOTOS Threads',
+        id: 'aptos-threads',
+        title: 'APTOS Threads',
         description: 'Premium thread lifting for natural results',
         image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1000',
       },

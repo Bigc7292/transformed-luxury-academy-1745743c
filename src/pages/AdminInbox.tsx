@@ -41,7 +41,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Mail, MessageSquare, Clock, CheckCircle, XCircle, RefreshCw } from "lucide-react";
+import { Mail, MessageSquare, Clock, CheckCircle, XCircle, RefreshCw, LogOut } from "lucide-react";
+import AdminHeader from "@/components/admin/AdminHeader";
+import AdminInstructions from "@/components/admin/AdminInstructions";
 
 const statusColors = {
   new: "bg-blue-500",
@@ -60,7 +62,7 @@ const AdminInbox: React.FC = () => {
   React.useEffect(() => {
     const checkAdmin = async () => {
       const { data } = await supabase.auth.getSession();
-      
+
       if (!data.session) {
         toast({
           title: "Authentication Required",
@@ -70,14 +72,14 @@ const AdminInbox: React.FC = () => {
         navigate("/admin/auth");
         return;
       }
-      
+
       // Check if user is an admin
       const { data: adminData, error } = await supabase
         .from("admin_users")
         .select("*")
         .eq("user_id", data.session.user.id)
         .single();
-        
+
       if (error || !adminData) {
         toast({
           title: "Access Denied",
@@ -87,7 +89,7 @@ const AdminInbox: React.FC = () => {
         navigate("/");
       }
     };
-    
+
     checkAdmin();
   }, [navigate, toast]);
 
@@ -99,7 +101,7 @@ const AdminInbox: React.FC = () => {
 
   // Update inquiry status mutation
   const updateStatusMutation = useMutation({
-    mutationFn: ({ id, status }: { id: string; status: string }) => 
+    mutationFn: ({ id, status }: { id: string; status: string }) =>
       customerService.updateInquiryStatus(id, status),
     onSuccess: () => {
       toast({
@@ -156,18 +158,19 @@ const AdminInbox: React.FC = () => {
     <div className="min-h-screen bg-white">
       <Navbar />
       <div className="container mx-auto pt-32 pb-20 px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-serif text-salon-pink-700">
-            Admin Inbox
-          </h1>
-          <Button
-            onClick={() => navigate("/admin/content")}
-            variant="outline"
-            className="border-salon-pink-500 text-salon-pink-700 hover:bg-salon-pink-50"
-          >
-            Go to Content Management
-          </Button>
-        </div>
+        <AdminHeader
+          title="Customer Inquiries"
+          handleLogout={() => {
+            supabase.auth.signOut();
+            navigate("/admin/auth");
+            toast({
+              title: "Logged Out",
+              description: "You have been successfully logged out."
+            });
+          }}
+        />
+
+        <AdminInstructions />
 
         <Tabs defaultValue="new" className="w-full">
           <TabsList className="mb-6 grid grid-cols-4 w-full">
@@ -250,8 +253,8 @@ const AdminInbox: React.FC = () => {
                                   <div className="flex space-x-2">
                                     <Dialog>
                                       <DialogTrigger asChild>
-                                        <Button 
-                                          variant="outline" 
+                                        <Button
+                                          variant="outline"
                                           size="sm"
                                           onClick={() => setSelectedInquiry(inquiry)}
                                         >

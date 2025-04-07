@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer className="bg-white border-t border-salon-pink-100">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <Link to="/" className="inline-block mb-6">
               <div className="text-2xl font-serif text-salon-pink-500 tracking-wider">
@@ -54,32 +54,11 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-serif text-salon-pink-700 mb-6">Services</h3>
-            <ul className="space-y-4">
-              <li>
-                <Link to="/services/lip-fillers" className="text-gray-600 hover:text-salon-pink-500 transition-colors">Lip Fillers</Link>
-              </li>
-              <li>
-                <Link to="/services/botox" className="text-gray-600 hover:text-salon-pink-500 transition-colors">Botox</Link>
-              </li>
-              <li>
-                <Link to="/services/dermal-fillers" className="text-gray-600 hover:text-salon-pink-500 transition-colors">Dermal Fillers</Link>
-              </li>
-              <li>
-                <Link to="/services/jawline-fillers" className="text-gray-600 hover:text-salon-pink-500 transition-colors">Jawline Fillers</Link>
-              </li>
-              <li>
-                <Link to="/services" className="text-gray-600 hover:text-salon-pink-500 transition-colors">View All Services</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
             <h3 className="text-lg font-serif text-salon-pink-700 mb-6">Contact Us</h3>
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin size={20} className="text-salon-pink-500 mr-2 mt-1 flex-shrink-0" />
-                <span className="text-gray-600">SALONS IN HEREFORD AND CARDIFF 
+                <span className="text-gray-600">SALONS IN HEREFORD AND CARDIFF
                   38 WIDEMARSH STREET HEREFORD HR4 9EP</span>
               </li>
               <li className="flex items-center">

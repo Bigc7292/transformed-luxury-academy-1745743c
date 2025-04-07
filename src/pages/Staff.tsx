@@ -19,11 +19,11 @@ const Staff = () => {
     },
     {
       id: 2,
-      name: "Hope",
-      role: "Senior Stylist",
+      name: "Lorell",
+      role: "Junior Stylist",
       image: "/lovable-uploads/ab614c89-36fc-49c3-b517-5d56a36ced26.png",
-      bio: "Hi I'm Hope, I'm 28 years old and looking to perfect my technique in the salon. I love that I can make an impact on how people feel, at times people come into the salon sometimes not feeling their best selves and then they'll leave feeling replenished and like a brand new person from the conversation, cuts or the beautiful new set of highlights.\n\nI studied Hairdressing in London with a multi award winning salon back in 2023 and havent wanted to be anywhere else in my career since, I absolutely adore doing hair and have found it to be such an asset to my lifestyle due to being paid doing something I feel is a hobby!\n\nSince starting with Transformed Salon I've been learning lots of different techniques, skills and about various amazing products in the hair industry as well doing educational training days and working within a lovely team with some of the nicest girls who all share the same passion.",
-      specialties: ["Hair Coloring", "Styling", "Hair Treatments", "Extensions"]
+      bio: "Hello! My name is Lorell and I am a Junior Stylist at Transformed Academy! I have been based at Transformed Academy for the last 2 years whilst being trained by Nickalea to acquire certification in Hairdressing and other treatments! I have since recently qualified in my Level 2 Foundation in Hairdressing as well as being a fully qualified Hair Extensionist. I am hoping to expand my skills into the beauty industry soon too! I love my job and I am very passionate about the work I do. I hope to specialise in balayage when I am fully qualified. A little about me as a person though! I have 3 cats called Popcorn, Luna and Onyx who keep me on my toes at home! I love cooking, like literally anything! And I also love going outdoors to explore. Hairdressing to me is another thing I love doing and I find it therapeutic if you'd like to call it that! I like to do things that make other people feel happy within themselves! I hope to see you all soon.",
+      specialties: ["Hair Styling", "Hair Extensions", "Foundation Hairdressing", "Balayage"]
     },
     {
       id: 3,
@@ -40,6 +40,14 @@ const Staff = () => {
       image: "/lovable-uploads/5baa32bf-0382-4a50-921c-2c274070c44e.png",
       bio: "A skilled nail technician offering lash lifts and tints, Stef has been with Transformed Academy for over a year. Outside of work, she absolutely loves salsa dancing and doughnuts.",
       specialties: ["Nail Art", "Lash Lifts", "Lash Tinting", "Manicures & Pedicures"]
+    },
+    {
+      id: 5,
+      name: "Hope",
+      role: "Stylist",
+      image: "https://transformed-academy-and-salon-staff.s3.amazonaws.com/staff/WhatsApp%20Image%202025-03-27%20at%2013.18.38.jpeg",
+      bio: "Meet Hope, our talented stylist with a passion for creating beautiful transformations. With her keen eye for detail and dedication to staying current with the latest trends, Hope delivers exceptional results tailored to each client's unique style. She specializes in precision cutting, creative coloring, and styling techniques that enhance your natural beauty. When she's not behind the chair, Hope enjoys exploring new fashion trends and spending time outdoors.",
+      specialties: ["Precision Cutting", "Creative Coloring", "Styling", "Hair Treatments"]
     }
   ];
 
@@ -93,8 +101,8 @@ const Staff = () => {
               <p className="text-gray-700 mb-6">
                 Are you passionate about beauty and aesthetics? We're always looking for talented professionals to join our growing team.
               </p>
-              <a 
-                href="/contact" 
+              <a
+                href="/contact"
                 className="inline-block bg-salon-pink-500 text-white px-6 py-3 rounded-full hover:bg-salon-pink-600 transition-colors"
               >
                 Contact Us About Opportunities
