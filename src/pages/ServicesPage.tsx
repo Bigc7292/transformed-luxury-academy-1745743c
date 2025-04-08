@@ -30,6 +30,9 @@ const ServicesPage = () => {
   const handleTabClick = (categoryId: string) => {
     setActiveTab(categoryId);
 
+    // Update URL hash for better navigation
+    window.location.hash = categoryId;
+
     // Scroll to the selected category section
     const sectionId = `${categoryId}-section`;
     const section = document.getElementById(sectionId);
@@ -41,8 +44,8 @@ const ServicesPage = () => {
       // Add a small delay and then scroll up slightly to ensure the section is visible
       setTimeout(() => {
         // Scroll up a bit to account for the fixed header
-        window.scrollBy(0, -20);
-      }, 100);
+        window.scrollBy(0, -120);
+      }, window.innerWidth < 768 ? 300 : 100); // Longer delay for mobile
     }
   };
 
@@ -63,7 +66,7 @@ const ServicesPage = () => {
           // Adjust scroll position to account for fixed header
           setTimeout(() => window.scrollBy(0, -120), 100);
         }
-      }, 100);
+      }, window.innerWidth < 768 ? 500 : 100); // Longer delay for mobile devices
     } else {
       // Check if there's a pending hash in sessionStorage
       const pendingHash = sessionStorage.getItem('pendingHash');
@@ -82,10 +85,32 @@ const ServicesPage = () => {
             // Adjust scroll position to account for fixed header
             setTimeout(() => window.scrollBy(0, -120), 100);
           }
-        }, 100);
+        }, window.innerWidth < 768 ? 500 : 100); // Longer delay for mobile devices
       }
     }
   }, [location.hash]);
+
+  // Add an additional effect to handle direct navigation from mobile menu
+  useEffect(() => {
+    // This will run once when the component mounts
+    const handleInitialScroll = () => {
+      if (location.hash) {
+        const categoryId = location.hash.substring(1);
+        const sectionId = `${categoryId}-section`;
+        const section = document.getElementById(sectionId);
+
+        if (section) {
+          // For mobile devices, use a longer delay
+          setTimeout(() => {
+            section.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => window.scrollBy(0, -120), 100);
+          }, window.innerWidth < 768 ? 800 : 200);
+        }
+      }
+    };
+
+    handleInitialScroll();
+  }, []);
 
   return (
     <div className="bg-white min-h-screen">
@@ -129,14 +154,14 @@ const ServicesPage = () => {
             {/* Service Sections with Anchors */}
             <div className="relative">
               {/* Anchor points positioned at the top of each section */}
-              <div id="all-section" ref={categoryRefs.current.all} className="absolute" style={{ top: '-120px' }}></div>
+              <div id="all-section" ref={categoryRefs.current.all} className="absolute" style={{ top: '-150px' }}></div>
               {serviceCategories.map(category => (
                 <div
                   key={`anchor-${category.id}`}
                   id={`${category.id}-section`}
                   ref={categoryRefs.current[category.id]}
                   className="absolute"
-                  style={{ top: '-120px' }}
+                  style={{ top: '-150px' }}
                 ></div>
               ))}
 

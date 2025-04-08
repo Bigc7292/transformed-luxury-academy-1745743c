@@ -56,6 +56,18 @@ const Navbar = () => {
         // Store the hash in sessionStorage so we can retrieve it after navigation
         sessionStorage.setItem('pendingHash', hash);
         navigate(routePath);
+
+        // For mobile devices, add an additional delay and scroll handling
+        if (window.innerWidth < 768) {
+          setTimeout(() => {
+            const section = document.getElementById(`${hash}-section`);
+            if (section) {
+              section.scrollIntoView({ behavior: 'smooth' });
+              // Adjust scroll position to account for fixed header
+              setTimeout(() => window.scrollBy(0, -120), 100);
+            }
+          }, 500); // Longer delay for mobile to ensure page is loaded
+        }
       }
     } else {
       navigate(path);
@@ -65,7 +77,13 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/services" },
+    { name: "Services", path: "/services", hasSubmenu: true, submenu: [
+      { name: "Hair", path: "/services#hair" },
+      { name: "Aesthetics", path: "/services#aesthetics" },
+      { name: "Non-Surgical", path: "/services#non-surgical" },
+      { name: "Beauty Treatments", path: "/services#beauty-treatments" },
+      { name: "Training Services", path: "/services#training" },
+    ] },
     {
       name: "Meet the Team",
       path: "#",
