@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Send } from 'lucide-react';
 import Navbar from '../components/Navbar';
@@ -21,6 +21,22 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [policiesFixed, setPoliciesFixed] = useState(false);
+
+  // Try to fix RLS policies when the component mounts
+  useEffect(() => {
+    const fixPolicies = async () => {
+      try {
+        const result = await customerService.fixRLSPolicies();
+        setPoliciesFixed(result.success);
+        console.log('RLS policies fix attempt result:', result);
+      } catch (error) {
+        console.error('Error fixing RLS policies:', error);
+      }
+    };
+
+    fixPolicies();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -46,7 +62,19 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const result = await customerService.submitInquiry({
+      // Log the form data for debugging
+      console.log('Submitting form data:', formData);
+
+      // If policies haven't been fixed yet, try again
+      if (!policiesFixed) {
+        console.log('Attempting to fix RLS policies before submission...');
+        const fixResult = await customerService.fixRLSPolicies();
+        setPoliciesFixed(fixResult.success);
+        console.log('RLS policies fix result:', fixResult);
+      }
+
+      // Prepare the inquiry data
+      const inquiryData = {
         name: formData.name,
         email: formData.email,
         phone: formData.phone || null,
@@ -54,7 +82,10 @@ const Contact = () => {
         message: formData.message,
         status: 'new',
         session_id: null
-      });
+      };
+
+      // Submit the inquiry
+      const result = await customerService.submitInquiry(inquiryData);
 
       if (result.success) {
         toast({
@@ -71,6 +102,7 @@ const Contact = () => {
           message: ''
         });
       } else {
+        console.error('Form submission failed:', result.error);
         toast({
           title: "Error",
           description: result.error || "There was a problem sending your message. Please try again.",
@@ -78,12 +110,12 @@ const Contact = () => {
         });
       }
     } catch (error) {
+      console.error("Contact form submission exception:", error);
       toast({
         title: "Error",
         description: "There was a problem sending your message. Please try again.",
         variant: "destructive",
       });
-      console.error("Contact form submission error:", error);
     } finally {
       setIsSubmitting(false);
     }

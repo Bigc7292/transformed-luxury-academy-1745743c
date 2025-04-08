@@ -36,15 +36,19 @@ const Navbar = () => {
 
       if (window.location.pathname === '/services' && routePath === '/services') {
         // We're already on the services page, just need to switch tabs
-        const element = document.getElementById(hash);
-        if (element) {
-          // First click the element to activate the tab
-          element.click();
-          // Then scroll to the tab section
-          setTimeout(() => {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }, 100);
-        }
+        // Update the URL hash for consistency
+        window.location.hash = hash;
+
+        // Scroll to the section with a slight delay to ensure the component is ready
+        setTimeout(() => {
+          const section = document.getElementById(`${hash}-section`);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+            // Adjust scroll position to account for fixed header
+            setTimeout(() => window.scrollBy(0, -120), 100);
+          }
+        }, 50);
+
         setIsOpen(false);
         return;
       } else {
@@ -74,7 +78,7 @@ const Navbar = () => {
     },
     { name: "Gallery", path: "/gallery" },
     { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
+    { name: "Contact Us", path: "/contact" },
     { name: "Admin Login", path: "/admin/auth" },
   ];
 

@@ -22,6 +22,7 @@ import CreateContentDialog from "@/components/admin/CreateContentDialog";
 import EditContentDialog from "@/components/admin/EditContentDialog";
 import DeleteContentDialog from "@/components/admin/DeleteContentDialog";
 import BulkUploadDialog from "@/components/admin/BulkUploadDialog";
+import UpdateServiceImages from "@/components/admin/UpdateServiceImages";
 
 const AdminContentPage: React.FC = () => {
   const { toast } = useToast();
@@ -120,6 +121,8 @@ const AdminContentPage: React.FC = () => {
         <AdminHeader title="Content Management" handleLogout={handleLogout} />
 
         <AdminInstructions />
+
+        <UpdateServiceImages />
 
         <AdminFilterBar
           {...filters}

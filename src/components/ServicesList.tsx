@@ -88,7 +88,7 @@ const ServicesList: React.FC<ServicesListProps> = ({ categoryId }) => {
                         />
                       ) : service.id === 'dermal-filler' ? (
                         <img
-                          src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/cannula.png"
+                          src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-08+at+18.22.46.jpeg"
                           alt="Cannula Dermal Filler Service"
                           className="w-full h-full object-cover"
                         />

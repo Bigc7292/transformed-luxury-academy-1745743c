@@ -15,9 +15,9 @@ const testimonials = [
   {
     id: 2,
     name: "Emily Roberts",
-    role: "Botox Client",
+    role: "Anti-Wrinkle Treatment Client",
     image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=2076&auto=format&fit=crop",
-    quote: "I was nervous about getting Botox for the first time, but the team at Transformed Academy put me at ease. The results are amazing and subtle - exactly what I wanted. I'll definitely be returning for my touch-ups.",
+    quote: "I was nervous about getting anti-wrinkle treatment for the first time, but the team at Transformed Academy put me at ease. The results are amazing and subtle - exactly what I wanted. I'll definitely be returning for my touch-ups.",
     rating: 5
   },
   {
@@ -26,7 +26,7 @@ const testimonials = [
     role: "Dermal Filler Client",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2076&auto=format&fit=crop",
     quote: "The dermal filler treatment I received took years off my appearance. The practitioner was knowledgeable and took the time to understand my goals. The clinic is beautiful and I felt pampered throughout my visit.",
-    rating: 4
+    rating: 5
   },
 ];
 
@@ -42,8 +42,8 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-20 bg-white overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-white overflow-hidden">
+      <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center mb-12">
           <span className="text-salon-pink-400 font-medium">Testimonials</span>
           <h2 className="text-3xl md:text-4xl font-serif text-salon-pink-800 mt-2">What Our Clients Say</h2>
@@ -52,32 +52,32 @@ const Testimonials = () => {
           </p>
         </div>
 
-        <div className="relative max-w-4xl mx-auto">
+        <div className="relative max-w-4xl mx-auto min-h-[500px]">
           <div className="absolute top-1/4 -left-8 w-40 h-40 bg-salon-pink-100 rounded-full blur-3xl opacity-30"></div>
           <div className="absolute bottom-1/3 -right-8 w-40 h-40 bg-salon-beige-100 rounded-full blur-3xl opacity-30"></div>
-          
-          <div className="relative">
+
+          <div className="relative min-h-[400px]">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={testimonial.id}
                 initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ 
+                animate={{
                   opacity: index === activeIndex ? 1 : 0,
                   scale: index === activeIndex ? 1 : 0.9,
                   x: `${(index - activeIndex) * 100}%`
                 }}
                 transition={{ duration: 0.5 }}
-                className="absolute inset-0 flex flex-col items-center"
+                className="absolute inset-0 flex flex-col items-center justify-center min-h-[400px]"
                 style={{ display: index === activeIndex ? 'flex' : 'none' }}
               >
                 <div className="mb-8 w-20 h-20 rounded-full overflow-hidden border-4 border-salon-pink-100">
-                  <img 
-                    src={testimonial.image} 
-                    alt={testimonial.name} 
+                  <img
+                    src={testimonial.image}
+                    alt={testimonial.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                
+
                 <div className="flex mb-6">
                   {[...Array(5)].map((_, i) => (
                     <Star
@@ -87,11 +87,11 @@ const Testimonials = () => {
                     />
                   ))}
                 </div>
-                
-                <blockquote className="text-xl text-center text-gray-600 italic mb-6">
+
+                <blockquote className="text-xl text-center text-gray-600 italic mb-6 max-w-2xl px-4">
                   "{testimonial.quote}"
                 </blockquote>
-                
+
                 <div className="text-center">
                   <p className="text-lg font-medium text-salon-pink-700">{testimonial.name}</p>
                   <p className="text-sm text-gray-500">{testimonial.role}</p>
@@ -99,9 +99,9 @@ const Testimonials = () => {
               </motion.div>
             ))}
           </div>
-          
-          <div className="flex justify-center mt-16 space-x-4">
-            <button 
+
+          <div className="flex justify-center mt-24 space-x-4">
+            <button
               onClick={prevTestimonial}
               className="w-12 h-12 rounded-full bg-salon-pink-100 hover:bg-salon-pink-200 flex items-center justify-center transition-colors"
               aria-label="Previous testimonial"
@@ -110,7 +110,7 @@ const Testimonials = () => {
                 <path d="M15 19L8 12L15 5" stroke="#FF6499" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
-            
+
             <div className="flex space-x-2">
               {testimonials.map((_, index) => (
                 <button
@@ -121,8 +121,8 @@ const Testimonials = () => {
                 ></button>
               ))}
             </div>
-            
-            <button 
+
+            <button
               onClick={nextTestimonial}
               className="w-12 h-12 rounded-full bg-salon-pink-100 hover:bg-salon-pink-200 flex items-center justify-center transition-colors"
               aria-label="Next testimonial"

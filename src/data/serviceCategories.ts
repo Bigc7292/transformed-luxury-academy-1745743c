@@ -32,7 +32,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'extensions',
         title: 'Extensions',
         description: 'Premium hair extensions for added length and volume',
-        image: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/exstensions.jpeg',
       },
       {
         id: 'coloring',
@@ -50,7 +50,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'blowouts',
         title: 'Bouncy and 90s Blow Outs',
         description: 'Get that perfect voluminous look',
-        image: 'https://images.unsplash.com/photo-1522337094846-8a818192de1f?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-08+at+18.22.45.jpeg',
       },
       {
         id: 'treatments',
@@ -87,7 +87,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'advanced-facials',
         title: 'Advanced Facials',
         description: 'Luxurious facials for radiant skin',
-        image: 'https://images.unsplash.com/photo-1596315314910-48e3668f7879?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/facial.jpeg',
       },
       {
         id: 'vitamin-injections',
@@ -173,19 +173,19 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'lashes',
         title: 'Lashes',
         description: 'Beautiful lash extensions and lifting',
-        image: 'https://images.unsplash.com/photo-1533392151650-269f96231f65?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/eyelashes.jpeg',
       },
       {
         id: 'waxing',
         title: 'Waxing',
         description: 'Professional hair removal services',
-        image: 'https://images.unsplash.com/photo-1560869755-d5e35a6d58bd?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/waxing.jpeg',
       },
       {
         id: 'eyebrows',
         title: 'Eyebrows',
         description: 'Shaping, tinting, and lamination services',
-        image: 'https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/eyebrows.jpeg',
       },
       {
         id: 'nails',
@@ -252,7 +252,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'canula-training',
         title: 'Canula Training',
         description: 'Safe and effective canula techniques',
-        image: 'https://images.unsplash.com/photo-1576669801145-ff88e318bdba?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-08+at+18.22.46.jpeg',
       },
       {
         id: 'masterclasses',

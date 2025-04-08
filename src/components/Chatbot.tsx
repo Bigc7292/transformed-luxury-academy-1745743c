@@ -43,7 +43,7 @@ const Chatbot = () => {
   });
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
-  
+
   useEffect(() => {
     // Generate a unique session ID if not exists
     if (!sessionId) {
@@ -57,7 +57,7 @@ const Chatbot = () => {
       }
     }
   }, [sessionId]);
-  
+
   const toggleChat = () => {
     setIsOpen(!isOpen);
   };
@@ -65,31 +65,31 @@ const Chatbot = () => {
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (input.trim() === '') return;
-    
+
     // Add user message
     const newId = messages.length + 1;
     setMessages([...messages, { id: newId, text: input, isBot: false }]);
-    
+
     const userQuestion = input;
     setInput("");
-    
+
     // Show typing indicator
     setIsTyping(true);
-    
+
     // Process the response based on the user's input
     setTimeout(() => {
       const botResponse = findBestResponse(userQuestion);
       setIsTyping(false);
       setMessages(prev => [...prev, { id: prev.length + 1, text: botResponse, isBot: true }]);
-      
+
       // Save the conversation to the database
       if (sessionId) {
         saveChatConversation(userQuestion, botResponse, sessionId);
       }
-      
+
       // If user mentions contact or form, suggest the contact form
-      if (userQuestion.toLowerCase().includes('contact') || 
-          userQuestion.toLowerCase().includes('form') || 
+      if (userQuestion.toLowerCase().includes('contact') ||
+          userQuestion.toLowerCase().includes('form') ||
           userQuestion.toLowerCase().includes('inquiry') ||
           userQuestion.toLowerCase().includes('get in touch') ||
           userQuestion.toLowerCase().includes('email') ||
@@ -97,11 +97,18 @@ const Chatbot = () => {
         setTimeout(() => {
           const contactMessage = "Would you like to fill out our contact form to get in touch with our team directly?";
           setMessages(prev => [...prev, { id: prev.length + 1, text: contactMessage, isBot: true }]);
-          
-          // Save this suggestion message as well
-          if (sessionId) {
-            saveChatConversation("", contactMessage, sessionId);
-          }
+
+          // Add a button message to show the form
+          setTimeout(() => {
+            const buttonMessage = "<button-message>Show Contact Form</button-message>";
+            setMessages(prev => [...prev, { id: prev.length + 1, text: buttonMessage, isBot: true }]);
+
+            // Save these messages
+            if (sessionId) {
+              saveChatConversation("", contactMessage, sessionId);
+              saveChatConversation("", "[Contact Form Button Displayed]", sessionId);
+            }
+          }, 500);
         }, 1000);
       }
     }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds to simulate typing
@@ -117,7 +124,7 @@ const Chatbot = () => {
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate form
     if (!contactForm.name || !contactForm.email || !contactForm.topic || !contactForm.message) {
       toast({
@@ -127,32 +134,32 @@ const Chatbot = () => {
       });
       return;
     }
-    
+
     // Add session ID to the inquiry
     const inquiryWithSession = {
       ...contactForm,
       session_id: sessionId
     };
-    
+
     // Submit the inquiry
     const { success, error } = await customerService.submitInquiry(inquiryWithSession);
-    
+
     if (success) {
       toast({
         title: "Inquiry Submitted",
         description: "Thank you for your inquiry. We'll get back to you soon!",
       });
-      
+
       // Add confirmation message to chat
       setMessages(prev => [
-        ...prev, 
-        { 
-          id: prev.length + 1, 
-          text: "Thank you for submitting your inquiry. Our team will get back to you soon!", 
-          isBot: true 
+        ...prev,
+        {
+          id: prev.length + 1,
+          text: "Thank you for submitting your inquiry. Our team will get back to you soon!",
+          isBot: true
         }
       ]);
-      
+
       // Close the form and reset it
       setShowContactForm(false);
       setContactForm({
@@ -162,7 +169,7 @@ const Chatbot = () => {
         topic: '',
         message: ''
       });
-      
+
       // Save this confirmation message
       if (sessionId) {
         saveChatConversation("", "Thank you for submitting your inquiry. Our team will get back to you soon!", sessionId);
@@ -215,14 +222,14 @@ const Chatbot = () => {
                           <label htmlFor="name" className="text-sm font-medium">Name</label>
                           <div className="relative">
                             <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                            <Input 
-                              id="name" 
-                              name="name" 
-                              value={contactForm.name} 
-                              onChange={handleInputChange} 
-                              className="pl-10" 
-                              placeholder="Your Name" 
-                              required 
+                            <Input
+                              id="name"
+                              name="name"
+                              value={contactForm.name}
+                              onChange={handleInputChange}
+                              className="pl-10"
+                              placeholder="Your Name"
+                              required
                             />
                           </div>
                         </div>
@@ -230,15 +237,15 @@ const Chatbot = () => {
                           <label htmlFor="email" className="text-sm font-medium">Email</label>
                           <div className="relative">
                             <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                            <Input 
-                              id="email" 
-                              name="email" 
-                              type="email" 
-                              value={contactForm.email} 
-                              onChange={handleInputChange} 
-                              className="pl-10" 
-                              placeholder="your.email@example.com" 
-                              required 
+                            <Input
+                              id="email"
+                              name="email"
+                              type="email"
+                              value={contactForm.email}
+                              onChange={handleInputChange}
+                              className="pl-10"
+                              placeholder="your.email@example.com"
+                              required
                             />
                           </div>
                         </div>
@@ -246,37 +253,37 @@ const Chatbot = () => {
                           <label htmlFor="phone" className="text-sm font-medium">Phone (Optional)</label>
                           <div className="relative">
                             <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                            <Input 
-                              id="phone" 
-                              name="phone" 
-                              value={contactForm.phone} 
-                              onChange={handleInputChange} 
-                              className="pl-10" 
-                              placeholder="Your Phone Number" 
+                            <Input
+                              id="phone"
+                              name="phone"
+                              value={contactForm.phone}
+                              onChange={handleInputChange}
+                              className="pl-10"
+                              placeholder="Your Phone Number"
                             />
                           </div>
                         </div>
                         <div className="space-y-2">
                           <label htmlFor="topic" className="text-sm font-medium">Topic</label>
-                          <Input 
-                            id="topic" 
-                            name="topic" 
-                            value={contactForm.topic} 
-                            onChange={handleInputChange} 
-                            placeholder="What is your inquiry about?" 
-                            required 
+                          <Input
+                            id="topic"
+                            name="topic"
+                            value={contactForm.topic}
+                            onChange={handleInputChange}
+                            placeholder="What is your inquiry about?"
+                            required
                           />
                         </div>
                         <div className="space-y-2">
                           <label htmlFor="message" className="text-sm font-medium">Message</label>
-                          <Textarea 
-                            id="message" 
-                            name="message" 
-                            value={contactForm.message} 
-                            onChange={handleInputChange} 
-                            placeholder="Tell us more about your inquiry..." 
-                            rows={4} 
-                            required 
+                          <Textarea
+                            id="message"
+                            name="message"
+                            value={contactForm.message}
+                            onChange={handleInputChange}
+                            placeholder="Tell us more about your inquiry..."
+                            rows={4}
+                            required
                           />
                         </div>
                         <div className="flex justify-between">
@@ -294,7 +301,7 @@ const Chatbot = () => {
                 </button>
               </div>
             </div>
-            
+
             <div className="flex-grow p-4 overflow-y-auto">
               {messages.map((message) => (
                 <div
@@ -308,11 +315,21 @@ const Chatbot = () => {
                         : 'bg-salon-pink-500 text-white'
                     }`}
                   >
-                    {message.text}
+                    {message.text.startsWith('<button-message>') ? (
+                      <Button
+                        onClick={() => setShowContactForm(true)}
+                        className="bg-salon-pink-500 text-white hover:bg-salon-pink-600"
+                        size="sm"
+                      >
+                        {message.text.replace('<button-message>', '').replace('</button-message>', '')}
+                      </Button>
+                    ) : (
+                      message.text
+                    )}
                   </div>
                 </div>
               ))}
-              
+
               {isTyping && (
                 <div className="mb-4 flex justify-start">
                   <div className="bg-salon-pink-100 text-gray-800 max-w-[80%] rounded-lg p-3">
@@ -324,75 +341,75 @@ const Chatbot = () => {
                   </div>
                 </div>
               )}
-              
+
               {showContactForm && (
                 <div className="mt-4 mb-4 bg-white rounded-lg border border-salon-pink-200 p-4">
                   <h4 className="font-medium text-salon-pink-700 mb-2">Contact Form</h4>
                   <form onSubmit={handleContactSubmit} className="space-y-3">
                     <div>
                       <label className="text-xs font-medium">Name</label>
-                      <Input 
-                        name="name" 
-                        value={contactForm.name} 
-                        onChange={handleInputChange} 
-                        placeholder="Your Name" 
+                      <Input
+                        name="name"
+                        value={contactForm.name}
+                        onChange={handleInputChange}
+                        placeholder="Your Name"
                         size={1}
-                        required 
+                        required
                       />
                     </div>
                     <div>
                       <label className="text-xs font-medium">Email</label>
-                      <Input 
-                        name="email" 
-                        type="email" 
-                        value={contactForm.email} 
-                        onChange={handleInputChange} 
-                        placeholder="your.email@example.com" 
-                        required 
+                      <Input
+                        name="email"
+                        type="email"
+                        value={contactForm.email}
+                        onChange={handleInputChange}
+                        placeholder="your.email@example.com"
+                        required
                       />
                     </div>
                     <div>
                       <label className="text-xs font-medium">Phone (Optional)</label>
-                      <Input 
-                        name="phone" 
-                        value={contactForm.phone} 
-                        onChange={handleInputChange} 
-                        placeholder="Your Phone Number" 
+                      <Input
+                        name="phone"
+                        value={contactForm.phone}
+                        onChange={handleInputChange}
+                        placeholder="Your Phone Number"
                       />
                     </div>
                     <div>
                       <label className="text-xs font-medium">Topic</label>
-                      <Input 
-                        name="topic" 
-                        value={contactForm.topic} 
-                        onChange={handleInputChange} 
-                        placeholder="What is your inquiry about?" 
-                        required 
+                      <Input
+                        name="topic"
+                        value={contactForm.topic}
+                        onChange={handleInputChange}
+                        placeholder="What is your inquiry about?"
+                        required
                       />
                     </div>
                     <div>
                       <label className="text-xs font-medium">Message</label>
-                      <Textarea 
-                        name="message" 
-                        value={contactForm.message} 
-                        onChange={handleInputChange} 
-                        placeholder="Tell us more about your inquiry..." 
-                        rows={3} 
-                        required 
+                      <Textarea
+                        name="message"
+                        value={contactForm.message}
+                        onChange={handleInputChange}
+                        placeholder="Tell us more about your inquiry..."
+                        rows={3}
+                        required
                       />
                     </div>
                     <div className="flex justify-between">
-                      <Button 
-                        type="button" 
-                        variant="outline" 
+                      <Button
+                        type="button"
+                        variant="outline"
                         size="sm"
                         onClick={() => setShowContactForm(false)}
                       >
                         Cancel
                       </Button>
-                      <Button 
-                        type="submit" 
-                        className="bg-salon-pink-500 text-white" 
+                      <Button
+                        type="submit"
+                        className="bg-salon-pink-500 text-white"
                         size="sm"
                       >
                         Submit
@@ -401,10 +418,10 @@ const Chatbot = () => {
                   </form>
                 </div>
               )}
-              
+
               <div ref={messagesEndRef} />
             </div>
-            
+
             <form onSubmit={handleSendMessage} className="border-t border-salon-pink-100 p-3 flex">
               <input
                 type="text"
@@ -423,7 +440,7 @@ const Chatbot = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      
+
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}

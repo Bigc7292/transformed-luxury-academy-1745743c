@@ -1,7 +1,8 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { customerService, CustomerInquiry } from "@/services/customerService";
+import { getAllChatSessions, getChatHistory } from "@/services/chatbotService";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
@@ -41,7 +42,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Mail, MessageSquare, Clock, CheckCircle, XCircle, RefreshCw, LogOut } from "lucide-react";
+import { Mail, MessageSquare, Clock, CheckCircle, XCircle, RefreshCw, LogOut, AlertCircle, Eye } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminInstructions from "@/components/admin/AdminInstructions";
 
@@ -50,6 +51,116 @@ const statusColors = {
   inprogress: "bg-yellow-500",
   completed: "bg-green-500",
   cancelled: "bg-red-500"
+};
+
+// Chat History Section Component
+const ChatHistorySection: React.FC = () => {
+  const [selectedSession, setSelectedSession] = useState<string | null>(null);
+  const [chatMessages, setChatMessages] = useState<{user_message: string; bot_response: string; created_at: string}[]>([]);
+
+  // Fetch all chat sessions
+  const { data: chatSessions = [], isLoading: isLoadingSessions } = useQuery({
+    queryKey: ["chatSessions"],
+    queryFn: getAllChatSessions,
+    refetchOnWindowFocus: true,
+    refetchInterval: 30000, // Refetch every 30 seconds
+  });
+
+  // Fetch chat history for selected session
+  const fetchChatHistory = async (sessionId: string) => {
+    try {
+      const history = await getChatHistory(sessionId);
+      setChatMessages(history);
+    } catch (error) {
+      console.error("Error fetching chat history:", error);
+    }
+  };
+
+  // Format date for display
+  const formatChatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString();
+  };
+
+  return (
+    <div>
+      {isLoadingSessions ? (
+        <div className="flex justify-center items-center py-8">
+          <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+          Loading chat sessions...
+        </div>
+      ) : chatSessions.length === 0 ? (
+        <div className="text-center py-8">
+          <p className="text-gray-500">No chat sessions found.</p>
+        </div>
+      ) : (
+        <div>
+          <div className="mb-6">
+            <h3 className="text-lg font-medium mb-2">Select a Chat Session</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {chatSessions.map((session) => (
+                <Button
+                  key={session.session_id}
+                  variant={selectedSession === session.session_id ? "default" : "outline"}
+                  className="justify-start overflow-hidden"
+                  onClick={() => {
+                    setSelectedSession(session.session_id);
+                    fetchChatHistory(session.session_id);
+                  }}
+                >
+                  <div className="truncate">
+                    <span className="font-medium">Session:</span> {session.session_id.substring(0, 8)}...
+                    <div className="text-xs">{formatChatDate(session.created_at)}</div>
+                  </div>
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {selectedSession && (
+            <div className="border rounded-lg p-4">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-medium">Chat Conversation</h3>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSelectedSession(null)}
+                >
+                  Close
+                </Button>
+              </div>
+
+              {chatMessages.length === 0 ? (
+                <div className="text-center py-4">
+                  <p className="text-gray-500">No messages found for this session.</p>
+                </div>
+              ) : (
+                <div className="space-y-4 max-h-[400px] overflow-y-auto p-2">
+                  {chatMessages.map((msg, index) => (
+                    <div key={index} className="border-b pb-3">
+                      <div className="text-xs text-gray-500 mb-1">{formatChatDate(msg.created_at)}</div>
+                      {msg.user_message && (
+                        <div className="bg-gray-100 p-3 rounded-lg mb-2">
+                          <div className="text-xs font-medium mb-1">User:</div>
+                          <div>{msg.user_message}</div>
+                        </div>
+                      )}
+                      {msg.bot_response && (
+                        <div className="bg-salon-pink-100 p-3 rounded-lg">
+                          <div className="text-xs font-medium mb-1">Bot:</div>
+                          <div>{msg.bot_response}</div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
 };
 
 const AdminInbox: React.FC = () => {
@@ -94,10 +205,25 @@ const AdminInbox: React.FC = () => {
   }, [navigate, toast]);
 
   // Fetch inquiries with query
-  const { data: inquiries = [], isLoading, error } = useQuery({
+  const { data: inquiries = [], isLoading, error, refetch } = useQuery({
     queryKey: ["inquiries"],
     queryFn: () => customerService.getInquiries(),
+    refetchOnWindowFocus: true,
+    refetchInterval: 30000, // Refetch every 30 seconds
+    retry: 3, // Retry 3 times if the query fails
+    retryDelay: 1000, // Wait 1 second between retries
   });
+
+  // Force a refetch when the component mounts
+  useEffect(() => {
+    // Wait a moment for authentication to complete
+    const timer = setTimeout(() => {
+      refetch();
+      console.log('Forced refetch of inquiries');
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [refetch]);
 
   // Update inquiry status mutation
   const updateStatusMutation = useMutation({
@@ -170,7 +296,90 @@ const AdminInbox: React.FC = () => {
           }}
         />
 
-        <AdminInstructions />
+        <div className="flex justify-between items-center mb-4">
+          <AdminInstructions />
+          <Button
+            onClick={() => {
+              refetch();
+              toast({
+                title: "Refreshed",
+                description: "Customer inquiries have been refreshed."
+              });
+
+              // Also check localStorage for any inquiries
+              try {
+                const storedInquiries = JSON.parse(localStorage.getItem('customerInquiries') || '[]');
+                if (storedInquiries.length > 0) {
+                  console.log('Found', storedInquiries.length, 'inquiries in localStorage');
+                }
+              } catch (err) {
+                console.error('Error checking localStorage:', err);
+              }
+            }}
+            variant="outline"
+            className="flex items-center gap-2"
+          >
+            <RefreshCw size={16} className={isLoading ? "animate-spin" : ""} />
+            Refresh Inquiries
+          </Button>
+        </div>
+
+        {/* No inquiries fallback */}
+        {!isLoading && inquiries.length === 0 && (
+          <Card className="mb-6">
+            <CardContent className="pt-6">
+              <div className="text-center py-6">
+                <AlertCircle className="h-12 w-12 text-yellow-500 mx-auto mb-4" />
+                <h3 className="text-lg font-medium mb-2">No Customer Inquiries Found</h3>
+                <p className="text-gray-500 mb-6">There are no customer inquiries in the database yet.</p>
+                <Button
+                  onClick={async () => {
+                    // Create a test inquiry
+                    const testInquiry = {
+                      name: 'Test Customer',
+                      email: 'test@example.com',
+                      phone: '123-456-7890',
+                      topic: 'Test Inquiry',
+                      message: 'This is a test inquiry created from the admin panel.',
+                      status: 'new'
+                    };
+
+                    // Store it in localStorage
+                    try {
+                      const storedInquiries = JSON.parse(localStorage.getItem('customerInquiries') || '[]');
+                      storedInquiries.push({
+                        ...testInquiry,
+                        id: `local-${Date.now()}`,
+                        created_at: new Date().toISOString(),
+                        updated_at: new Date().toISOString()
+                      });
+                      localStorage.setItem('customerInquiries', JSON.stringify(storedInquiries));
+
+                      // Refresh the inquiries
+                      refetch();
+
+                      toast({
+                        title: "Test Inquiry Created",
+                        description: "A test inquiry has been created and should now be visible."
+                      });
+                    } catch (err) {
+                      console.error('Error creating test inquiry:', err);
+                      toast({
+                        title: "Error",
+                        description: "Failed to create test inquiry.",
+                        variant: "destructive"
+                      });
+                    }
+                  }}
+                  variant="outline"
+                  className="mx-auto"
+                >
+                  Create Test Inquiry
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         <Tabs defaultValue="new" className="w-full">
           <TabsList className="mb-6 grid grid-cols-4 w-full">
@@ -366,9 +575,7 @@ const AdminInbox: React.FC = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-center py-4">
-              <p>Chat history functionality will be implemented in the next phase.</p>
-            </div>
+            <ChatHistorySection />
           </CardContent>
         </Card>
       </div>

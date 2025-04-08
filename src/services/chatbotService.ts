@@ -16,12 +16,20 @@ export interface ChatMessage {
 // Create a data structure with predefined responses based on keywords
 export const chatbotResponses: ChatbotResponse[] = [
   {
+    keywords: ['form', 'contact form', 'inquiry form', 'message form', 'direct message'],
+    response: "I can help you fill out a contact form right now! Just click the 'Show Contact Form' button below, and our team will get back to you as soon as possible."
+  },
+  {
     keywords: ['hello', 'hi', 'hey', 'greetings'],
     response: "Hello! Welcome to Transformed Academy and Salon. How can I assist you with our beauty and training services today?"
   },
   {
     keywords: ['service', 'treatment', 'offer', 'provide'],
     response: "We offer a wide range of services including: Hair treatments (extensions, coloring, advanced cutting), Aesthetics (dermal fillers, lip fillers, facials), Beauty treatments (lashes, eyebrows, nails), and Non-surgical procedures (facial and body sculpting). Would you like more information about any specific service?"
+  },
+  {
+    keywords: ['all services', 'services list', 'list of services', 'what services'],
+    response: "Here's a comprehensive list of our services:\n\n🔹 HAIR: Extensions, Color Mixology, Advanced Cutting, Bouncy Blowouts, 90s Blowouts\n\n🔹 AESTHETICS: Lip Fillers, Dermal Fillers, Botox, Jawline Contouring, Cheek Enhancement, Liquid Rhinoplasty\n\n🔹 NON-SURGICAL: Thread Lifts, Fat Dissolving, Body Sculpting, XXXL Booty Lift, Skin Boosters, Polynucleotides\n\n🔹 BEAUTY: Lash Extensions, Brow Lamination, Luxury Manicures, Pedicures, Waxing\n\n🔹 TRAINING: Aesthetics Courses, Masterclasses, Anatomy & Physiology, Advanced Techniques\n\nWhich service would you like to know more about?"
   },
   {
     keywords: ['price', 'cost', 'fee', 'how much'],
@@ -89,7 +97,11 @@ export const chatbotResponses: ChatbotResponse[] = [
   },
   {
     keywords: ['training', 'course', 'learn', 'teach', 'become', 'career'],
-    response: "We offer professional training for beauty specialists through our Transformed Academy. Our courses include the comprehensive 'Start from Scratch Aesthetics Course' for beginners, Anatomy and Physiology Level 4, Anti-Wrinkle Training, Dermal Filler Training, Advanced techniques, Canula Training, and specialized Master Classes in techniques like Liquid Rhinoplasty and 11 Point Face Lift."
+    response: "We offer professional training for beauty specialists through our Transformed Academy. Our courses include the comprehensive 'Start from Scratch Aesthetics Course' for beginners, Anatomy and Physiology Level 4, Anti-Wrinkle Training, Dermal Filler Training, Advanced techniques, Canula Training, and specialized Master Classes in techniques like Liquid Rhinoplasty and 11 Point Face Lift. Would you like more information about a specific course?"
+  },
+  {
+    keywords: ['training details', 'course details', 'training information', 'course information', 'training program'],
+    response: "Our training programs are designed for all levels:\n\n🔹 START FROM SCRATCH AESTHETICS COURSE: A comprehensive 5-day program for beginners with no prior experience. Covers anatomy, consultation techniques, product knowledge, and hands-on training.\n\n🔹 ANATOMY & PHYSIOLOGY LEVEL 4: Essential knowledge of facial anatomy required for safe aesthetic practice.\n\n🔹 ANTI-WRINKLE TRAINING: Learn to administer Botox treatments safely and effectively.\n\n🔹 DERMAL FILLER TRAINING: Master the art of facial fillers for various areas.\n\n🔹 ADVANCED TECHNIQUES: For practitioners with experience who want to expand their skills.\n\n🔹 MASTERCLASSES: Specialized one-day intensive training in signature techniques.\n\nAll courses include certification, ongoing support, and business guidance."
   },
   {
     keywords: ['master', 'class', 'masterclass', 'advanced training'],
@@ -124,21 +136,21 @@ export const chatbotResponses: ChatbotResponse[] = [
 // Function to find the best response based on user input
 export const findBestResponse = (userInput: string): string => {
   const input = userInput.toLowerCase();
-  
+
   // Check each response for keyword matches
   const matches = chatbotResponses.map(item => {
     const matchCount = item.keywords.filter(keyword => input.includes(keyword.toLowerCase())).length;
     return { response: item.response, matchCount };
   });
-  
+
   // Sort by number of matches
   const sortedMatches = matches.sort((a, b) => b.matchCount - a.matchCount);
-  
+
   // If we have matches, return the best one
   if (sortedMatches[0].matchCount > 0) {
     return sortedMatches[0].response;
   }
-  
+
   // Default response if no matches
   return "I'm not sure I understand. Could you rephrase that, or ask about our salon services, training academy, pricing, booking, or aftercare? I'm here to help with any questions about our treatments or courses.";
 };
@@ -153,7 +165,7 @@ export const saveChatConversation = async (userMessage: string, botResponse: str
         bot_response: botResponse,
         session_id: sessionId
       });
-      
+
     if (error) {
       console.error("Error saving chat conversation:", error);
     }
@@ -169,12 +181,12 @@ export const getChatHistory = async (sessionId: string): Promise<{ user_message:
     .select("user_message, bot_response, created_at")
     .eq("session_id", sessionId)
     .order("created_at", { ascending: true });
-    
+
   if (error) {
     console.error("Error fetching chat history:", error);
     return [];
   }
-  
+
   return data || [];
 };
 
@@ -184,12 +196,12 @@ export const getAllChatSessions = async (): Promise<{ session_id: string; create
     .from("chat_history")
     .select("session_id, created_at")
     .order("created_at", { ascending: false });
-    
+
   if (error) {
     console.error("Error fetching chat sessions:", error);
     return [];
   }
-  
+
   // Get unique session IDs
   const uniqueSessions = Array.from(new Set(data.map(item => item.session_id)))
     .map(sessionId => {
@@ -199,6 +211,6 @@ export const getAllChatSessions = async (): Promise<{ session_id: string; create
         created_at: session!.created_at
       };
     });
-    
+
   return uniqueSessions;
 };

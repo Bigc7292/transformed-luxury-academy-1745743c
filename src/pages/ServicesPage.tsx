@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -6,56 +6,83 @@ import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
 import ServicesList from '../components/ServicesList';
 import { serviceCategories, BOOKING_URL } from '../data/serviceCategories';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const ServicesPage = () => {
   const location = useLocation();
-  const tabsRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState<string>('all');
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const categoryRefs = useRef<{[key: string]: React.RefObject<HTMLDivElement>}>({});
 
+  // Initialize refs for each category
   useEffect(() => {
-    // Function to handle tab selection and scrolling
-    const handleTabSelection = (categoryId: string) => {
-      // Wait for a tick to ensure the component is fully rendered
-      setTimeout(() => {
-        // Find the tab element and click it
-        const tabElement = document.getElementById(categoryId);
-        if (tabElement) {
-          tabElement.click();
-
-          // Smooth scroll to the tab section
-          tabsRef.current?.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          console.log(`Tab element with ID ${categoryId} not found`);
-
-          // Check if the category exists in our data
-          const categoryExists = serviceCategories.some(cat => cat.id === categoryId);
-          if (categoryExists) {
-            console.log(`Category ${categoryId} exists in data but element not found, trying again...`);
-            // Try again with a longer delay
-            setTimeout(() => {
-              const retryElement = document.getElementById(categoryId);
-              if (retryElement) {
-                retryElement.click();
-                tabsRef.current?.scrollIntoView({ behavior: 'smooth' });
-              }
-            }, 500);
-          }
-        }
-      }, 200); // Increase timeout to ensure DOM is ready
+    // Create a ref for 'all'
+    categoryRefs.current = {
+      all: React.createRef<HTMLDivElement>()
     };
 
+    // Create refs for each service category
+    serviceCategories.forEach(category => {
+      categoryRefs.current[category.id] = React.createRef<HTMLDivElement>();
+    });
+  }, []);
+
+  // Function to handle tab selection
+  const handleTabClick = (categoryId: string) => {
+    setActiveTab(categoryId);
+
+    // Scroll to the selected category section
+    const sectionId = `${categoryId}-section`;
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+      // Use scrollIntoView for better browser compatibility
+      section.scrollIntoView({ behavior: 'smooth' });
+
+      // Add a small delay and then scroll up slightly to ensure the section is visible
+      setTimeout(() => {
+        // Scroll up a bit to account for the fixed header
+        window.scrollBy(0, -20);
+      }, 100);
+    }
+  };
+
+  // Handle URL hash changes and sessionStorage
+  useEffect(() => {
     // Check if there's a hash in the URL and set the tab accordingly
     if (location.hash) {
       const categoryId = location.hash.substring(1); // Remove the # from the hash
-      handleTabSelection(categoryId);
+      setActiveTab(categoryId);
+
+      // Wait for the DOM to be ready
+      setTimeout(() => {
+        const sectionId = `${categoryId}-section`;
+        const section = document.getElementById(sectionId);
+
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+          // Adjust scroll position to account for fixed header
+          setTimeout(() => window.scrollBy(0, -120), 100);
+        }
+      }, 100);
     } else {
       // Check if there's a pending hash in sessionStorage
       const pendingHash = sessionStorage.getItem('pendingHash');
       if (pendingHash) {
         // Clear the pending hash
         sessionStorage.removeItem('pendingHash');
-        // Handle the tab selection
-        handleTabSelection(pendingHash);
+        setActiveTab(pendingHash);
+
+        // Wait for the DOM to be ready
+        setTimeout(() => {
+          const sectionId = `${pendingHash}-section`;
+          const section = document.getElementById(sectionId);
+
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+            // Adjust scroll position to account for fixed header
+            setTimeout(() => window.scrollBy(0, -120), 100);
+          }
+        }, 100);
       }
     }
   }, [location.hash]);
@@ -77,41 +104,53 @@ const ServicesPage = () => {
             </p>
           </motion.div>
 
-          <div className="mb-10" ref={tabsRef}>
-            <Tabs defaultValue="all" className="w-full">
-              <div className="flex justify-center mb-8 overflow-x-auto">
-                <TabsList className="bg-salon-pink-50 p-1">
-                  <TabsTrigger
-                    value="all"
-                    className="data-[state=active]:bg-salon-pink-100 data-[state=active]:text-salon-pink-800"
-                    id="all"
+          {/* Services Navigation */}
+          <div className="mb-10" ref={servicesRef}>
+            <div className="flex justify-center mb-8 overflow-x-auto">
+              <div className="bg-salon-pink-50 p-1 rounded-md inline-flex">
+                <button
+                  className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors ${activeTab === 'all' ? 'bg-salon-pink-100 text-salon-pink-800' : 'text-salon-pink-600 hover:text-salon-pink-700'}`}
+                  onClick={() => handleTabClick('all')}
+                >
+                  All Services
+                </button>
+                {serviceCategories.map(category => (
+                  <button
+                    key={category.id}
+                    className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors ${activeTab === category.id ? 'bg-salon-pink-100 text-salon-pink-800' : 'text-salon-pink-600 hover:text-salon-pink-700'}`}
+                    onClick={() => handleTabClick(category.id)}
                   >
-                    All Services
-                  </TabsTrigger>
-                  {serviceCategories.map(category => (
-                    <TabsTrigger
-                      key={category.id}
-                      value={category.id}
-                      className="data-[state=active]:bg-salon-pink-100 data-[state=active]:text-salon-pink-800"
-                      id={category.id}
-                      data-category-id={category.id}
-                    >
-                      {category.name}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
+                    {category.name}
+                  </button>
+                ))}
               </div>
+            </div>
 
-              <TabsContent value="all">
-                <ServicesList />
-              </TabsContent>
-
+            {/* Service Sections with Anchors */}
+            <div className="relative">
+              {/* Anchor points positioned at the top of each section */}
+              <div id="all-section" ref={categoryRefs.current.all} className="absolute" style={{ top: '-120px' }}></div>
               {serviceCategories.map(category => (
-                <TabsContent key={category.id} value={category.id}>
-                  <ServicesList categoryId={category.id} />
-                </TabsContent>
+                <div
+                  key={`anchor-${category.id}`}
+                  id={`${category.id}-section`}
+                  ref={categoryRefs.current[category.id]}
+                  className="absolute"
+                  style={{ top: '-120px' }}
+                ></div>
               ))}
-            </Tabs>
+
+              {/* Content sections */}
+              {activeTab === 'all' ? (
+                <div>
+                  <ServicesList />
+                </div>
+              ) : (
+                <div>
+                  <ServicesList categoryId={activeTab} />
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="bg-salon-pink-50 rounded-lg p-8 text-center mt-16">
