@@ -9,7 +9,7 @@ const AdminInstructions = () => {
   const [activeTab, setActiveTab] = useState('general');
 
   return (
-    <Card className="mb-8">
+    <Card className="mb-8 max-w-full overflow-hidden">
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <CollapsibleTrigger className="w-full">
           <CardHeader className="flex flex-row items-center justify-between cursor-pointer">
@@ -31,7 +31,7 @@ const AdminInstructions = () => {
         </CollapsibleTrigger>
 
         <CollapsibleContent>
-          <CardContent>
+          <CardContent className="overflow-x-auto">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="mb-4 flex flex-wrap gap-2">
                 <TabsTrigger value="general">General</TabsTrigger>

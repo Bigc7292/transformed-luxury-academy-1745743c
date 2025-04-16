@@ -91,7 +91,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
   }
 
   return (
-    <Card className="mb-8">
+    <Card className="mb-8 max-w-full overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
           <CardTitle>Content & Media Management</CardTitle>
@@ -103,7 +103,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
           <Plus size={16} /> Add Content
         </Button>
       </CardHeader>
-      <CardContent>
+      <CardContent className="overflow-x-auto">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="mb-4">
             <h3 className="text-sm font-medium text-gray-500 mb-2">Filter by Category</h3>
@@ -135,7 +135,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                   <Loader2 className="h-8 w-8 animate-spin text-salon-pink-500" />
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-x-auto">
                   {getCategoryContent(category.id).length > 0 ? (
                     getCategoryContent(category.id).map(content => (
                       <Card key={content.id} className="overflow-hidden">
@@ -222,7 +222,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                   <Loader2 className="h-8 w-8 animate-spin text-salon-pink-500" />
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-x-auto">
                   {getCategoryContent(filter.id).length > 0 ? (
                     getCategoryContent(filter.id).map(content => (
                       <Card key={content.id} className="overflow-hidden">

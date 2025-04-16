@@ -27,7 +27,7 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
     is_featured: false,
     active: true
   });
-  
+
   const [batchUrls, setBatchUrls] = useState('');
   const [isBatchAdding, setIsBatchAdding] = useState(false);
   const [showBatchForm, setShowBatchForm] = useState(false);
@@ -79,7 +79,7 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
           title: "Video Added",
           description: `Successfully added video: ${videoData.title}`
         });
-        
+
         // Reset form
         setVideoData({
           title: '',
@@ -90,10 +90,10 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
           is_featured: false,
           active: true
         });
-        
+
         // Notify parent component
         onVideoAdded();
-        
+
         // Hide form
         setShowForm(false);
       } else {
@@ -126,7 +126,7 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
     }
 
     const urls = batchUrls.split(',').map(url => url.trim()).filter(url => url);
-    
+
     if (urls.length === 0) {
       toast({
         title: "No Valid URLs",
@@ -173,13 +173,13 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
           title: "Videos Added",
           description: `Successfully added ${successCount} videos. ${errorCount > 0 ? `Failed to add ${errorCount} videos.` : ''}`
         });
-        
+
         // Reset form
         setBatchUrls('');
-        
+
         // Notify parent component
         onVideoAdded();
-        
+
         // Hide form
         setShowBatchForm(false);
       } else {
@@ -202,17 +202,17 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
   };
 
   return (
-    <Card className="mb-8">
-      <CardHeader className="flex flex-row items-center justify-between">
+    <Card className="mb-8 max-w-full overflow-hidden">
+      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between p-4 sm:p-6">
         <div>
           <CardTitle>S3 Video Importer</CardTitle>
           <CardDescription>
             Add videos from your AWS S3 bucket to the media showcase
           </CardDescription>
         </div>
-        <div className="flex space-x-2">
-          <Button 
-            variant="outline" 
+        <div className="flex flex-wrap gap-2">
+          <Button
+            variant="outline"
             onClick={() => {
               setShowForm(!showForm);
               setShowBatchForm(false);
@@ -221,8 +221,8 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
           >
             <Video size={16} /> {showForm ? 'Hide Form' : 'Add Single Video'}
           </Button>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             onClick={() => {
               setShowBatchForm(!showBatchForm);
               setShowForm(false);
@@ -233,11 +233,11 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
           </Button>
         </div>
       </CardHeader>
-      
+
       {showForm && (
-        <CardContent>
+        <CardContent className="p-4 sm:p-6 overflow-x-auto">
           <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="title">Video Title</Label>
                 <Input
@@ -248,7 +248,7 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
                   placeholder="Enter video title"
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="category">Category</Label>
                 <Select
@@ -269,7 +269,7 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
                 </Select>
               </div>
             </div>
-            
+
             <div>
               <Label htmlFor="description">Description</Label>
               <Textarea
@@ -281,7 +281,7 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
                 rows={3}
               />
             </div>
-            
+
             <div>
               <Label htmlFor="url">Video URL</Label>
               <Input
@@ -292,7 +292,7 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
                 placeholder="Enter S3 video URL"
               />
             </div>
-            
+
             <div>
               <Label htmlFor="thumbnail_url">Thumbnail URL (Optional)</Label>
               <Input
@@ -303,7 +303,7 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
                 placeholder="Enter thumbnail URL"
               />
             </div>
-            
+
             <div className="flex items-center space-x-8">
               <div className="flex items-center space-x-2">
                 <Switch
@@ -313,7 +313,7 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
                 />
                 <Label htmlFor="is_featured">Featured</Label>
               </div>
-              
+
               <div className="flex items-center space-x-2">
                 <Switch
                   id="active"
@@ -323,9 +323,9 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
                 <Label htmlFor="active">Active</Label>
               </div>
             </div>
-            
-            <Button 
-              onClick={handleAddVideo} 
+
+            <Button
+              onClick={handleAddVideo}
               disabled={isAdding}
               className="w-full"
             >
@@ -341,9 +341,9 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
           </div>
         </CardContent>
       )}
-      
+
       {showBatchForm && (
-        <CardContent>
+        <CardContent className="p-4 sm:p-6 overflow-x-auto">
           <div className="space-y-4">
             <div>
               <Label htmlFor="batchUrls">Video URLs (Comma Separated)</Label>
@@ -355,13 +355,13 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
                 rows={5}
               />
             </div>
-            
+
             <p className="text-sm text-gray-500">
               Note: Videos will be added with default titles and descriptions. You can edit them later.
             </p>
-            
-            <Button 
-              onClick={handleBatchAdd} 
+
+            <Button
+              onClick={handleBatchAdd}
               disabled={isBatchAdding}
               className="w-full"
             >
