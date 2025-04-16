@@ -11,7 +11,7 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({ children, className }
     <div className={cn(
       "overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0 pb-4 max-w-[100vw] md:max-w-full",
       className
-    )}>
+    )} style={{ overflowY: 'visible' }}>
       {children}
     </div>
   );

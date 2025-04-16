@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MobileScrollFix from "@/components/admin/MobileScrollFix";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Lock, User } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -134,9 +135,10 @@ const AdminAuth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" style={{ height: 'auto', minHeight: '100vh', overflow: 'visible' }}>
+      <MobileScrollFix />
       <Navbar />
-      <div className="container mx-auto pt-32 pb-20 px-4 flex justify-center">
+      <div className="container mx-auto pt-32 pb-20 px-4 flex justify-center" style={{ overflow: 'visible' }}>
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle className="text-2xl font-serif text-salon-pink-700 text-center">

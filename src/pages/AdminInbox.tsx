@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import ResponsiveTable from "@/components/admin/ResponsiveTable";
+import MobileScrollFix from "@/components/admin/MobileScrollFix";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { customerService, CustomerInquiry } from "@/services/customerService";
 import { getAllChatSessions, getChatHistory } from "@/services/chatbotService";
@@ -282,9 +283,10 @@ const AdminInbox: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" style={{ height: 'auto', minHeight: '100vh', overflow: 'visible' }}>
+      <MobileScrollFix />
       <Navbar />
-      <div className="container mx-auto pt-32 pb-20 px-4">
+      <div className="container mx-auto pt-32 pb-20 px-4" style={{ overflow: 'visible' }}>
         <AdminHeader
           title="Customer Inquiries"
           handleLogout={() => {
