@@ -29,5 +29,30 @@
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Fix for mobile scrolling issues
+      document.addEventListener('DOMContentLoaded', function() {
+        // Reset body and html styles
+        document.documentElement.style.height = 'auto';
+        document.documentElement.style.overflow = 'auto';
+        document.body.style.height = 'auto';
+        document.body.style.overflow = 'auto';
+        document.body.style.position = 'static';
+
+        // Force redraw on mobile devices
+        function forceRedraw() {
+          document.body.style.display = 'none';
+          document.body.offsetHeight; // Trigger a reflow
+          document.body.style.display = '';
+        }
+
+        // Apply on page load and resize
+        forceRedraw();
+        window.addEventListener('resize', forceRedraw);
+
+        // Fix for iOS momentum scrolling
+        document.body.style.webkitOverflowScrolling = 'touch';
+      });
+    </script>
   </body>
 </html>

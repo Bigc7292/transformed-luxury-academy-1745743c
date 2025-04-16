@@ -9,7 +9,7 @@ interface ResponsiveTableProps {
 const ResponsiveTable: React.FC<ResponsiveTableProps> = ({ children, className }) => {
   return (
     <div className={cn(
-      "overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0 pb-4",
+      "overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0 pb-4 responsive-table-container",
       className
     )}>
       {children}

@@ -202,7 +202,7 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
   };
 
   return (
-    <Card className="mb-8">
+    <Card className="mb-8 s3-video-importer">
       <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between">
         <div>
           <CardTitle>S3 Video Importer</CardTitle>
@@ -235,8 +235,8 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
       </CardHeader>
 
       {showForm && (
-        <CardContent>
-          <div className="space-y-4">
+        <CardContent className="card-content">
+          <div className="space-y-4 batch-form">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="title">Video Title</Label>
@@ -343,8 +343,8 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
       )}
 
       {showBatchForm && (
-        <CardContent>
-          <div className="space-y-4">
+        <CardContent className="card-content">
+          <div className="space-y-4 batch-form">
             <div>
               <Label htmlFor="batchUrls">Video URLs (Comma Separated)</Label>
               <Textarea

@@ -135,9 +135,9 @@ const AdminAuth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white admin-page">
       <Navbar />
-      <div className="container mx-auto pt-32 pb-20 px-4 flex justify-center">
+      <div className="container mx-auto pt-32 pb-20 px-4 flex justify-center admin-container">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle className="text-2xl font-serif text-salon-pink-700 text-center">

@@ -116,9 +116,9 @@ const AdminContentPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white admin-page">
       <Navbar />
-      <div className="container mx-auto pt-32 pb-20 px-4">
+      <div className="container mx-auto pt-32 pb-20 px-4 admin-container">
         <AdminHeader title="Content Management" handleLogout={handleLogout} />
 
         <AdminInstructions />
