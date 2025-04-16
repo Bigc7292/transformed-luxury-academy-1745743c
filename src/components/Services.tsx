@@ -51,7 +51,7 @@ const Services = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {featuredServices.map((service, index) => (
-            <motion.div key={index} variants={itemVariants} className="group">
+            <motion.div key={`featured-service-${service.id}`} variants={itemVariants} className="group">
               <div className="service-card h-full flex flex-col shadow-lg rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:translate-y-[-2px]">
                 <div className="relative overflow-hidden rounded-t-lg h-56 sm:h-64 md:h-72">
                   {index === 0 ? (
@@ -59,6 +59,9 @@ const Services = () => {
                       src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/lip_fillers_image.jpg"
                       alt="Lip Fillers Service"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="eager"
+                      width="400"
+                      height="300"
                     />
                   ) : (
                     <>
@@ -66,8 +69,11 @@ const Services = () => {
                         src={service.image}
                         alt={service.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        loading="lazy"
+                        width="400"
+                        height="300"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
                     </>
                   )}
                   {index === 0 && (

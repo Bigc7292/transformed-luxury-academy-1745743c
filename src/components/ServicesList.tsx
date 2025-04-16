@@ -67,36 +67,54 @@ const ServicesList: React.FC<ServicesListProps> = ({ categoryId }) => {
                           src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/color_mixologist.png"
                           alt="Color Mixologist Service"
                           className="w-full h-full object-cover"
+                          loading="lazy"
+                          width="400"
+                          height="300"
                         />
                       ) : service.id === 'lip-filler' ? (
                         <img
                           src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/lip_fillers_image.jpg"
                           alt="Lip Fillers Service"
                           className="w-full h-full object-cover"
+                          loading="lazy"
+                          width="400"
+                          height="300"
                         />
                       ) : service.id === 'body-sculpting' ? (
                         <img
                           src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/body_sculpting.png"
                           alt="Body Sculpting Service"
                           className="w-full h-full object-cover"
+                          loading="lazy"
+                          width="400"
+                          height="300"
                         />
                       ) : service.id === 'facial-profiling' ? (
                         <img
                           src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/facial_profiling.jpg"
                           alt="Facial Profiling Service"
                           className="w-full h-full object-cover"
+                          loading="lazy"
+                          width="400"
+                          height="300"
                         />
                       ) : service.id === 'dermal-filler' ? (
                         <img
                           src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-08+at+18.22.46.jpeg"
                           alt="Cannula Dermal Filler Service"
                           className="w-full h-full object-cover"
+                          loading="lazy"
+                          width="400"
+                          height="300"
                         />
                       ) : service.id === 'skin' ? (
                         <img
                           src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/skin.png"
                           alt="Skin Treatment Service"
                           className="w-full h-full object-cover"
+                          loading="lazy"
+                          width="400"
+                          height="300"
                         />
                       ) : service.id === 'booty-lifts' ? (
                         <div className="relative w-full h-full">
@@ -110,7 +128,7 @@ const ServicesList: React.FC<ServicesListProps> = ({ categoryId }) => {
                           />
                           <div className="absolute inset-0 flex items-center justify-center">
                             <div className="w-12 h-12 rounded-full bg-white bg-opacity-50 flex items-center justify-center">
-                              <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-salon-pink-500 ml-1"></div>
+                              <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-salon-pink-500 ml-1" aria-hidden="true" />
                             </div>
                           </div>
                         </div>
@@ -120,8 +138,11 @@ const ServicesList: React.FC<ServicesListProps> = ({ categoryId }) => {
                             src={service.image}
                             alt={service.title}
                             className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                            loading="lazy"
+                            width="400"
+                            height="300"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                         </>
                       )}
                     </div>
@@ -135,7 +156,7 @@ const ServicesList: React.FC<ServicesListProps> = ({ categoryId }) => {
                         <h4 className="text-sm font-medium text-salon-pink-600 mb-2">Includes:</h4>
                         <ul className="list-disc list-inside text-sm text-gray-600 space-y-2">
                           {service.services.map((subService, idx) => (
-                            <li key={idx}>{subService}</li>
+                            <li key={`service-${service.id}-item-${idx}`}>{subService}</li>
                           ))}
                         </ul>
                       </div>

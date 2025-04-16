@@ -183,6 +183,7 @@ const Chatbot = () => {
     }
   };
 
+  // Scroll to bottom when messages change
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -190,7 +191,7 @@ const Chatbot = () => {
   }, [messages, isTyping, showContactForm]);
 
   return (
-    <div className="chatbot-container fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div className="chatbot-container fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -198,14 +199,14 @@ const Chatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-xl shadow-xl w-80 sm:w-96 h-[500px] mb-4 overflow-hidden flex flex-col border border-salon-pink-100"
+            className="bg-white rounded-xl shadow-xl w-[90vw] max-w-[360px] sm:w-96 h-[70vh] max-h-[500px] mb-4 overflow-hidden flex flex-col border border-salon-pink-100"
           >
             <div className="bg-salon-pink-500 text-white p-4 flex justify-between items-center">
               <h3 className="font-medium">Beauty Assistant</h3>
               <div className="flex items-center space-x-2">
                 <Drawer>
                   <DrawerTrigger asChild>
-                    <button className="text-white hover:bg-salon-pink-600 rounded-full p-1 transition-colors">
+                    <button type="button" className="text-white hover:bg-salon-pink-600 rounded-full p-1 transition-colors" aria-label="Additional options">
                       <Plus size={18} />
                     </button>
                   </DrawerTrigger>
@@ -296,7 +297,7 @@ const Chatbot = () => {
                     </div>
                   </DrawerContent>
                 </Drawer>
-                <button onClick={toggleChat} className="text-white hover:bg-salon-pink-600 rounded-full p-1 transition-colors">
+                <button type="button" onClick={toggleChat} className="text-white hover:bg-salon-pink-600 rounded-full p-1 transition-colors" aria-label="Close chat">
                   <X size={18} />
                 </button>
               </div>
@@ -334,9 +335,9 @@ const Chatbot = () => {
                 <div className="mb-4 flex justify-start">
                   <div className="bg-salon-pink-100 text-gray-800 max-w-[80%] rounded-lg p-3">
                     <div className="flex space-x-1 items-center">
-                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></div>
-                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></div>
-                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></div>
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} aria-hidden="true" />
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} aria-hidden="true" />
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} aria-hidden="true" />
                     </div>
                   </div>
                 </div>
@@ -347,8 +348,9 @@ const Chatbot = () => {
                   <h4 className="font-medium text-salon-pink-700 mb-2">Contact Form</h4>
                   <form onSubmit={handleContactSubmit} className="space-y-3">
                     <div>
-                      <label className="text-xs font-medium">Name</label>
+                      <label htmlFor="chatbot-name" className="text-xs font-medium">Name</label>
                       <Input
+                        id="chatbot-name"
                         name="name"
                         value={contactForm.name}
                         onChange={handleInputChange}
@@ -358,8 +360,9 @@ const Chatbot = () => {
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-medium">Email</label>
+                      <label htmlFor="chatbot-email" className="text-xs font-medium">Email</label>
                       <Input
+                        id="chatbot-email"
                         name="email"
                         type="email"
                         value={contactForm.email}
@@ -369,8 +372,9 @@ const Chatbot = () => {
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-medium">Phone (Optional)</label>
+                      <label htmlFor="chatbot-phone" className="text-xs font-medium">Phone (Optional)</label>
                       <Input
+                        id="chatbot-phone"
                         name="phone"
                         value={contactForm.phone}
                         onChange={handleInputChange}
@@ -378,8 +382,9 @@ const Chatbot = () => {
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-medium">Topic</label>
+                      <label htmlFor="chatbot-topic" className="text-xs font-medium">Topic</label>
                       <Input
+                        id="chatbot-topic"
                         name="topic"
                         value={contactForm.topic}
                         onChange={handleInputChange}
@@ -388,8 +393,9 @@ const Chatbot = () => {
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-medium">Message</label>
+                      <label htmlFor="chatbot-message" className="text-xs font-medium">Message</label>
                       <Textarea
+                        id="chatbot-message"
                         name="message"
                         value={contactForm.message}
                         onChange={handleInputChange}
@@ -422,17 +428,17 @@ const Chatbot = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            <form onSubmit={handleSendMessage} className="border-t border-salon-pink-100 p-3 flex">
+            <form onSubmit={handleSendMessage} className="border-t border-salon-pink-100 p-3 flex sticky bottom-0 bg-white">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Type your message..."
-                className="flex-grow border border-salon-pink-200 rounded-l-lg px-3 py-2 focus:outline-none focus:border-salon-pink-300"
+                className="flex-grow border border-salon-pink-200 rounded-l-lg px-3 py-3 md:py-2 text-base md:text-sm focus:outline-none focus:border-salon-pink-300"
               />
               <button
                 type="submit"
-                className="bg-salon-pink-500 text-white rounded-r-lg px-4 py-2 hover:bg-salon-pink-600 transition-colors"
+                className="bg-salon-pink-500 text-white rounded-r-lg px-4 py-3 md:py-2 hover:bg-salon-pink-600 transition-colors"
               >
                 <Send size={18} />
               </button>
@@ -445,9 +451,9 @@ const Chatbot = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
-        className="bg-salon-pink-500 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-salon-pink-600 transition-colors"
+        className="bg-salon-pink-500 text-white rounded-full w-12 h-12 md:w-14 md:h-14 flex items-center justify-center shadow-lg hover:bg-salon-pink-600 transition-colors"
       >
-        <MessageCircle size={24} />
+        <MessageCircle size={20} className="md:size-[24px]" />
       </motion.button>
     </div>
   );

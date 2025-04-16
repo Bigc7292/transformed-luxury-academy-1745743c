@@ -20,8 +20,8 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ title, handleLogout }) => {
 
   return (
     <div className="mb-8">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-4xl font-serif text-salon-pink-700">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+        <h1 className="text-3xl md:text-4xl font-serif text-salon-pink-700">
           {title}
         </h1>
         <Button
@@ -33,7 +33,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ title, handleLogout }) => {
         </Button>
       </div>
 
-      <div className="flex space-x-2 border-b border-gray-200 pb-2">
+      <div className="flex flex-wrap gap-2 border-b border-gray-200 pb-2">
         <Button
           onClick={() => navigate("/admin/content")}
           variant={isContentPage ? "default" : "ghost"}

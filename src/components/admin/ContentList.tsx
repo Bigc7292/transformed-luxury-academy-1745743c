@@ -16,6 +16,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import ResponsiveTable from "./ResponsiveTable";
 import {
   Eye,
   ThumbsUp,
@@ -55,17 +56,17 @@ const ContentList: React.FC<ContentListProps> = ({
     const location = PAGE_LOCATIONS.find(loc => loc.value === value);
     return location ? location.label : value;
   };
-  
+
   const getPageSectionLabel = (value: string | null | undefined) => {
     if (!value) return "Not Assigned";
     return PAGE_SECTIONS[value as keyof typeof PAGE_SECTIONS] || value;
   };
-  
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Content List</CardTitle>
-        <Button 
+        <Button
           className="bg-salon-pink-600 hover:bg-salon-pink-700 flex items-center gap-2"
           onClick={() => setIsCreateDialogOpen(true)}
         >
@@ -73,17 +74,18 @@ const ContentList: React.FC<ContentListProps> = ({
         </Button>
       </CardHeader>
       <CardContent>
-        <div className="rounded-md border overflow-hidden">
-          <Table>
+        <ResponsiveTable>
+          <div className="rounded-md border overflow-hidden">
+            <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Title</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead>Placement</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Stats</TableHead>
-                <TableHead>Created</TableHead>
+                <TableHead className="w-[180px] md:w-auto">Title</TableHead>
+                <TableHead className="hidden md:table-cell">Type</TableHead>
+                <TableHead className="hidden md:table-cell">Category</TableHead>
+                <TableHead className="hidden lg:table-cell">Placement</TableHead>
+                <TableHead className="hidden md:table-cell">Status</TableHead>
+                <TableHead className="hidden lg:table-cell">Stats</TableHead>
+                <TableHead className="hidden md:table-cell">Created</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -117,10 +119,34 @@ const ContentList: React.FC<ContentListProps> = ({
                         {item.is_featured && (
                           <Star className="h-4 w-4 text-yellow-400 mr-2" />
                         )}
-                        {item.title}
+                        <div>
+                          <div>{item.title}</div>
+                          <div className="md:hidden text-xs text-gray-500 mt-1">
+                            <div className="flex items-center gap-1 mb-1">
+                              {item.media_type === "image" ? (
+                                <><Image className="h-3 w-3" /> <span>Image</span></>
+                              ) : (
+                                <><Video className="h-3 w-3" /> <span>Video</span></>
+                              )}
+                              <span className="mx-1">•</span>
+                              <span className="capitalize">{item.category}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              {item.active !== false ? (
+                                <Badge variant="outline" className="text-[10px] h-4 bg-green-50 text-green-700 border-green-200">
+                                  <Check className="h-2 w-2 mr-1" /> Active
+                                </Badge>
+                              ) : (
+                                <Badge variant="outline" className="text-[10px] h-4 bg-gray-50 text-gray-700 border-gray-200">
+                                  <X className="h-2 w-2 mr-1" /> Hidden
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="hidden md:table-cell">
                       {item.media_type === "image" ? (
                         <span className="flex items-center">
                           <Image className="h-4 w-4 mr-1" /> Image
@@ -131,10 +157,10 @@ const ContentList: React.FC<ContentListProps> = ({
                         </span>
                       )}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="hidden md:table-cell">
                       <span className="capitalize">{item.category}</span>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="hidden lg:table-cell">
                       {item.page_location ? (
                         <div className="flex flex-col">
                           <span className="text-xs font-medium">
@@ -150,7 +176,7 @@ const ContentList: React.FC<ContentListProps> = ({
                         <span className="text-xs text-gray-500">Not placed</span>
                       )}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="hidden md:table-cell">
                       {item.active !== false ? (
                         <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
                           <Check className="h-3 w-3 mr-1" /> Active
@@ -161,7 +187,7 @@ const ContentList: React.FC<ContentListProps> = ({
                         </Badge>
                       )}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="hidden lg:table-cell">
                       <div className="flex space-x-3 text-xs text-gray-500">
                         <span className="flex items-center">
                           <Eye className="h-3 w-3 mr-1" /> {item.view_count || 0}
@@ -174,7 +200,7 @@ const ContentList: React.FC<ContentListProps> = ({
                         </span>
                       </div>
                     </TableCell>
-                    <TableCell>{new Date(item.created_at).toLocaleDateString()}</TableCell>
+                    <TableCell className="hidden md:table-cell">{new Date(item.created_at).toLocaleDateString()}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex space-x-2 justify-end">
                         <Button
@@ -198,8 +224,9 @@ const ContentList: React.FC<ContentListProps> = ({
                 ))
               )}
             </TableBody>
-          </Table>
-        </div>
+            </Table>
+          </div>
+        </ResponsiveTable>
       </CardContent>
     </Card>
   );

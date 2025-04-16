@@ -9,6 +9,19 @@ const Navbar = () => {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  // Close mobile menu when window is resized to desktop size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isOpen]);
+
+  // Handle scroll events for navbar appearance
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -24,6 +37,13 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+
+    // When opening the menu, ensure body doesn't scroll
+    if (!isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   };
 
   const toggleSubmenu = (menu: string) => {
@@ -51,23 +71,23 @@ const Navbar = () => {
 
         setIsOpen(false);
         return;
-      } else {
-        // We need to navigate to the services page first, then handle the hash
-        // Store the hash in sessionStorage so we can retrieve it after navigation
-        sessionStorage.setItem('pendingHash', hash);
-        navigate(routePath);
+      }
 
-        // For mobile devices, add an additional delay and scroll handling
-        if (window.innerWidth < 768) {
-          setTimeout(() => {
-            const section = document.getElementById(`${hash}-section`);
-            if (section) {
-              section.scrollIntoView({ behavior: 'smooth' });
-              // Adjust scroll position to account for fixed header
-              setTimeout(() => window.scrollBy(0, -120), 100);
-            }
-          }, 500); // Longer delay for mobile to ensure page is loaded
-        }
+      // We need to navigate to the services page first, then handle the hash
+      // Store the hash in sessionStorage so we can retrieve it after navigation
+      sessionStorage.setItem('pendingHash', hash);
+      navigate(routePath);
+
+      // For mobile devices, add an additional delay and scroll handling
+      if (window.innerWidth < 768) {
+        setTimeout(() => {
+          const section = document.getElementById(`${hash}-section`);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+            // Adjust scroll position to account for fixed header
+            setTimeout(() => window.scrollBy(0, -120), 100);
+          }
+        }, 500); // Longer delay for mobile to ensure page is loaded
       }
     } else {
       navigate(path);
@@ -120,6 +140,7 @@ const Navbar = () => {
               item.hasSubmenu ? (
                 <div key={index} className="relative group">
                   <button
+                    type="button"
                     className="flex items-center text-salon-pink-800 hover:text-salon-pink-500 transition-colors group-hover:text-salon-pink-500"
                     onClick={() => toggleSubmenu(item.name)}
                   >
@@ -128,7 +149,8 @@ const Navbar = () => {
                   <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden transform opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 origin-top-left z-50 invisible group-hover:visible">
                     {item.submenu.map((subItem, idx) => (
                       <button
-                        key={idx}
+                        type="button"
+                        key={`submenu-item-${item.name}-${subItem.name}`}
                         onClick={() => handleNavigation(subItem.path)}
                         className="block w-full text-left px-4 py-3 text-sm text-salon-pink-800 hover:bg-salon-pink-50 border-b border-salon-pink-100 last:border-b-0"
                       >
@@ -139,7 +161,8 @@ const Navbar = () => {
                 </div>
               ) : (
                 <button
-                  key={index}
+                  type="button"
+                  key={`nav-item-${item.name}`}
                   onClick={() => handleNavigation(item.path)}
                   className="text-salon-pink-800 hover:text-salon-pink-500 transition-colors"
                 >
@@ -148,6 +171,7 @@ const Navbar = () => {
               )
             ))}
             <button
+              type="button"
               onClick={() => handleNavigation('/booking')}
               className="bg-salon-pink-400 text-white px-5 py-2 rounded-full hover:bg-salon-pink-500 transition-colors"
             >
@@ -157,33 +181,47 @@ const Navbar = () => {
 
           <div className="md:hidden flex items-center">
             <button
+              type="button"
               onClick={toggleMenu}
-              className="text-salon-pink-800 hover:text-salon-pink-500 focus:outline-none"
+              className="text-salon-pink-800 hover:text-salon-pink-500 focus:outline-none focus:ring-2 focus:ring-salon-pink-300 p-2 rounded-md"
+              aria-label="Toggle navigation menu"
+              aria-expanded={isOpen}
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
         </div>
       </div>
 
-      <div className={`md:hidden transition-all duration-300 ease-in-out transform ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 pointer-events-none'} overflow-hidden bg-white`}>
-        <div className="px-4 pt-2 pb-5 space-y-1">
+      <div
+        className={`md:hidden transition-all duration-300 ease-in-out transform ${isOpen ? 'max-h-screen opacity-100 shadow-lg' : 'max-h-0 opacity-0 pointer-events-none'} overflow-hidden bg-white`}
+        aria-hidden={!isOpen}
+      >
+        <div className="px-4 pt-4 pb-6 space-y-2">
           {navItems.map((item, index) => (
             item.hasSubmenu ? (
-              <div key={index} className="py-2">
-                <div
-                  className="flex items-center justify-between text-salon-pink-800 py-2 cursor-pointer"
+              <div key={`mobile-submenu-${item.name}`} className="py-2">
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between text-salon-pink-800 py-3 cursor-pointer rounded-md hover:bg-salon-pink-50 px-3"
                   onClick={() => toggleSubmenu(item.name)}
+                  onKeyDown={(e) => e.key === 'Enter' && toggleSubmenu(item.name)}
+                  aria-expanded={openSubmenu === item.name}
+                  aria-controls={`submenu-${item.name}`}
                 >
-                  <span>{item.name}</span>
-                  <ChevronDown size={16} className={`transition-transform duration-200 ${openSubmenu === item.name ? 'rotate-180' : ''}`} />
-                </div>
-                <div className={`pl-4 py-2 space-y-2 ${openSubmenu === item.name ? 'block' : 'hidden'}`}>
+                  <span className="text-lg font-medium">{item.name}</span>
+                  <ChevronDown size={20} className={`transition-transform duration-200 ${openSubmenu === item.name ? 'rotate-180' : ''}`} />
+                </button>
+                <div
+                  id={`submenu-${item.name}`}
+                  className={`pl-4 py-2 space-y-2 ${openSubmenu === item.name ? 'block animate-slide-down' : 'hidden'}`}
+                >
                   {item.submenu.map((subItem, idx) => (
                     <button
-                      key={idx}
+                      type="button"
+                      key={`mobile-submenu-item-${item.name}-${subItem.name}`}
                       onClick={() => handleNavigation(subItem.path)}
-                      className="block w-full text-left text-salon-pink-600 hover:text-salon-pink-500 py-2"
+                      className="block w-full text-left text-salon-pink-600 hover:text-salon-pink-500 py-3 px-3 rounded-md hover:bg-salon-pink-50 text-base"
                     >
                       {subItem.name}
                     </button>
@@ -192,9 +230,10 @@ const Navbar = () => {
               </div>
             ) : (
               <button
-                key={index}
+                type="button"
+                key={`mobile-nav-item-${item.name}`}
                 onClick={() => handleNavigation(item.path)}
-                className="block w-full text-left text-salon-pink-800 hover:text-salon-pink-500 py-3 border-b border-salon-pink-100 last:border-b-0"
+                className="block w-full text-left text-salon-pink-800 hover:text-salon-pink-500 py-4 px-3 border-b border-salon-pink-100 last:border-b-0 text-lg font-medium rounded-md hover:bg-salon-pink-50 my-1"
               >
                 {item.name}
               </button>
@@ -202,8 +241,9 @@ const Navbar = () => {
           ))}
           <div className="pt-2">
             <button
+              type="button"
               onClick={() => handleNavigation('/booking')}
-              className="block w-full text-center bg-salon-pink-400 text-white px-5 py-3 rounded-full hover:bg-salon-pink-500 transition-colors"
+              className="block w-full text-center bg-salon-pink-400 text-white px-5 py-4 rounded-full hover:bg-salon-pink-500 transition-colors text-lg font-medium mt-4 shadow-md"
             >
               Book Now
             </button>

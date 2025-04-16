@@ -29,17 +29,17 @@ const AdminInstructions = () => {
             )}
           </CardHeader>
         </CollapsibleTrigger>
-        
+
         <CollapsibleContent>
           <CardContent>
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="mb-4">
+              <TabsList className="mb-4 flex flex-wrap gap-2">
                 <TabsTrigger value="general">General</TabsTrigger>
                 <TabsTrigger value="content">Content Management</TabsTrigger>
                 <TabsTrigger value="media">Media Showcase</TabsTrigger>
                 <TabsTrigger value="inquiries">Customer Inquiries</TabsTrigger>
               </TabsList>
-              
+
               <TabsContent value="general">
                 <div className="space-y-4">
                   <div className="bg-blue-50 p-4 rounded-md border border-blue-100">
@@ -55,10 +55,10 @@ const AdminInstructions = () => {
                       <li>You can always return to these instructions by clicking the header above</li>
                     </ul>
                   </div>
-                  
+
                   <div>
                     <h3 className="text-lg font-medium mb-2">Admin Sections Overview</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                       <Card className="p-4 border border-gray-200">
                         <div className="flex items-center gap-2 mb-2">
                           <FileText className="h-5 w-5 text-salon-pink-500" />
@@ -68,7 +68,7 @@ const AdminInstructions = () => {
                           Manage content across your entire website including home page, services, and more.
                         </p>
                       </Card>
-                      
+
                       <Card className="p-4 border border-gray-200">
                         <div className="flex items-center gap-2 mb-2">
                           <Image className="h-5 w-5 text-salon-pink-500" />
@@ -78,7 +78,7 @@ const AdminInstructions = () => {
                           Manage your media gallery with images and videos organized by categories.
                         </p>
                       </Card>
-                      
+
                       <Card className="p-4 border border-gray-200">
                         <div className="flex items-center gap-2 mb-2">
                           <Inbox className="h-5 w-5 text-salon-pink-500" />
@@ -92,7 +92,7 @@ const AdminInstructions = () => {
                   </div>
                 </div>
               </TabsContent>
-              
+
               <TabsContent value="content">
                 <div className="space-y-4">
                   <div>
@@ -100,7 +100,7 @@ const AdminInstructions = () => {
                     <p className="text-gray-600 mb-4">
                       The Content Management section allows you to control all the content displayed across your website.
                     </p>
-                    
+
                     <div className="bg-gray-50 p-4 rounded-md border border-gray-200 mb-4">
                       <h4 className="font-medium mb-2">Adding New Content</h4>
                       <ol className="list-decimal pl-5 space-y-2 text-gray-700">
@@ -112,7 +112,7 @@ const AdminInstructions = () => {
                         <li>Click Save to publish your content</li>
                       </ol>
                     </div>
-                    
+
                     <div className="bg-gray-50 p-4 rounded-md border border-gray-200 mb-4">
                       <h4 className="font-medium mb-2">Editing Existing Content</h4>
                       <ol className="list-decimal pl-5 space-y-2 text-gray-700">
@@ -122,7 +122,7 @@ const AdminInstructions = () => {
                         <li>Click Update to save your changes</li>
                       </ol>
                     </div>
-                    
+
                     <div className="bg-gray-50 p-4 rounded-md border border-gray-200">
                       <h4 className="font-medium mb-2">Understanding Page Locations and Sections</h4>
                       <p className="text-gray-700 mb-2">
@@ -137,7 +137,7 @@ const AdminInstructions = () => {
                   </div>
                 </div>
               </TabsContent>
-              
+
               <TabsContent value="media">
                 <div className="space-y-4">
                   <div>
@@ -145,7 +145,7 @@ const AdminInstructions = () => {
                     <p className="text-gray-600 mb-4">
                       The Media Showcase section allows you to manage all media content that will be available to administrators but not publicly visible on the website.
                     </p>
-                    
+
                     <div className="bg-gray-50 p-4 rounded-md border border-gray-200 mb-4">
                       <h4 className="font-medium mb-2">Adding Media Content</h4>
                       <ol className="list-decimal pl-5 space-y-2 text-gray-700">
@@ -160,7 +160,7 @@ const AdminInstructions = () => {
                         <li>Click Save to add your media</li>
                       </ol>
                     </div>
-                    
+
                     <div className="bg-gray-50 p-4 rounded-md border border-gray-200 mb-4">
                       <h4 className="font-medium mb-2">Organizing Media by Categories</h4>
                       <p className="text-gray-700 mb-2">
@@ -175,7 +175,7 @@ const AdminInstructions = () => {
                         <li><span className="font-medium">Videos</span>: All video content</li>
                       </ul>
                     </div>
-                    
+
                     <div className="bg-gray-50 p-4 rounded-md border border-gray-200">
                       <h4 className="font-medium mb-2">Tips for Media Management</h4>
                       <ul className="list-disc pl-5 space-y-1 text-gray-700">
@@ -189,7 +189,7 @@ const AdminInstructions = () => {
                   </div>
                 </div>
               </TabsContent>
-              
+
               <TabsContent value="inquiries">
                 <div className="space-y-4">
                   <div>
@@ -197,7 +197,7 @@ const AdminInstructions = () => {
                     <p className="text-gray-600 mb-4">
                       The Customer Inquiries section allows you to view and respond to messages sent by visitors through your website's contact form.
                     </p>
-                    
+
                     <div className="bg-gray-50 p-4 rounded-md border border-gray-200 mb-4">
                       <h4 className="font-medium mb-2">Viewing Inquiries</h4>
                       <ul className="list-disc pl-5 space-y-2 text-gray-700">
@@ -206,7 +206,7 @@ const AdminInstructions = () => {
                         <li>The status indicator shows whether the inquiry is new, in progress, or resolved</li>
                       </ul>
                     </div>
-                    
+
                     <div className="bg-gray-50 p-4 rounded-md border border-gray-200 mb-4">
                       <h4 className="font-medium mb-2">Responding to Inquiries</h4>
                       <ol className="list-decimal pl-5 space-y-2 text-gray-700">
@@ -216,7 +216,7 @@ const AdminInstructions = () => {
                         <li>After responding, update the status to "Resolved"</li>
                       </ol>
                     </div>
-                    
+
                     <div className="bg-gray-50 p-4 rounded-md border border-gray-200">
                       <h4 className="font-medium mb-2">Best Practices</h4>
                       <ul className="list-disc pl-5 space-y-1 text-gray-700">

@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from "react";
+import ResponsiveTable from "@/components/admin/ResponsiveTable";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { customerService, CustomerInquiry } from "@/services/customerService";
 import { getAllChatSessions, getChatHistory } from "@/services/chatbotService";
@@ -382,7 +383,7 @@ const AdminInbox: React.FC = () => {
         )}
 
         <Tabs defaultValue="new" className="w-full">
-          <TabsList className="mb-6 grid grid-cols-4 w-full">
+          <TabsList className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-0 w-full">
             <TabsTrigger value="new" className="flex items-center gap-2">
               <Mail size={16} /> New <Badge className="ml-1 bg-blue-500">{newInquiries.length}</Badge>
             </TabsTrigger>
@@ -416,15 +417,16 @@ const AdminInbox: React.FC = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="rounded-md border overflow-hidden">
-                    <Table>
+                  <ResponsiveTable>
+                    <div className="rounded-md border overflow-hidden">
+                      <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>Date</TableHead>
-                          <TableHead>Name</TableHead>
-                          <TableHead>Email</TableHead>
-                          <TableHead>Topic</TableHead>
-                          <TableHead>Status</TableHead>
+                          <TableHead className="w-[120px] md:w-auto">Date</TableHead>
+                          <TableHead className="w-[120px] md:w-auto">Name</TableHead>
+                          <TableHead className="hidden md:table-cell">Email</TableHead>
+                          <TableHead className="hidden md:table-cell">Topic</TableHead>
+                          <TableHead className="hidden md:table-cell">Status</TableHead>
                           <TableHead>Actions</TableHead>
                         </TableRow>
                       </TableHeader>
@@ -449,11 +451,23 @@ const AdminInbox: React.FC = () => {
                             .filter(item => item.status === status)
                             .map((inquiry) => (
                               <TableRow key={inquiry.id}>
-                                <TableCell>{formatDate(inquiry.created_at!)}</TableCell>
-                                <TableCell className="font-medium">{inquiry.name}</TableCell>
-                                <TableCell>{inquiry.email}</TableCell>
-                                <TableCell>{inquiry.topic}</TableCell>
-                                <TableCell>
+                                <TableCell>{formatDate(inquiry.created_at!).split(',')[0]}</TableCell>
+                                <TableCell className="font-medium">
+                                  <div>{inquiry.name}</div>
+                                  <div className="md:hidden text-xs text-gray-500 mt-1">
+                                    <div className="truncate">{inquiry.email}</div>
+                                    <div className="flex items-center gap-1 mt-1">
+                                      <Badge className={`text-[10px] h-4 ${statusColors[inquiry.status as keyof typeof statusColors]}`}>
+                                        {inquiry.status}
+                                      </Badge>
+                                      <span className="mx-1">•</span>
+                                      <span className="truncate">{inquiry.topic}</span>
+                                    </div>
+                                  </div>
+                                </TableCell>
+                                <TableCell className="hidden md:table-cell">{inquiry.email}</TableCell>
+                                <TableCell className="hidden md:table-cell">{inquiry.topic}</TableCell>
+                                <TableCell className="hidden md:table-cell">
                                   <Badge className={statusColors[inquiry.status as keyof typeof statusColors]}>
                                     {inquiry.status}
                                   </Badge>
@@ -556,8 +570,9 @@ const AdminInbox: React.FC = () => {
                             ))
                         )}
                       </TableBody>
-                    </Table>
-                  </div>
+                      </Table>
+                    </div>
+                  </ResponsiveTable>
                 </CardContent>
               </Card>
             </TabsContent>

@@ -107,7 +107,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="mb-4">
             <h3 className="text-sm font-medium text-gray-500 mb-2">Filter by Category</h3>
-            <TabsList className="mb-6 flex-wrap">
+            <TabsList className="mb-6 flex flex-wrap gap-2">
               {mediaCategories.map(category => (
                 <TabsTrigger key={category.id} value={category.id}>
                   {category.name}
@@ -118,7 +118,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
 
           <div className="mb-4">
             <h3 className="text-sm font-medium text-gray-500 mb-2">Filter by Page Location</h3>
-            <TabsList className="mb-6 flex-wrap">
+            <TabsList className="mb-6 flex flex-wrap gap-2">
               {pageLocationFilters.map(filter => (
                 <TabsTrigger key={filter.id} value={filter.id}>
                   {filter.name}
@@ -135,7 +135,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                   <Loader2 className="h-8 w-8 animate-spin text-salon-pink-500" />
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {getCategoryContent(category.id).length > 0 ? (
                     getCategoryContent(category.id).map(content => (
                       <Card key={content.id} className="overflow-hidden">
@@ -151,7 +151,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                               />
                               <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
                                 <div className="w-12 h-12 rounded-full bg-white bg-opacity-80 flex items-center justify-center">
-                                  <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-salon-pink-500 ml-1"></div>
+                                  <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-salon-pink-500 ml-1" aria-hidden="true" />
                                 </div>
                               </div>
                             </div>
@@ -166,8 +166,8 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                         <CardContent className="p-4">
                           <h3 className="font-medium text-lg mb-1 truncate">{content.title}</h3>
                           <p className="text-sm text-gray-500 mb-3 line-clamp-2">{content.description}</p>
-                          <div className="flex items-center justify-between">
-                            <div className="flex space-x-1">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                            <div className="flex flex-wrap gap-2">
                               <Button
                                 variant="outline"
                                 size="sm"
@@ -222,7 +222,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                   <Loader2 className="h-8 w-8 animate-spin text-salon-pink-500" />
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {getCategoryContent(filter.id).length > 0 ? (
                     getCategoryContent(filter.id).map(content => (
                       <Card key={content.id} className="overflow-hidden">
@@ -238,7 +238,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                               />
                               <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
                                 <div className="w-12 h-12 rounded-full bg-white bg-opacity-80 flex items-center justify-center">
-                                  <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-salon-pink-500 ml-1"></div>
+                                  <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-salon-pink-500 ml-1" aria-hidden="true" />
                                 </div>
                               </div>
                             </div>
@@ -253,8 +253,8 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                         <CardContent className="p-4">
                           <h3 className="font-medium text-lg mb-1 truncate">{content.title}</h3>
                           <p className="text-sm text-gray-500 mb-3 line-clamp-2">{content.description}</p>
-                          <div className="flex items-center justify-between">
-                            <div className="flex space-x-1">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                            <div className="flex flex-wrap gap-2">
                               <Button
                                 variant="outline"
                                 size="sm"
