@@ -4,7 +4,7 @@ import { contentService } from "@/services/contentService";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import MobileScrollFix from "@/components/admin/MobileScrollFix";
+
 
 // Import custom hooks
 import { useAdminAuth } from "@/hooks/useAdminAuth";
@@ -121,10 +121,9 @@ const AdminMediaPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white" style={{ height: 'auto', minHeight: '100vh', overflow: 'visible' }}>
-      <MobileScrollFix />
+    <div className="min-h-screen bg-white">
       <Navbar />
-      <div className="container mx-auto pt-32 pb-20 px-4" style={{ overflow: 'visible' }}>
+      <div className="container mx-auto pt-32 pb-20 px-4">
         <AdminHeader title="Content & Media Management" handleLogout={handleLogout} />
 
         <AdminInstructions />

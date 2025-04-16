@@ -202,8 +202,8 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
   };
 
   return (
-    <Card className="mb-8 max-w-full overflow-hidden">
-      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between p-4 sm:p-6">
+    <Card className="mb-8">
+      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between">
         <div>
           <CardTitle>S3 Video Importer</CardTitle>
           <CardDescription>
@@ -235,8 +235,8 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
       </CardHeader>
 
       {showForm && (
-        <CardContent className="p-4 sm:p-6 overflow-x-auto" style={{ maxWidth: '100vw' }}>
-          <div className="space-y-4" style={{ maxWidth: '100%', overflowWrap: 'break-word' }}>
+        <CardContent>
+          <div className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="title">Video Title</Label>
@@ -343,8 +343,8 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
       )}
 
       {showBatchForm && (
-        <CardContent className="p-4 sm:p-6 overflow-x-auto" style={{ maxWidth: '100vw' }}>
-          <div className="space-y-4" style={{ maxWidth: '100%', overflowWrap: 'break-word' }}>
+        <CardContent>
+          <div className="space-y-4">
             <div>
               <Label htmlFor="batchUrls">Video URLs (Comma Separated)</Label>
               <Textarea
