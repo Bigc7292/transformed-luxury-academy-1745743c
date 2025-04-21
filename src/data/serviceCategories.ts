@@ -197,7 +197,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'pedicures',
         title: 'Pedicures',
         description: 'Relaxing and beautifying foot treatments',
-        image: 'https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/pedicure.jpeg',
       },
       {
         id: 'skin',
