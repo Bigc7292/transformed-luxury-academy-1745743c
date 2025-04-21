@@ -142,7 +142,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'facial-sculpting',
         title: 'Facial Sculpting',
         description: 'Non-surgical facial contouring and definition',
-        image: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-20+at+10.38.38.jpeg',
       },
       {
         id: 'body-sculpting',
