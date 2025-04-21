@@ -45,7 +45,7 @@ const Staff = () => {
       id: 5,
       name: "Hope",
       role: "Stylist",
-      image: "https://transformed-academy-and-salon-staff.s3.amazonaws.com/staff/WhatsApp%20Image%202025-03-27%20at%2013.18.38.jpeg",
+      image: "https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/hope.jpeg",
       bio: "Meet Hope, our talented stylist with a passion for creating beautiful transformations. With her keen eye for detail and dedication to staying current with the latest trends, Hope delivers exceptional results tailored to each client's unique style. She specializes in precision cutting, creative coloring, and styling techniques that enhance your natural beauty. When she's not behind the chair, Hope enjoys exploring new fashion trends and spending time outdoors.",
       specialties: ["Precision Cutting", "Creative Coloring", "Styling", "Hair Treatments"]
     }
