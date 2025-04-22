@@ -38,14 +38,19 @@ const ServicesPage = () => {
     const section = document.getElementById(sectionId);
 
     if (section) {
+      // Check if this is a mobile device
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      const scrollDelay = isMobile ? 800 : 100; // Longer delay for mobile
+      const scrollOffset = isMobile ? -150 : -120; // Larger offset for mobile
+
       // Use scrollIntoView for better browser compatibility
       section.scrollIntoView({ behavior: 'smooth' });
 
       // Add a small delay and then scroll up slightly to ensure the section is visible
       setTimeout(() => {
         // Scroll up a bit to account for the fixed header
-        window.scrollBy(0, -120);
-      }, window.innerWidth < 768 ? 300 : 100); // Longer delay for mobile
+        window.scrollBy(0, scrollOffset);
+      }, scrollDelay);
     }
   };
 
@@ -62,11 +67,16 @@ const ServicesPage = () => {
         const section = document.getElementById(sectionId);
 
         if (section) {
+          // Check if this is a mobile device
+          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+          const scrollDelay = isMobile ? 800 : 100; // Longer delay for mobile
+          const scrollOffset = isMobile ? -150 : -120; // Larger offset for mobile
+
           section.scrollIntoView({ behavior: 'smooth' });
           // Adjust scroll position to account for fixed header
-          setTimeout(() => window.scrollBy(0, -120), 100);
+          setTimeout(() => window.scrollBy(0, scrollOffset), scrollDelay);
         }
-      }, window.innerWidth < 768 ? 500 : 100); // Longer delay for mobile devices
+      }, window.innerWidth < 768 ? 800 : 200); // Longer delay for mobile devices
     } else {
       // Check if there's a pending hash in sessionStorage
       const pendingHash = sessionStorage.getItem('pendingHash');
@@ -81,11 +91,16 @@ const ServicesPage = () => {
           const section = document.getElementById(sectionId);
 
           if (section) {
+            // Check if this is a mobile device
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const scrollDelay = isMobile ? 800 : 100; // Longer delay for mobile
+            const scrollOffset = isMobile ? -150 : -120; // Larger offset for mobile
+
             section.scrollIntoView({ behavior: 'smooth' });
             // Adjust scroll position to account for fixed header
-            setTimeout(() => window.scrollBy(0, -120), 100);
+            setTimeout(() => window.scrollBy(0, scrollOffset), scrollDelay);
           }
-        }, window.innerWidth < 768 ? 500 : 100); // Longer delay for mobile devices
+        }, window.innerWidth < 768 ? 800 : 200); // Longer delay for mobile devices
       }
     }
   }, [location.hash]);
@@ -100,17 +115,22 @@ const ServicesPage = () => {
         const section = document.getElementById(sectionId);
 
         if (section) {
+          // Check if this is a mobile device
+          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+          const scrollDelay = isMobile ? 1000 : 200; // Even longer delay for initial load on mobile
+          const scrollOffset = isMobile ? -150 : -120; // Larger offset for mobile
+
           // For mobile devices, use a longer delay
           setTimeout(() => {
             section.scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => window.scrollBy(0, -120), 100);
-          }, window.innerWidth < 768 ? 800 : 200);
+            setTimeout(() => window.scrollBy(0, scrollOffset), scrollDelay);
+          }, isMobile ? 1200 : 300); // Even longer initial delay for mobile
         }
       }
     };
 
     handleInitialScroll();
-  }, []);
+  }, [location.hash]); // Add location.hash as a dependency
 
   return (
     <div className="bg-white min-h-screen">

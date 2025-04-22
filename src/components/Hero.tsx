@@ -95,8 +95,24 @@ const Hero = () => {
                   e.preventDefault();
                   // Store the hash in sessionStorage for the ServicesPage to use
                   sessionStorage.setItem('pendingHash', 'all');
-                  // Navigate to the services page
-                  window.location.href = '/services';
+
+                  // Check if this is a mobile device
+                  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+                  if (isMobile) {
+                    // For mobile devices, use a more direct approach
+                    window.location.replace('/services#all');
+
+                    // Add a fallback with a slight delay
+                    setTimeout(() => {
+                      if (window.location.pathname !== '/services') {
+                        window.location.href = '/services#all';
+                      }
+                    }, 100);
+                  } else {
+                    // For desktop, use the standard approach
+                    window.location.href = '/services';
+                  }
                 }}
               >
                 Explore Services
