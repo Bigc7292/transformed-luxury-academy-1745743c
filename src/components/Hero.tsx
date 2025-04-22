@@ -88,7 +88,17 @@ const Hero = () => {
               >
                 Book Consultation
               </a>
-              <a href="/services" className="btn-secondary">
+              <a
+                href="/services#all"
+                className="btn-secondary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  // Store the hash in sessionStorage for the ServicesPage to use
+                  sessionStorage.setItem('pendingHash', 'all');
+                  // Navigate to the services page
+                  window.location.href = '/services';
+                }}
+              >
                 Explore Services
               </a>
             </motion.div>
