@@ -47,118 +47,118 @@ const PriceList = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               className="bg-white rounded-lg shadow-md overflow-hidden"
             >
-              <img 
-                src="/lovable-uploads/ce69ddac-6f4c-4cb7-b591-5dbba81af027.png" 
-                alt="Price List" 
+              <img
+                src="/lovable-uploads/ce69ddac-6f4c-4cb7-b591-5dbba81af027.png"
+                alt="Price List"
                 className="w-full h-auto"
               />
             </motion.div>
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               className="bg-white rounded-lg shadow-md overflow-hidden"
             >
-              <img 
-                src="/lovable-uploads/743b6640-23a9-4d20-a013-f22057993267.png" 
-                alt="Kayla's Signature Lips" 
+              <img
+                src="/lovable-uploads/743b6640-23a9-4d20-a013-f22057993267.png"
+                alt="Kayla's Signature Lips"
                 className="w-full h-auto"
               />
             </motion.div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               className="bg-white rounded-lg shadow-md overflow-hidden"
             >
-              <img 
-                src="/lovable-uploads/25674aa6-db90-4635-9083-d20f0a04a266.png" 
-                alt="Sculpting The Body Of Dreams" 
+              <img
+                src="/lovable-uploads/25674aa6-db90-4635-9083-d20f0a04a266.png"
+                alt="Sculpting The Body Of Dreams"
                 className="w-full h-auto"
               />
             </motion.div>
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               className="bg-white rounded-lg shadow-md overflow-hidden"
             >
-              <img 
-                src="/lovable-uploads/9adc42fb-5f82-4bfe-8397-c5b42685de06.png" 
-                alt="Post Op Aftercare" 
+              <img
+                src="/lovable-uploads/9adc42fb-5f82-4bfe-8397-c5b42685de06.png"
+                alt="Post Op Aftercare"
                 className="w-full h-auto"
               />
             </motion.div>
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               className="bg-white rounded-lg shadow-md overflow-hidden"
             >
-              <img 
-                src="/lovable-uploads/51fa7eec-6b73-4b98-819b-d2575ce05fcb.png" 
-                alt="Investing In A Happier & Confident You" 
+              <img
+                src="/lovable-uploads/51fa7eec-6b73-4b98-819b-d2575ce05fcb.png"
+                alt="Investing In A Happier & Confident You"
                 className="w-full h-auto"
               />
             </motion.div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               className="bg-white rounded-lg shadow-md overflow-hidden"
             >
-              <img 
-                src="/lovable-uploads/7a78c101-3725-41bf-b715-8db6d3d78668.png" 
-                alt="Foods - Best for Lymphatic Drainage" 
+              <img
+                src="/lovable-uploads/7a78c101-3725-41bf-b715-8db6d3d78668.png"
+                alt="Foods - Best for Lymphatic Drainage"
                 className="w-full h-auto"
               />
             </motion.div>
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               className="bg-white rounded-lg shadow-md overflow-hidden"
             >
-              <img 
-                src="/lovable-uploads/f9ad279c-c69d-4621-992f-ceb06912b33a.png" 
-                alt="Treatable Body Areas" 
+              <img
+                src="/lovable-uploads/f9ad279c-c69d-4621-992f-ceb06912b33a.png"
+                alt="Treatable Body Areas"
                 className="w-full h-auto"
               />
             </motion.div>
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               className="bg-white rounded-lg shadow-md overflow-hidden"
             >
-              <img 
-                src="/lovable-uploads/c1bc6ba4-d386-4e0b-9d64-c526363e2f65.png" 
-                alt="Lymphatic Massage Do's and Don'ts" 
+              <img
+                src="/lovable-uploads/c1bc6ba4-d386-4e0b-9d64-c526363e2f65.png"
+                alt="Lymphatic Massage Do's and Don'ts"
                 className="w-full h-auto"
               />
             </motion.div>
           </div>
-          
+
           <motion.div
             variants={itemVariants}
             initial="hidden"
@@ -166,7 +166,12 @@ const PriceList = () => {
             viewport={{ once: true }}
             className="text-center mt-16"
           >
-            <a href="/booking" className="btn-primary inline-block">
+            <a
+              href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw"
+              className="btn-primary inline-block"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Book Your Treatment Now
             </a>
           </motion.div>

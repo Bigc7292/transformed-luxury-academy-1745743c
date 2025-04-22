@@ -8,9 +8,9 @@ const Cta = () => {
       <div className="container mx-auto px-4 relative">
         <div className="absolute -top-20 -right-20 w-80 h-80 bg-salon-pink-200 rounded-full blur-3xl opacity-30 transform rotate-45"></div>
         <div className="absolute -bottom-40 -left-20 w-80 h-80 bg-salon-beige-200 rounded-full blur-3xl opacity-30"></div>
-        
+
         <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between bg-white rounded-2xl shadow-xl p-8 lg:p-12">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
@@ -22,15 +22,20 @@ const Cta = () => {
               Book your consultation today and take the first step towards a more confident you. Our expert practitioners will help you discover the perfect treatments for your aesthetic goals.
             </p>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
             className="flex flex-col sm:flex-row gap-4"
           >
-            <a href="/booking" className="btn-primary whitespace-nowrap">
+            <a
+              href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw"
+              className="btn-primary whitespace-nowrap"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Book Consultation
             </a>
             <a href="/contact" className="btn-secondary whitespace-nowrap">

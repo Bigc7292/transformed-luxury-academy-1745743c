@@ -3,8 +3,21 @@ import { BOOKING_URL } from '../data/serviceCategories';
 
 const Booking = () => {
   useEffect(() => {
-    // Redirect to the external booking URL
-    window.location.href = BOOKING_URL;
+    // Check if this is a mobile device
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      // For mobile devices, open in a new tab/window which works better on mobile
+      window.open(BOOKING_URL, '_blank');
+
+      // Also try the direct approach as a fallback
+      setTimeout(() => {
+        window.location.href = BOOKING_URL;
+      }, 100);
+    } else {
+      // For desktop, use the standard redirect
+      window.location.href = BOOKING_URL;
+    }
   }, []);
 
   return (
@@ -14,8 +27,8 @@ const Booking = () => {
         <h1 className="text-2xl font-serif text-salon-pink-700 mb-2">Redirecting to Booking...</h1>
         <p className="text-gray-600">
           If you are not redirected automatically, please{' '}
-          <a 
-            href={BOOKING_URL} 
+          <a
+            href={BOOKING_URL}
             className="text-salon-pink-500 hover:underline"
             target="_blank"
             rel="noopener noreferrer"

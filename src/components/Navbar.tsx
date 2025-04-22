@@ -170,13 +170,14 @@ const Navbar = () => {
                 </button>
               )
             ))}
-            <button
-              type="button"
-              onClick={() => handleNavigation('/booking')}
-              className="bg-salon-pink-400 text-white px-5 py-2 rounded-full hover:bg-salon-pink-500 transition-colors"
+            <a
+              href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-salon-pink-400 text-white px-5 py-2 rounded-full hover:bg-salon-pink-500 transition-colors inline-block"
             >
               Book Now
-            </button>
+            </a>
           </div>
 
           <div className="md:hidden flex items-center">
@@ -240,13 +241,14 @@ const Navbar = () => {
             )
           ))}
           <div className="pt-2">
-            <button
-              type="button"
-              onClick={() => handleNavigation('/booking')}
+            <a
+              href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block w-full text-center bg-salon-pink-400 text-white px-5 py-4 rounded-full hover:bg-salon-pink-500 transition-colors text-lg font-medium mt-4 shadow-md"
             >
               Book Now
-            </button>
+            </a>
           </div>
         </div>
       </div>
