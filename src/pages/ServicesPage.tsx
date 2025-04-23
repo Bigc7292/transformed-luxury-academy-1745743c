@@ -110,24 +110,36 @@ const ServicesPage = () => {
   useEffect(() => {
     // This will run once when the component mounts
     const handleInitialScroll = () => {
-      if (location.hash) {
-        const categoryId = location.hash.substring(1);
+      // Check for hash in URL or pendingHash in sessionStorage
+      const hashFromUrl = location.hash ? location.hash.substring(1) : null;
+      const pendingHash = sessionStorage.getItem('pendingHash');
+      const categoryId = hashFromUrl || pendingHash || 'all';
+
+      if (pendingHash) {
+        sessionStorage.removeItem('pendingHash');
+      }
+
+      // Set the active tab
+      setActiveTab(categoryId);
+
+      // Wait for the DOM to be fully rendered
+      setTimeout(() => {
         const sectionId = `${categoryId}-section`;
         const section = document.getElementById(sectionId);
 
         if (section) {
           // Check if this is a mobile device
           const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-          const scrollDelay = isMobile ? 1000 : 200; // Even longer delay for initial load on mobile
+          const scrollDelay = isMobile ? 1000 : 200; // Longer delay for mobile
           const scrollOffset = isMobile ? -150 : -120; // Larger offset for mobile
 
           // For mobile devices, use a longer delay
           setTimeout(() => {
             section.scrollIntoView({ behavior: 'smooth' });
             setTimeout(() => window.scrollBy(0, scrollOffset), scrollDelay);
-          }, isMobile ? 1200 : 300); // Even longer initial delay for mobile
+          }, isMobile ? 1500 : 300); // Even longer initial delay for mobile
         }
-      }
+      }, 100);
     };
 
     handleInitialScroll();
