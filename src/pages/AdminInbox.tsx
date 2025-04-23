@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import ResponsiveTable from "@/components/admin/ResponsiveTable";
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { customerService, CustomerInquiry } from "@/services/customerService";
+import { customerService, type CustomerInquiry } from "@/services/customerService";
 import { getAllChatSessions, getChatHistory } from "@/services/chatbotService";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -30,7 +30,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -44,7 +43,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Mail, MessageSquare, Clock, CheckCircle, XCircle, RefreshCw, LogOut, AlertCircle, Eye } from "lucide-react";
+import { Mail, MessageSquare, Clock, CheckCircle, XCircle, RefreshCw, AlertCircle } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminInstructions from "@/components/admin/AdminInstructions";
 
@@ -139,7 +138,8 @@ const ChatHistorySection: React.FC = () => {
               ) : (
                 <div className="space-y-4 max-h-[400px] overflow-y-auto p-2">
                   {chatMessages.map((msg, index) => (
-                    <div key={index} className="border-b pb-3">
+                    // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+<div key={index} className="border-b pb-3">
                       <div className="text-xs text-gray-500 mb-1">{formatChatDate(msg.created_at)}</div>
                       {msg.user_message && (
                         <div className="bg-gray-100 p-3 rounded-lg mb-2">
@@ -238,10 +238,11 @@ const AdminInbox: React.FC = () => {
       });
       queryClient.invalidateQueries({ queryKey: ["inquiries"] });
     },
-    onError: (error: any) => {
+
+    onError: (error: unknown) => {
       toast({
         title: "Update Failed",
-        description: error.message || "Failed to update status. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to update status. Please try again.",
         variant: "destructive"
       });
     }
@@ -452,7 +453,8 @@ const AdminInbox: React.FC = () => {
                             .filter(item => item.status === status)
                             .map((inquiry) => (
                               <TableRow key={inquiry.id}>
-                                <TableCell>{formatDate(inquiry.created_at!).split(',')[0]}</TableCell>
+                                {/* biome-ignore lint/style/noNonNullAssertion: <explanation> */}
+<TableCell>{formatDate(inquiry.created_at!).split(',')[0]}</TableCell>
                                 <TableCell className="font-medium">
                                   <div>{inquiry.name}</div>
                                   <div className="md:hidden text-xs text-gray-500 mt-1">

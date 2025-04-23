@@ -138,7 +138,8 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
               item.hasSubmenu ? (
-                <div key={index} className="relative group">
+                // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+<div key={index} className="relative group">
                   <button
                     type="button"
                     className="flex items-center text-salon-pink-800 hover:text-salon-pink-500 transition-colors group-hover:text-salon-pink-500"

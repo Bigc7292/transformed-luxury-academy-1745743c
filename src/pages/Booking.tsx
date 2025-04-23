@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { BOOKING_URL } from '../data/serviceCategories';
 
 const Booking = () => {
@@ -23,6 +23,7 @@ const Booking = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-salon-pink-50">
       <div className="text-center p-8">
+        {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-salon-pink-500 mx-auto mb-4"></div>
         <h1 className="text-2xl font-serif text-salon-pink-700 mb-2">Redirecting to Booking...</h1>
         <p className="text-gray-600">

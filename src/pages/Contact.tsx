@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import type React from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Send } from 'lucide-react';
 import Navbar from '../components/Navbar';
@@ -335,7 +336,6 @@ const Contact = () => {
               height="100%"
               style={{ border: 0 }}
               allowFullScreen
-              loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Transformed Academy Location"
             />

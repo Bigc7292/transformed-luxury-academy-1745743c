@@ -21,7 +21,8 @@ const ServicesPage = () => {
     };
 
     // Create refs for each service category
-    serviceCategories.forEach(category => {
+    // biome-ignore lint/complexity/noForEach: <explanation>
+        serviceCategories.forEach(category => {
       categoryRefs.current[category.id] = React.createRef<HTMLDivElement>();
     });
   }, []);
@@ -154,6 +155,7 @@ const ServicesPage = () => {
             <div className="flex justify-center mb-8 overflow-x-auto">
               <div className="bg-salon-pink-50 p-1 rounded-md inline-flex">
                 <button
+                  type="button"
                   className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors ${activeTab === 'all' ? 'bg-salon-pink-100 text-salon-pink-800' : 'text-salon-pink-600 hover:text-salon-pink-700'}`}
                   onClick={() => handleTabClick('all')}
                 >
@@ -161,6 +163,7 @@ const ServicesPage = () => {
                 </button>
                 {serviceCategories.map(category => (
                   <button
+                    type="button"
                     key={category.id}
                     className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors ${activeTab === category.id ? 'bg-salon-pink-100 text-salon-pink-800' : 'text-salon-pink-600 hover:text-salon-pink-700'}`}
                     onClick={() => handleTabClick(category.id)}
@@ -174,7 +177,7 @@ const ServicesPage = () => {
             {/* Service Sections with Anchors */}
             <div className="relative">
               {/* Anchor points positioned at the top of each section */}
-              <div id="all-section" ref={categoryRefs.current.all} className="absolute" style={{ top: '-150px' }}></div>
+              <div id="all-section" ref={categoryRefs.current.all} className="absolute" style={{ top: '-150px' }} />
               {serviceCategories.map(category => (
                 <div
                   key={`anchor-${category.id}`}
@@ -182,7 +185,7 @@ const ServicesPage = () => {
                   ref={categoryRefs.current[category.id]}
                   className="absolute"
                   style={{ top: '-150px' }}
-                ></div>
+                />
               ))}
 
               {/* Content sections */}

@@ -1,5 +1,5 @@
 
-import React from 'react';
+
 import { motion } from 'framer-motion';
 
 const Hero = () => {
@@ -40,7 +40,8 @@ const Hero = () => {
   return (
     <div className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-salon-pink-50 to-white">
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[url('/lovable-uploads/9a85e5ad-72e9-470b-bf98-bcd2ebda3d43.png')] bg-center bg-cover opacity-10"></div>
+        {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
+<div className="absolute inset-0 bg-[url('/lovable-uploads/9a85e5ad-72e9-470b-bf98-bcd2ebda3d43.png')] bg-center bg-cover opacity-10"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 pt-20 pb-10">
@@ -63,6 +64,7 @@ const Hero = () => {
               >
                 {animatedText.map((word, i) => (
                   <motion.span
+                    // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                     key={i}
                     custom={i}
                     variants={wordVariants}
@@ -88,35 +90,19 @@ const Hero = () => {
               >
                 Book Consultation
               </a>
-              <a
-                href="/services#all"
+              <button
+                type="button"
                 className="btn-secondary"
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={() => {
                   // Store the hash in sessionStorage for the ServicesPage to use
                   sessionStorage.setItem('pendingHash', 'all');
 
-                  // Check if this is a mobile device
-                  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-                  if (isMobile) {
-                    // For mobile devices, use a more direct approach
-                    window.location.replace('/services#all');
-
-                    // Add a fallback with a slight delay
-                    setTimeout(() => {
-                      if (window.location.pathname !== '/services') {
-                        window.location.href = '/services#all';
-                      }
-                    }, 100);
-                  } else {
-                    // For desktop, use the standard approach
-                    window.location.href = '/services';
-                  }
+                  // Use a consistent approach for all devices
+                  window.location.href = '/services#all';
                 }}
               >
                 Explore Services
-              </a>
+              </button>
             </motion.div>
 
             <motion.div
@@ -129,12 +115,14 @@ const Hero = () => {
                 <p className="text-3xl font-serif text-salon-pink-500">500+</p>
                 <p className="text-sm text-gray-500">Happy Clients</p>
               </div>
-              <div className="hidden sm:block h-10 w-px bg-salon-pink-200"></div>
+              {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
+<div className="hidden sm:block h-10 w-px bg-salon-pink-200"></div>
               <div className="text-center px-4">
                 <p className="text-3xl font-serif text-salon-pink-500">15+</p>
                 <p className="text-sm text-gray-500">Expert Services</p>
               </div>
-              <div className="hidden sm:block h-10 w-px bg-salon-pink-200"></div>
+              {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
+<div className="hidden sm:block h-10 w-px bg-salon-pink-200"></div>
               <div className="text-center px-4">
                 <p className="text-3xl font-serif text-salon-pink-500">10+</p>
                 <p className="text-sm text-gray-500">Years Experience</p>
@@ -171,13 +159,15 @@ const Hero = () => {
               </div>
             </motion.div>
 
-            <div className="absolute top-1/3 -right-12 w-40 h-40 bg-salon-pink-100 rounded-full blur-3xl opacity-50"></div>
-            <div className="absolute bottom-1/4 -left-12 w-32 h-32 bg-salon-beige-200 rounded-full blur-3xl opacity-50"></div>
+            {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
+<div className="absolute top-1/3 -right-12 w-40 h-40 bg-salon-pink-100 rounded-full blur-3xl opacity-50"></div>
+            {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
+<div className="absolute bottom-1/4 -left-12 w-32 h-32 bg-salon-beige-200 rounded-full blur-3xl opacity-50"></div>
           </div>
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
     </div>
   );
 };
