@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -41,20 +41,26 @@ const ServicesPage = () => {
       {/* Category Navigation */}
       <div className="bg-white shadow-md py-4 mb-8">
         <div className="container mx-auto px-4">
-          <div className="flex justify-start overflow-x-auto hide-scrollbar pb-2">
+          <div className="flex flex-wrap justify-center gap-2 pb-2">
             {serviceCategories.map(category => (
               <button
                 type="button"
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`whitespace-nowrap px-6 py-4 mx-1 rounded-md text-base font-medium min-w-[140px] transition-colors focus:outline-none focus:ring-2 focus:ring-salon-pink-300 ${
+                className={`whitespace-nowrap px-4 py-4 mx-1 rounded-md text-sm md:text-base font-medium min-w-[160px] md:min-w-[180px] transition-colors focus:outline-none focus:ring-2 focus:ring-salon-pink-300 ${
                   activeCategory === category.id
                     ? 'bg-salon-pink-500 text-white shadow-md'
                     : 'bg-salon-pink-50 text-salon-pink-700 hover:bg-salon-pink-100'
                 }`}
                 aria-label={`View ${category.name} services`}
               >
-                {category.name}
+                {category.name === "Beauty Treatments" ? (
+                  <>Beauty<br />Treatments</>
+                ) : category.name === "Training Services" ? (
+                  <>Training<br />Services</>
+                ) : (
+                  category.name
+                )}
               </button>
             ))}
           </div>
