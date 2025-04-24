@@ -1,208 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
-import ServicesList from '../components/ServicesList';
 import { serviceCategories, BOOKING_URL } from '../data/serviceCategories';
 
 const ServicesPage = () => {
-  const location = useLocation();
-  const [activeTab, setActiveTab] = useState<string>('all');
-  const servicesRef = useRef<HTMLDivElement>(null);
-  const categoryRefs = useRef<{[key: string]: React.RefObject<HTMLDivElement>}>({});
+  const navigate = useNavigate();
 
-  // Initialize refs for each category
+  // Handle any pending hash from sessionStorage
   useEffect(() => {
-    // Create a ref for 'all'
-    categoryRefs.current = {
-      all: React.createRef<HTMLDivElement>()
-    };
+    const pendingHash = sessionStorage.getItem('pendingHash');
+    if (pendingHash) {
+      // Clear the pending hash
+      sessionStorage.removeItem('pendingHash');
 
-    // Create refs for each service category
-    // biome-ignore lint/complexity/noForEach: <explanation>
-        serviceCategories.forEach(category => {
-      categoryRefs.current[category.id] = React.createRef<HTMLDivElement>();
-    });
-  }, []);
-
-  // Function to handle tab selection
-  const handleTabClick = (categoryId: string) => {
-    setActiveTab(categoryId);
-
-    // Update URL hash for better navigation
-    window.location.hash = categoryId;
-
-    // Scroll to the selected category section
-    const sectionId = `${categoryId}-section`;
-    const section = document.getElementById(sectionId);
-
-    if (section) {
-      // Check if this is a mobile device
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-      // Special handling for aesthetics and training categories
-      const isSpecialCategory = categoryId === 'aesthetics' || categoryId === 'training';
-
-      // Use different timing values based on device and category
-      const scrollDelay = isMobile ? 100 : 100;
-      const scrollOffset = isMobile ? -80 : -120;
-
-      // For mobile devices and special categories, use a direct approach
-      if (isMobile && isSpecialCategory) {
-        // Get the position of the section relative to the document
-        const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
-
-        // Calculate the target position with offset
-        const targetPosition = sectionPosition + scrollOffset;
-
-        // Scroll directly to the position without smooth behavior for immediate effect
-        window.scrollTo(0, targetPosition);
-
-        // Force a second scroll after a very short delay to ensure it takes effect
-        setTimeout(() => {
-          window.scrollTo(0, targetPosition);
-        }, 50);
+      // Navigate to the appropriate service page
+      if (pendingHash === 'all') {
+        navigate('/services/all');
       } else {
-        // Standard approach for other categories and desktop
-        section.scrollIntoView({ behavior: 'smooth' });
-
-        // Add a small delay and then scroll up slightly to ensure the section is visible
-        setTimeout(() => {
-          // Scroll up a bit to account for the fixed header
-          window.scrollBy(0, scrollOffset);
-        }, scrollDelay);
+        navigate(`/services/${pendingHash}`);
       }
     }
-  };
-
-  // Handle URL hash changes and sessionStorage
-  useEffect(() => {
-    // Check if there's a hash in the URL and set the tab accordingly
-    if (location.hash) {
-      const categoryId = location.hash.substring(1); // Remove the # from the hash
-      setActiveTab(categoryId);
-
-      // Wait for the DOM to be ready
-      setTimeout(() => {
-        const sectionId = `${categoryId}-section`;
-        const section = document.getElementById(sectionId);
-
-        if (section) {
-          // Check if this is a mobile device
-          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-          const scrollDelay = isMobile ? 800 : 100; // Longer delay for mobile
-          const scrollOffset = isMobile ? -150 : -120; // Larger offset for mobile
-
-          section.scrollIntoView({ behavior: 'smooth' });
-          // Adjust scroll position to account for fixed header
-          setTimeout(() => window.scrollBy(0, scrollOffset), scrollDelay);
-        }
-      }, window.innerWidth < 768 ? 800 : 200); // Longer delay for mobile devices
-    } else {
-      // Check if there's a pending hash in sessionStorage
-      const pendingHash = sessionStorage.getItem('pendingHash');
-      if (pendingHash) {
-        // Clear the pending hash
-        sessionStorage.removeItem('pendingHash');
-        setActiveTab(pendingHash);
-
-        // Wait for the DOM to be ready
-        setTimeout(() => {
-          const sectionId = `${pendingHash}-section`;
-          const section = document.getElementById(sectionId);
-
-          if (section) {
-            // Check if this is a mobile device
-            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            const scrollDelay = isMobile ? 800 : 100; // Longer delay for mobile
-            const scrollOffset = isMobile ? -150 : -120; // Larger offset for mobile
-
-            section.scrollIntoView({ behavior: 'smooth' });
-            // Adjust scroll position to account for fixed header
-            setTimeout(() => window.scrollBy(0, scrollOffset), scrollDelay);
-          }
-        }, window.innerWidth < 768 ? 800 : 200); // Longer delay for mobile devices
-      }
-    }
-  }, [location.hash]);
-
-  // Add an additional effect to handle direct navigation from mobile menu
-  useEffect(() => {
-    // This will run once when the component mounts
-    const handleInitialScroll = () => {
-      // Check for hash in URL or pendingHash in sessionStorage
-      const hashFromUrl = location.hash ? location.hash.substring(1) : null;
-      const pendingHash = sessionStorage.getItem('pendingHash');
-      const categoryId = hashFromUrl || pendingHash || 'all';
-
-      if (pendingHash) {
-        sessionStorage.removeItem('pendingHash');
-      }
-
-      // Set the active tab
-      setActiveTab(categoryId);
-
-      // Special handling for aesthetics and training categories
-      const isSpecialCategory = categoryId === 'aesthetics' || categoryId === 'training';
-
-      // Wait for the DOM to be fully rendered
-      setTimeout(() => {
-        const sectionId = `${categoryId}-section`;
-        const section = document.getElementById(sectionId);
-
-        if (section) {
-          // Check if this is a mobile device
-          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-          const scrollOffset = isMobile ? -80 : -120;
-
-          // For mobile devices with special categories, use direct positioning
-          if (isMobile && isSpecialCategory) {
-            // Wait a bit longer for the DOM to be fully rendered
-            setTimeout(() => {
-              // Get the position of the section relative to the document
-              const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
-
-              // Calculate the target position with offset
-              const targetPosition = sectionPosition + scrollOffset;
-
-              // Scroll directly to the position without smooth behavior for immediate effect
-              window.scrollTo(0, targetPosition);
-
-              // Force a second scroll after a very short delay to ensure it takes effect
-              setTimeout(() => {
-                window.scrollTo(0, targetPosition);
-              }, 50);
-            }, 300);
-          } else if (isMobile) {
-            // For other categories on mobile, use a simpler approach
-            setTimeout(() => {
-              // Get the position of the section relative to the document
-              const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
-
-              // Calculate the target position with offset
-              const targetPosition = sectionPosition + scrollOffset;
-
-              // Scroll with smooth behavior
-              window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-              });
-            }, 200);
-          } else {
-            // For desktop, use the standard approach
-            setTimeout(() => {
-              section.scrollIntoView({ behavior: 'smooth' });
-              setTimeout(() => window.scrollBy(0, scrollOffset), 200);
-            }, 200);
-          }
-        }
-      }, 100);
-    };
-
-    handleInitialScroll();
-  }, [location.hash]); // Add location.hash as a dependency
+  }, [navigate]);
 
   return (
     <div className="bg-white min-h-screen">
@@ -221,83 +42,48 @@ const ServicesPage = () => {
             </p>
           </motion.div>
 
-          {/* Services Navigation */}
-          <div className="mb-10" ref={servicesRef}>
-            <div className="flex justify-center mb-8 overflow-x-auto">
-              <div className="bg-salon-pink-50 p-1 rounded-md inline-flex">
-                <button
-                  type="button"
-                  className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors ${activeTab === 'all' ? 'bg-salon-pink-100 text-salon-pink-800' : 'text-salon-pink-600 hover:text-salon-pink-700'}`}
-                  onClick={() => handleTabClick('all')}
-                >
-                  All Services
-                </button>
-                {serviceCategories.map(category => (
-                  <button
-                    type="button"
-                    key={category.id}
-                    className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors ${activeTab === category.id ? 'bg-salon-pink-100 text-salon-pink-800' : 'text-salon-pink-600 hover:text-salon-pink-700'}`}
-                    onClick={() => {
-                      // Special handling for aesthetics and training on mobile
-                      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-                      const isSpecialCategory = category.id === 'aesthetics' || category.id === 'training';
-
-                      if (isMobile && isSpecialCategory) {
-                        // Set active tab immediately for visual feedback
-                        setActiveTab(category.id);
-
-                        // Find the section directly
-                        const sectionId = `${category.id}-section`;
-                        const section = document.getElementById(sectionId);
-
-                        if (section) {
-                          // Get the position and scroll directly without animation
-                          const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
-                          const scrollOffset = -80; // Adjusted for mobile
-                          window.scrollTo(0, sectionPosition + scrollOffset);
-
-                          // Update URL hash after scrolling
-                          setTimeout(() => {
-                            window.location.hash = category.id;
-                          }, 50);
-                        }
-                      } else {
-                        // Use the standard approach for other categories
-                        handleTabClick(category.id);
-                      }
-                    }}
-                  >
-                    {category.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Service Sections with Anchors */}
-            <div className="relative">
-              {/* Anchor points positioned at the top of each section */}
-              <div id="all-section" ref={categoryRefs.current.all} className="absolute" style={{ top: '-150px' }} />
-              {serviceCategories.map(category => (
-                <div
-                  key={`anchor-${category.id}`}
-                  id={`${category.id}-section`}
-                  ref={categoryRefs.current[category.id]}
-                  className="absolute"
-                  style={{ top: '-150px' }}
+          {/* Services Navigation Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            {/* All Services Card */}
+            <Link
+              to="/services/all"
+              className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 hover:shadow-lg"
+            >
+              <div className="h-48 bg-salon-pink-100 flex items-center justify-center">
+                <img
+                  src="/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png"
+                  alt="All Services"
+                  className="w-full h-full object-cover"
                 />
-              ))}
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-serif text-salon-pink-700 mb-2">All Services</h3>
+                <p className="text-gray-600 mb-4">View our complete range of premium services and treatments.</p>
+                <div className="text-salon-pink-600 font-medium">View Services →</div>
+              </div>
+            </Link>
 
-              {/* Content sections */}
-              {activeTab === 'all' ? (
-                <div>
-                  <ServicesList />
+            {/* Category Cards */}
+            {serviceCategories.map(category => (
+              <Link
+                key={category.id}
+                to={`/services/${category.id}`}
+                className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 hover:shadow-lg"
+              >
+                <div className="h-48 bg-salon-pink-100 flex items-center justify-center">
+                  <img
+                    src={category.image || `/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png`}
+                    alt={category.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-              ) : (
-                <div>
-                  <ServicesList categoryId={activeTab} />
+                <div className="p-6">
+                  <h3 className="text-xl font-serif text-salon-pink-700 mb-2">{category.name}</h3>
+                  <p className="text-gray-600 mb-4">{category.description || `View our ${category.name.toLowerCase()} services and treatments.`}</p>
+                  <div className="text-salon-pink-600 font-medium">View {category.name} →</div>
                 </div>
-              )}
-            </div>
+              </Link>
+            ))}
           </div>
 
           <div className="bg-salon-pink-50 rounded-lg p-8 text-center mt-16">

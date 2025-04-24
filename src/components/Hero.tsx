@@ -96,11 +96,8 @@ const Hero = () => {
                 type="button"
                 className="btn-secondary"
                 onClick={() => {
-                  // Store the hash in sessionStorage for the ServicesPage to use
-                  sessionStorage.setItem('pendingHash', 'all');
-
-                  // Use React Router's navigate function which works better on all devices
-                  navigate('/services');
+                  // Navigate directly to the all services page
+                  navigate('/services/all');
                 }}
               >
                 Explore Services

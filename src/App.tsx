@@ -15,6 +15,13 @@ import AdminMediaPage from './pages/AdminMediaPage';
 import ContentPage from './pages/ContentPage';
 import NotFound from './pages/NotFound';
 import ServicesPage from './pages/ServicesPage';
+// Service category pages
+import AllServicesPage from './pages/services/AllServicesPage';
+import HairPage from './pages/services/HairPage';
+import AestheticsPage from './pages/services/AestheticsPage';
+import NonSurgicalPage from './pages/services/NonSurgicalPage';
+import BeautyPage from './pages/services/BeautyPage';
+import TrainingPage from './pages/services/TrainingPage';
 // MediaShowcase is now only accessible through admin
 import Partnership from './pages/Partnership';
 import Staff from './pages/Staff';
@@ -30,6 +37,12 @@ function App() {
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/price-list" element={<PriceList />} />
       <Route path="/services" element={<ServicesPage />} />
+      <Route path="/services/all" element={<AllServicesPage />} />
+      <Route path="/services/hair" element={<HairPage />} />
+      <Route path="/services/aesthetics" element={<AestheticsPage />} />
+      <Route path="/services/non-surgical" element={<NonSurgicalPage />} />
+      <Route path="/services/beauty" element={<BeautyPage />} />
+      <Route path="/services/training" element={<TrainingPage />} />
       <Route path="/partnership" element={<Partnership />} />
       <Route path="/staff" element={<Staff />} />
       <Route path="/admin/auth" element={<AdminAuth />} />

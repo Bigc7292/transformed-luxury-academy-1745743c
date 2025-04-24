@@ -51,58 +51,23 @@ const Navbar = () => {
   };
 
   const handleNavigation = (path: string) => {
-    if (path.includes('#')) {
-      const [routePath, hash] = path.split('#');
-
-      if (window.location.pathname === '/services' && routePath === '/services') {
-        // We're already on the services page, just need to switch tabs
-        // Update the URL hash for consistency
-        window.location.hash = hash;
-
-        // Scroll to the section with a slight delay to ensure the component is ready
-        setTimeout(() => {
-          const section = document.getElementById(`${hash}-section`);
-          if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-            // Adjust scroll position to account for fixed header
-            setTimeout(() => window.scrollBy(0, -120), 100);
-          }
-        }, 50);
-
-        setIsOpen(false);
-        return;
-      }
-
-      // We need to navigate to the services page first, then handle the hash
-      // Store the hash in sessionStorage so we can retrieve it after navigation
-      sessionStorage.setItem('pendingHash', hash);
-      navigate(routePath);
-
-      // For mobile devices, add an additional delay and scroll handling
-      if (window.innerWidth < 768) {
-        setTimeout(() => {
-          const section = document.getElementById(`${hash}-section`);
-          if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-            // Adjust scroll position to account for fixed header
-            setTimeout(() => window.scrollBy(0, -120), 100);
-          }
-        }, 500); // Longer delay for mobile to ensure page is loaded
-      }
-    } else {
-      navigate(path);
-    }
+    // Simply navigate to the path - no need for hash handling with separate pages
+    navigate(path);
     setIsOpen(false);
+
+    // Reset body overflow when closing the menu
+    document.body.style.overflow = '';
   };
 
   const navItems = [
     { name: "Home", path: "/" },
     { name: "Services", path: "/services", hasSubmenu: true, submenu: [
-      { name: "Hair", path: "/services#hair" },
-      { name: "Aesthetics", path: "/services#aesthetics" },
-      { name: "Non-Surgical", path: "/services#non-surgical" },
-      { name: "Beauty Treatments", path: "/services#beauty-treatments" },
-      { name: "Training Services", path: "/services#training" },
+      { name: "All Services", path: "/services/all" },
+      { name: "Hair", path: "/services/hair" },
+      { name: "Aesthetics", path: "/services/aesthetics" },
+      { name: "Non-Surgical", path: "/services/non-surgical" },
+      { name: "Beauty Treatments", path: "/services/beauty" },
+      { name: "Training Services", path: "/services/training" },
     ] },
     {
       name: "Meet the Team",
@@ -148,7 +113,7 @@ const Navbar = () => {
                     {item.name} <ChevronDown size={16} className={`ml-1 transition-transform duration-200 ${openSubmenu === item.name ? 'rotate-180' : ''}`} />
                   </button>
                   <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden transform opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 origin-top-left z-50 invisible group-hover:visible">
-                    {item.submenu.map((subItem, idx) => (
+                    {item.submenu.map((subItem) => (
                       <button
                         type="button"
                         key={`submenu-item-${item.name}-${subItem.name}`}
@@ -200,7 +165,7 @@ const Navbar = () => {
         aria-hidden={!isOpen}
       >
         <div className="px-4 pt-4 pb-6 space-y-2">
-          {navItems.map((item, index) => (
+          {navItems.map((item) => (
             item.hasSubmenu ? (
               <div key={`mobile-submenu-${item.name}`} className="py-2">
                 <button
@@ -218,7 +183,7 @@ const Navbar = () => {
                   id={`submenu-${item.name}`}
                   className={`pl-4 py-2 space-y-2 ${openSubmenu === item.name ? 'block animate-slide-down' : 'hidden'}`}
                 >
-                  {item.submenu.map((subItem, idx) => (
+                  {item.submenu.map((subItem) => (
                     <button
                       type="button"
                       key={`mobile-submenu-item-${item.name}-${subItem.name}`}
