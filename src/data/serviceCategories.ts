@@ -4,6 +4,7 @@ export type ServiceCategory = {
   id: string;
   name: string;
   description?: string;
+  image?: string;
   services: Service[];
 };
 
