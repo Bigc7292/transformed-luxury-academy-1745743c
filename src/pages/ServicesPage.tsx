@@ -41,17 +41,50 @@ const ServicesPage = () => {
     if (section) {
       // Check if this is a mobile device
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      const scrollDelay = isMobile ? 800 : 100; // Longer delay for mobile
-      const scrollOffset = isMobile ? -150 : -120; // Larger offset for mobile
 
-      // Use scrollIntoView for better browser compatibility
-      section.scrollIntoView({ behavior: 'smooth' });
+      // Special handling for aesthetics and training categories
+      const isSpecialCategory = categoryId === 'aesthetics' || categoryId === 'training';
 
-      // Add a small delay and then scroll up slightly to ensure the section is visible
-      setTimeout(() => {
-        // Scroll up a bit to account for the fixed header
-        window.scrollBy(0, scrollOffset);
-      }, scrollDelay);
+      // Use different timing values based on device and category
+      const scrollDelay = isMobile ? (isSpecialCategory ? 1000 : 800) : 100;
+      const scrollOffset = isMobile ? -100 : -120;
+
+      // For mobile devices and special categories, use a more reliable approach
+      if (isMobile && isSpecialCategory) {
+        // Force layout recalculation
+        document.body.getBoundingClientRect();
+
+        // First attempt - immediate
+        section.scrollIntoView({ behavior: 'smooth' });
+
+        // Second attempt after a short delay
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: 'smooth' });
+
+          // Third attempt with offset adjustment
+          setTimeout(() => {
+            window.scrollBy(0, scrollOffset);
+
+            // Final attempt as a fallback
+            setTimeout(() => {
+              const rect = section.getBoundingClientRect();
+              window.scrollTo({
+                top: window.scrollY + rect.top + scrollOffset,
+                behavior: 'smooth'
+              });
+            }, 300);
+          }, 300);
+        }, scrollDelay);
+      } else {
+        // Standard approach for other categories and desktop
+        section.scrollIntoView({ behavior: 'smooth' });
+
+        // Add a small delay and then scroll up slightly to ensure the section is visible
+        setTimeout(() => {
+          // Scroll up a bit to account for the fixed header
+          window.scrollBy(0, scrollOffset);
+        }, scrollDelay);
+      }
     }
   };
 
@@ -122,6 +155,9 @@ const ServicesPage = () => {
       // Set the active tab
       setActiveTab(categoryId);
 
+      // Special handling for aesthetics and training categories
+      const isSpecialCategory = categoryId === 'aesthetics' || categoryId === 'training';
+
       // Wait for the DOM to be fully rendered
       setTimeout(() => {
         const sectionId = `${categoryId}-section`;
@@ -131,27 +167,52 @@ const ServicesPage = () => {
           // Check if this is a mobile device
           const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-          // Use different timing and offset values for mobile
-          const scrollDelay = isMobile ? 1200 : 200; // Even longer delay for mobile
-          const scrollOffset = isMobile ? -100 : -120; // Adjusted offset for mobile
+          // Use different timing values based on device and category
+          const initialDelay = isMobile ? (isSpecialCategory ? 500 : 800) : 200;
+          const scrollDelay = isMobile ? (isSpecialCategory ? 1500 : 1200) : 200;
+          const scrollOffset = isMobile ? -100 : -120;
 
           // For mobile devices, use a more reliable approach with multiple attempts
           if (isMobile) {
+            // Force layout recalculation
+            document.body.getBoundingClientRect();
+
             // First attempt after a short delay
             setTimeout(() => {
-              section.scrollIntoView({ behavior: 'smooth' });
+              // Try to scroll directly to the element's position
+              const rect = section.getBoundingClientRect();
+              window.scrollTo({
+                top: window.scrollY + rect.top + scrollOffset,
+                behavior: 'smooth'
+              });
 
-              // Second attempt after the main delay
+              // Second attempt with scrollIntoView
               setTimeout(() => {
-                window.scrollBy(0, scrollOffset);
+                section.scrollIntoView({ behavior: 'smooth' });
 
-                // Third attempt as a final fallback
+                // Third attempt with offset adjustment
                 setTimeout(() => {
-                  section.scrollIntoView({ behavior: 'smooth' });
                   window.scrollBy(0, scrollOffset);
-                }, 500);
+
+                  // For special categories, add extra attempts
+                  if (isSpecialCategory) {
+                    setTimeout(() => {
+                      section.scrollIntoView({ behavior: 'smooth' });
+                      window.scrollBy(0, scrollOffset);
+
+                      // Final attempt with direct positioning
+                      setTimeout(() => {
+                        const updatedRect = section.getBoundingClientRect();
+                        window.scrollTo({
+                          top: window.scrollY + updatedRect.top + scrollOffset,
+                          behavior: 'smooth'
+                        });
+                      }, 300);
+                    }, 500);
+                  }
+                }, 300);
               }, scrollDelay);
-            }, 800);
+            }, initialDelay);
           } else {
             // For desktop, use the standard approach
             setTimeout(() => {
