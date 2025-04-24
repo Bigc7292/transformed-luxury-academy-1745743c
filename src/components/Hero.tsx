@@ -96,8 +96,8 @@ const Hero = () => {
                 type="button"
                 className="btn-secondary"
                 onClick={() => {
-                  // Navigate directly to the all services page
-                  navigate('/services/all');
+                  // Navigate to the main services page
+                  navigate('/services');
                 }}
               >
                 Explore Services

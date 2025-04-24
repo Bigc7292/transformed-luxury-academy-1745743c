@@ -61,14 +61,7 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/services", hasSubmenu: true, submenu: [
-      { name: "All Services", path: "/services/all" },
-      { name: "Hair", path: "/services/hair" },
-      { name: "Aesthetics", path: "/services/aesthetics" },
-      { name: "Non-Surgical", path: "/services/non-surgical" },
-      { name: "Beauty Treatments", path: "/services/beauty" },
-      { name: "Training Services", path: "/services/training" },
-    ] },
+    { name: "Services", path: "/services" },
     {
       name: "Meet the Team",
       path: "#",
