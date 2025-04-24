@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -7,6 +7,10 @@ import ServicesList from '../../components/ServicesList';
 import { BOOKING_URL } from '../../data/serviceCategories';
 
 const BeautyPage = () => {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="bg-white min-h-screen">
       <Navbar />
@@ -25,7 +29,7 @@ const BeautyPage = () => {
           </motion.div>
 
           <div>
-            <ServicesList categoryId="beauty" />
+            <ServicesList categoryId="beauty-treatments" />
           </div>
 
           <div className="bg-salon-pink-50 rounded-lg p-8 text-center mt-16">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -7,6 +7,10 @@ import ServicesList from '../../components/ServicesList';
 import { BOOKING_URL } from '../../data/serviceCategories';
 
 const HairPage = () => {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="bg-white min-h-screen">
       <Navbar />

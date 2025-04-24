@@ -11,6 +11,9 @@ const ServicesPage = () => {
 
   // Handle any pending hash from sessionStorage
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
+
     const pendingHash = sessionStorage.getItem('pendingHash');
     if (pendingHash) {
       // Clear the pending hash
@@ -72,7 +75,7 @@ const ServicesPage = () => {
               >
                 <div className="h-48 bg-salon-pink-100 flex items-center justify-center">
                   <img
-                    src={category.image || `/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png`}
+                    src={category.image || "/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png"}
                     alt={category.name}
                     className="w-full h-full object-cover"
                   />
