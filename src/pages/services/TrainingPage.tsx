@@ -4,7 +4,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import Chatbot from '../../components/Chatbot';
 import ServicesList from '../../components/ServicesList';
-import { BOOKING_URL } from '../../config/constants';
+import { BOOKING_URL } from '../../data/serviceCategories';
 
 const TrainingPage = () => {
   return (
