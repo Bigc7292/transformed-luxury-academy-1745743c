@@ -1,8 +1,10 @@
 
 
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
   // Animation variants for text sweep effect
   const container = {
     hidden: { opacity: 0 },
@@ -90,30 +92,19 @@ const Hero = () => {
               >
                 Book Consultation
               </a>
-              <a
-                href="/services#all"
+              <button
+                type="button"
                 className="btn-secondary"
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={() => {
                   // Store the hash in sessionStorage for the ServicesPage to use
                   sessionStorage.setItem('pendingHash', 'all');
 
-                  // Check if this is a mobile device
-                  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-                  if (isMobile) {
-                    // For mobile devices, use a more reliable approach with a delay
-                    setTimeout(() => {
-                      window.location.href = '/services';
-                    }, 50);
-                  } else {
-                    // For desktop, use the standard approach
-                    window.location.href = '/services';
-                  }
+                  // Use React Router's navigate function which works better on all devices
+                  navigate('/services');
                 }}
               >
                 Explore Services
-              </a>
+              </button>
             </motion.div>
 
             <motion.div

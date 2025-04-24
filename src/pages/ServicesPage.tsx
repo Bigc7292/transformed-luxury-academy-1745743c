@@ -130,14 +130,35 @@ const ServicesPage = () => {
         if (section) {
           // Check if this is a mobile device
           const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-          const scrollDelay = isMobile ? 1000 : 200; // Longer delay for mobile
-          const scrollOffset = isMobile ? -150 : -120; // Larger offset for mobile
 
-          // For mobile devices, use a longer delay
-          setTimeout(() => {
-            section.scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => window.scrollBy(0, scrollOffset), scrollDelay);
-          }, isMobile ? 1500 : 300); // Even longer initial delay for mobile
+          // Use different timing and offset values for mobile
+          const scrollDelay = isMobile ? 1200 : 200; // Even longer delay for mobile
+          const scrollOffset = isMobile ? -100 : -120; // Adjusted offset for mobile
+
+          // For mobile devices, use a more reliable approach with multiple attempts
+          if (isMobile) {
+            // First attempt after a short delay
+            setTimeout(() => {
+              section.scrollIntoView({ behavior: 'smooth' });
+
+              // Second attempt after the main delay
+              setTimeout(() => {
+                window.scrollBy(0, scrollOffset);
+
+                // Third attempt as a final fallback
+                setTimeout(() => {
+                  section.scrollIntoView({ behavior: 'smooth' });
+                  window.scrollBy(0, scrollOffset);
+                }, 500);
+              }, scrollDelay);
+            }, 800);
+          } else {
+            // For desktop, use the standard approach
+            setTimeout(() => {
+              section.scrollIntoView({ behavior: 'smooth' });
+              setTimeout(() => window.scrollBy(0, scrollOffset), scrollDelay);
+            }, 300);
+          }
         }
       }, 100);
     };
