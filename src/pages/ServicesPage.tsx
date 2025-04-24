@@ -46,35 +46,24 @@ const ServicesPage = () => {
       const isSpecialCategory = categoryId === 'aesthetics' || categoryId === 'training';
 
       // Use different timing values based on device and category
-      const scrollDelay = isMobile ? (isSpecialCategory ? 1000 : 800) : 100;
-      const scrollOffset = isMobile ? -100 : -120;
+      const scrollDelay = isMobile ? 100 : 100;
+      const scrollOffset = isMobile ? -80 : -120;
 
-      // For mobile devices and special categories, use a more reliable approach
+      // For mobile devices and special categories, use a direct approach
       if (isMobile && isSpecialCategory) {
-        // Force layout recalculation
-        document.body.getBoundingClientRect();
+        // Get the position of the section relative to the document
+        const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
 
-        // First attempt - immediate
-        section.scrollIntoView({ behavior: 'smooth' });
+        // Calculate the target position with offset
+        const targetPosition = sectionPosition + scrollOffset;
 
-        // Second attempt after a short delay
+        // Scroll directly to the position without smooth behavior for immediate effect
+        window.scrollTo(0, targetPosition);
+
+        // Force a second scroll after a very short delay to ensure it takes effect
         setTimeout(() => {
-          section.scrollIntoView({ behavior: 'smooth' });
-
-          // Third attempt with offset adjustment
-          setTimeout(() => {
-            window.scrollBy(0, scrollOffset);
-
-            // Final attempt as a fallback
-            setTimeout(() => {
-              const rect = section.getBoundingClientRect();
-              window.scrollTo({
-                top: window.scrollY + rect.top + scrollOffset,
-                behavior: 'smooth'
-              });
-            }, 300);
-          }, 300);
-        }, scrollDelay);
+          window.scrollTo(0, targetPosition);
+        }, 50);
       } else {
         // Standard approach for other categories and desktop
         section.scrollIntoView({ behavior: 'smooth' });
@@ -166,59 +155,47 @@ const ServicesPage = () => {
         if (section) {
           // Check if this is a mobile device
           const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+          const scrollOffset = isMobile ? -80 : -120;
 
-          // Use different timing values based on device and category
-          const initialDelay = isMobile ? (isSpecialCategory ? 500 : 800) : 200;
-          const scrollDelay = isMobile ? (isSpecialCategory ? 1500 : 1200) : 200;
-          const scrollOffset = isMobile ? -100 : -120;
-
-          // For mobile devices, use a more reliable approach with multiple attempts
-          if (isMobile) {
-            // Force layout recalculation
-            document.body.getBoundingClientRect();
-
-            // First attempt after a short delay
+          // For mobile devices with special categories, use direct positioning
+          if (isMobile && isSpecialCategory) {
+            // Wait a bit longer for the DOM to be fully rendered
             setTimeout(() => {
-              // Try to scroll directly to the element's position
-              const rect = section.getBoundingClientRect();
+              // Get the position of the section relative to the document
+              const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
+
+              // Calculate the target position with offset
+              const targetPosition = sectionPosition + scrollOffset;
+
+              // Scroll directly to the position without smooth behavior for immediate effect
+              window.scrollTo(0, targetPosition);
+
+              // Force a second scroll after a very short delay to ensure it takes effect
+              setTimeout(() => {
+                window.scrollTo(0, targetPosition);
+              }, 50);
+            }, 300);
+          } else if (isMobile) {
+            // For other categories on mobile, use a simpler approach
+            setTimeout(() => {
+              // Get the position of the section relative to the document
+              const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
+
+              // Calculate the target position with offset
+              const targetPosition = sectionPosition + scrollOffset;
+
+              // Scroll with smooth behavior
               window.scrollTo({
-                top: window.scrollY + rect.top + scrollOffset,
+                top: targetPosition,
                 behavior: 'smooth'
               });
-
-              // Second attempt with scrollIntoView
-              setTimeout(() => {
-                section.scrollIntoView({ behavior: 'smooth' });
-
-                // Third attempt with offset adjustment
-                setTimeout(() => {
-                  window.scrollBy(0, scrollOffset);
-
-                  // For special categories, add extra attempts
-                  if (isSpecialCategory) {
-                    setTimeout(() => {
-                      section.scrollIntoView({ behavior: 'smooth' });
-                      window.scrollBy(0, scrollOffset);
-
-                      // Final attempt with direct positioning
-                      setTimeout(() => {
-                        const updatedRect = section.getBoundingClientRect();
-                        window.scrollTo({
-                          top: window.scrollY + updatedRect.top + scrollOffset,
-                          behavior: 'smooth'
-                        });
-                      }, 300);
-                    }, 500);
-                  }
-                }, 300);
-              }, scrollDelay);
-            }, initialDelay);
+            }, 200);
           } else {
             // For desktop, use the standard approach
             setTimeout(() => {
               section.scrollIntoView({ behavior: 'smooth' });
-              setTimeout(() => window.scrollBy(0, scrollOffset), scrollDelay);
-            }, 300);
+              setTimeout(() => window.scrollBy(0, scrollOffset), 200);
+            }, 200);
           }
         }
       }, 100);
@@ -260,7 +237,35 @@ const ServicesPage = () => {
                     type="button"
                     key={category.id}
                     className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors ${activeTab === category.id ? 'bg-salon-pink-100 text-salon-pink-800' : 'text-salon-pink-600 hover:text-salon-pink-700'}`}
-                    onClick={() => handleTabClick(category.id)}
+                    onClick={() => {
+                      // Special handling for aesthetics and training on mobile
+                      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                      const isSpecialCategory = category.id === 'aesthetics' || category.id === 'training';
+
+                      if (isMobile && isSpecialCategory) {
+                        // Set active tab immediately for visual feedback
+                        setActiveTab(category.id);
+
+                        // Find the section directly
+                        const sectionId = `${category.id}-section`;
+                        const section = document.getElementById(sectionId);
+
+                        if (section) {
+                          // Get the position and scroll directly without animation
+                          const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
+                          const scrollOffset = -80; // Adjusted for mobile
+                          window.scrollTo(0, sectionPosition + scrollOffset);
+
+                          // Update URL hash after scrolling
+                          setTimeout(() => {
+                            window.location.hash = category.id;
+                          }, 50);
+                        }
+                      } else {
+                        // Use the standard approach for other categories
+                        handleTabClick(category.id);
+                      }
+                    }}
                   >
                     {category.name}
                   </button>
