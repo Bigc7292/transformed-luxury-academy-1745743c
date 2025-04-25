@@ -47,7 +47,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'cutting',
         title: 'Advanced Cutting',
         description: 'Precision cuts by our expert stylists',
-        image: 'https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/cutting.jpeg',
       },
       {
         id: 'blowouts',
@@ -59,7 +59,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'treatments',
         title: 'Hair and Scalp Treatments',
         description: 'Rejuvenate your hair and scalp with our specialized treatments',
-        image: 'https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/scalp.jpeg',
       }
     ]
   },
@@ -154,7 +154,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'body-sculpting',
         title: 'Body Sculpting',
         description: 'Non-invasive body contouring treatments',
-        image: '/lovable-uploads/f9ad279c-c69d-4621-992f-ceb06912b33a.png',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/body%2Bsculpting.jpeg',
       },
       {
         id: 'booty-lifts',
