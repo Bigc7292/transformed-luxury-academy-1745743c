@@ -79,7 +79,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'lip-filler',
         title: 'Advanced Lip Filler',
         description: 'Expert lip enhancement for the perfect pout',
-        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/lip_fillers_image.jpg',
+        image: 'https://services-menu-chosen-by-nikki.s3.eu-north-1.amazonaws.com/advanced_lips+(2).jpeg',
       },
       {
         id: 'facial-profiling',
