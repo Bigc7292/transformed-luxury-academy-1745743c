@@ -28,6 +28,7 @@ export const serviceCategories: ServiceCategory[] = [
     id: 'hair',
     name: 'Hair',
     description: 'Premium hair services for all your styling needs',
+    image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/exstensions.jpeg',
     services: [
       {
         id: 'extensions',
@@ -65,6 +66,7 @@ export const serviceCategories: ServiceCategory[] = [
     id: 'aesthetics',
     name: 'Aesthetics',
     description: 'Advanced aesthetic procedures for natural enhancement',
+    image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/facial.jpeg',
     services: [
       {
         id: 'dermal-filler',
@@ -138,6 +140,7 @@ export const serviceCategories: ServiceCategory[] = [
     id: 'non-surgical',
     name: 'Non-Surgical',
     description: 'Effective treatments with no downtime',
+    image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-20+at+10.38.38.jpeg',
     services: [
       {
         id: 'facial-sculpting',
@@ -169,6 +172,7 @@ export const serviceCategories: ServiceCategory[] = [
     id: 'beauty-treatments',
     name: 'Beauty Treatments',
     description: 'Complete beauty services for a polished look',
+    image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/pedicure.jpeg',
     services: [
       {
         id: 'lashes',
@@ -212,6 +216,7 @@ export const serviceCategories: ServiceCategory[] = [
     id: 'training',
     name: 'Training Services',
     description: 'Professional training for beauty specialists',
+    image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/anti_wrinkle.jpg',
     services: [
       {
         id: 'aesthetics-course',

@@ -82,7 +82,7 @@ const ServicesPage = () => {
               {/* Category Header */}
               <div className="relative h-64 md:h-80 bg-salon-pink-100 overflow-hidden">
                 <img
-                  src={activeCategoryData.services[0]?.image || "/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png"}
+                  src={activeCategoryData.image || "/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png"}
                   alt={activeCategoryData.name}
                   className="w-full h-full object-cover"
                 />
