@@ -110,7 +110,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'threads',
         title: 'Pod and Cog Threads',
         description: 'Advanced thread lifting techniques',
-        image: 'https://images.unsplash.com/photo-1532453288509-eb59ece73082?q=80&w=1000',
+        image: 'https://services-menu-chosen-by-nikki.s3.eu-north-1.amazonaws.com/pog_and_cog.png',
       },
       {
         id: 'skin-boosters',
