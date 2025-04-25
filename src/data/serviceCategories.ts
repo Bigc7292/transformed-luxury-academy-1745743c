@@ -92,8 +92,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'advanced-facials',
         title: 'Advanced Facials',
         description: 'Luxurious facials for radiant skin',
-        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/facial_profilng.mp4',
-        isVideo: true,
+        image: 'https://services-menu-chosen-by-nikki.s3.eu-north-1.amazonaws.com/advanced_facials.jpeg',
       },
       {
         id: 'vitamin-injections',
