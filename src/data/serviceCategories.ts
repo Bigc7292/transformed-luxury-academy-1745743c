@@ -14,6 +14,7 @@ export type Service = {
   title: string;
   description: string;
   image?: string;
+  isVideo?: boolean;
   price?: string;
   bookingUrl?: string;
   services?: string[];
@@ -40,7 +41,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'coloring',
         title: 'Coloring and Mixologist',
         description: 'Expert color services tailored to your style',
-        image: 'https://images.unsplash.com/photo-1560869713-7d9acb7bbc19?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/color_mixologist.png',
       },
       {
         id: 'cutting',
@@ -78,13 +79,14 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'lip-filler',
         title: 'Advanced Lip Filler',
         description: 'Expert lip enhancement for the perfect pout',
-        image: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/advanced_lips+(2).jpeg',
       },
       {
         id: 'facial-profiling',
         title: 'Facial Profiling',
         description: 'Comprehensive facial analysis and enhancement',
-        image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/facial_profilng.mp4',
+        isVideo: true,
       },
       {
         id: 'advanced-facials',
@@ -96,7 +98,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'vitamin-injections',
         title: 'Vitamin Injections',
         description: 'Boost your health and appearance with vitamin therapy',
-        image: 'https://images.unsplash.com/photo-1584308972272-9e4e7685e80f?q=80&w=1000',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/vitamin.jpeg',
       },
       {
         id: 'fat-dissolving',

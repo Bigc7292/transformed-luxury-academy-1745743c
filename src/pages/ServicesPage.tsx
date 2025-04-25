@@ -107,11 +107,23 @@ const ServicesPage = () => {
                       className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:shadow-lg hover:-translate-y-1"
                     >
                       <div className="h-48 bg-salon-pink-100 overflow-hidden">
-                        <img
-                          src={service.image || "/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png"}
-                          alt={service.title}
-                          className="w-full h-full object-cover transition-transform hover:scale-105"
-                        />
+                        {service.isVideo ? (
+                          <video
+                            src={service.image}
+                            className="w-full h-full object-cover"
+                            controls
+                            muted
+                            loop
+                            autoPlay
+                            playsInline
+                          />
+                        ) : (
+                          <img
+                            src={service.image || "/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png"}
+                            alt={service.title}
+                            className="w-full h-full object-cover transition-transform hover:scale-105"
+                          />
+                        )}
                       </div>
                       <div className="p-4">
                         <h4 className="text-xl font-serif text-salon-pink-700 mb-2">{service.title}</h4>
