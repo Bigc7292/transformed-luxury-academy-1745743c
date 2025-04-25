@@ -234,7 +234,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'anti-wrinkle',
         title: 'Anti Wrinkle Training',
         description: 'Learn anti-wrinkle injection techniques',
-        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-24+at+21.12.36+(4).jpeg',
+        image: 'https://transformedacademyhq.co.uk/lovable-uploads/e39c38e5-88c2-4732-aff5-8e3561694f5b.png',
       },
       {
         id: 'dermal-filler-training',
@@ -258,7 +258,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'canula-training',
         title: 'Canula Training',
         description: 'Safe and effective canula techniques',
-        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-24+at+21.12.36+(1).jpeg',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-08+at+18.22.46.jpeg',
       },
       {
         id: 'masterclasses',
