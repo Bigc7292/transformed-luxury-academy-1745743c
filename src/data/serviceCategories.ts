@@ -122,19 +122,19 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'polynucleotides',
         title: 'Polynucleotides',
         description: 'Advanced skin rejuvenation treatments',
-        image: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1000',
+        image: 'https://services-menu-chosen-by-nikki.s3.eu-north-1.amazonaws.com/polynu.jpeg',
       },
       {
         id: 'aptos-threads',
         title: 'APTOS Threads',
         description: 'Premium thread lifting for natural results',
-        image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1000',
+        image: 'https://services-menu-chosen-by-nikki.s3.eu-north-1.amazonaws.com/aptos.jpeg',
       },
       {
         id: 'exosome-boosters',
         title: 'Exosome Boosters',
         description: 'Cutting-edge skin rejuvenation',
-        image: 'https://images.unsplash.com/photo-1629196914696-39fa40771213?q=80&w=1000',
+        image: 'https://services-menu-chosen-by-nikki.s3.eu-north-1.amazonaws.com/exosome.jpeg',
       }
     ]
   },
