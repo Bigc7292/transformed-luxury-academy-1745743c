@@ -79,7 +79,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'lip-filler',
         title: 'Advanced Lip Filler',
         description: 'Expert lip enhancement for the perfect pout',
-        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/advanced_lips+(2).jpeg',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/lip_fillers_image.jpg',
       },
       {
         id: 'facial-profiling',
@@ -99,13 +99,13 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'vitamin-injections',
         title: 'Vitamin Injections',
         description: 'Boost your health and appearance with vitamin therapy',
-        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/vitamin.jpeg',
+        image: 'https://services-menu-chosen-by-nikki.s3.eu-north-1.amazonaws.com/vitamin.jpeg',
       },
       {
         id: 'fat-dissolving',
         title: 'Fat Dissolving',
         description: 'Non-surgical fat reduction treatments',
-        image: 'https://images.unsplash.com/photo-1591085686350-798c0f9faa7f?q=80&w=1000',
+        image: 'https://services-menu-chosen-by-nikki.s3.eu-north-1.amazonaws.com/fat_dissolving.jpeg',
       },
       {
         id: 'threads',
@@ -161,7 +161,8 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'booty-lifts',
         title: 'XXXL Booty Lifts',
         description: 'Non-surgical enhancement for your curves',
-        image: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=1000',
+        image: 'https://services-menu-chosen-by-nikki.s3.eu-north-1.amazonaws.com/xxxl+booty+lift.mp4',
+        isVideo: true,
       },
       {
         id: 'body-massage',
