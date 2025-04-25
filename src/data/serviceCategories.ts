@@ -117,7 +117,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'skin-boosters',
         title: 'Skin Boosters',
         description: 'Deep hydration and skin rejuvenation',
-        image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=1000',
+        image: 'https://services-menu-chosen-by-nikki.s3.eu-north-1.amazonaws.com/skin_boosters.jpeg',
       },
       {
         id: 'polynucleotides',
