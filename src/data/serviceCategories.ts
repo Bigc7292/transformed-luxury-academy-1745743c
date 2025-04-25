@@ -85,14 +85,15 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'facial-profiling',
         title: 'Facial Profiling',
         description: 'Comprehensive facial analysis and enhancement',
-        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/facial_profilng.mp4',
+        image: 'https://services-menu-chosen-by-nikki.s3.eu-north-1.amazonaws.com/facial_profilng.mp4',
         isVideo: true,
       },
       {
         id: 'advanced-facials',
         title: 'Advanced Facials',
         description: 'Luxurious facials for radiant skin',
-        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/facial.jpeg',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/facial_profilng.mp4',
+        isVideo: true,
       },
       {
         id: 'vitamin-injections',
