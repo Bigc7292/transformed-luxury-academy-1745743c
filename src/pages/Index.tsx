@@ -11,15 +11,33 @@ import Chatbot from '../components/Chatbot';
 import ContentCarousel from '@/components/content/ContentCarousel';
 import ContentGrid from '@/components/content/ContentGrid';
 import { PageSection } from '@/types/content';
+import SEO from '../components/SEO';
 
 const Index = () => {
   return (
     <div className="bg-white">
+      <SEO
+        title="Premium Aesthetic Treatments & Beauty Training"
+        description="Transformed Academy & Salon offers premium aesthetic treatments and professional beauty training courses in Hereford. Book your appointment today for lip fillers, anti-wrinkle treatments, and more."
+        keywords="aesthetic treatments, beauty salon, training academy, facial treatments, lip fillers, anti-wrinkle treatments, beauty courses, Hereford salon"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Transformed Academy & Salon - Home",
+          "description": "Premium aesthetic treatments and beauty training courses in Hereford",
+          "url": "https://transformedacademyhq.co.uk",
+          "mainEntity": {
+            "@type": "BeautySalon",
+            "name": "Transformed Academy & Salon",
+            "url": "https://transformedacademyhq.co.uk"
+          }
+        }}
+      />
       <Navbar />
       <Hero />
-      
+
       {/* Dynamic featured section with content from admin */}
-      <ContentCarousel 
+      <ContentCarousel
         pageLocation="home"
         pageSection="home_carousel"
         title="Experience the Transformation"
@@ -27,11 +45,11 @@ const Index = () => {
         autoPlay={true}
         interval={5000}
       />
-      
+
       <Services />
-      
+
       {/* Content grid showing featured items managed by admin */}
-      <ContentGrid 
+      <ContentGrid
         pageLocation="home"
         pageSection="home_featured"
         title="Featured Content"
@@ -39,7 +57,7 @@ const Index = () => {
         columns={3}
         limit={3}
       />
-      
+
       <Benefits />
       <Testimonials />
       <Cta />

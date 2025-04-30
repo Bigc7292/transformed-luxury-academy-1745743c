@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Index from './pages/Index';
 import AboutCeo from './pages/AboutCeo';
 import About from './pages/About';
@@ -23,7 +24,8 @@ import TermsOfService from './pages/TermsOfService';
 
 function App() {
   return (
-    <Routes>
+    <HelmetProvider>
+      <Routes>
       <Route path="/" element={<Index />} />
       <Route path="/about-ceo" element={<AboutCeo />} />
       <Route path="/about" element={<About />} />
@@ -43,6 +45,7 @@ function App() {
       <Route path="/content/:id" element={<ContentPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
+    </HelmetProvider>
   );
 }
 

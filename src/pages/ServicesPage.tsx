@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
 import { serviceCategories, BOOKING_URL } from '../data/serviceCategories';
+import SEO from '../components/SEO';
 
 const ServicesPage = () => {
   // State to track active category
@@ -19,6 +20,30 @@ const ServicesPage = () => {
 
   return (
     <div className="bg-white min-h-screen">
+      <SEO
+        title="Our Services - Beauty & Aesthetic Treatments"
+        description="Explore our comprehensive range of beauty and aesthetic services including hair treatments, facials, lip fillers, anti-wrinkle treatments, and professional training courses."
+        keywords="beauty services, aesthetic treatments, hair salon, facial treatments, lip fillers, anti-wrinkle treatments, beauty training, Hereford salon"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "itemListElement": serviceCategories.map((category, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+              "@type": "Service",
+              "name": category.name,
+              "description": category.description || `Premium ${category.name.toLowerCase()} services`,
+              "provider": {
+                "@type": "BeautySalon",
+                "name": "Transformed Academy & Salon",
+                "url": "https://transformedacademyhq.co.uk"
+              },
+              "url": `https://transformedacademyhq.co.uk/services#${category.id}`
+            }
+          }))
+        }}
+      />
       <Navbar />
 
       {/* Hero Section */}

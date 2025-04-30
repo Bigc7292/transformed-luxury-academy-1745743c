@@ -126,7 +126,42 @@ const Contact = () => {
     <div className="bg-white min-h-screen">
       <SeoHead
         title="Contact Us - Transformed Academy & Salon"
-        description="Get in touch with Transformed Academy & Salon. Contact us for appointments, inquiries, or information about our services and training programs."
+        description="Get in touch with Transformed Academy & Salon. Contact us for appointments, inquiries, or information about our services and training programs in Hereford."
+        keywords="contact us, beauty salon contact, aesthetic clinic contact, salon appointment, beauty training inquiry, Hereford salon, contact form"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": "Contact Transformed Academy & Salon",
+          "description": "Get in touch with Transformed Academy & Salon for appointments, inquiries, or information about our services and training programs.",
+          "url": "https://transformedacademyhq.co.uk/contact",
+          "mainEntity": {
+            "@type": "Organization",
+            "name": "Transformed Academy & Salon",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "38 Widemarsh St",
+              "addressLocality": "Hereford",
+              "postalCode": "HR4 9EP",
+              "addressCountry": "GB"
+            },
+            "telephone": "+44 7716 402303",
+            "email": "info@transformedacademy.co.uk",
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "09:00",
+                "closes": "19:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "09:00",
+                "closes": "17:00"
+              }
+            ]
+          }
+        }}
       />
       <Navbar />
 

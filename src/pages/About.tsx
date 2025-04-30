@@ -8,15 +8,37 @@ import Chatbot from '../components/Chatbot';
 const About = () => {
   return (
     <div className="bg-white min-h-screen">
-      <SeoHead 
+      <SeoHead
         title="About Us - Transformed Academy & Salon"
-        description="Learn about Transformed Academy & Salon, our mission, values, and commitment to excellence in beauty and aesthetics."
+        description="Learn about Transformed Academy & Salon, our mission, values, and commitment to excellence in beauty and aesthetics in Hereford."
+        keywords="about us, beauty salon, aesthetic clinic, beauty academy, Hereford salon, beauty training, salon history, beauty professionals"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "name": "About Transformed Academy & Salon",
+          "description": "Learn about Transformed Academy & Salon, our mission, values, and commitment to excellence in beauty and aesthetics.",
+          "url": "https://transformedacademyhq.co.uk/about",
+          "mainEntity": {
+            "@type": "BeautySalon",
+            "name": "Transformed Academy & Salon",
+            "description": "Premium beauty and aesthetic services and professional training in Hereford",
+            "url": "https://transformedacademyhq.co.uk",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "38 Widemarsh St",
+              "addressLocality": "Hereford",
+              "postalCode": "HR4 9EP",
+              "addressCountry": "GB"
+            },
+            "telephone": "01432 278 174"
+          }
+        }}
       />
       <Navbar />
-      
+
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
@@ -28,20 +50,20 @@ const About = () => {
               Your premier destination for beauty and aesthetics in Hereford.
             </p>
           </motion.div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <img 
-                src="/lovable-uploads/decb2b79-3774-449a-b7b7-479a89096676.png" 
-                alt="Transformed Academy Salon" 
+              <img
+                src="/lovable-uploads/decb2b79-3774-449a-b7b7-479a89096676.png"
+                alt="Transformed Academy Salon"
                 className="rounded-lg shadow-lg w-full h-auto"
               />
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -50,17 +72,17 @@ const About = () => {
             >
               <h2 className="text-2xl font-serif text-salon-pink-600 mb-4">Our Story</h2>
               <p className="text-gray-700 mb-4">
-                Transformed Academy was founded with a vision to provide exceptional beauty and aesthetic services 
-                while also training the next generation of beauty professionals. Our journey began with a passion 
+                Transformed Academy was founded with a vision to provide exceptional beauty and aesthetic services
+                while also training the next generation of beauty professionals. Our journey began with a passion
                 for transformation and a commitment to excellence.
               </p>
               <p className="text-gray-700">
-                Today, we are proud to offer a wide range of services from our talented team of professionals, 
+                Today, we are proud to offer a wide range of services from our talented team of professionals,
                 each bringing their unique expertise and creativity to every client experience.
               </p>
             </motion.div>
           </div>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -69,12 +91,12 @@ const About = () => {
           >
             <h2 className="text-2xl font-serif text-salon-pink-600 mb-4 text-center">Our Mission</h2>
             <p className="text-gray-700 text-center max-w-3xl mx-auto">
-              At Transformed Academy, our mission is to empower individuals through beauty and education. 
-              We strive to create a welcoming environment where clients can enhance their natural beauty 
+              At Transformed Academy, our mission is to empower individuals through beauty and education.
+              We strive to create a welcoming environment where clients can enhance their natural beauty
               and aspiring professionals can develop their skills under expert guidance.
             </p>
           </motion.div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -87,11 +109,11 @@ const About = () => {
               </div>
               <h3 className="text-xl font-serif text-salon-pink-600 mb-2">Excellence</h3>
               <p className="text-gray-600">
-                We are committed to delivering the highest quality services and education, 
+                We are committed to delivering the highest quality services and education,
                 constantly evolving with industry trends and techniques.
               </p>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -103,11 +125,11 @@ const About = () => {
               </div>
               <h3 className="text-xl font-serif text-salon-pink-600 mb-2">Community</h3>
               <p className="text-gray-600">
-                We foster a supportive community where clients and students feel valued, 
+                We foster a supportive community where clients and students feel valued,
                 respected, and inspired to achieve their beauty goals.
               </p>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -119,12 +141,12 @@ const About = () => {
               </div>
               <h3 className="text-xl font-serif text-salon-pink-600 mb-2">Growth</h3>
               <p className="text-gray-600">
-                We believe in continuous growth and development, both for our clients' 
+                We believe in continuous growth and development, both for our clients'
                 transformations and our team's professional advancement.
               </p>
             </motion.div>
           </div>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -133,11 +155,11 @@ const About = () => {
           >
             <h2 className="text-2xl font-serif text-salon-pink-600 mb-4">Visit Us Today</h2>
             <p className="text-gray-700 mb-6 max-w-3xl mx-auto">
-              Experience the Transformed difference for yourself. Whether you're looking for a beauty 
+              Experience the Transformed difference for yourself. Whether you're looking for a beauty
               treatment or interested in our training programs, we invite you to visit our salon.
             </p>
-            <a 
-              href="/contact" 
+            <a
+              href="/contact"
               className="bg-salon-pink-500 text-white px-6 py-3 rounded-full hover:bg-salon-pink-600 transition-colors inline-block"
             >
               Contact Us
@@ -145,7 +167,7 @@ const About = () => {
           </motion.div>
         </div>
       </div>
-      
+
       <Footer />
       <Chatbot />
     </div>

@@ -1,5 +1,6 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 interface SeoHeadProps {
   title?: string;
@@ -8,6 +9,7 @@ interface SeoHeadProps {
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
+  schema?: object;
 }
 
 /**
@@ -16,74 +18,41 @@ interface SeoHeadProps {
 const SeoHead: React.FC<SeoHeadProps> = ({
   title = "Transformed Academy & Salon | Premium Advanced Aesthetics",
   description = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments And Fully Qualified Level 5 Educator at Transformed Academy and Salon.",
-  keywords = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments, Level 5 Educator",
+  keywords = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments, Level 5 Educator, beauty salon, Hereford",
   ogTitle = "Transformed Academy & Salon | Premium Advanced Aesthetics",
   ogDescription = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments And Fully Qualified Level 5 Educator at Transformed Academy and Salon.",
-  ogImage = "https://lovable.dev/opengraph-image-p98pqg.png",
+  ogImage = "https://transformedacademyhq.co.uk/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png",
+  schema,
 }) => {
-  useEffect(() => {
-    // Update document title
-    document.title = title;
+  return (
+    <Helmet>
+      {/* Basic Meta Tags */}
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta name="keywords" content={keywords} />
 
-    // Update meta tags
-    const metaTags = {
-      description,
-      keywords,
-      'og:title': ogTitle,
-      'og:description': ogDescription,
-      'twitter:title': ogTitle,
-      'twitter:description': ogDescription,
-    };
+      {/* Open Graph Meta Tags */}
+      <meta property="og:title" content={ogTitle} />
+      <meta property="og:description" content={ogDescription} />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://transformedacademyhq.co.uk" />
+      <meta property="og:image" content={ogImage} />
+      <meta property="og:site_name" content="Transformed Academy & Salon" />
 
-    Object.entries(metaTags).forEach(([name, content]) => {
-      // Check if it's an Open Graph tag
-      if (name.startsWith('og:')) {
-        const element = document.querySelector(`meta[property="${name}"]`);
-        if (element) {
-          element.setAttribute('content', content);
-        } else {
-          const meta = document.createElement('meta');
-          meta.setAttribute('property', name);
-          meta.setAttribute('content', content);
-          document.head.appendChild(meta);
-        }
-      } else if (name.startsWith('twitter:')) {
-        const element = document.querySelector(`meta[name="${name}"]`);
-        if (element) {
-          element.setAttribute('content', content);
-        } else {
-          const meta = document.createElement('meta');
-          meta.setAttribute('name', name);
-          meta.setAttribute('content', content);
-          document.head.appendChild(meta);
-        }
-      } else {
-        // Regular meta tag
-        const element = document.querySelector(`meta[name="${name}"]`);
-        if (element) {
-          element.setAttribute('content', content);
-        } else {
-          const meta = document.createElement('meta');
-          meta.setAttribute('name', name);
-          meta.setAttribute('content', content);
-          document.head.appendChild(meta);
-        }
-      }
-    });
+      {/* Twitter Card Meta Tags */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={ogTitle} />
+      <meta name="twitter:description" content={ogDescription} />
+      <meta name="twitter:image" content={ogImage} />
 
-    // Update og:image
-    const ogImageElement = document.querySelector('meta[property="og:image"]');
-    if (ogImageElement) {
-      ogImageElement.setAttribute('content', ogImage);
-    }
-    
-    const twitterImageElement = document.querySelector('meta[name="twitter:image"]');
-    if (twitterImageElement) {
-      twitterImageElement.setAttribute('content', ogImage);
-    }
-  }, [title, description, keywords, ogTitle, ogDescription, ogImage]);
-
-  return null; // This component doesn't render anything
+      {/* Structured Data (JSON-LD) */}
+      {schema && (
+        <script type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      )}
+    </Helmet>
+  );
 };
 
 export default SeoHead;
