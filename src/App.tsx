@@ -18,6 +18,8 @@ import ServicesPage from './pages/ServicesPage';
 // MediaShowcase is now only accessible through admin
 import Partnership from './pages/Partnership';
 import Staff from './pages/Staff';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
       <Route path="/services" element={<ServicesPage />} />
       <Route path="/partnership" element={<Partnership />} />
       <Route path="/staff" element={<Staff />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/terms-of-service" element={<TermsOfService />} />
       <Route path="/admin/auth" element={<AdminAuth />} />
       <Route path="/admin/content" element={<AdminContentPage />} />
       <Route path="/admin/inbox" element={<AdminInbox />} />
