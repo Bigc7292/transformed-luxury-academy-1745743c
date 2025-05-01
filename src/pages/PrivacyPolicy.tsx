@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
 import SEO from '../components/SEO';
@@ -24,9 +24,9 @@ const PrivacyPolicy: React.FC = () => {
           }
         }}
       />
-      <Header />
+      <Navbar />
 
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
+      <div className="container mx-auto px-4 py-12 pt-32 max-w-4xl">
         <h1 className="text-3xl md:text-4xl font-serif text-salon-pink-700 mb-8 text-center">Privacy Policy</h1>
 
         <div className="prose prose-lg max-w-none">

@@ -10,5 +10,12 @@
       }
     ],
     "no-inline-styles": "off"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not and_ff <= 137",
+    "not firefox <= 137",
+    "not opera <= 117"
+  ]
 }
