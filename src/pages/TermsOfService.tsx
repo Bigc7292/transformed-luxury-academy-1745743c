@@ -26,13 +26,13 @@ const TermsOfService: React.FC = () => {
       />
       <Navbar />
 
-      <div className="container mx-auto px-4 py-12 pt-32 max-w-4xl">
-        <h1 className="text-3xl md:text-4xl font-serif text-salon-pink-700 mb-8 text-center">Terms of Service</h1>
+      <div className="container mx-auto px-4 py-8 md:py-12 pt-28 md:pt-32 max-w-4xl">
+        <h1 className="text-2xl md:text-4xl font-serif text-salon-pink-700 mb-6 md:mb-8 text-center">Terms of Service</h1>
 
-        <div className="prose prose-lg max-w-none">
+        <div className="prose prose-sm md:prose-lg max-w-none overflow-x-hidden">
           <p className="text-gray-600">Last Updated: {new Date().toLocaleDateString()}</p>
 
-          <h2 className="text-2xl font-serif text-salon-pink-600 mt-8 mb-4">1. Introduction</h2>
+          <h2 className="text-xl md:text-2xl font-serif text-salon-pink-600 mt-6 md:mt-8 mb-3 md:mb-4">1. Introduction</h2>
           <p>
             Welcome to Transformed Academy & Salon. These Terms of Service ("Terms") govern your use of our website (transformedacademyhq.co.uk), services, and products. By accessing or using our services, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use our services.
           </p>
@@ -85,7 +85,7 @@ const TermsOfService: React.FC = () => {
           <p>
             To the maximum extent permitted by law, Transformed Academy & Salon shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from:
           </p>
-          <ul className="list-disc pl-6 mb-4">
+          <ul className="list-disc pl-4 md:pl-6 mb-3 md:mb-4 text-sm md:text-base">
             <li>Your use of or inability to use our services</li>
             <li>Any unauthorized access to or use of our servers and/or any personal information stored therein</li>
             <li>Any interruption or cessation of transmission to or from our services</li>

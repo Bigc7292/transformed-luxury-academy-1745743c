@@ -26,13 +26,13 @@ const PrivacyPolicy: React.FC = () => {
       />
       <Navbar />
 
-      <div className="container mx-auto px-4 py-12 pt-32 max-w-4xl">
-        <h1 className="text-3xl md:text-4xl font-serif text-salon-pink-700 mb-8 text-center">Privacy Policy</h1>
+      <div className="container mx-auto px-4 py-8 md:py-12 pt-28 md:pt-32 max-w-4xl">
+        <h1 className="text-2xl md:text-4xl font-serif text-salon-pink-700 mb-6 md:mb-8 text-center">Privacy Policy</h1>
 
-        <div className="prose prose-lg max-w-none">
+        <div className="prose prose-sm md:prose-lg max-w-none overflow-x-hidden">
           <p className="text-gray-600">Last Updated: {new Date().toLocaleDateString()}</p>
 
-          <h2 className="text-2xl font-serif text-salon-pink-600 mt-8 mb-4">1. Introduction</h2>
+          <h2 className="text-xl md:text-2xl font-serif text-salon-pink-600 mt-6 md:mt-8 mb-3 md:mb-4">1. Introduction</h2>
           <p>
             Welcome to Transformed Academy & Salon ("we," "our," or "us"). We are committed to protecting your privacy and personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website transformedacademyhq.co.uk, use our services, or communicate with us.
           </p>
@@ -40,11 +40,11 @@ const PrivacyPolicy: React.FC = () => {
             By accessing or using our services, you consent to the practices described in this Privacy Policy. If you do not agree with the policies and practices described here, please do not use our services.
           </p>
 
-          <h2 className="text-2xl font-serif text-salon-pink-600 mt-8 mb-4">2. Information We Collect</h2>
+          <h2 className="text-xl md:text-2xl font-serif text-salon-pink-600 mt-6 md:mt-8 mb-3 md:mb-4">2. Information We Collect</h2>
 
-          <h3 className="text-xl font-serif text-salon-pink-500 mt-6 mb-3">2.1 Personal Information</h3>
+          <h3 className="text-lg md:text-xl font-serif text-salon-pink-500 mt-5 md:mt-6 mb-2 md:mb-3">2.1 Personal Information</h3>
           <p>We may collect personal information that you provide directly to us, including but not limited to:</p>
-          <ul className="list-disc pl-6 mb-4">
+          <ul className="list-disc pl-4 md:pl-6 mb-3 md:mb-4 text-sm md:text-base">
             <li>Contact information (name, email address, phone number, postal address)</li>
             <li>Booking information (appointment dates, services requested)</li>
             <li>Payment information (processed through secure third-party payment processors)</li>
