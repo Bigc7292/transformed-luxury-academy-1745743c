@@ -162,8 +162,8 @@ const AdminAuth = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    placeholder="ADMIN@EXAMPLE.COM"
-                    className="pl-10 placeholder-gray-900"
+                    placeholder="admin@example.com"
+                    className="pl-10 placeholder-gray-500 text-black"
                     autoFocus
                   />
                 </div>
@@ -180,8 +180,8 @@ const AdminAuth = () => {
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10 placeholder-gray-900"
-                    placeholder="ENTER YOUR PASSWORD"
+                    className="pl-10 pr-10 placeholder-gray-500 text-black"
+                    placeholder="Enter your password"
                   />
                   <div
                     className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"

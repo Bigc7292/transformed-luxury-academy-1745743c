@@ -24,25 +24,28 @@ import TermsOfService from './pages/TermsOfService';
 
 function App() {
   return (
-    <HelmetProvider>
-      <Routes>
-      <Route path="/" element={<Index />} />
-      <Route path="/about-ceo" element={<AboutCeo />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/booking" element={<Booking />} />
-      <Route path="/gallery" element={<Gallery />} />
-      <Route path="/price-list" element={<PriceList />} />
-      <Route path="/services" element={<ServicesPage />} />
-      <Route path="/partnership" element={<Partnership />} />
-      <Route path="/staff" element={<Staff />} />
-      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-      <Route path="/terms-of-service" element={<TermsOfService />} />
-
-      <Route path="/content/:id" element={<ContentPage />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-    </HelmetProvider>
+      <HelmetProvider>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/about-ceo" element={<AboutCeo />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/booking" element={<Booking />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/price-list" element={<PriceList />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/partnership" element={<Partnership />} />
+          <Route path="/staff" element={<Staff />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/admin/auth" element={<AdminAuth />} />
+          <Route path="/admin/content" element={<AdminContentPage />} />
+          <Route path="/admin/inbox" element={<AdminInbox />} />
+          <Route path="/admin/media" element={<AdminMediaPage />} />
+          <Route path="/content/:id" element={<ContentPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </HelmetProvider>
   );
 }
 
