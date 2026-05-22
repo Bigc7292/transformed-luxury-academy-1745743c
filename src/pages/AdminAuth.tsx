@@ -16,7 +16,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 const AUTHORIZED_ADMIN_EMAILS = [
   "drivendatadynamics@gmail.com",
   "admin@test.com",
-  "transformedacademyandsalon@gmail.com"
+  "transformedacademyandsalon@gmail.com",
+  "transformedacademyhq@gmail.com"
 ];
 
 const AdminAuth = () => {
