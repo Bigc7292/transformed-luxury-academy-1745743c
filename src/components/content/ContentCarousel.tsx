@@ -107,7 +107,7 @@ const ContentCarousel: React.FC<ContentCarouselProps> = ({
       className="container mx-auto px-4 py-10"
     >
       {title && (
-        <h2 className="text-3xl font-serif text-salon-pink-700 mb-2">{title}</h2>
+        <h2 className="text-3xl font-serif text-gold-700 mb-2">{title}</h2>
       )}
       {description && (
         <p className="text-muted-foreground mb-6">{description}</p>
@@ -130,7 +130,7 @@ const ContentCarousel: React.FC<ContentCarouselProps> = ({
           <button
             key={index}
             className={`w-3 h-3 rounded-full transition-colors ${
-              index === activeIndex ? "bg-salon-pink-500" : "bg-salon-pink-200"
+              index === activeIndex ? "bg-gold-500" : "bg-gold-200"
             }`}
             onClick={() => setActiveIndex(index)}
             aria-label={`Go to slide ${index + 1}`}

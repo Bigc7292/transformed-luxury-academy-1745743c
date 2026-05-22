@@ -22,7 +22,7 @@ const AestheticsPage = () => {
             transition={{ duration: 0.5 }}
             className="text-center mb-10"
           >
-            <h1 className="text-4xl md:text-5xl font-serif text-salon-pink-700 mb-4">Aesthetics Services</h1>
+            <h1 className="text-4xl md:text-5xl font-serif text-gold-700 mb-4">Aesthetics Services</h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Discover our range of premium aesthetic treatments designed to enhance your natural beauty.
             </p>
@@ -32,8 +32,8 @@ const AestheticsPage = () => {
             <ServicesList categoryId="aesthetics" />
           </div>
 
-          <div className="bg-salon-pink-50 rounded-lg p-8 text-center mt-16">
-            <h2 className="text-2xl font-serif text-salon-pink-700 mb-4">Ready to Transform Your Look?</h2>
+          <div className="bg-gold-50 rounded-lg p-8 text-center mt-16">
+            <h2 className="text-2xl font-serif text-gold-700 mb-4">Ready to Transform Your Look?</h2>
             <p className="text-gray-600 mb-6">
               Experience the difference with our premium aesthetic treatments.
             </p>

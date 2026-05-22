@@ -58,7 +58,7 @@ const Staff = () => {
         description="Meet the talented professionals at Transformed Academy offering a range of beauty and aesthetic services."
       />
       <Navbar />
-      <div className="bg-gradient-to-b from-white to-salon-pink-50 min-h-screen pt-24">
+      <div className="bg-gradient-to-b from-white to-gold-50 min-h-screen pt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -67,8 +67,8 @@ const Staff = () => {
             className="text-center mb-16"
           >
             <div className="flex items-center justify-center mb-4">
-              <Users size={32} className="text-salon-pink-500 mr-2" />
-              <h1 className="text-4xl md:text-5xl font-serif font-medium text-salon-pink-800">
+              <Users size={32} className="text-gold-500 mr-2" />
+              <h1 className="text-4xl md:text-5xl font-serif font-medium text-gold-800">
                 Meet Our Team
               </h1>
             </div>
@@ -94,16 +94,16 @@ const Staff = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="bg-salon-pink-100/70 rounded-xl p-8 shadow-sm"
+            className="bg-gold-100/70 rounded-xl p-8 shadow-sm"
           >
             <div className="text-center">
-              <h2 className="text-2xl font-serif font-medium text-salon-pink-800 mb-4">Join Our Team</h2>
+              <h2 className="text-2xl font-serif font-medium text-gold-800 mb-4">Join Our Team</h2>
               <p className="text-gray-700 mb-6">
                 Are you passionate about beauty and aesthetics? We're always looking for talented professionals to join our growing team.
               </p>
               <a
                 href="/contact"
-                className="inline-block bg-salon-pink-500 text-white px-6 py-3 rounded-full hover:bg-salon-pink-600 transition-colors"
+                className="inline-block bg-gold-500 text-white px-6 py-3 rounded-full hover:bg-gold-600 transition-colors"
               >
                 Contact Us About Opportunities
               </a>

@@ -132,7 +132,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
             <TabsContent key={category.id} value={category.id}>
               {isLoading ? (
                 <div className="flex justify-center py-8">
-                  <Loader2 className="h-8 w-8 animate-spin text-salon-pink-500" />
+                  <Loader2 className="h-8 w-8 animate-spin text-gold-500" />
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-x-auto">
@@ -151,7 +151,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                               />
                               <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
                                 <div className="w-12 h-12 rounded-full bg-white bg-opacity-80 flex items-center justify-center">
-                                  <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-salon-pink-500 ml-1" aria-hidden="true" />
+                                  <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-gold-500 ml-1" aria-hidden="true" />
                                 </div>
                               </div>
                             </div>
@@ -203,7 +203,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                       <Button
                         variant="link"
                         onClick={onCreateContent}
-                        className="text-salon-pink-500"
+                        className="text-gold-500"
                       >
                         Add some now
                       </Button>
@@ -219,7 +219,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
             <TabsContent key={filter.id} value={filter.id}>
               {isLoading ? (
                 <div className="flex justify-center py-8">
-                  <Loader2 className="h-8 w-8 animate-spin text-salon-pink-500" />
+                  <Loader2 className="h-8 w-8 animate-spin text-gold-500" />
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-x-auto">
@@ -238,7 +238,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                               />
                               <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
                                 <div className="w-12 h-12 rounded-full bg-white bg-opacity-80 flex items-center justify-center">
-                                  <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-salon-pink-500 ml-1" aria-hidden="true" />
+                                  <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-gold-500 ml-1" aria-hidden="true" />
                                 </div>
                               </div>
                             </div>
@@ -290,7 +290,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                       <Button
                         variant="link"
                         onClick={onCreateContent}
-                        className="text-salon-pink-500"
+                        className="text-gold-500"
                       >
                         Add some now
                       </Button>

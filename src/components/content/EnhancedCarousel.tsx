@@ -126,7 +126,7 @@ const EnhancedCarousel: React.FC<EnhancedCarouselProps> = ({
             <div className="flex mt-4 space-x-3">
               <Dialog>
                 <DialogTrigger asChild>
-                  <button className="flex items-center px-4 py-2 bg-salon-pink-500 text-white rounded-full hover:bg-salon-pink-600 transition-colors">
+                  <button className="flex items-center px-4 py-2 bg-gold-500 text-white rounded-full hover:bg-gold-600 transition-colors">
                     <Play size={16} className="mr-2" /> Watch Video
                   </button>
                 </DialogTrigger>
@@ -197,7 +197,7 @@ const EnhancedCarousel: React.FC<EnhancedCarouselProps> = ({
       className={fullWidth ? "w-full" : "container mx-auto px-4 py-10"}
     >
       {title && (
-        <h2 className="text-3xl font-serif text-salon-pink-700 mb-2">{title}</h2>
+        <h2 className="text-3xl font-serif text-gold-700 mb-2">{title}</h2>
       )}
       {description && (
         <p className="text-muted-foreground mb-6">{description}</p>
@@ -269,7 +269,7 @@ const EnhancedCarousel: React.FC<EnhancedCarouselProps> = ({
               key={index}
               className={`relative rounded-md overflow-hidden transition-all ${
                 index === activeIndex 
-                  ? 'ring-2 ring-salon-pink-500 ring-offset-2' 
+                  ? 'ring-2 ring-gold-500 ring-offset-2' 
                   : 'opacity-70 hover:opacity-100'
               }`}
               onClick={() => setActiveIndex(index)}

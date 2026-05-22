@@ -69,7 +69,7 @@ const ContentGallery: React.FC<ContentGalleryProps> = ({
   return (
     <div className="container mx-auto px-4 py-8">
       {title && (
-        <h2 className="text-3xl font-serif text-salon-pink-700 mb-2">{title}</h2>
+        <h2 className="text-3xl font-serif text-gold-700 mb-2">{title}</h2>
       )}
       {description && (
         <p className="text-muted-foreground mb-6">{description}</p>

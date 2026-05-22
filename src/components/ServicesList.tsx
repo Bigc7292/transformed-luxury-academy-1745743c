@@ -47,7 +47,7 @@ const ServicesList: React.FC<ServicesListProps> = ({ categoryId }) => {
         >
           <div className="container mx-auto px-4">
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-serif text-salon-pink-700 mb-2">{category.name}</h2>
+              <h2 className="text-3xl font-serif text-gold-700 mb-2">{category.name}</h2>
               {category.description && (
                 <p className="text-gray-600 max-w-2xl mx-auto">{category.description}</p>
               )}
@@ -128,7 +128,7 @@ const ServicesList: React.FC<ServicesListProps> = ({ categoryId }) => {
                           />
                           <div className="absolute inset-0 flex items-center justify-center">
                             <div className="w-12 h-12 rounded-full bg-white bg-opacity-50 flex items-center justify-center">
-                              <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-salon-pink-500 ml-1" aria-hidden="true" />
+                              <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-gold-500 ml-1" aria-hidden="true" />
                             </div>
                           </div>
                         </div>
@@ -148,12 +148,12 @@ const ServicesList: React.FC<ServicesListProps> = ({ categoryId }) => {
                     </div>
                   )}
                   <div className="p-6 flex flex-col flex-grow">
-                    <h3 className="text-xl md:text-2xl font-serif text-salon-pink-700 mb-3">{service.title}</h3>
+                    <h3 className="text-xl md:text-2xl font-serif text-gold-700 mb-3">{service.title}</h3>
                     <p className="text-gray-600 mb-4 flex-grow leading-relaxed">{service.description}</p>
 
                     {service.services && service.services.length > 0 && (
                       <div className="mb-4">
-                        <h4 className="text-sm font-medium text-salon-pink-600 mb-2">Includes:</h4>
+                        <h4 className="text-sm font-medium text-gold-600 mb-2">Includes:</h4>
                         <ul className="list-disc list-inside text-sm text-gray-600 space-y-2">
                           {service.services.map((subService, idx) => (
                             <li key={`service-${service.id}-item-${idx}`}>{subService}</li>
@@ -164,7 +164,7 @@ const ServicesList: React.FC<ServicesListProps> = ({ categoryId }) => {
 
                     {service.price && (
                       <div className="mb-4">
-                        <span className="text-salon-pink-600 font-bold text-lg">{service.price}</span>
+                        <span className="text-gold-600 font-bold text-lg">{service.price}</span>
                       </div>
                     )}
 

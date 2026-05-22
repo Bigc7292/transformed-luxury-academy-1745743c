@@ -7,16 +7,16 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white border-t border-salon-pink-100">
+    <footer className="bg-black border-t border-gold-500/20">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <Link to="/" className="inline-block mb-6">
-              <div className="text-2xl font-serif text-salon-pink-500 tracking-wider">
+              <div className="text-2xl font-serif text-gold-500 tracking-wider">
                 Transformed<span className="font-cursive ml-1">Academy</span>
               </div>
             </Link>
-            <p className="text-gray-600 mb-6">
+            <p className="text-zinc-400 mb-6">
               Premium aesthetic treatments to enhance your natural beauty. Our salon combines artistry with medical expertise.
             </p>
             <div className="social-icons">
@@ -33,53 +33,53 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-serif text-salon-pink-700 mb-6">Quick Links</h3>
+            <h3 className="text-lg font-serif text-gold-700 mb-6">Quick Links</h3>
             <ul className="space-y-4">
               <li>
-                <Link to="/" className="text-gray-600 hover:text-salon-pink-500 transition-colors">Home</Link>
+                <Link to="/" className="text-zinc-400 hover:text-gold-500 transition-colors">Home</Link>
               </li>
               <li>
-                <Link to="/about" className="text-gray-600 hover:text-salon-pink-500 transition-colors">About Us</Link>
+                <Link to="/about" className="text-zinc-400 hover:text-gold-500 transition-colors">About Us</Link>
               </li>
               <li>
-                <Link to="/services" className="text-gray-600 hover:text-salon-pink-500 transition-colors">Our Services</Link>
+                <Link to="/services" className="text-zinc-400 hover:text-gold-500 transition-colors">Our Services</Link>
               </li>
               <li>
-                <Link to="/gallery" className="text-gray-600 hover:text-salon-pink-500 transition-colors">Gallery</Link>
+                <Link to="/gallery" className="text-zinc-400 hover:text-gold-500 transition-colors">Gallery</Link>
               </li>
               <li>
-                <Link to="/contact" className="text-gray-600 hover:text-salon-pink-500 transition-colors">Contact</Link>
+                <Link to="/contact" className="text-zinc-400 hover:text-gold-500 transition-colors">Contact</Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg font-serif text-salon-pink-700 mb-6">Contact Us</h3>
+            <h3 className="text-lg font-serif text-gold-700 mb-6">Contact Us</h3>
             <ul className="space-y-4">
               <li className="flex items-start">
-                <MapPin size={20} className="text-salon-pink-500 mr-2 mt-1 flex-shrink-0" />
-                <span className="text-gray-600">SALONS IN HEREFORD AND CARDIFF
+                <MapPin size={20} className="text-gold-500 mr-2 mt-1 flex-shrink-0" />
+                <span className="text-zinc-400">SALONS IN HEREFORD AND CARDIFF
                   38 WIDEMARSH STREET HEREFORD HR4 9EP</span>
               </li>
               <li className="flex items-center">
-                <Phone size={20} className="text-salon-pink-500 mr-2 flex-shrink-0" />
-                <a href="tel:+1234567890" className="text-gray-600 hover:text-salon-pink-500 transition-colors">+447716402303</a>
+                <Phone size={20} className="text-gold-500 mr-2 flex-shrink-0" />
+                <a href="tel:+1234567890" className="text-zinc-400 hover:text-gold-500 transition-colors">+447716402303</a>
               </li>
               <li className="flex items-center">
-                <Mail size={20} className="text-salon-pink-500 mr-2 flex-shrink-0" />
-                <a href="mailto:info@transformedacademy.com" className="text-gray-600 hover:text-salon-pink-500 transition-colors">info@transformedacademy.com</a>
+                <Mail size={20} className="text-gold-500 mr-2 flex-shrink-0" />
+                <a href="mailto:info@transformedacademy.com" className="text-zinc-400 hover:text-gold-500 transition-colors">info@transformedacademy.com</a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-salon-pink-100 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm mb-4 md:mb-0">
+        <div className="border-t border-gold-500/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-zinc-500 text-sm mb-4 md:mb-0">
             &copy; {currentYear} Transformed Academy and Salon. All rights reserved.
           </p>
           <div className="flex space-x-4 text-sm">
-            <Link to="/privacy-policy" className="text-gray-500 hover:text-salon-pink-500 transition-colors">Privacy Policy</Link>
-            <Link to="/terms-of-service" className="text-gray-500 hover:text-salon-pink-500 transition-colors">Terms of Service</Link>
+            <Link to="/privacy-policy" className="text-zinc-500 hover:text-gold-500 transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="text-zinc-500 hover:text-gold-500 transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

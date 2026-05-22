@@ -47,7 +47,7 @@ const ServicesPage = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="pt-32 pb-8 bg-gradient-to-b from-salon-pink-50 to-white">
+      <div className="pt-32 pb-8 bg-gradient-to-b from-gold-50 to-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -55,7 +55,7 @@ const ServicesPage = () => {
             transition={{ duration: 0.5 }}
             className="text-center mb-10"
           >
-            <h1 className="text-4xl md:text-5xl font-serif text-salon-pink-700 mb-4">Our Services</h1>
+            <h1 className="text-4xl md:text-5xl font-serif text-gold-700 mb-4">Our Services</h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Discover our comprehensive range of premium treatments and services designed to enhance your natural beauty and boost your confidence.
             </p>
@@ -72,10 +72,10 @@ const ServicesPage = () => {
                 type="button"
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`whitespace-nowrap px-4 py-4 mx-1 rounded-md text-sm md:text-base font-medium min-w-[160px] md:min-w-[180px] transition-colors focus:outline-none focus:ring-2 focus:ring-salon-pink-300 ${
+                className={`whitespace-nowrap px-4 py-4 mx-1 rounded-md text-sm md:text-base font-medium min-w-[160px] md:min-w-[180px] transition-colors focus:outline-none focus:ring-2 focus:ring-gold-300 ${
                   activeCategory === category.id
-                    ? 'bg-salon-pink-500 text-white shadow-md'
-                    : 'bg-salon-pink-50 text-salon-pink-700 hover:bg-salon-pink-100'
+                    ? 'bg-gold-500 text-white shadow-md'
+                    : 'bg-gold-50 text-gold-700 hover:bg-gold-100'
                 }`}
                 aria-label={`View ${category.name} services`}
               >
@@ -105,7 +105,7 @@ const ServicesPage = () => {
               className="bg-white rounded-lg shadow-lg overflow-hidden"
             >
               {/* Category Header */}
-              <div className="relative h-64 md:h-80 bg-salon-pink-100 overflow-hidden">
+              <div className="relative h-64 md:h-80 bg-gold-100 overflow-hidden">
                 <img
                   src={activeCategoryData.image || "/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png"}
                   alt={activeCategoryData.name}
@@ -123,7 +123,7 @@ const ServicesPage = () => {
 
               {/* Services Grid */}
               <div className="p-6 md:p-8">
-                <h3 className="text-2xl font-serif text-salon-pink-700 mb-6">Available Services</h3>
+                <h3 className="text-2xl font-serif text-gold-700 mb-6">Available Services</h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                   {activeCategoryData.services.map(service => (
@@ -131,7 +131,7 @@ const ServicesPage = () => {
                       key={service.id}
                       className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:shadow-lg hover:-translate-y-1"
                     >
-                      <div className="h-48 bg-salon-pink-100 overflow-hidden">
+                      <div className="h-48 bg-gold-100 overflow-hidden">
                         {service.isVideo ? (
                           <video
                             src={service.image}
@@ -151,18 +151,18 @@ const ServicesPage = () => {
                         )}
                       </div>
                       <div className="p-4">
-                        <h4 className="text-xl font-serif text-salon-pink-700 mb-2">{service.title}</h4>
+                        <h4 className="text-xl font-serif text-gold-700 mb-2">{service.title}</h4>
                         <p className="text-gray-600 mb-4">{service.description}</p>
 
                         {service.price && (
                           <div className="mb-4">
-                            <span className="text-salon-pink-600 font-bold text-lg">{service.price}</span>
+                            <span className="text-gold-600 font-bold text-lg">{service.price}</span>
                           </div>
                         )}
 
                         {service.services && service.services.length > 0 && (
                           <div className="mb-4">
-                            <h5 className="text-sm font-medium text-salon-pink-600 mb-2">Includes:</h5>
+                            <h5 className="text-sm font-medium text-gold-600 mb-2">Includes:</h5>
                             <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
                               {service.services.map((subService, idx) => (
                                 <li key={`${service.id}-service-${idx}`}>{subService}</li>
@@ -175,7 +175,7 @@ const ServicesPage = () => {
                           href={BOOKING_URL}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block w-full text-center bg-salon-pink-500 text-white py-3 rounded-md hover:bg-salon-pink-600 transition-colors mt-4"
+                          className="block w-full text-center bg-gold-500 text-white py-3 rounded-md hover:bg-gold-600 transition-colors mt-4"
                         >
                           Book Now
                         </a>
@@ -189,7 +189,7 @@ const ServicesPage = () => {
                     href={BOOKING_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block bg-salon-pink-500 text-white px-8 py-4 rounded-full hover:bg-salon-pink-600 transition-colors focus:outline-none focus:ring-2 focus:ring-salon-pink-300 focus:ring-offset-2 text-lg font-medium"
+                    className="inline-block bg-gold-500 text-white px-8 py-4 rounded-full hover:bg-gold-600 transition-colors focus:outline-none focus:ring-2 focus:ring-gold-300 focus:ring-offset-2 text-lg font-medium"
                   >
                     Book {activeCategoryData.name} Services
                   </a>
@@ -200,8 +200,8 @@ const ServicesPage = () => {
         </AnimatePresence>
 
         {/* Call to Action */}
-        <div className="bg-salon-pink-50 rounded-lg p-8 text-center mt-16">
-          <h2 className="text-2xl font-serif text-salon-pink-700 mb-4">Ready to Transform Your Look?</h2>
+        <div className="bg-gold-50 rounded-lg p-8 text-center mt-16">
+          <h2 className="text-2xl font-serif text-gold-700 mb-4">Ready to Transform Your Look?</h2>
           <p className="text-gray-600 mb-6">
             Experience the difference with our premium treatments.
           </p>
@@ -209,7 +209,7 @@ const ServicesPage = () => {
             href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-salon-pink-500 text-white px-6 py-3 rounded-full hover:bg-salon-pink-600 transition-colors focus:outline-none focus:ring-2 focus:ring-salon-pink-300 focus:ring-offset-2"
+            className="inline-block bg-gold-500 text-white px-6 py-3 rounded-full hover:bg-gold-600 transition-colors focus:outline-none focus:ring-2 focus:ring-gold-300 focus:ring-offset-2"
           >
             Book Your Appointment
           </a>

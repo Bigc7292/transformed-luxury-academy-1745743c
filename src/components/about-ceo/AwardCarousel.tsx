@@ -20,7 +20,7 @@ const AwardCarousel: React.FC<AwardCarouselProps> = ({ awards }) => {
   return (
     <section className="mb-20">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-serif font-bold text-salon-pink-800 mb-3">
+        <h2 className="text-3xl md:text-4xl font-serif font-bold text-gold-800 mb-3">
           Awards & Recognition
         </h2>
         <p className="text-lg text-gray-600">
@@ -44,7 +44,7 @@ const AwardCarousel: React.FC<AwardCarouselProps> = ({ awards }) => {
                 }}
                 className="h-full p-1"
               >
-                <Card className="h-full bg-white hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-salon-pink-100 hover:border-salon-pink-300">
+                <Card className="h-full bg-white hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gold-100 hover:border-gold-300">
                   <div className="relative pt-[100%] overflow-hidden bg-black">
                     <img 
                       src={award.image} 
@@ -54,8 +54,8 @@ const AwardCarousel: React.FC<AwardCarouselProps> = ({ awards }) => {
                   </div>
                   <CardContent className="p-5 text-center">
                     <div className="flex items-center justify-center mb-3">
-                      <Award className="h-5 w-5 text-salon-pink-500 mr-2" />
-                      <h3 className="font-serif font-medium text-lg text-salon-pink-800">{award.title}</h3>
+                      <Award className="h-5 w-5 text-gold-500 mr-2" />
+                      <h3 className="font-serif font-medium text-lg text-gold-800">{award.title}</h3>
                     </div>
                     <p className="text-gray-600">{award.organization}</p>
                   </CardContent>
@@ -65,10 +65,10 @@ const AwardCarousel: React.FC<AwardCarouselProps> = ({ awards }) => {
           ))}
         </CarouselContent>
         <div className="absolute -left-4 top-1/2 -translate-y-1/2">
-          <CarouselPrevious className="h-10 w-10 bg-white/80 border-salon-pink-200 text-salon-pink-700 hover:bg-salon-pink-100" />
+          <CarouselPrevious className="h-10 w-10 bg-white/80 border-gold-200 text-gold-700 hover:bg-gold-100" />
         </div>
         <div className="absolute -right-4 top-1/2 -translate-y-1/2">
-          <CarouselNext className="h-10 w-10 bg-white/80 border-salon-pink-200 text-salon-pink-700 hover:bg-salon-pink-100" />
+          <CarouselNext className="h-10 w-10 bg-white/80 border-gold-200 text-gold-700 hover:bg-gold-100" />
         </div>
       </Carousel>
     </section>

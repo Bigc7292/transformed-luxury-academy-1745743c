@@ -67,7 +67,7 @@ const ContentList: React.FC<ContentListProps> = ({
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Content List</CardTitle>
         <Button
-          className="bg-salon-pink-600 hover:bg-salon-pink-700 flex items-center gap-2"
+          className="bg-gold-600 hover:bg-gold-700 flex items-center gap-2"
           onClick={() => setIsCreateDialogOpen(true)}
         >
           <Plus size={16} /> Add New Content

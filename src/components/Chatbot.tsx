@@ -199,14 +199,14 @@ const Chatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-xl shadow-xl w-[90vw] max-w-[360px] sm:w-96 h-[70vh] max-h-[500px] mb-4 overflow-hidden flex flex-col border border-salon-pink-100"
+            className="bg-white rounded-xl shadow-xl w-[90vw] max-w-[360px] sm:w-96 h-[70vh] max-h-[500px] mb-4 overflow-hidden flex flex-col border border-gold-100"
           >
-            <div className="bg-salon-pink-500 text-white p-4 flex justify-between items-center">
+            <div className="bg-gold-500 text-white p-4 flex justify-between items-center">
               <h3 className="font-medium">Beauty Assistant</h3>
               <div className="flex items-center space-x-2">
                 <Drawer>
                   <DrawerTrigger asChild>
-                    <button type="button" className="text-white hover:bg-salon-pink-600 rounded-full p-1 transition-colors" aria-label="Additional options">
+                    <button type="button" className="text-white hover:bg-gold-600 rounded-full p-1 transition-colors" aria-label="Additional options">
                       <Plus size={18} />
                     </button>
                   </DrawerTrigger>
@@ -291,13 +291,13 @@ const Chatbot = () => {
                           <DrawerClose asChild>
                             <Button variant="outline">Cancel</Button>
                           </DrawerClose>
-                          <Button type="submit" className="bg-salon-pink-500 text-white">Submit</Button>
+                          <Button type="submit" className="bg-gold-500 text-white">Submit</Button>
                         </div>
                       </form>
                     </div>
                   </DrawerContent>
                 </Drawer>
-                <button type="button" onClick={toggleChat} className="text-white hover:bg-salon-pink-600 rounded-full p-1 transition-colors" aria-label="Close chat">
+                <button type="button" onClick={toggleChat} className="text-white hover:bg-gold-600 rounded-full p-1 transition-colors" aria-label="Close chat">
                   <X size={18} />
                 </button>
               </div>
@@ -312,14 +312,14 @@ const Chatbot = () => {
                   <div
                     className={`max-w-[80%] rounded-lg p-3 ${
                       message.isBot
-                        ? 'bg-salon-pink-100 text-gray-800'
-                        : 'bg-salon-pink-500 text-white'
+                        ? 'bg-gold-100 text-gray-800'
+                        : 'bg-gold-500 text-white'
                     }`}
                   >
                     {message.text.startsWith('<button-message>') ? (
                       <Button
                         onClick={() => setShowContactForm(true)}
-                        className="bg-salon-pink-500 text-white hover:bg-salon-pink-600"
+                        className="bg-gold-500 text-white hover:bg-gold-600"
                         size="sm"
                       >
                         {message.text.replace('<button-message>', '').replace('</button-message>', '')}
@@ -333,7 +333,7 @@ const Chatbot = () => {
 
               {isTyping && (
                 <div className="mb-4 flex justify-start">
-                  <div className="bg-salon-pink-100 text-gray-800 max-w-[80%] rounded-lg p-3">
+                  <div className="bg-gold-100 text-gray-800 max-w-[80%] rounded-lg p-3">
                     <div className="flex space-x-1 items-center">
                       <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} aria-hidden="true" />
                       <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} aria-hidden="true" />
@@ -344,8 +344,8 @@ const Chatbot = () => {
               )}
 
               {showContactForm && (
-                <div className="mt-4 mb-4 bg-white rounded-lg border border-salon-pink-200 p-4">
-                  <h4 className="font-medium text-salon-pink-700 mb-2">Contact Form</h4>
+                <div className="mt-4 mb-4 bg-white rounded-lg border border-gold-200 p-4">
+                  <h4 className="font-medium text-gold-700 mb-2">Contact Form</h4>
                   <form onSubmit={handleContactSubmit} className="space-y-3">
                     <div>
                       <label htmlFor="chatbot-name" className="text-xs font-medium">Name</label>
@@ -415,7 +415,7 @@ const Chatbot = () => {
                       </Button>
                       <Button
                         type="submit"
-                        className="bg-salon-pink-500 text-white"
+                        className="bg-gold-500 text-white"
                         size="sm"
                       >
                         Submit
@@ -428,17 +428,17 @@ const Chatbot = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            <form onSubmit={handleSendMessage} className="border-t border-salon-pink-100 p-3 flex sticky bottom-0 bg-white">
+            <form onSubmit={handleSendMessage} className="border-t border-gold-100 p-3 flex sticky bottom-0 bg-white">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Type your message..."
-                className="flex-grow border border-salon-pink-200 rounded-l-lg px-3 py-3 md:py-2 text-base md:text-sm focus:outline-none focus:border-salon-pink-300"
+                className="flex-grow border border-gold-200 rounded-l-lg px-3 py-3 md:py-2 text-base md:text-sm focus:outline-none focus:border-gold-300"
               />
               <button
                 type="submit"
-                className="bg-salon-pink-500 text-white rounded-r-lg px-4 py-3 md:py-2 hover:bg-salon-pink-600 transition-colors"
+                className="bg-gold-500 text-white rounded-r-lg px-4 py-3 md:py-2 hover:bg-gold-600 transition-colors"
               >
                 <Send size={18} />
               </button>
@@ -451,7 +451,7 @@ const Chatbot = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
-        className="bg-salon-pink-500 text-white rounded-full w-12 h-12 md:w-14 md:h-14 flex items-center justify-center shadow-lg hover:bg-salon-pink-600 transition-colors"
+        className="bg-gold-500 text-white rounded-full w-12 h-12 md:w-14 md:h-14 flex items-center justify-center shadow-lg hover:bg-gold-600 transition-colors"
       >
         <MessageCircle size={20} className="md:size-[24px]" />
       </motion.button>

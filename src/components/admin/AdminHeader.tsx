@@ -21,7 +21,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ title, handleLogout }) => {
   return (
     <div className="mb-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-        <h1 className="text-3xl md:text-4xl font-serif text-salon-pink-700">
+        <h1 className="text-3xl md:text-4xl font-serif text-gold-700">
           {title}
         </h1>
         <Button
@@ -37,21 +37,21 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ title, handleLogout }) => {
         <Button
           onClick={() => navigate("/admin/content")}
           variant={isContentPage ? "default" : "ghost"}
-          className={`flex items-center gap-2 ${isContentPage ? 'bg-salon-pink-600 hover:bg-salon-pink-700' : 'text-gray-600 hover:text-salon-pink-600'}`}
+          className={`flex items-center gap-2 ${isContentPage ? 'bg-gold-600 hover:bg-gold-700' : 'text-gray-600 hover:text-gold-600'}`}
         >
           <FileText size={16} /> General Content
         </Button>
         <Button
           onClick={() => navigate("/admin/media")}
           variant={isMediaPage ? "default" : "ghost"}
-          className={`flex items-center gap-2 ${isMediaPage ? 'bg-salon-pink-600 hover:bg-salon-pink-700' : 'text-gray-600 hover:text-salon-pink-600'}`}
+          className={`flex items-center gap-2 ${isMediaPage ? 'bg-gold-600 hover:bg-gold-700' : 'text-gray-600 hover:text-gold-600'}`}
         >
           <Image size={16} /> Media Showcase
         </Button>
         <Button
           onClick={() => navigate("/admin/inbox")}
           variant={isInboxPage ? "default" : "ghost"}
-          className={`flex items-center gap-2 ${isInboxPage ? 'bg-salon-pink-600 hover:bg-salon-pink-700' : 'text-gray-600 hover:text-salon-pink-600'}`}
+          className={`flex items-center gap-2 ${isInboxPage ? 'bg-gold-600 hover:bg-gold-700' : 'text-gray-600 hover:text-gold-600'}`}
         >
           <Inbox size={16} /> Customer Inquiries
         </Button>

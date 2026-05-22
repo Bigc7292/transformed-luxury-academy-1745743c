@@ -29,19 +29,19 @@ const Partnership = () => {
                   className="w-full h-auto object-cover"
                 />
               </div>
-              <div className="mt-6 p-6 bg-salon-pink-50 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold text-salon-pink-800 mb-2">Dr. M E Wint</h3>
+              <div className="mt-6 p-6 bg-gold-50 rounded-lg shadow-sm">
+                <h3 className="text-xl font-semibold text-gold-800 mb-2">Dr. M E Wint</h3>
                 <p className="text-sm text-gray-600">BDS DPDS PHD MCGDENT MFDSRCS MIAAFA</p>
                 <div className="mt-4 flex items-center">
-                  <div className="w-2 h-2 bg-salon-pink-500 rounded-full mr-2"></div>
+                  <div className="w-2 h-2 bg-gold-500 rounded-full mr-2"></div>
                   <p className="text-sm text-gray-700">Specialist in Facial Aesthetics</p>
                 </div>
                 <div className="mt-2 flex items-center">
-                  <div className="w-2 h-2 bg-salon-pink-500 rounded-full mr-2"></div>
+                  <div className="w-2 h-2 bg-gold-500 rounded-full mr-2"></div>
                   <p className="text-sm text-gray-700">Non-Surgical Procedures</p>
                 </div>
                 <div className="mt-2 flex items-center">
-                  <div className="w-2 h-2 bg-salon-pink-500 rounded-full mr-2"></div>
+                  <div className="w-2 h-2 bg-gold-500 rounded-full mr-2"></div>
                   <p className="text-sm text-gray-700">Over 25 Years Experience</p>
                 </div>
               </div>
@@ -53,7 +53,7 @@ const Partnership = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="lg:w-2/3"
             >
-              <h1 className="text-3xl md:text-4xl font-serif font-medium text-salon-pink-800 mb-6">Partnership with Dr. Martin</h1>
+              <h1 className="text-3xl md:text-4xl font-serif font-medium text-gold-800 mb-6">Partnership with Dr. Martin</h1>
               
               <div className="prose prose-pink max-w-none">
                 <p className="mb-4 text-lg leading-relaxed">
@@ -68,14 +68,14 @@ const Partnership = () => {
                   I am also trained in Xosomes and Polynucleotides for skin rejuvenation. Most if not all of aesthetics work is undertaken via Cannula which is safer than needles, creates less bruising and in conjunction with brand Pluryal create amazing results.
                 </p>
                 
-                <blockquote className="bg-salon-pink-50 border-l-4 border-salon-pink-300 p-4 my-6">
+                <blockquote className="bg-gold-50 border-l-4 border-gold-300 p-4 my-6">
                   <p className="italic">
                     "In partnership with Transformed Academy, we are able to provide a comprehensive range of aesthetic treatments that combine my medical expertise with Kayla's professional beauty qualifications."
                   </p>
                 </blockquote>
                 
-                <div className="bg-salon-beige-50 p-6 rounded-lg mt-8">
-                  <h3 className="text-xl font-semibold text-salon-pink-800 mb-4">Credentials</h3>
+                <div className="bg-zinc-50 p-6 rounded-lg mt-8">
+                  <h3 className="text-xl font-semibold text-gold-800 mb-4">Credentials</h3>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>BDS - Bachelor of Dental Surgery</li>
                     <li>DPDS - Diploma in Postgraduate Dental Studies</li>

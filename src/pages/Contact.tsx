@@ -172,7 +172,7 @@ const Contact = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <h1 className="text-4xl md:text-5xl font-serif text-salon-pink-700 mb-4">
+            <h1 className="text-4xl md:text-5xl font-serif text-gold-700 mb-4">
               Contact Us
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -185,9 +185,9 @@ const Contact = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-salon-pink-50 rounded-lg p-6 md:p-8 shadow-sm"
+              className="bg-gold-50 rounded-lg p-6 md:p-8 shadow-sm"
             >
-              <h2 className="text-2xl font-serif text-salon-pink-600 mb-2">Direct Message</h2>
+              <h2 className="text-2xl font-serif text-gold-600 mb-2">Direct Message</h2>
               <p className="text-gray-600 mb-4">Send a message directly to our team. We'll respond to your inquiry as soon as possible.</p>
 
               <form onSubmit={handleSubmit} className="space-y-5 md:space-y-4">
@@ -242,7 +242,7 @@ const Contact = () => {
                     name="topic"
                     value={formData.topic}
                     onChange={handleInputChange}
-                    className="w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-salon-pink-500 focus:outline-none focus:ring-1 focus:ring-salon-pink-500"
+                    className="w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500"
                   >
                     <option value="General Inquiry">General Inquiry</option>
                     <option value="Booking">Booking</option>
@@ -270,7 +270,7 @@ const Contact = () => {
 
                 <Button
                   type="submit"
-                  className="w-full bg-salon-pink-500 hover:bg-salon-pink-600"
+                  className="w-full bg-gold-500 hover:bg-gold-600"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
@@ -298,11 +298,11 @@ const Contact = () => {
               className="flex flex-col justify-between"
             >
               <div>
-                <h2 className="text-2xl font-serif text-salon-pink-600 mb-6">Contact Information</h2>
+                <h2 className="text-2xl font-serif text-gold-600 mb-6">Contact Information</h2>
 
                 <div className="space-y-6 mb-12">
                   <div className="flex items-start">
-                    <MapPin size={24} className="text-salon-pink-500 mr-3 mt-1 flex-shrink-0" />
+                    <MapPin size={24} className="text-gold-500 mr-3 mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-medium text-gray-800 mb-1">Our Locations</h3>
                       <p className="text-gray-600">
@@ -314,11 +314,11 @@ const Contact = () => {
                   </div>
 
                   <div className="flex items-start">
-                    <Phone size={24} className="text-salon-pink-500 mr-3 mt-1 flex-shrink-0" />
+                    <Phone size={24} className="text-gold-500 mr-3 mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-medium text-gray-800 mb-1">Phone</h3>
                       <p className="text-gray-600">
-                        <a href="tel:+447716402303" className="hover:text-salon-pink-500 transition-colors">
+                        <a href="tel:+447716402303" className="hover:text-gold-500 transition-colors">
                           +44 7716 402303
                         </a>
                       </p>
@@ -326,11 +326,11 @@ const Contact = () => {
                   </div>
 
                   <div className="flex items-start">
-                    <Mail size={24} className="text-salon-pink-500 mr-3 mt-1 flex-shrink-0" />
+                    <Mail size={24} className="text-gold-500 mr-3 mt-1 flex-shrink-0" />
                     <div>
                       <h3 className="font-medium text-gray-800 mb-1">Email</h3>
                       <p className="text-gray-600">
-                        <a href="mailto:info@transformedacademy.co.uk" className="hover:text-salon-pink-500 transition-colors">
+                        <a href="mailto:info@transformedacademy.co.uk" className="hover:text-gold-500 transition-colors">
                           info@transformedacademy.co.uk
                         </a>
                       </p>
@@ -339,8 +339,8 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="bg-salon-pink-100/50 rounded-lg p-6">
-                <h3 className="text-xl font-serif text-salon-pink-600 mb-3">Business Hours</h3>
+              <div className="bg-gold-100/50 rounded-lg p-6">
+                <h3 className="text-xl font-serif text-gold-600 mb-3">Business Hours</h3>
                 <ul className="space-y-2">
                   <li className="flex justify-between">
                     <span className="text-gray-700">Monday - Friday</span>

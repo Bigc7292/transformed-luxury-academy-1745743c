@@ -67,7 +67,7 @@ const ContentPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <h1 className="text-4xl md:text-5xl font-serif text-salon-pink-700 mb-4">
+            <h1 className="text-4xl md:text-5xl font-serif text-gold-700 mb-4">
               {getCategoryTitle()}
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">

@@ -38,7 +38,7 @@ const PriceList = () => {
             variants={containerVariants}
             className="text-center mb-12"
           >
-            <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl font-serif text-salon-pink-700 mb-4">
+            <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl font-serif text-gold-700 mb-4">
               Our Price List
             </motion.h1>
             <motion.p variants={itemVariants} className="text-lg text-gray-600 max-w-3xl mx-auto">

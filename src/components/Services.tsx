@@ -35,8 +35,8 @@ const Services = () => {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <span className="text-salon-pink-400 font-medium">Our Services</span>
-          <h2 className="text-3xl md:text-4xl font-serif text-salon-pink-800 mt-2">Premium Aesthetic Treatments</h2>
+          <span className="text-gold-400 font-medium">Our Services</span>
+          <h2 className="text-3xl md:text-4xl font-serif text-gold-800 mt-2">Premium Aesthetic Treatments</h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
             Discover our range of luxurious aesthetic treatments designed to enhance your natural beauty and boost your confidence.
           </p>
@@ -77,21 +77,21 @@ const Services = () => {
                     </>
                   )}
                   {index === 0 && (
-                    <div className="absolute top-4 right-4 bg-salon-pink-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    <div className="absolute top-4 right-4 bg-gold-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                       Special Offer
                     </div>
                   )}
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-xl md:text-2xl font-serif text-salon-pink-700 mb-3">{service.title}</h3>
+                  <h3 className="text-xl md:text-2xl font-serif text-gold-700 mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-6 flex-grow leading-relaxed">{service.description}</p>
 
                   {index === 0 && (
-                    <div className="mb-4 bg-salon-pink-50 p-3 rounded-md">
-                      <p className="text-salon-pink-700 font-medium">Kayla's Signature Lips Masterclass - Now £499</p>
+                    <div className="mb-4 bg-gold-50 p-3 rounded-md">
+                      <p className="text-gold-700 font-medium">Kayla's Signature Lips Masterclass - Now £499</p>
                       <div className="flex items-center mt-1">
                         <span className="line-through text-gray-500 text-sm mr-2">£799</span>
-                        <span className="text-salon-pink-600 font-bold">£499</span>
+                        <span className="text-gold-600 font-bold">£499</span>
                       </div>
                     </div>
                   )}

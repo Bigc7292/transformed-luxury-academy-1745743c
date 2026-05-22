@@ -22,7 +22,7 @@ const TrainingPage = () => {
             transition={{ duration: 0.5 }}
             className="text-center mb-10"
           >
-            <h1 className="text-4xl md:text-5xl font-serif text-salon-pink-700 mb-4">Training Services</h1>
+            <h1 className="text-4xl md:text-5xl font-serif text-gold-700 mb-4">Training Services</h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Discover our professional training courses designed to elevate your skills in the beauty industry.
             </p>
@@ -32,8 +32,8 @@ const TrainingPage = () => {
             <ServicesList categoryId="training" />
           </div>
 
-          <div className="bg-salon-pink-50 rounded-lg p-8 text-center mt-16">
-            <h2 className="text-2xl font-serif text-salon-pink-700 mb-4">Ready to Advance Your Career?</h2>
+          <div className="bg-gold-50 rounded-lg p-8 text-center mt-16">
+            <h2 className="text-2xl font-serif text-gold-700 mb-4">Ready to Advance Your Career?</h2>
             <p className="text-gray-600 mb-6">
               Experience the difference with our premium training courses.
             </p>

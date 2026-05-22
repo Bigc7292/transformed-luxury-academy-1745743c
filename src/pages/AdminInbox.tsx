@@ -148,7 +148,7 @@ const ChatHistorySection: React.FC = () => {
                         </div>
                       )}
                       {msg.bot_response && (
-                        <div className="bg-salon-pink-100 p-3 rounded-lg">
+                        <div className="bg-gold-100 p-3 rounded-lg">
                           <div className="text-xs font-medium mb-1">Bot:</div>
                           <div>{msg.bot_response}</div>
                         </div>

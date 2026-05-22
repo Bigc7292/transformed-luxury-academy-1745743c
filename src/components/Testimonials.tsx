@@ -45,16 +45,16 @@ const Testimonials = () => {
     <section className="py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center mb-12">
-          <span className="text-salon-pink-400 font-medium">Testimonials</span>
-          <h2 className="text-3xl md:text-4xl font-serif text-salon-pink-800 mt-2">What Our Clients Say</h2>
+          <span className="text-gold-400 font-medium">Testimonials</span>
+          <h2 className="text-3xl md:text-4xl font-serif text-gold-800 mt-2">What Our Clients Say</h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
             Hear from our satisfied clients about their experiences and transformative results at our salon.
           </p>
         </div>
 
         <div className="relative max-w-4xl mx-auto min-h-[500px]">
-          <div className="absolute top-1/4 -left-8 w-40 h-40 bg-salon-pink-100 rounded-full blur-3xl opacity-30"></div>
-          <div className="absolute bottom-1/3 -right-8 w-40 h-40 bg-salon-beige-100 rounded-full blur-3xl opacity-30"></div>
+          <div className="absolute top-1/4 -left-8 w-40 h-40 bg-gold-100 rounded-full blur-3xl opacity-30"></div>
+          <div className="absolute bottom-1/3 -right-8 w-40 h-40 bg-zinc-100 rounded-full blur-3xl opacity-30"></div>
 
           <div className="relative min-h-[400px]">
             {testimonials.map((testimonial, index) => (
@@ -70,7 +70,7 @@ const Testimonials = () => {
                 className="absolute inset-0 flex flex-col items-center justify-center min-h-[400px]"
                 style={{ display: index === activeIndex ? 'flex' : 'none' }}
               >
-                <div className="mb-8 w-20 h-20 rounded-full overflow-hidden border-4 border-salon-pink-100">
+                <div className="mb-8 w-20 h-20 rounded-full overflow-hidden border-4 border-gold-100">
                   <img
                     src={testimonial.image}
                     alt={testimonial.name}
@@ -93,7 +93,7 @@ const Testimonials = () => {
                 </blockquote>
 
                 <div className="text-center">
-                  <p className="text-lg font-medium text-salon-pink-700">{testimonial.name}</p>
+                  <p className="text-lg font-medium text-gold-700">{testimonial.name}</p>
                   <p className="text-sm text-gray-500">{testimonial.role}</p>
                 </div>
               </motion.div>
@@ -103,7 +103,7 @@ const Testimonials = () => {
           <div className="flex justify-center mt-24 space-x-4">
             <button
               onClick={prevTestimonial}
-              className="w-12 h-12 rounded-full bg-salon-pink-100 hover:bg-salon-pink-200 flex items-center justify-center transition-colors"
+              className="w-12 h-12 rounded-full bg-gold-100 hover:bg-gold-200 flex items-center justify-center transition-colors"
               aria-label="Previous testimonial"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -116,7 +116,7 @@ const Testimonials = () => {
                 <button
                   key={index}
                   onClick={() => setActiveIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-colors ${index === activeIndex ? 'bg-salon-pink-500' : 'bg-salon-pink-200'}`}
+                  className={`w-3 h-3 rounded-full transition-colors ${index === activeIndex ? 'bg-gold-500' : 'bg-gold-200'}`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 ></button>
               ))}
@@ -124,7 +124,7 @@ const Testimonials = () => {
 
             <button
               onClick={nextTestimonial}
-              className="w-12 h-12 rounded-full bg-salon-pink-100 hover:bg-salon-pink-200 flex items-center justify-center transition-colors"
+              className="w-12 h-12 rounded-full bg-gold-100 hover:bg-gold-200 flex items-center justify-center transition-colors"
               aria-label="Next testimonial"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

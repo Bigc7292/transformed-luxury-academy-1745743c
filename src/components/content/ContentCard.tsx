@@ -72,7 +72,7 @@ const ContentCard: React.FC<ContentCardProps> = ({ item }) => {
             <Dialog>
               <DialogTrigger asChild>
                 <button className="p-2 bg-white/70 rounded-full">
-                  <Maximize2 className="h-5 w-5 text-salon-pink-600" />
+                  <Maximize2 className="h-5 w-5 text-gold-600" />
                 </button>
               </DialogTrigger>
               <DialogContent className="max-w-4xl flex items-center justify-center p-2 bg-black/80">
@@ -82,11 +82,11 @@ const ContentCard: React.FC<ContentCardProps> = ({ item }) => {
           </div>
           <button 
             className={`absolute top-2 right-2 p-2 rounded-full transition-all ${
-              liked ? 'bg-salon-pink-100 text-salon-pink-600' : 'bg-white/50 text-gray-600 opacity-0 group-hover:opacity-100'
+              liked ? 'bg-gold-100 text-gold-600' : 'bg-white/50 text-gray-600 opacity-0 group-hover:opacity-100'
             }`}
             onClick={handleLike}
           >
-            <Heart className={`h-4 w-4 ${liked ? 'fill-salon-pink-600' : ''}`} />
+            <Heart className={`h-4 w-4 ${liked ? 'fill-gold-600' : ''}`} />
           </button>
         </div>
         <CardContent className="p-4">
@@ -97,7 +97,7 @@ const ContentCard: React.FC<ContentCardProps> = ({ item }) => {
             </p>
           )}
           <div className="flex items-center mt-2">
-            <span className="text-xs px-2 py-1 bg-salon-pink-100 text-salon-pink-800 rounded-full">
+            <span className="text-xs px-2 py-1 bg-gold-100 text-gold-800 rounded-full">
               {item.category}
             </span>
           </div>

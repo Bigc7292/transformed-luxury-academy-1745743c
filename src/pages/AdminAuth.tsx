@@ -141,7 +141,7 @@ const AdminAuth = () => {
       <div className="container mx-auto pt-32 pb-20 px-4 flex justify-center admin-container">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle className="text-2xl font-serif text-salon-pink-700 text-center">
+            <CardTitle className="text-2xl font-serif text-gold-700 text-center">
               Admin Access
             </CardTitle>
             <CardDescription className="text-center">
@@ -153,16 +153,14 @@ const AdminAuth = () => {
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <User className="h-4 w-4 text-gray-400" />
-                  </div>
+                  
                   <Input
                     id="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    placeholder="admin@example.com"
+                    placeholder=""
                     className="pl-10 placeholder-gray-500 text-black"
                     autoFocus
                   />
@@ -172,16 +170,14 @@ const AdminAuth = () => {
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <Lock className="h-4 w-4 text-gray-400" />
-                  </div>
+                  
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="pl-10 pr-10 placeholder-gray-500 text-black"
-                    placeholder="Enter your password"
+                    placeholder=""
                   />
                   <div
                     className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
@@ -198,7 +194,7 @@ const AdminAuth = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-salon-pink-600 hover:bg-salon-pink-700"
+                className="w-full bg-gold-600 hover:bg-gold-700"
                 disabled={loading}
               >
                 {loading ? "Signing in..." : "Sign In"}
@@ -208,7 +204,7 @@ const AdminAuth = () => {
                 <Button
                   type="button"
                   variant="link"
-                  className="text-sm text-salon-pink-600"
+                  className="text-sm text-gold-600"
                   onClick={() => setIsResetModalOpen(true)}
                 >
                   Forgot your password?

@@ -40,7 +40,7 @@ const MediaShowcase = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <h1 className="text-4xl md:text-5xl font-serif text-salon-pink-700 mb-4">
+            <h1 className="text-4xl md:text-5xl font-serif text-gold-700 mb-4">
               Media Showcase
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -62,7 +62,7 @@ const MediaShowcase = () => {
           
           {/* Category Tabs and Gallery */}
           <section className="mb-16">
-            <h2 className="text-3xl font-serif text-salon-pink-700 mb-8 text-center">
+            <h2 className="text-3xl font-serif text-gold-700 mb-8 text-center">
               Browse Our Media Collection
             </h2>
             

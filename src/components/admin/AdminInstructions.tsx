@@ -14,7 +14,7 @@ const AdminInstructions = () => {
         <CollapsibleTrigger className="w-full">
           <CardHeader className="flex flex-row items-center justify-between cursor-pointer">
             <div className="flex items-center gap-2">
-              <HelpCircle className="h-5 w-5 text-salon-pink-500" />
+              <HelpCircle className="h-5 w-5 text-gold-500" />
               <div>
                 <CardTitle>Admin Instructions</CardTitle>
                 <CardDescription>
@@ -61,7 +61,7 @@ const AdminInstructions = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                       <Card className="p-4 border border-gray-200">
                         <div className="flex items-center gap-2 mb-2">
-                          <FileText className="h-5 w-5 text-salon-pink-500" />
+                          <FileText className="h-5 w-5 text-gold-500" />
                           <h4 className="font-medium">General Content</h4>
                         </div>
                         <p className="text-sm text-gray-600">
@@ -71,7 +71,7 @@ const AdminInstructions = () => {
 
                       <Card className="p-4 border border-gray-200">
                         <div className="flex items-center gap-2 mb-2">
-                          <Image className="h-5 w-5 text-salon-pink-500" />
+                          <Image className="h-5 w-5 text-gold-500" />
                           <h4 className="font-medium">Media Showcase</h4>
                         </div>
                         <p className="text-sm text-gray-600">
@@ -81,7 +81,7 @@ const AdminInstructions = () => {
 
                       <Card className="p-4 border border-gray-200">
                         <div className="flex items-center gap-2 mb-2">
-                          <Inbox className="h-5 w-5 text-salon-pink-500" />
+                          <Inbox className="h-5 w-5 text-gold-500" />
                           <h4 className="font-medium">Customer Inquiries</h4>
                         </div>
                         <p className="text-sm text-gray-600">

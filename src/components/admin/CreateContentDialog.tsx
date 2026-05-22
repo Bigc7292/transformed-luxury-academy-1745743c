@@ -73,7 +73,7 @@ const CreateContentDialog: React.FC<CreateContentDialogProps> = ({
           </Button>
           <Button 
             onClick={handleCreate} 
-            className="bg-salon-pink-600 hover:bg-salon-pink-700"
+            className="bg-gold-600 hover:bg-gold-700"
             disabled={isCreating}
           >
             {isCreating ? (
