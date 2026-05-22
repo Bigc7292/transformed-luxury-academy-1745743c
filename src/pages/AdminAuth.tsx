@@ -162,8 +162,8 @@ const AdminAuth = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    placeholder="admin@example.com"
-                    className="pl-10"
+                    placeholder="ADMIN@EXAMPLE.COM"
+                    className="pl-10 placeholder-gray-900"
                     autoFocus
                   />
                 </div>
@@ -180,8 +180,8 @@ const AdminAuth = () => {
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10"
-                    placeholder="Enter your password"
+                    className="pl-10 pr-10 placeholder-gray-900"
+                    placeholder="ENTER YOUR PASSWORD"
                   />
                   <div
                     className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
@@ -217,14 +217,7 @@ const AdminAuth = () => {
             </form>
           </CardContent>
 
-          <div className="text-xs bg-gray-100 p-4 mx-6 mb-6 rounded-md">
-            <p className="font-medium text-gray-700">Authorized emails:</p>
-            <ul className="mt-1 list-disc pl-5">
-              {AUTHORIZED_ADMIN_EMAILS.map((email, index) => (
-                <li key={index}>{email}</li>
-              ))}
-            </ul>
-          </div>
+
         </Card>
       </div>
 
