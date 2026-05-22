@@ -153,9 +153,6 @@ const AdminAuth = () => {
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-gold-400">Email Address</Label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="h-5 w-5 text-gold-500/50" />
-                  </div>
                   <Input
                     id="email"
                     type="email"
@@ -163,7 +160,7 @@ const AdminAuth = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     placeholder="admin@transformedacademy.com"
-                    className="pl-10 bg-zinc-900 border-gold-500/20 text-zinc-200 placeholder-zinc-500 focus:ring-gold-500"
+                    className="bg-zinc-900 border-gold-500/20 text-zinc-200 placeholder-zinc-500 focus:ring-gold-500"
                     autoFocus
                   />
                 </div>
@@ -172,15 +169,12 @@ const AdminAuth = () => {
               <div className="space-y-2">
                 <Label htmlFor="password" className="text-gold-400">Password</Label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-gold-500/50" />
-                  </div>
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10 bg-zinc-900 border-gold-500/20 text-zinc-200 placeholder-zinc-500 focus:ring-gold-500"
+                    className="pr-10 bg-zinc-900 border-gold-500/20 text-zinc-200 placeholder-zinc-500 focus:ring-gold-500"
                     placeholder="••••••••"
                   />
                   <div
