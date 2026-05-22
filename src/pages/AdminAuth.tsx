@@ -136,48 +136,52 @@ const AdminAuth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white admin-page">
+    <div className="min-h-screen bg-black admin-page flex flex-col">
       <Navbar />
-      <div className="container mx-auto pt-32 pb-20 px-4 flex justify-center admin-container">
-        <Card className="w-full max-w-md">
+      <div className="flex-1 flex items-center justify-center pt-32 pb-20 px-4">
+        <Card className="w-full max-w-md bg-black border-gold-500/20 shadow-2xl">
           <CardHeader>
-            <CardTitle className="text-2xl font-serif text-gold-700 text-center">
+            <CardTitle className="text-2xl font-serif text-gold-500 text-center">
               Admin Access
             </CardTitle>
-            <CardDescription className="text-center">
+            <CardDescription className="text-center text-zinc-400">
               Enter your credentials to access the admin panel
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email" className="text-gold-400">Email Address</Label>
                 <div className="relative">
-                  
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <User className="h-5 w-5 text-gold-500/50" />
+                  </div>
                   <Input
                     id="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    placeholder=""
-                    className="pl-10 placeholder-gray-500 text-black"
+                    placeholder="admin@transformedacademy.com"
+                    className="pl-10 bg-zinc-900 border-gold-500/20 text-zinc-200 placeholder-zinc-500 focus:ring-gold-500"
                     autoFocus
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-gold-400">Password</Label>
                 <div className="relative">
-                  
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-gold-500/50" />
+                  </div>
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10 placeholder-gray-500 text-black"
-                    placeholder=""
+                    className="pl-10 pr-10 bg-zinc-900 border-gold-500/20 text-zinc-200 placeholder-zinc-500 focus:ring-gold-500"
+                    placeholder="••••••••"
                   />
                   <div
                     className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
@@ -194,7 +198,7 @@ const AdminAuth = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-gold-600 hover:bg-gold-700"
+                className="w-full bg-gold-500 text-black hover:bg-gold-400 font-semibold"
                 disabled={loading}
               >
                 {loading ? "Signing in..." : "Sign In"}
@@ -204,7 +208,7 @@ const AdminAuth = () => {
                 <Button
                   type="button"
                   variant="link"
-                  className="text-sm text-gold-600"
+                  className="text-sm text-gold-500 hover:text-gold-400"
                   onClick={() => setIsResetModalOpen(true)}
                 >
                   Forgot your password?
@@ -218,31 +222,32 @@ const AdminAuth = () => {
       </div>
 
       <Dialog open={isResetModalOpen} onOpenChange={setIsResetModalOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md bg-black border-gold-500/20 text-zinc-200">
           <DialogHeader>
-            <DialogTitle>Reset Password</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-gold-500">Reset Password</DialogTitle>
+            <DialogDescription className="text-zinc-400">
               Enter your email to receive a password reset link.
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleResetPassword} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="reset-email">Email Address</Label>
+              <Label htmlFor="reset-email" className="text-gold-400">Email Address</Label>
               <Input
                 id="reset-email"
                 type="email"
                 value={resetEmail}
                 onChange={(e) => setResetEmail(e.target.value)}
                 required
-                placeholder="admin@example.com"
+                placeholder="admin@transformedacademy.com"
+                className="bg-zinc-900 border-gold-500/20 text-zinc-200 placeholder-zinc-500 focus:ring-gold-500"
                 autoFocus
               />
             </div>
             <div className="flex justify-end space-x-2">
-              <Button type="button" variant="outline" onClick={() => setIsResetModalOpen(false)}>
+              <Button type="button" variant="outline" className="border-gold-500/20 text-gold-500 hover:bg-gold-500/10" onClick={() => setIsResetModalOpen(false)}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={resetLoading}>
+              <Button type="submit" className="bg-gold-500 text-black hover:bg-gold-400 font-semibold" disabled={resetLoading}>
                 {resetLoading ? "Sending..." : "Send Reset Link"}
               </Button>
             </div>
