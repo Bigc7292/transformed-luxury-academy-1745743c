@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Index from './pages/Index';
 import AboutCeo from './pages/AboutCeo';
@@ -38,10 +38,7 @@ function App() {
       <Route path="/staff" element={<Staff />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms-of-service" element={<TermsOfService />} />
-      <Route path="/admin/auth" element={<AdminAuth />} />
-      <Route path="/admin/content" element={<AdminContentPage />} />
-      <Route path="/admin/inbox" element={<AdminInbox />} />
-      <Route path="/admin/media" element={<AdminMediaPage />} />
+
       <Route path="/content/:id" element={<ContentPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
