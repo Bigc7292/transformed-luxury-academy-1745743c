@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
@@ -38,6 +37,7 @@ function App() {
           <Route path="/staff" element={<Staff />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/admin" element={<Navigate to="/admin/auth" replace />} />
           <Route path="/admin/auth" element={<AdminAuth />} />
           <Route path="/admin/content" element={<AdminContentPage />} />
           <Route path="/admin/inbox" element={<AdminInbox />} />
