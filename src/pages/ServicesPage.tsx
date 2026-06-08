@@ -107,7 +107,7 @@ const ServicesPage = () => {
               {/* Category Header */}
               <div className="relative h-64 md:h-80 bg-gold-100 overflow-hidden">
                 <img
-                  src={activeCategoryData.image || "/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png"}
+                  src={activeCategoryData.image || "/logo.jpg"}
                   alt={activeCategoryData.name}
                   className="w-full h-full object-cover"
                 />
@@ -144,7 +144,7 @@ const ServicesPage = () => {
                           />
                         ) : (
                           <img
-                            src={service.image || "/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png"}
+                            src={service.image || "/logo.jpg"}
                             alt={service.title}
                             className="w-full h-full object-cover transition-transform hover:scale-105"
                           />

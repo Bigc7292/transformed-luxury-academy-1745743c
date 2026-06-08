@@ -21,7 +21,7 @@ const SeoHead: React.FC<SeoHeadProps> = ({
   keywords = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments, Level 5 Educator, beauty salon, Hereford",
   ogTitle = "Transformed Academy & Salon | Premium Advanced Aesthetics",
   ogDescription = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments And Fully Qualified Level 5 Educator at Transformed Academy and Salon.",
-  ogImage = "https://transformedacademyhq.co.uk/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png",
+  ogImage = "https://transformedacademyhq.co.uk/logo.jpg",
   schema,
 }) => {
   return (

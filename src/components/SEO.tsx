@@ -17,7 +17,7 @@ const SEO: React.FC<SEOProps> = ({
   description,
   keywords,
   canonicalUrl,
-  ogImage = 'https://transformedacademyhq.co.uk/lovable-uploads/6075830a-bd81-4f72-b6e1-dd8d15ae7518.png',
+  ogImage = 'https://transformedacademyhq.co.uk/logo.jpg',
   ogType = 'website',
   twitterCard = 'summary_large_image',
   schema,
