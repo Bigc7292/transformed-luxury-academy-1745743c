@@ -56,9 +56,9 @@ const Services = () => {
                 <div className="relative overflow-hidden rounded-t-lg h-56 sm:h-64 md:h-72">
                   {index === 0 ? (
                     <img
-                      src="/luxury_lip_filler.png"
+                      src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/lip_fillers_image.jpg"
                       alt="Lip Fillers Service"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 gold-tint-filter"
                       loading="eager"
                       width="400"
                       height="300"
@@ -68,7 +68,7 @@ const Services = () => {
                       <img
                         src={service.image}
                         alt={service.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 gold-tint-filter"
                         loading="lazy"
                         width="400"
                         height="300"

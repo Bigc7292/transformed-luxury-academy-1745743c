@@ -79,7 +79,7 @@ export const serviceCategories: ServiceCategory[] = [
         id: 'lip-filler',
         title: 'Advanced Lip Filler',
         description: 'Expert lip enhancement for the perfect pout',
-        image: '/luxury_lip_filler.png',
+        image: 'https://services-menu-chosen-by-nikki.s3.eu-north-1.amazonaws.com/advanced_lips+(2).jpeg',
       },
       {
         id: 'facial-profiling',
@@ -142,13 +142,13 @@ export const serviceCategories: ServiceCategory[] = [
     id: 'non-surgical',
     name: 'Non-Surgical',
     description: 'Effective treatments with no downtime',
-    image: '/luxury_facial_sculpting.png',
+    image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-20+at+10.38.38.jpeg',
     services: [
       {
         id: 'facial-sculpting',
         title: 'Facial Sculpting',
         description: 'Non-surgical facial contouring and definition',
-        image: '/luxury_facial_sculpting.png',
+        image: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-20+at+10.38.38.jpeg',
       },
       {
         id: 'body-sculpting',

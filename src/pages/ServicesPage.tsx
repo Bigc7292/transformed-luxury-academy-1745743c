@@ -109,7 +109,7 @@ const ServicesPage = () => {
                 <img
                   src={activeCategoryData.image || "/logo.jpg"}
                   alt={activeCategoryData.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover gold-tint-filter"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
                   <div className="p-6 md:p-8 w-full">
@@ -146,7 +146,7 @@ const ServicesPage = () => {
                           <img
                             src={service.image || "/logo.jpg"}
                             alt={service.title}
-                            className="w-full h-full object-cover transition-transform hover:scale-105"
+                            className="w-full h-full object-cover transition-transform hover:scale-105 gold-tint-filter"
                           />
                         )}
                       </div>
