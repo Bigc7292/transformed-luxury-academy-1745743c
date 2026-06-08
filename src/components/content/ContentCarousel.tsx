@@ -72,7 +72,7 @@ const ContentCarousel: React.FC<ContentCarouselProps> = ({
     return (
       <div className="relative h-96 w-full overflow-hidden rounded-lg">
         <img 
-          src="public/lovable-uploads/decb2b79-3774-449a-b7b7-479a89096676.png" 
+          src="/lovable-uploads/decb2b79-3774-449a-b7b7-479a89096676.png" 
           alt="Treatment Image" 
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
         />
