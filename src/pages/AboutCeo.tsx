@@ -18,7 +18,7 @@ import {
 
 const AboutCeo = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-pink-50 to-white">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-gold-50/30 to-white">
       <Navbar />
       <GlitterHearts />
       

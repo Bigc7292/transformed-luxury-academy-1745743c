@@ -41,10 +41,7 @@ const Hero = () => {
 
   return (
     <div className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-gold-50 to-white">
-      <div className="absolute inset-0">
-        {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
-<div className="absolute inset-0 bg-[url('/lovable-uploads/9a85e5ad-72e9-470b-bf98-bcd2ebda3d43.png')] bg-center bg-cover opacity-10"></div>
-      </div>
+
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 pt-20 pb-10">
         <div className="flex flex-col lg:flex-row items-center gap-8">

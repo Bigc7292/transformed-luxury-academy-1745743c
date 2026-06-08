@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Portable Node.js runtime
+node-v20.12.2-win-x64/

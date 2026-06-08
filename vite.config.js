@@ -20,6 +20,8 @@ export default defineConfig({
   },
   server: {
     historyApiFallback: true, // Ensure React Router works correctly
-
+    watch: {
+      ignored: ["**/node-v20.12.2-win-x64/**"],
+    },
   },
 });

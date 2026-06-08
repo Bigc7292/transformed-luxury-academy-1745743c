@@ -55,7 +55,7 @@ const Partnership = () => {
             >
               <h1 className="text-3xl md:text-4xl font-serif font-medium text-gold-800 mb-6">Partnership with Dr. Martin</h1>
               
-              <div className="prose prose-pink max-w-none">
+              <div className="prose prose-gold max-w-none">
                 <p className="mb-4 text-lg leading-relaxed">
                   Qualified in Dental surgery 1993, Had a part time hospital post University Hospital Coventry from 1995 to 2007. My field was head and neck trauma and Maxillofacial Surgery. I have taught undergraduate final year Dental Students at Birmingham Dental School. I left in 2012 to continue my work as general dental practitioner as a partner in Warwick.
                 </p>

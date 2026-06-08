@@ -8,6 +8,9 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    watch: {
+      ignored: ["**/node-v20.12.2-win-x64/**"],
+    },
   },
   plugins: [
     react(),
