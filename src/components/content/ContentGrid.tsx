@@ -62,17 +62,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
   }
 
   if (error || !displayContent?.length) {
-    return (
-      <div className="container mx-auto px-4 py-10">
-        <div className="relative h-96 w-full overflow-hidden rounded-lg">
-          <img 
-            src="/lovable-uploads/decb2b79-3774-449a-b7b7-479a89096676.png" 
-            alt="Treatment Image" 
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (

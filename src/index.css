@@ -125,7 +125,12 @@
   }
 
   .gold-tint-filter {
-    filter: sepia(1) saturate(1.4) hue-rotate(15deg) brightness(0.9) contrast(1.1);
+    filter: grayscale(100%) contrast(115%) brightness(95%);
+    transition: filter 0.5s ease;
+  }
+
+  .gold-tint-filter:hover {
+    filter: grayscale(80%) contrast(115%) brightness(100%);
   }
 }
 
