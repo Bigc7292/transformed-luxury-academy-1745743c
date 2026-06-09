@@ -107,7 +107,7 @@ const ServicesPage = () => {
               {/* Category Header */}
               <div className="relative h-64 md:h-80 bg-gold-100 overflow-hidden">
                 <img
-                  src={activeCategoryData.image || "/logo.jpg"}
+                  src={activeCategoryData.image || "/logo-hq.jpg"}
                   alt={activeCategoryData.name}
                   className="w-full h-full object-cover gold-tint-filter"
                   loading="lazy"
@@ -145,7 +145,7 @@ const ServicesPage = () => {
                           />
                         ) : (
                           <img
-                            src={service.image || "/logo.jpg"}
+                            src={service.image || "/logo-hq.jpg"}
                             alt={service.title}
                             className="w-full h-full object-cover transition-transform hover:scale-105 gold-tint-filter"
                             loading="lazy"
