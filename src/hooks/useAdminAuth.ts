@@ -4,6 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
+const AUTHORIZED_ADMIN_EMAILS = [
+  "drivendatadynamics@gmail.com",
+  "admin@test.com",
+  "transformedacademyandsalon@gmail.com",
+  "transformedacademyhq@gmail.com"
+];
+
 export const useAdminAuth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -25,7 +32,38 @@ export const useAdminAuth = () => {
           return;
         }
         
-        // Query admin_users table with a simpler approach
+        const email = session.user.email;
+        if (email && AUTHORIZED_ADMIN_EMAILS.includes(email)) {
+          // Check if admin record exists
+          const { data: adminRecords, error: adminQueryError } = await supabase
+            .from("admin_users")
+            .select("*")
+            .eq("email", email);
+            
+          if (!adminQueryError) {
+            if (!adminRecords || adminRecords.length === 0) {
+              // Automatically insert the admin record
+              await supabase
+                .from("admin_users")
+                .insert({
+                  email: email,
+                  role: "admin",
+                  user_id: session.user.id
+                });
+            } else {
+              // If record exists but user_id is missing or doesn't match, update it
+              const record = adminRecords[0];
+              if (record.user_id !== session.user.id) {
+                await supabase
+                  .from("admin_users")
+                  .update({ user_id: session.user.id })
+                  .eq("email", email);
+              }
+            }
+          }
+        }
+
+        // Query admin_users table to verify permission
         const { data, error } = await supabase
           .from("admin_users")
           .select("id")

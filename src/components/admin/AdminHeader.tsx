@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { LogOut, Inbox, Image, FileText, KeyRound } from "lucide-react";
@@ -27,6 +27,30 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ title, handleLogout }) => {
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isForcedReset, setIsForcedReset] = useState(false);
+
+  useEffect(() => {
+    const checkNeedsPasswordChange = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user && user.email === "transformedacademyhq@gmail.com") {
+          const needsChange = user.user_metadata?.needs_password_change !== false;
+          if (needsChange) {
+            setIsForcedReset(true);
+            setIsPasswordModalOpen(true);
+            toast({
+              title: "Password Change Required",
+              description: "Please set a new permanent password to access the admin panel.",
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Error checking password change status:", error);
+      }
+    };
+
+    checkNeedsPasswordChange();
+  }, [toast]);
 
   const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +66,8 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ title, handleLogout }) => {
     setIsUpdating(true);
     try {
       const { error } = await supabase.auth.updateUser({
-        password: newPassword
+        password: newPassword,
+        data: { needs_password_change: false }
       });
 
       if (error) throw error;
@@ -51,6 +76,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ title, handleLogout }) => {
         title: "Password updated!",
         description: "Your permanent password has been successfully set.",
       });
+      setIsForcedReset(false);
       setIsPasswordModalOpen(false);
       setNewPassword("");
     } catch (error: any) {
@@ -117,8 +143,8 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ title, handleLogout }) => {
         </Button>
       </div>
 
-      <Dialog open={isPasswordModalOpen} onOpenChange={setIsPasswordModalOpen}>
-        <DialogContent className="sm:max-w-md bg-black border-gold-500/20 text-zinc-200">
+      <Dialog open={isPasswordModalOpen} onOpenChange={isForcedReset ? () => {} : setIsPasswordModalOpen}>
+        <DialogContent className={`sm:max-w-md bg-black border-gold-500/20 text-zinc-200 ${isForcedReset ? '[&>button]:hidden' : ''}`}>
           <DialogHeader>
             <DialogTitle className="text-gold-500 font-serif text-2xl">Set Permanent Password</DialogTitle>
           </DialogHeader>
@@ -137,9 +163,11 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ title, handleLogout }) => {
               />
             </div>
             <div className="flex justify-end space-x-2">
-              <Button type="button" variant="outline" className="border-gold-500/20 text-gold-500 hover:bg-gold-500/10" onClick={() => setIsPasswordModalOpen(false)}>
-                Cancel
-              </Button>
+              {!isForcedReset && (
+                <Button type="button" variant="outline" className="border-gold-500/20 text-gold-500 hover:bg-gold-500/10" onClick={() => setIsPasswordModalOpen(false)}>
+                  Cancel
+                </Button>
+              )}
               <Button type="submit" className="bg-gold-500 text-black hover:bg-gold-400 font-semibold" disabled={isUpdating}>
                 {isUpdating ? "Saving..." : "Save Password"}
               </Button>
