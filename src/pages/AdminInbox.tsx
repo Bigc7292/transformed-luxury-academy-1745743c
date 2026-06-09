@@ -48,10 +48,10 @@ import AdminHeader from "@/components/admin/AdminHeader";
 import AdminInstructions from "@/components/admin/AdminInstructions";
 
 const statusColors = {
-  new: "bg-blue-500",
-  inprogress: "bg-yellow-500",
-  completed: "bg-green-500",
-  cancelled: "bg-red-500"
+  new: "bg-blue-950/40 text-blue-400 border border-blue-500/20",
+  inprogress: "bg-yellow-950/40 text-yellow-400 border border-yellow-500/20",
+  completed: "bg-green-950/40 text-green-400 border border-green-500/20",
+  cancelled: "bg-red-950/40 text-red-400 border border-red-500/20"
 };
 
 // Chat History Section Component
@@ -92,26 +92,26 @@ const ChatHistorySection: React.FC = () => {
         </div>
       ) : chatSessions.length === 0 ? (
         <div className="text-center py-8">
-          <p className="text-gray-500">No chat sessions found.</p>
+          <p className="text-zinc-500">No chat sessions found.</p>
         </div>
       ) : (
         <div>
           <div className="mb-6">
-            <h3 className="text-lg font-medium mb-2">Select a Chat Session</h3>
+            <h3 className="text-lg font-medium mb-2 text-zinc-100 font-serif">Select a Chat Session</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {chatSessions.map((session) => (
                 <Button
                   key={session.session_id}
                   variant={selectedSession === session.session_id ? "default" : "outline"}
-                  className="justify-start overflow-hidden"
+                  className={`justify-start overflow-hidden ${selectedSession === session.session_id ? 'bg-gold-500 hover:bg-gold-400 text-black font-semibold' : 'border-zinc-800 text-zinc-400 hover:bg-gold-500/10 hover:text-gold-400'}`}
                   onClick={() => {
                     setSelectedSession(session.session_id);
                     fetchChatHistory(session.session_id);
                   }}
                 >
-                  <div className="truncate">
+                  <div className="truncate text-left">
                     <span className="font-medium">Session:</span> {session.session_id.substring(0, 8)}...
-                    <div className="text-xs">{formatChatDate(session.created_at)}</div>
+                    <div className="text-xs text-zinc-500">{formatChatDate(session.created_at)}</div>
                   </div>
                 </Button>
               ))}
@@ -119,13 +119,14 @@ const ChatHistorySection: React.FC = () => {
           </div>
 
           {selectedSession && (
-            <div className="border rounded-lg p-4">
+            <div className="border border-zinc-800 rounded-lg p-4 bg-zinc-950/40">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-medium">Chat Conversation</h3>
+                <h3 className="text-lg font-medium text-zinc-100 font-serif">Chat Conversation</h3>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setSelectedSession(null)}
+                  className="border-zinc-800 text-zinc-400 hover:bg-zinc-900/50 hover:text-zinc-200"
                 >
                   Close
                 </Button>
@@ -133,23 +134,23 @@ const ChatHistorySection: React.FC = () => {
 
               {chatMessages.length === 0 ? (
                 <div className="text-center py-4">
-                  <p className="text-gray-500">No messages found for this session.</p>
+                  <p className="text-zinc-500">No messages found for this session.</p>
                 </div>
               ) : (
                 <div className="space-y-4 max-h-[400px] overflow-y-auto p-2">
                   {chatMessages.map((msg, index) => (
                     // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-<div key={index} className="border-b pb-3">
-                      <div className="text-xs text-gray-500 mb-1">{formatChatDate(msg.created_at)}</div>
+                    <div key={index} className="border-b border-zinc-800/50 pb-3">
+                      <div className="text-xs text-zinc-500 mb-1">{formatChatDate(msg.created_at)}</div>
                       {msg.user_message && (
-                        <div className="bg-gray-100 p-3 rounded-lg mb-2">
-                          <div className="text-xs font-medium mb-1">User:</div>
+                        <div className="bg-zinc-800/80 p-3 rounded-lg mb-2 text-zinc-200 border border-zinc-700/30">
+                          <div className="text-xs font-medium mb-1 text-zinc-400">User:</div>
                           <div>{msg.user_message}</div>
                         </div>
                       )}
                       {msg.bot_response && (
-                        <div className="bg-gold-100 p-3 rounded-lg">
-                          <div className="text-xs font-medium mb-1">Bot:</div>
+                        <div className="bg-gold-950/25 p-3 rounded-lg border border-gold-500/20 text-gold-300">
+                          <div className="text-xs font-medium mb-1 text-gold-500">Bot:</div>
                           <div>{msg.bot_response}</div>
                         </div>
                       )}
@@ -320,7 +321,7 @@ const AdminInbox: React.FC = () => {
               }
             }}
             variant="outline"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 border-zinc-800 text-zinc-400 hover:bg-gold-500/10 hover:text-gold-400"
           >
             <RefreshCw size={16} className={isLoading ? "animate-spin" : ""} />
             Refresh Inquiries
@@ -329,12 +330,12 @@ const AdminInbox: React.FC = () => {
 
         {/* No inquiries fallback */}
         {!isLoading && inquiries.length === 0 && (
-          <Card className="mb-6">
+          <Card className="mb-6 border-gold-500/10 bg-zinc-950/20">
             <CardContent className="pt-6">
               <div className="text-center py-6">
-                <AlertCircle className="h-12 w-12 text-yellow-500 mx-auto mb-4" />
-                <h3 className="text-lg font-medium mb-2">No Customer Inquiries Found</h3>
-                <p className="text-gray-500 mb-6">There are no customer inquiries in the database yet.</p>
+                <AlertCircle className="h-12 w-12 text-yellow-500/80 mx-auto mb-4" />
+                <h3 className="text-lg font-medium mb-2 text-zinc-200 font-serif">No Customer Inquiries Found</h3>
+                <p className="text-zinc-400 mb-6">There are no customer inquiries in the database yet.</p>
                 <Button
                   onClick={async () => {
                     // Create a test inquiry
@@ -375,7 +376,7 @@ const AdminInbox: React.FC = () => {
                     }
                   }}
                   variant="outline"
-                  className="mx-auto"
+                  className="mx-auto border-zinc-800 text-zinc-400 hover:bg-zinc-900/50 hover:text-zinc-200"
                 >
                   Create Test Inquiry
                 </Button>
@@ -385,33 +386,33 @@ const AdminInbox: React.FC = () => {
         )}
 
         <Tabs defaultValue="new" className="w-full">
-          <TabsList className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-0 w-full">
-            <TabsTrigger value="new" className="flex items-center gap-2">
-              <Mail size={16} /> New <Badge className="ml-1 bg-blue-500">{newInquiries.length}</Badge>
+          <TabsList className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-0 w-full bg-zinc-900/50 border border-zinc-800 p-1">
+            <TabsTrigger value="new" className="flex items-center gap-2 data-[state=active]:bg-gold-500 data-[state=active]:text-black text-zinc-400">
+              <Mail size={16} /> New <Badge className="ml-1 bg-blue-950 text-blue-400 border border-blue-500/20 hover:bg-blue-950">{newInquiries.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="inprogress" className="flex items-center gap-2">
-              <Clock size={16} /> In Progress <Badge className="ml-1 bg-yellow-500">{inProgressInquiries.length}</Badge>
+            <TabsTrigger value="inprogress" className="flex items-center gap-2 data-[state=active]:bg-gold-500 data-[state=active]:text-black text-zinc-400">
+              <Clock size={16} /> In Progress <Badge className="ml-1 bg-yellow-950 text-yellow-400 border border-yellow-500/20 hover:bg-yellow-950">{inProgressInquiries.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="completed" className="flex items-center gap-2">
-              <CheckCircle size={16} /> Completed <Badge className="ml-1 bg-green-500">{completedInquiries.length}</Badge>
+            <TabsTrigger value="completed" className="flex items-center gap-2 data-[state=active]:bg-gold-500 data-[state=active]:text-black text-zinc-400">
+              <CheckCircle size={16} /> Completed <Badge className="ml-1 bg-green-950 text-green-400 border border-green-500/20 hover:bg-green-950">{completedInquiries.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="cancelled" className="flex items-center gap-2">
-              <XCircle size={16} /> Cancelled <Badge className="ml-1 bg-red-500">{cancelledInquiries.length}</Badge>
+            <TabsTrigger value="cancelled" className="flex items-center gap-2 data-[state=active]:bg-gold-500 data-[state=active]:text-black text-zinc-400">
+              <XCircle size={16} /> Cancelled <Badge className="ml-1 bg-red-950 text-red-400 border border-red-500/20 hover:bg-red-950">{cancelledInquiries.length}</Badge>
             </TabsTrigger>
           </TabsList>
 
           {["new", "inprogress", "completed", "cancelled"].map((status) => (
             <TabsContent key={status} value={status}>
-              <Card>
+              <Card className="border-gold-500/10 bg-zinc-950/20">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-zinc-100 font-serif">
                     {status === "new" && <Mail className="h-5 w-5" />}
                     {status === "inprogress" && <Clock className="h-5 w-5" />}
                     {status === "completed" && <CheckCircle className="h-5 w-5" />}
                     {status === "cancelled" && <XCircle className="h-5 w-5" />}
                     {status.charAt(0).toUpperCase() + status.slice(1)} Inquiries
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-zinc-400">
                     {status === "new" && "Recently received customer inquiries that need attention."}
                     {status === "inprogress" && "Inquiries currently being handled by the team."}
                     {status === "completed" && "Successfully resolved customer inquiries."}
@@ -483,14 +484,15 @@ const AdminInbox: React.FC = () => {
                                           variant="outline"
                                           size="sm"
                                           onClick={() => setSelectedInquiry(inquiry)}
+                                          className="border-zinc-800 text-zinc-300 hover:bg-gold-500/10 hover:text-gold-400"
                                         >
                                           View
                                         </Button>
                                       </DialogTrigger>
-                                      <DialogContent className="sm:max-w-md">
+                                      <DialogContent className="sm:max-w-md bg-black border-gold-500/20 text-zinc-200">
                                         <DialogHeader>
-                                          <DialogTitle>Customer Inquiry</DialogTitle>
-                                          <DialogDescription>
+                                          <DialogTitle className="text-gold-500 font-serif text-2xl">Customer Inquiry</DialogTitle>
+                                          <DialogDescription className="text-zinc-400">
                                             Received on {inquiry.created_at && formatDate(inquiry.created_at)}
                                           </DialogDescription>
                                         </DialogHeader>
@@ -498,30 +500,30 @@ const AdminInbox: React.FC = () => {
                                           <div className="space-y-4">
                                             <div className="grid grid-cols-2 gap-4">
                                               <div>
-                                                <h4 className="text-sm font-medium text-gray-500">Name</h4>
-                                                <p>{selectedInquiry.name}</p>
+                                                <h4 className="text-sm font-medium text-zinc-450">Name</h4>
+                                                <p className="text-zinc-200">{selectedInquiry.name}</p>
                                               </div>
                                               <div>
-                                                <h4 className="text-sm font-medium text-gray-500">Email</h4>
-                                                <p>{selectedInquiry.email}</p>
+                                                <h4 className="text-sm font-medium text-zinc-450">Email</h4>
+                                                <p className="text-zinc-200">{selectedInquiry.email}</p>
                                               </div>
                                             </div>
                                             {selectedInquiry.phone && (
                                               <div>
-                                                <h4 className="text-sm font-medium text-gray-500">Phone</h4>
-                                                <p>{selectedInquiry.phone}</p>
+                                                <h4 className="text-sm font-medium text-zinc-450">Phone</h4>
+                                                <p className="text-zinc-200">{selectedInquiry.phone}</p>
                                               </div>
                                             )}
                                             <div>
-                                              <h4 className="text-sm font-medium text-gray-500">Topic</h4>
-                                              <p>{selectedInquiry.topic}</p>
+                                              <h4 className="text-sm font-medium text-zinc-450">Topic</h4>
+                                              <p className="text-zinc-200">{selectedInquiry.topic}</p>
                                             </div>
                                             <div>
-                                              <h4 className="text-sm font-medium text-gray-500">Message</h4>
-                                              <p className="whitespace-pre-wrap">{selectedInquiry.message}</p>
+                                              <h4 className="text-sm font-medium text-zinc-450">Message</h4>
+                                              <p className="whitespace-pre-wrap text-zinc-300">{selectedInquiry.message}</p>
                                             </div>
                                             <div>
-                                              <h4 className="text-sm font-medium text-gray-500">Status</h4>
+                                              <h4 className="text-sm font-medium text-zinc-450 mb-1">Status</h4>
                                               <Select
                                                 value={selectedInquiry.status}
                                                 onValueChange={(value) => {
@@ -534,10 +536,10 @@ const AdminInbox: React.FC = () => {
                                                   }
                                                 }}
                                               >
-                                                <SelectTrigger className="w-full">
+                                                <SelectTrigger className="w-full bg-zinc-900 border-zinc-800 text-zinc-200 focus:ring-gold-500">
                                                   <SelectValue placeholder="Select status" />
                                                 </SelectTrigger>
-                                                <SelectContent>
+                                                <SelectContent className="bg-black border-zinc-800 text-zinc-200">
                                                   <SelectItem value="new">New</SelectItem>
                                                   <SelectItem value="inprogress">In Progress</SelectItem>
                                                   <SelectItem value="completed">Completed</SelectItem>
@@ -557,10 +559,10 @@ const AdminInbox: React.FC = () => {
                                         }
                                       }}
                                     >
-                                      <SelectTrigger className="w-32">
+                                      <SelectTrigger className="w-32 bg-zinc-900 border-zinc-800 text-zinc-200 focus:ring-gold-500">
                                         <SelectValue placeholder="Change status" />
                                       </SelectTrigger>
-                                      <SelectContent>
+                                      <SelectContent className="bg-black border-zinc-800 text-zinc-200">
                                         <SelectItem value="new">New</SelectItem>
                                         <SelectItem value="inprogress">In Progress</SelectItem>
                                         <SelectItem value="completed">Completed</SelectItem>
@@ -582,13 +584,13 @@ const AdminInbox: React.FC = () => {
           ))}
         </Tabs>
 
-        <Card className="mt-8">
+        <Card className="mt-8 border-gold-500/10 bg-zinc-950/20">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <MessageSquare className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-zinc-150 font-serif">
+              <MessageSquare className="h-5 w-5 text-gold-500" />
               Chat History
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-zinc-400">
               View saved chat conversations from the chatbot.
             </CardDescription>
           </CardHeader>
