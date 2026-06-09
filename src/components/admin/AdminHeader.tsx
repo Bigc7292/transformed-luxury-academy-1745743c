@@ -72,46 +72,46 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ title, handleLogout }) => {
   return (
     <div className="mb-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-        <h1 className="text-3xl md:text-4xl font-serif text-gold-700">
+        <h1 className="text-3xl md:text-4xl font-serif text-gold-500">
           {title}
         </h1>
         <div className="flex gap-2">
           <Button
             onClick={() => setIsPasswordModalOpen(true)}
             variant="outline"
-            className="border-gold-500/30 text-gold-600 hover:bg-gold-50 flex items-center gap-2"
+            className="border-gold-500/30 text-gold-500 hover:bg-gold-500/10 hover:text-gold-400 flex items-center gap-2"
           >
             <KeyRound size={16} /> Set Password
           </Button>
           <Button
             onClick={handleLogout}
             variant="outline"
-            className="border-red-500 text-red-600 hover:bg-red-50 flex items-center gap-2"
+            className="border-red-500/40 text-red-400 hover:bg-red-500/10 hover:text-red-300 flex items-center gap-2"
           >
             <LogOut size={16} /> Logout
           </Button>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 border-b border-gray-200 pb-2">
+      <div className="flex flex-wrap gap-2 border-b border-zinc-800 pb-2">
         <Button
           onClick={() => navigate("/admin/content")}
           variant={isContentPage ? "default" : "ghost"}
-          className={`flex items-center gap-2 ${isContentPage ? 'bg-gold-600 hover:bg-gold-700' : 'text-gray-600 hover:text-gold-600'}`}
+          className={`flex items-center gap-2 ${isContentPage ? 'bg-gold-500 hover:bg-gold-400 text-black font-semibold' : 'text-zinc-400 hover:text-gold-500 hover:bg-zinc-900/50'}`}
         >
           <FileText size={16} /> General Content
         </Button>
         <Button
           onClick={() => navigate("/admin/media")}
           variant={isMediaPage ? "default" : "ghost"}
-          className={`flex items-center gap-2 ${isMediaPage ? 'bg-gold-600 hover:bg-gold-700' : 'text-gray-600 hover:text-gold-600'}`}
+          className={`flex items-center gap-2 ${isMediaPage ? 'bg-gold-500 hover:bg-gold-400 text-black font-semibold' : 'text-zinc-400 hover:text-gold-500 hover:bg-zinc-900/50'}`}
         >
           <Image size={16} /> Media Showcase
         </Button>
         <Button
           onClick={() => navigate("/admin/inbox")}
           variant={isInboxPage ? "default" : "ghost"}
-          className={`flex items-center gap-2 ${isInboxPage ? 'bg-gold-600 hover:bg-gold-700' : 'text-gray-600 hover:text-gold-600'}`}
+          className={`flex items-center gap-2 ${isInboxPage ? 'bg-gold-500 hover:bg-gold-400 text-black font-semibold' : 'text-zinc-400 hover:text-gold-500 hover:bg-zinc-900/50'}`}
         >
           <Inbox size={16} /> Customer Inquiries
         </Button>
