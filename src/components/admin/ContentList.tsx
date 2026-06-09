@@ -63,11 +63,11 @@ const ContentList: React.FC<ContentListProps> = ({
   };
 
   return (
-    <Card>
+    <Card className="border-gold-500/10 bg-zinc-950/20">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Content List</CardTitle>
+        <CardTitle className="text-zinc-100 font-serif">Content List</CardTitle>
         <Button
-          className="bg-gold-600 hover:bg-gold-700 flex items-center gap-2"
+          className="bg-gold-500 hover:bg-gold-400 text-black font-semibold flex items-center gap-2"
           onClick={() => setIsCreateDialogOpen(true)}
         >
           <Plus size={16} /> Add New Content
@@ -121,23 +121,23 @@ const ContentList: React.FC<ContentListProps> = ({
                         )}
                         <div>
                           <div>{item.title}</div>
-                          <div className="md:hidden text-xs text-gray-500 mt-1">
+                          <div className="md:hidden text-xs text-zinc-400 mt-1">
                             <div className="flex items-center gap-1 mb-1">
                               {item.media_type === "image" ? (
-                                <><Image className="h-3 w-3" /> <span>Image</span></>
+                                <><Image className="h-3 w-3 text-zinc-400" /> <span>Image</span></>
                               ) : (
-                                <><Video className="h-3 w-3" /> <span>Video</span></>
+                                <><Video className="h-3 w-3 text-zinc-400" /> <span>Video</span></>
                               )}
                               <span className="mx-1">•</span>
                               <span className="capitalize">{item.category}</span>
                             </div>
                             <div className="flex items-center gap-1">
                               {item.active !== false ? (
-                                <Badge variant="outline" className="text-[10px] h-4 bg-green-50 text-green-700 border-green-200">
+                                <Badge variant="outline" className="text-[10px] h-4 bg-green-950/30 text-green-400 border-green-500/20">
                                   <Check className="h-2 w-2 mr-1" /> Active
                                 </Badge>
                               ) : (
-                                <Badge variant="outline" className="text-[10px] h-4 bg-gray-50 text-gray-700 border-gray-200">
+                                <Badge variant="outline" className="text-[10px] h-4 bg-zinc-800/50 text-zinc-400 border-zinc-700/50">
                                   <X className="h-2 w-2 mr-1" /> Hidden
                                 </Badge>
                               )}
@@ -167,28 +167,28 @@ const ContentList: React.FC<ContentListProps> = ({
                             {getPageLocationLabel(item.page_location)}
                           </span>
                           {item.page_section && (
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-zinc-400">
                               {getPageSectionLabel(item.page_section)}
                             </span>
                           )}
                         </div>
                       ) : (
-                        <span className="text-xs text-gray-500">Not placed</span>
+                        <span className="text-xs text-zinc-500">Not placed</span>
                       )}
                     </TableCell>
                     <TableCell className="hidden md:table-cell">
                       {item.active !== false ? (
-                        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                        <Badge variant="outline" className="bg-green-950/30 text-green-400 border-green-500/20">
                           <Check className="h-3 w-3 mr-1" /> Active
                         </Badge>
                       ) : (
-                        <Badge variant="outline" className="bg-gray-50 text-gray-700 border-gray-200">
+                        <Badge variant="outline" className="bg-zinc-800/50 text-zinc-400 border-zinc-700/50">
                           <X className="h-3 w-3 mr-1" /> Hidden
                         </Badge>
                       )}
                     </TableCell>
                     <TableCell className="hidden lg:table-cell">
-                      <div className="flex space-x-3 text-xs text-gray-500">
+                      <div className="flex space-x-3 text-xs text-zinc-400">
                         <span className="flex items-center">
                           <Eye className="h-3 w-3 mr-1" /> {item.view_count || 0}
                         </span>
@@ -207,13 +207,14 @@ const ContentList: React.FC<ContentListProps> = ({
                           variant="ghost"
                           size="icon"
                           onClick={() => handleEdit(item)}
+                          className="text-zinc-400 hover:text-gold-500 hover:bg-zinc-900/50"
                         >
                           <Pencil className="h-4 w-4" />
                         </Button>
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="text-red-500 hover:text-red-700"
+                          className="text-red-500/70 hover:text-red-500 hover:bg-red-950/20"
                           onClick={() => handleDelete(item)}
                         >
                           <Trash2 className="h-4 w-4" />
