@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { BOOKING_URL } from '../data/serviceCategories';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -121,7 +122,7 @@ const Navbar = () => {
               )
             ))}
             <a
-              href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-gold-500 text-black px-5 py-2 rounded-full hover:bg-gold-400 transition-colors inline-block font-semibold"
@@ -192,7 +193,7 @@ const Navbar = () => {
           ))}
           <div className="pt-2">
             <a
-              href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full text-center bg-gold-500 text-black px-5 py-4 rounded-full hover:bg-gold-400 transition-colors text-lg font-semibold mt-4 shadow-md"

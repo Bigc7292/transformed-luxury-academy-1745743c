@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { BOOKING_URL } from '../data/serviceCategories';
 
 const Cta = () => {
   return (
@@ -28,19 +29,29 @@ const Cta = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row items-center gap-6"
           >
-            <a
-              href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw"
-              className="btn-primary whitespace-nowrap"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Book Consultation
-            </a>
-            <a href="/contact" className="btn-secondary whitespace-nowrap">
-              Contact Us
-            </a>
+            <div className="flex flex-col gap-4 w-full sm:w-auto">
+              <a
+                href={BOOKING_URL}
+                className="btn-primary whitespace-nowrap text-center"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book Consultation
+              </a>
+              <a href="/contact" className="btn-secondary whitespace-nowrap text-center">
+                Contact Us
+              </a>
+            </div>
+            <div className="hidden sm:flex flex-col items-center border border-gold-200/50 p-2 rounded-lg bg-gold-50/20">
+              <img
+                src="/booking-qrcode.jpg"
+                alt="Scan to book"
+                className="w-20 h-20 rounded border border-gold-100"
+              />
+              <span className="text-[10px] text-gold-600 font-medium mt-1">Scan to Book</span>
+            </div>
           </motion.div>
         </div>
       </div>

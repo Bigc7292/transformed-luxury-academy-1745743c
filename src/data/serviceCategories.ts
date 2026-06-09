@@ -21,7 +21,7 @@ export type Service = {
 };
 
 // The booking URL for all services
-export const BOOKING_URL = 'https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw';
+export const BOOKING_URL = 'https://that-time.co.uk/transformed-academy-hq';
 
 // All services organized by category
 export const serviceCategories: ServiceCategory[] = [

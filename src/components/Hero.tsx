@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { BOOKING_URL } from '../data/serviceCategories';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -82,7 +83,7 @@ const Hero = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
               <a
-                href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw"
+                href={BOOKING_URL}
                 className="btn-primary"
                 target="_blank"
                 rel="noopener noreferrer"

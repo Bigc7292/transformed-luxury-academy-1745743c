@@ -339,6 +339,23 @@ const Contact = () => {
                 </div>
               </div>
 
+              <div className="bg-black border border-gold-500/20 rounded-lg p-6 mb-6 flex items-center justify-between shadow-md">
+                <div className="pr-4">
+                  <h3 className="text-xl font-serif text-gold-500 mb-2">Scan & Book</h3>
+                  <p className="text-sm text-zinc-400">
+                    Scan the QR code to instantly view our booking availability and secure your appointment slot.
+                  </p>
+                </div>
+                <div className="flex-shrink-0 flex flex-col items-center p-2 bg-white rounded-lg shadow-sm">
+                  <img
+                    src="/booking-qrcode.jpg"
+                    alt="Booking QR Code"
+                    className="w-24 h-24 object-contain"
+                  />
+                  <span className="text-[10px] text-black font-bold mt-1 tracking-wider">SCAN TO BOOK</span>
+                </div>
+              </div>
+
               <div className="bg-gold-100/50 rounded-lg p-6">
                 <h3 className="text-xl font-serif text-gold-600 mb-3">Business Hours</h3>
                 <ul className="space-y-2">

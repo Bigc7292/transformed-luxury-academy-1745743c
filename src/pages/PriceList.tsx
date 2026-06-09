@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
 import GlitterHearts from '../components/GlitterHearts';
+import { BOOKING_URL } from '../data/serviceCategories';
 
 const PriceList = () => {
   const containerVariants = {
@@ -167,7 +168,7 @@ const PriceList = () => {
             className="text-center mt-16"
           >
             <a
-              href="https://www.fresha.com/a/transformed-hereford-38-widemarsh-st-gh3qgstr/all-offer?menu=true&pId=599120&fbclid=PAY2xjawJXeAJleHRuA2FlbQIxMAABpvlpT-VQQGYbYv93RnUCRlhDR9gHhghMheKxtpaUQT5xzr4OyeadmXfrtQ_aem_PwxPudY-AdMqXQ9vBM2JDw"
+              href={BOOKING_URL}
               className="btn-primary inline-block"
               target="_blank"
               rel="noopener noreferrer"
