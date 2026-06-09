@@ -107,7 +107,7 @@ const Testimonials = () => {
               aria-label="Previous testimonial"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 19L8 12L15 5" stroke="#FF6499" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M15 19L8 12L15 5" stroke="#B99D6C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
 
@@ -128,7 +128,7 @@ const Testimonials = () => {
               aria-label="Next testimonial"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 5L16 12L9 19" stroke="#FF6499" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M9 5L16 12L9 19" stroke="#B99D6C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
           </div>

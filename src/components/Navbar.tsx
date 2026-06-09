@@ -62,16 +62,7 @@ const Navbar = () => {
   const navItems = [
     { name: "Home", path: "/" },
     { name: "Services", path: "/services" },
-    {
-      name: "Meet the Team",
-      path: "#",
-      hasSubmenu: true,
-      submenu: [
-        { name: "Meet Kayla CEO", path: "/about-ceo" },
-        { name: "Partnership with Dr. Martin", path: "/partnership" },
-        { name: "Our Staff", path: "/staff" },
-      ]
-    },
+    { name: "Meet the CEO Kayla", path: "/about-ceo" },
     { name: "Gallery", path: "/gallery" },
     { name: "About", path: "/about" },
     { name: "Contact Us", path: "/contact" },

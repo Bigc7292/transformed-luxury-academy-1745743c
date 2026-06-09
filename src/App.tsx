@@ -16,8 +16,6 @@ import ContentPage from './pages/ContentPage';
 import NotFound from './pages/NotFound';
 import ServicesPage from './pages/ServicesPage';
 // MediaShowcase is now only accessible through admin
-import Partnership from './pages/Partnership';
-import Staff from './pages/Staff';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import { Toaster } from './components/ui/toaster';
@@ -34,8 +32,6 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/price-list" element={<PriceList />} />
           <Route path="/services" element={<ServicesPage />} />
-          <Route path="/partnership" element={<Partnership />} />
-          <Route path="/staff" element={<Staff />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/admin" element={<Navigate to="/admin/auth" replace />} />
