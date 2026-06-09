@@ -202,11 +202,11 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
   };
 
   return (
-    <Card className="mb-8 s3-video-importer">
+    <Card className="mb-8 s3-video-importer border-gold-500/10 bg-zinc-950/20">
       <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between">
         <div>
-          <CardTitle>S3 Video Importer</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-zinc-100 font-serif">S3 Video Importer</CardTitle>
+          <CardDescription className="text-zinc-400">
             Add videos from your AWS S3 bucket to the media showcase
           </CardDescription>
         </div>
@@ -217,7 +217,7 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
               setShowForm(!showForm);
               setShowBatchForm(false);
             }}
-            className="flex items-center gap-1"
+            className="flex items-center gap-1 border-zinc-800 text-zinc-400 hover:bg-gold-500/10 hover:text-gold-400"
           >
             <Video size={16} /> {showForm ? 'Hide Form' : 'Add Single Video'}
           </Button>
@@ -227,7 +227,7 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
               setShowBatchForm(!showBatchForm);
               setShowForm(false);
             }}
-            className="flex items-center gap-1"
+            className="flex items-center gap-1 border-zinc-800 text-zinc-400 hover:bg-gold-500/10 hover:text-gold-400"
           >
             <Plus size={16} /> {showBatchForm ? 'Hide Batch' : 'Batch Add Videos'}
           </Button>
@@ -238,27 +238,28 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
         <CardContent className="card-content">
           <div className="space-y-4 batch-form">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="title">Video Title</Label>
+              <div className="flex flex-col">
+                <Label htmlFor="title" className="text-zinc-300 mb-1.5 font-medium">Video Title</Label>
                 <Input
                   id="title"
                   name="title"
                   value={videoData.title}
                   onChange={handleInputChange}
                   placeholder="Enter video title"
+                  className="bg-zinc-900 border-zinc-800 text-zinc-200 placeholder-zinc-600 focus-visible:ring-gold-500"
                 />
               </div>
 
-              <div>
-                <Label htmlFor="category">Category</Label>
+              <div className="flex flex-col">
+                <Label htmlFor="category" className="text-zinc-300 mb-1.5 font-medium">Category</Label>
                 <Select
                   value={videoData.category}
                   onValueChange={(value) => handleSelectChange(value, 'category')}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-zinc-900 border-zinc-800 text-zinc-200 focus:ring-gold-500">
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-black border-zinc-800 text-zinc-200">
                     <SelectItem value="promotional">Promotional</SelectItem>
                     <SelectItem value="staff">Staff</SelectItem>
                     <SelectItem value="training">Training</SelectItem>
@@ -270,48 +271,51 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
               </div>
             </div>
 
-            <div>
-              <Label htmlFor="description">Description</Label>
+            <div className="flex flex-col">
+              <Label htmlFor="description" className="text-zinc-300 mb-1.5 font-medium">Description</Label>
               <Textarea
                 id="description"
                 name="description"
                 value={videoData.description}
                 onChange={handleInputChange}
                 placeholder="Enter video description"
+                className="bg-zinc-900 border-zinc-800 text-zinc-200 placeholder-zinc-600 focus-visible:ring-gold-500"
                 rows={3}
               />
             </div>
 
-            <div>
-              <Label htmlFor="url">Video URL</Label>
+            <div className="flex flex-col">
+              <Label htmlFor="url" className="text-zinc-300 mb-1.5 font-medium">Video URL</Label>
               <Input
                 id="url"
                 name="url"
                 value={videoData.url}
                 onChange={handleInputChange}
                 placeholder="Enter S3 video URL"
+                className="bg-zinc-900 border-zinc-800 text-zinc-200 placeholder-zinc-600 focus-visible:ring-gold-500"
               />
             </div>
 
-            <div>
-              <Label htmlFor="thumbnail_url">Thumbnail URL (Optional)</Label>
+            <div className="flex flex-col">
+              <Label htmlFor="thumbnail_url" className="text-zinc-300 mb-1.5 font-medium">Thumbnail URL (Optional)</Label>
               <Input
                 id="thumbnail_url"
                 name="thumbnail_url"
                 value={videoData.thumbnail_url}
                 onChange={handleInputChange}
                 placeholder="Enter thumbnail URL"
+                className="bg-zinc-900 border-zinc-800 text-zinc-200 placeholder-zinc-600 focus-visible:ring-gold-500"
               />
             </div>
 
-            <div className="flex items-center space-x-8">
+            <div className="flex items-center space-x-8 py-2">
               <div className="flex items-center space-x-2">
                 <Switch
                   id="is_featured"
                   checked={videoData.is_featured}
                   onCheckedChange={(checked) => handleSwitchChange(checked, 'is_featured')}
                 />
-                <Label htmlFor="is_featured">Featured</Label>
+                <Label htmlFor="is_featured" className="text-zinc-400 cursor-pointer">Featured</Label>
               </div>
 
               <div className="flex items-center space-x-2">
@@ -320,14 +324,14 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
                   checked={videoData.active}
                   onCheckedChange={(checked) => handleSwitchChange(checked, 'active')}
                 />
-                <Label htmlFor="active">Active</Label>
+                <Label htmlFor="active" className="text-zinc-400 cursor-pointer">Active</Label>
               </div>
             </div>
 
             <Button
               onClick={handleAddVideo}
               disabled={isAdding}
-              className="w-full"
+              className="w-full bg-gold-500 hover:bg-gold-400 text-black font-semibold"
             >
               {isAdding ? (
                 <>
@@ -345,25 +349,26 @@ const S3VideoImporter: React.FC<S3VideoImporterProps> = ({ onVideoAdded }) => {
       {showBatchForm && (
         <CardContent className="card-content">
           <div className="space-y-4 batch-form">
-            <div>
-              <Label htmlFor="batchUrls">Video URLs (Comma Separated)</Label>
+            <div className="flex flex-col">
+              <Label htmlFor="batchUrls" className="text-zinc-300 mb-1.5 font-medium">Video URLs (Comma Separated)</Label>
               <Textarea
                 id="batchUrls"
                 value={batchUrls}
                 onChange={(e) => setBatchUrls(e.target.value)}
                 placeholder="Enter S3 video URLs separated by commas"
+                className="bg-zinc-900 border-zinc-800 text-zinc-200 placeholder-zinc-600 focus-visible:ring-gold-500"
                 rows={5}
               />
             </div>
 
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-zinc-400">
               Note: Videos will be added with default titles and descriptions. You can edit them later.
             </p>
 
             <Button
               onClick={handleBatchAdd}
               disabled={isBatchAdding}
-              className="w-full"
+              className="w-full bg-gold-500 hover:bg-gold-400 text-black font-semibold"
             >
               {isBatchAdding ? (
                 <>

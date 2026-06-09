@@ -1,6 +1,5 @@
-
 import React from "react";
-import { ContentCategory, ContentItem, MediaType, PageSection, PAGE_LOCATIONS, PAGE_SECTIONS } from "@/types/content";
+import { ContentCategory, ContentItem, MediaType, PAGE_LOCATIONS, PAGE_SECTIONS } from "@/types/content";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -37,9 +36,9 @@ const ContentForm: React.FC<ContentFormProps> = ({
   const prefix = isNew ? "" : "edit-";
   
   return (
-    <div className="grid gap-4 py-4">
+    <div className="grid gap-4 py-4 text-zinc-200">
       <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor={`${prefix}title`} className="text-right">
+        <Label htmlFor={`${prefix}title`} className="text-right text-zinc-300 font-medium">
           Title
         </Label>
         <Input
@@ -47,12 +46,12 @@ const ContentForm: React.FC<ContentFormProps> = ({
           name="title"
           value={content.title || ''}
           onChange={handleInputChange}
-          className="col-span-3"
+          className="col-span-3 bg-zinc-900 border-zinc-800 text-zinc-200 placeholder-zinc-600 focus-visible:ring-gold-500"
           required
         />
       </div>
       <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor={`${prefix}description`} className="text-right">
+        <Label htmlFor={`${prefix}description`} className="text-right text-zinc-300 font-medium">
           Description
         </Label>
         <Textarea
@@ -60,21 +59,21 @@ const ContentForm: React.FC<ContentFormProps> = ({
           name="description"
           value={content.description || ''}
           onChange={handleInputChange}
-          className="col-span-3"
+          className="col-span-3 bg-zinc-900 border-zinc-800 text-zinc-200 placeholder-zinc-600 focus-visible:ring-gold-500"
         />
       </div>
       <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor={`${prefix}category`} className="text-right">
+        <Label htmlFor={`${prefix}category`} className="text-right text-zinc-300 font-medium">
           Category
         </Label>
         <Select
           value={content.category}
           onValueChange={(value) => handleSelectChange(value, 'category')}
         >
-          <SelectTrigger className="col-span-3">
+          <SelectTrigger className="col-span-3 bg-zinc-900 border-zinc-800 text-zinc-200 focus:ring-gold-500">
             <SelectValue placeholder="Select category" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-black border-zinc-800 text-zinc-200">
             <SelectItem value="promotional">Promotional</SelectItem>
             <SelectItem value="staff">Staff</SelectItem>
             <SelectItem value="awards">Awards</SelectItem>
@@ -85,17 +84,17 @@ const ContentForm: React.FC<ContentFormProps> = ({
         </Select>
       </div>
       <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor={`${prefix}media_type`} className="text-right">
+        <Label htmlFor={`${prefix}media_type`} className="text-right text-zinc-300 font-medium">
           Media Type
         </Label>
         <Select
           value={content.media_type}
           onValueChange={(value) => handleSelectChange(value, 'media_type')}
         >
-          <SelectTrigger className="col-span-3">
+          <SelectTrigger className="col-span-3 bg-zinc-900 border-zinc-800 text-zinc-200 focus:ring-gold-500">
             <SelectValue placeholder="Select media type" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-black border-zinc-800 text-zinc-200">
             <SelectItem value="image">Image</SelectItem>
             <SelectItem value="video">Video</SelectItem>
           </SelectContent>
@@ -104,17 +103,17 @@ const ContentForm: React.FC<ContentFormProps> = ({
       
       {/* New fields for page location and section */}
       <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor={`${prefix}page_location`} className="text-right">
+        <Label htmlFor={`${prefix}page_location`} className="text-right text-zinc-300 font-medium">
           Page Location
         </Label>
         <Select
           value={content.page_location || 'not_assigned'}
           onValueChange={(value) => handleSelectChange(value, 'page_location')}
         >
-          <SelectTrigger className="col-span-3">
+          <SelectTrigger className="col-span-3 bg-zinc-900 border-zinc-800 text-zinc-200 focus:ring-gold-500">
             <SelectValue placeholder="Select page location" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-black border-zinc-800 text-zinc-200">
             <SelectItem value="not_assigned">Not Assigned</SelectItem>
             {PAGE_LOCATIONS.map((location) => (
               <SelectItem key={location.value} value={location.value}>
@@ -126,7 +125,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
       </div>
       
       <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor={`${prefix}page_section`} className="text-right">
+        <Label htmlFor={`${prefix}page_section`} className="text-right text-zinc-300 font-medium">
           Page Section
         </Label>
         <Select
@@ -134,10 +133,10 @@ const ContentForm: React.FC<ContentFormProps> = ({
           onValueChange={(value) => handleSelectChange(value, 'page_section')}
           disabled={!content.page_location || content.page_location === 'not_assigned'}
         >
-          <SelectTrigger className="col-span-3">
+          <SelectTrigger className="col-span-3 bg-zinc-900 border-zinc-800 text-zinc-200 focus:ring-gold-500">
             <SelectValue placeholder="Select page section" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-black border-zinc-800 text-zinc-200">
             <SelectItem value="not_assigned">Not Assigned</SelectItem>
             {Object.entries(PAGE_SECTIONS).map(([value, label]) => (
               <SelectItem key={value} value={value}>
@@ -149,7 +148,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
       </div>
       
       <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor={`${prefix}active`} className="text-right">
+        <Label htmlFor={`${prefix}active`} className="text-right text-zinc-300 font-medium">
           Active
         </Label>
         <div className="col-span-3 flex items-center space-x-2">
@@ -158,14 +157,14 @@ const ContentForm: React.FC<ContentFormProps> = ({
             checked={content.active !== false} // Default to true if undefined
             onCheckedChange={(checked) => handleSwitchChange(checked, 'active')}
           />
-          <Label htmlFor={`${prefix}active`}>
+          <Label htmlFor={`${prefix}active`} className="text-zinc-400">
             {content.active !== false ? 'Visible on website' : 'Hidden'}
           </Label>
         </div>
       </div>
       
       <div className="grid grid-cols-4 items-start gap-4">
-        <Label htmlFor={`${prefix}url`} className="text-right pt-2">
+        <Label htmlFor={`${prefix}url`} className="text-right pt-2 text-zinc-300 font-medium">
           Media
         </Label>
         <div className="col-span-3">
@@ -176,12 +175,12 @@ const ContentForm: React.FC<ContentFormProps> = ({
                   <img 
                     src={content.url} 
                     alt="Preview" 
-                    className="w-full h-40 object-cover rounded-md" 
+                    className="w-full h-40 object-cover rounded-md border border-zinc-800" 
                   />
                 ) : (
                   <video 
                     src={content.url} 
-                    className="w-full h-40 object-cover rounded-md" 
+                    className="w-full h-40 object-cover rounded-md border border-zinc-800" 
                     controls 
                   />
                 )}
@@ -205,20 +204,21 @@ const ContentForm: React.FC<ContentFormProps> = ({
               />
             )}
             
-            <p className="text-xs text-gray-500 mt-1">Or enter URL directly:</p>
+            <p className="text-xs text-zinc-400 mt-1">Or enter URL directly:</p>
             <Input
               id={`${prefix}url`}
               name="url"
               value={content.url || ''}
               onChange={handleInputChange}
               placeholder="https://"
+              className="bg-zinc-900 border-zinc-800 text-zinc-200 placeholder-zinc-600 focus-visible:ring-gold-500"
             />
           </div>
         </div>
       </div>
       
       <div className="grid grid-cols-4 items-start gap-4">
-        <Label htmlFor={`${prefix}thumbnail_url`} className="text-right pt-2">
+        <Label htmlFor={`${prefix}thumbnail_url`} className="text-right pt-2 text-zinc-300 font-medium">
           Thumbnail
         </Label>
         <div className="col-span-3">
@@ -228,7 +228,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
                 <img 
                   src={content.thumbnail_url} 
                   alt="Thumbnail" 
-                  className="w-full h-32 object-cover rounded-md" 
+                  className="w-full h-32 object-cover rounded-md border border-zinc-800" 
                 />
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <Button 
@@ -250,20 +250,21 @@ const ContentForm: React.FC<ContentFormProps> = ({
               />
             )}
             
-            <p className="text-xs text-gray-500 mt-1">Or enter URL directly:</p>
+            <p className="text-xs text-zinc-400 mt-1">Or enter URL directly:</p>
             <Input
               id={`${prefix}thumbnail_url`}
               name="thumbnail_url"
               value={content.thumbnail_url || ''}
               onChange={handleInputChange}
               placeholder="https://"
+              className="bg-zinc-900 border-zinc-800 text-zinc-200 placeholder-zinc-600 focus-visible:ring-gold-500"
             />
           </div>
         </div>
       </div>
       
       <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor={`${prefix}is_featured`} className="text-right">
+        <Label htmlFor={`${prefix}is_featured`} className="text-right text-zinc-300 font-medium">
           Featured
         </Label>
         <div className="col-span-3 flex items-center space-x-2">
@@ -272,7 +273,7 @@ const ContentForm: React.FC<ContentFormProps> = ({
             checked={content.is_featured || false}
             onCheckedChange={(checked) => handleSwitchChange(checked, 'is_featured')}
           />
-          <Label htmlFor={`${prefix}is_featured`}>
+          <Label htmlFor={`${prefix}is_featured`} className="text-zinc-400">
             {content.is_featured ? 'Yes' : 'No'}
           </Label>
         </div>

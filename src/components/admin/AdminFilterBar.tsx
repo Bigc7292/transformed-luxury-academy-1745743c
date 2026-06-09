@@ -44,7 +44,7 @@ const AdminFilterBar: React.FC<AdminFilterBarProps> = ({
       <Button
         onClick={() => setIsBulkUploadDialogOpen(true)}
         variant="outline"
-        className="flex items-center gap-2"
+        className="flex items-center gap-2 border-zinc-800 text-zinc-400 hover:bg-gold-500/10 hover:text-gold-400"
       >
         <Upload size={16} /> Bulk Upload
       </Button>

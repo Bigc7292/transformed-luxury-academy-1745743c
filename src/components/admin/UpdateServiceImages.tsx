@@ -159,19 +159,19 @@ const UpdateServiceImages: React.FC = () => {
   };
 
   return (
-    <Card className="mb-8">
+    <Card className="mb-8 border-gold-500/10 bg-zinc-950/20">
       <CardHeader>
-        <CardTitle>Update Service Images</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-zinc-100 font-serif">Update Service Images</CardTitle>
+        <CardDescription className="text-zinc-400">
           Update service images for waxing, eyelashes, eyebrows, and extensions with new images from S3.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col space-y-4">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-zinc-400">
             This will add the following images to the database with meta tags and descriptions:
           </p>
-          <ul className="list-disc list-inside text-sm text-gray-500 space-y-1">
+          <ul className="list-disc list-inside text-sm text-zinc-350 space-y-1">
             <li>Hair Extensions: https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/exstensions.jpeg</li>
             <li>Waxing: https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/waxing.jpeg</li>
             <li>Eyebrows: https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/eyebrows.jpeg</li>
@@ -183,7 +183,7 @@ const UpdateServiceImages: React.FC = () => {
           <Button
             onClick={handleUpdateServiceImages}
             disabled={isUpdating}
-            className="w-full sm:w-auto"
+            className="w-full sm:w-auto bg-gold-500 hover:bg-gold-400 text-black font-semibold"
           >
             {isUpdating ? (
               <>
