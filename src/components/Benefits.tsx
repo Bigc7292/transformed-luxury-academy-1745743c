@@ -38,7 +38,7 @@ const Benefits = () => {
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-zinc-200 rounded-full opacity-50"></div>
               
               <div className="relative z-10 bg-white p-1 rounded-xl shadow-xl">
-                <img src="/lovable-uploads/3c7bd4cf-0544-4f55-9e75-b320ceda3772.png" alt="Benefits of our treatments" className="delete this and leave place holder there instead " />
+                <img src="/instagram-grid.png?v=1" alt="Instagram educational grid" className="rounded-lg w-full object-cover" />
               </div>
               
               <div className="absolute top-1/2 right-0 transform translate-x-1/4 -translate-y-1/2 bg-white p-4 rounded-lg shadow-lg max-w-[200px]">
