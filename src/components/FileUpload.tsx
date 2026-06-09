@@ -86,30 +86,30 @@ const FileUpload: React.FC<FileUploadProps> = ({
   
   return (
     <div className={`w-full ${className}`}>
-      <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer border-gray-300 bg-gray-50 hover:bg-gray-100">
+      <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer border-zinc-800 bg-zinc-900/40 hover:bg-zinc-900/80 hover:border-gold-500/30 transition-colors">
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
           {isUploading ? (
             <div className="w-full px-4">
-              <p className="mb-2 text-sm text-center text-gray-500">Uploading...</p>
-              <Progress value={uploadProgress} className="w-full" />
+              <p className="mb-2 text-sm text-center text-zinc-400">Uploading...</p>
+              <Progress value={uploadProgress} className="w-full bg-zinc-950 [&>[data-state=progress]]:bg-gold-500" />
             </div>
           ) : error ? (
             <div className="text-center">
-              <AlertCircle className="mx-auto h-8 w-8 text-red-500 mb-2" />
-              <p className="text-sm text-red-500">{error}</p>
-              <p className="text-xs text-gray-500 mt-1">Click to try again</p>
+              <AlertCircle className="mx-auto h-8 w-8 text-red-400 mb-2" />
+              <p className="text-sm text-red-400">{error}</p>
+              <p className="text-xs text-zinc-500 mt-1">Click to try again</p>
             </div>
           ) : uploadProgress === 100 ? (
             <div className="text-center">
-              <CheckCircle className="mx-auto h-8 w-8 text-green-500 mb-2" />
-              <p className="text-sm text-green-600">Upload Complete</p>
-              <p className="text-xs text-gray-500 mt-1">Click to upload another file</p>
+              <CheckCircle className="mx-auto h-8 w-8 text-green-400 mb-2" />
+              <p className="text-sm text-green-400">Upload Complete</p>
+              <p className="text-xs text-zinc-500 mt-1">Click to upload another file</p>
             </div>
           ) : (
             <>
-              <UploadCloud className="w-8 h-8 mb-2 text-gray-500" />
-              <p className="mb-1 text-sm text-gray-500">{label}</p>
-              <p className="text-xs text-gray-500">Click to upload (Max 10MB)</p>
+              <UploadCloud className="w-8 h-8 mb-2 text-gold-500/80" />
+              <p className="mb-1 text-sm text-zinc-350">{label}</p>
+              <p className="text-xs text-zinc-550">Click to upload (Max 10MB)</p>
             </>
           )}
         </div>
