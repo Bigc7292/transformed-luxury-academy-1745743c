@@ -25,3 +25,8 @@ dist-ssr
 
 # Portable Node.js runtime
 node-v20.12.2-win-x64/
+
+# Environment files
+.env
+.env*.local
+
