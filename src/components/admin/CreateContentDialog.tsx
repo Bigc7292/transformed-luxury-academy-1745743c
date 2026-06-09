@@ -48,10 +48,10 @@ const CreateContentDialog: React.FC<CreateContentDialogProps> = ({
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="sm:max-w-lg bg-black border-gold-500/20 text-zinc-200">
         <DialogHeader>
-          <DialogTitle>Add New Content</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-gold-500 font-serif text-2xl">Add New Content</DialogTitle>
+          <DialogDescription className="text-zinc-400">
             Create a new content item to be displayed on the website.
           </DialogDescription>
         </DialogHeader>
@@ -68,12 +68,13 @@ const CreateContentDialog: React.FC<CreateContentDialogProps> = ({
           <Button 
             variant="outline" 
             onClick={() => setIsOpen(false)}
+            className="border-zinc-800 text-zinc-400 hover:bg-zinc-900/50 hover:text-zinc-200"
           >
             Cancel
           </Button>
           <Button 
             onClick={handleCreate} 
-            className="bg-gold-600 hover:bg-gold-700"
+            className="bg-gold-500 hover:bg-gold-400 text-black font-semibold"
             disabled={isCreating}
           >
             {isCreating ? (

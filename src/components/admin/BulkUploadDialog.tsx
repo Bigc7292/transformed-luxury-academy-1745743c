@@ -101,10 +101,10 @@ const BulkUploadDialog: React.FC<BulkUploadDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-3xl">
+      <DialogContent className="sm:max-w-3xl bg-black border-gold-500/20 text-zinc-200">
         <DialogHeader>
-          <DialogTitle>Bulk Upload Content</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-gold-500 font-serif text-2xl">Bulk Upload Content</DialogTitle>
+          <DialogDescription className="text-zinc-400">
             Upload multiple content items at once using CSV format.
           </DialogDescription>
         </DialogHeader>
@@ -113,7 +113,7 @@ const BulkUploadDialog: React.FC<BulkUploadDialogProps> = ({
           <Button
             variant="outline"
             size="sm"
-            className="flex items-center gap-1"
+            className="flex items-center gap-1 border-zinc-800 text-zinc-400 hover:bg-zinc-900/50 hover:text-zinc-200"
             onClick={handleDownloadTemplate}
           >
             <Download className="h-4 w-4" /> Download Template
@@ -124,21 +124,21 @@ const BulkUploadDialog: React.FC<BulkUploadDialogProps> = ({
           value={csvContent}
           onChange={(e) => setCsvContent(e.target.value)}
           placeholder="Paste your CSV content here..."
-          className="min-h-[200px] font-mono text-sm"
+          className="min-h-[200px] font-mono text-sm bg-zinc-900 border-zinc-800 text-zinc-200 placeholder-zinc-650 focus:ring-gold-500"
         />
         
-        <div className="text-sm text-muted-foreground">
+        <div className="text-sm text-zinc-400 space-y-1">
           <p>CSV format should include headers: title, description, category, media_type, url, thumbnail_url, is_featured</p>
           <p>Categories: promotional, staff, awards, ceo, founder</p>
           <p>Media types: image, video</p>
         </div>
         
         {validationErrors.length > 0 && (
-          <Alert variant="destructive">
-            <AlertTriangle className="h-4 w-4" />
+          <Alert variant="destructive" className="bg-red-950/20 border-red-500/20 text-red-400">
+            <AlertTriangle className="h-4 w-4 text-red-400" />
             <AlertTitle>Validation Errors</AlertTitle>
             <AlertDescription>
-              <ul className="list-disc pl-5 mt-2">
+              <ul className="list-disc pl-5 mt-2 text-zinc-300">
                 {validationErrors.slice(0, 5).map((error, index) => (
                   <li key={index}>{error}</li>
                 ))}
@@ -151,19 +151,19 @@ const BulkUploadDialog: React.FC<BulkUploadDialogProps> = ({
         )}
         
         {uploadResult && (
-          <Alert variant={uploadResult.success ? "default" : "destructive"}>
+          <Alert variant={uploadResult.success ? "default" : "destructive"} className={uploadResult.success ? "bg-zinc-900 border-gold-500/20 text-gold-400" : "bg-red-950/20 border-red-500/20 text-red-400"}>
             {uploadResult.success ? (
-              <CheckCircle className="h-4 w-4" />
+              <CheckCircle className="h-4 w-4 text-gold-500" />
             ) : (
-              <AlertTriangle className="h-4 w-4" />
+              <AlertTriangle className="h-4 w-4 text-red-400" />
             )}
-            <AlertTitle>
+            <AlertTitle className="font-serif">
               {uploadResult.success
                 ? `Successfully uploaded ${uploadResult.count} items`
                 : "Upload Failed"}
             </AlertTitle>
             {uploadResult.errors.length > 0 && (
-              <AlertDescription>
+              <AlertDescription className="text-zinc-300">
                 <ul className="list-disc pl-5 mt-2">
                   {uploadResult.errors.slice(0, 5).map((error, index) => (
                     <li key={index}>{error}</li>
@@ -181,18 +181,20 @@ const BulkUploadDialog: React.FC<BulkUploadDialogProps> = ({
           <Button 
             variant="outline" 
             onClick={handleClear}
+            className="border-zinc-800 text-zinc-400 hover:bg-zinc-900/50 hover:text-zinc-200"
           >
             Clear
           </Button>
           <Button 
             variant="outline" 
             onClick={handleClose}
+            className="border-zinc-800 text-zinc-400 hover:bg-zinc-900/50 hover:text-zinc-200"
           >
             Cancel
           </Button>
           <Button 
             onClick={handleValidateAndUpload} 
-            className="bg-gold-600 hover:bg-gold-700"
+            className="bg-gold-500 hover:bg-gold-400 text-black font-semibold"
             disabled={!csvContent.trim() || isUploading}
           >
             {isUploading ? (

@@ -42,10 +42,10 @@ const EditContentDialog: React.FC<EditContentDialogProps> = ({
   
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="sm:max-w-lg bg-black border-gold-500/20 text-zinc-200">
         <DialogHeader>
-          <DialogTitle>Edit Content</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-gold-500 font-serif text-2xl">Edit Content</DialogTitle>
+          <DialogDescription className="text-zinc-400">
             Make changes to the content item.
           </DialogDescription>
         </DialogHeader>
@@ -61,12 +61,13 @@ const EditContentDialog: React.FC<EditContentDialogProps> = ({
           <Button 
             variant="outline" 
             onClick={() => setIsOpen(false)}
+            className="border-zinc-800 text-zinc-400 hover:bg-zinc-900/50 hover:text-zinc-200"
           >
             Cancel
           </Button>
           <Button 
             onClick={handleUpdate} 
-            className="bg-gold-600 hover:bg-gold-700"
+            className="bg-gold-500 hover:bg-gold-400 text-black font-semibold"
             disabled={isUpdating}
           >
             {isUpdating ? (
