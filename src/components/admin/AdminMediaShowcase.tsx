@@ -79,10 +79,10 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
 
   if (error) {
     return (
-      <Card>
+      <Card className="border-gold-500/10 bg-zinc-950/20">
         <CardHeader>
-          <CardTitle>Media Showcase Management</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-zinc-100 font-serif">Media Showcase Management</CardTitle>
+          <CardDescription className="text-red-500">
             Error loading media content. Please try again later.
           </CardDescription>
         </CardHeader>
@@ -91,25 +91,25 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
   }
 
   return (
-    <Card className="mb-8 max-w-full overflow-hidden">
+    <Card className="mb-8 max-w-full overflow-hidden border-gold-500/10 bg-zinc-950/20">
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle>Content & Media Management</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-zinc-100 font-serif">Content & Media Management</CardTitle>
+          <CardDescription className="text-zinc-400">
             Manage all content and media from the entire website database
           </CardDescription>
         </div>
-        <Button onClick={onCreateContent} className="flex items-center gap-1">
+        <Button onClick={onCreateContent} className="bg-gold-500 hover:bg-gold-400 text-black font-semibold flex items-center gap-1">
           <Plus size={16} /> Add Content
         </Button>
       </CardHeader>
-      <CardContent className="overflow-x-auto">
+      <CardContent className="overflow-x-auto pt-2">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="mb-4">
-            <h3 className="text-sm font-medium text-gray-500 mb-2">Filter by Category</h3>
-            <TabsList className="mb-6 flex flex-wrap gap-2">
+            <h3 className="text-sm font-medium text-zinc-400 mb-2">Filter by Category</h3>
+            <TabsList className="mb-6 flex flex-wrap gap-2 bg-zinc-900/50 border border-zinc-800">
               {mediaCategories.map(category => (
-                <TabsTrigger key={category.id} value={category.id}>
+                <TabsTrigger key={category.id} value={category.id} className="data-[state=active]:bg-gold-500 data-[state=active]:text-black text-zinc-400">
                   {category.name}
                 </TabsTrigger>
               ))}
@@ -117,10 +117,10 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
           </div>
 
           <div className="mb-4">
-            <h3 className="text-sm font-medium text-gray-500 mb-2">Filter by Page Location</h3>
-            <TabsList className="mb-6 flex flex-wrap gap-2">
+            <h3 className="text-sm font-medium text-zinc-400 mb-2">Filter by Page Location</h3>
+            <TabsList className="mb-6 flex flex-wrap gap-2 bg-zinc-900/50 border border-zinc-800">
               {pageLocationFilters.map(filter => (
-                <TabsTrigger key={filter.id} value={filter.id}>
+                <TabsTrigger key={filter.id} value={filter.id} className="data-[state=active]:bg-gold-500 data-[state=active]:text-black text-zinc-400">
                   {filter.name}
                 </TabsTrigger>
               ))}
@@ -138,8 +138,8 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-x-auto">
                   {getCategoryContent(category.id).length > 0 ? (
                     getCategoryContent(category.id).map(content => (
-                      <Card key={content.id} className="overflow-hidden">
-                        <div className="relative aspect-video bg-gray-100">
+                      <Card key={content.id} className="overflow-hidden border-zinc-800 bg-zinc-900/30">
+                        <div className="relative aspect-video bg-zinc-900/60 border-b border-zinc-800">
                           {content.media_type === 'video' ? (
                             <div className="absolute inset-0 flex items-center justify-center bg-black">
                               <video
@@ -149,9 +149,9 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                                 muted
                                 poster={content.thumbnail_url || undefined}
                               />
-                              <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                                <div className="w-12 h-12 rounded-full bg-white bg-opacity-80 flex items-center justify-center">
-                                  <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-gold-500 ml-1" aria-hidden="true" />
+                              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                                <div className="w-12 h-12 rounded-full bg-gold-500 flex items-center justify-center shadow-lg">
+                                  <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-black ml-1" aria-hidden="true" />
                                 </div>
                               </div>
                             </div>
@@ -164,15 +164,15 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                           )}
                         </div>
                         <CardContent className="p-4">
-                          <h3 className="font-medium text-lg mb-1 truncate">{content.title}</h3>
-                          <p className="text-sm text-gray-500 mb-3 line-clamp-2">{content.description}</p>
+                          <h3 className="font-medium text-lg mb-1 truncate text-zinc-100">{content.title}</h3>
+                          <p className="text-sm text-zinc-400 mb-3 line-clamp-2">{content.description}</p>
                           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                             <div className="flex flex-wrap gap-2">
                               <Button
                                 variant="outline"
                                 size="sm"
                                 onClick={() => onEditContent(content)}
-                                className="flex items-center gap-1"
+                                className="border-zinc-800 text-zinc-300 hover:bg-gold-500/10 hover:text-gold-400 flex items-center gap-1"
                               >
                                 <Edit size={14} /> Edit
                               </Button>
@@ -180,7 +180,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                                 variant="outline"
                                 size="sm"
                                 onClick={() => onDeleteContent(content)}
-                                className="flex items-center gap-1 text-red-500 hover:text-red-600"
+                                className="border-zinc-800 text-red-400 hover:bg-red-500/10 hover:text-red-300 flex items-center gap-1"
                               >
                                 <Trash2 size={14} /> Delete
                               </Button>
@@ -189,7 +189,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                               variant="ghost"
                               size="sm"
                               onClick={() => handleViewContent(content)}
-                              className="flex items-center gap-1"
+                              className="text-zinc-400 hover:text-gold-500 hover:bg-zinc-900/50 flex items-center gap-1"
                             >
                               <Eye size={14} /> View
                             </Button>
@@ -198,12 +198,12 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                       </Card>
                     ))
                   ) : (
-                    <div className="col-span-full py-8 text-center text-gray-500">
-                      No {category.id === 'all' ? '' : category.name} media content found.
+                    <div className="col-span-full py-8 text-center text-zinc-500">
+                      No {category.id === 'all' ? '' : category.name} media content found.{' '}
                       <Button
                         variant="link"
                         onClick={onCreateContent}
-                        className="text-gold-500"
+                        className="text-gold-500 hover:text-gold-400 p-0 h-auto font-normal"
                       >
                         Add some now
                       </Button>
@@ -225,8 +225,8 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-x-auto">
                   {getCategoryContent(filter.id).length > 0 ? (
                     getCategoryContent(filter.id).map(content => (
-                      <Card key={content.id} className="overflow-hidden">
-                        <div className="relative aspect-video bg-gray-100">
+                      <Card key={content.id} className="overflow-hidden border-zinc-800 bg-zinc-900/30">
+                        <div className="relative aspect-video bg-zinc-900/60 border-b border-zinc-800">
                           {content.media_type === 'video' ? (
                             <div className="absolute inset-0 flex items-center justify-center bg-black">
                               <video
@@ -236,9 +236,9 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                                 muted
                                 poster={content.thumbnail_url || undefined}
                               />
-                              <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                                <div className="w-12 h-12 rounded-full bg-white bg-opacity-80 flex items-center justify-center">
-                                  <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-gold-500 ml-1" aria-hidden="true" />
+                              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                                <div className="w-12 h-12 rounded-full bg-gold-500 flex items-center justify-center shadow-lg">
+                                  <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-black ml-1" aria-hidden="true" />
                                 </div>
                               </div>
                             </div>
@@ -251,15 +251,15 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                           )}
                         </div>
                         <CardContent className="p-4">
-                          <h3 className="font-medium text-lg mb-1 truncate">{content.title}</h3>
-                          <p className="text-sm text-gray-500 mb-3 line-clamp-2">{content.description}</p>
+                          <h3 className="font-medium text-lg mb-1 truncate text-zinc-100">{content.title}</h3>
+                          <p className="text-sm text-zinc-400 mb-3 line-clamp-2">{content.description}</p>
                           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                             <div className="flex flex-wrap gap-2">
                               <Button
                                 variant="outline"
                                 size="sm"
                                 onClick={() => onEditContent(content)}
-                                className="flex items-center gap-1"
+                                className="border-zinc-800 text-zinc-300 hover:bg-gold-500/10 hover:text-gold-400 flex items-center gap-1"
                               >
                                 <Edit size={14} /> Edit
                               </Button>
@@ -267,7 +267,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                                 variant="outline"
                                 size="sm"
                                 onClick={() => onDeleteContent(content)}
-                                className="flex items-center gap-1 text-red-500 hover:text-red-600"
+                                className="border-zinc-800 text-red-400 hover:bg-red-500/10 hover:text-red-300 flex items-center gap-1"
                               >
                                 <Trash2 size={14} /> Delete
                               </Button>
@@ -276,7 +276,7 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                               variant="ghost"
                               size="sm"
                               onClick={() => handleViewContent(content)}
-                              className="flex items-center gap-1"
+                              className="text-zinc-400 hover:text-gold-500 hover:bg-zinc-900/50 flex items-center gap-1"
                             >
                               <Eye size={14} /> View
                             </Button>
@@ -285,12 +285,12 @@ const AdminMediaShowcase: React.FC<AdminMediaShowcaseProps> = ({
                       </Card>
                     ))
                   ) : (
-                    <div className="col-span-full py-8 text-center text-gray-500">
-                      No content found for {filter.name}.
+                    <div className="col-span-full py-8 text-center text-zinc-500">
+                      No content found for {filter.name}.{' '}
                       <Button
                         variant="link"
                         onClick={onCreateContent}
-                        className="text-gold-500"
+                        className="text-gold-500 hover:text-gold-400 p-0 h-auto font-normal"
                       >
                         Add some now
                       </Button>
