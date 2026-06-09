@@ -34,6 +34,7 @@ const ContentCard: React.FC<ContentCardProps> = ({ item }) => {
         src={item.url} 
         alt={item.title} 
         className="w-full h-64 object-cover rounded-t-lg"
+        loading="lazy"
       />
     );
   };

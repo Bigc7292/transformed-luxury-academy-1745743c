@@ -75,6 +75,7 @@ const ContentCarousel: React.FC<ContentCarouselProps> = ({
           src={item.url || "/lovable-uploads/decb2b79-3774-449a-b7b7-479a89096676.png"} 
           alt={item.title || "Treatment Image"} 
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent">
           <div className="absolute bottom-6 left-6 right-6 text-white">
