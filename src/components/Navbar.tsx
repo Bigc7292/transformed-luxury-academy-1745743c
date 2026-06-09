@@ -85,7 +85,7 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center group">
               <img
-                src="/logo.jpg"
+                src="/logo.jpg?v=2"
                 alt="Transformed Academy Logo"
                 className="h-18 w-auto transition-transform duration-300 group-hover:scale-105"
                 style={{ height: '4.5rem', borderRadius: '50%' }}
