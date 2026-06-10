@@ -18,6 +18,8 @@ import ServicesPage from './pages/ServicesPage';
 // MediaShowcase is now only accessible through admin
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import ComplaintsPolicy from './pages/ComplaintsPolicy';
+import ClinicalRiskAssessment from './pages/ClinicalRiskAssessment';
 import { Toaster } from './components/ui/toaster';
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/complaints-policy" element={<ComplaintsPolicy />} />
+          <Route path="/clinical-risk-assessment" element={<ClinicalRiskAssessment />} />
           <Route path="/admin" element={<Navigate to="/admin/auth" replace />} />
           <Route path="/admin/auth" element={<AdminAuth />} />
           <Route path="/admin/content" element={<AdminContentPage />} />

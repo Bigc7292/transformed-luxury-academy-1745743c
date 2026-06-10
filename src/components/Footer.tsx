@@ -77,9 +77,11 @@ const Footer = () => {
           <p className="text-zinc-500 text-sm mb-4 md:mb-0">
             &copy; {currentYear} Transformed Academy and Salon. All rights reserved.
           </p>
-          <div className="flex space-x-4 text-sm">
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm justify-center md:justify-end">
             <Link to="/privacy-policy" className="text-zinc-500 hover:text-gold-500 transition-colors">Privacy Policy</Link>
             <Link to="/terms-of-service" className="text-zinc-500 hover:text-gold-500 transition-colors">Terms of Service</Link>
+            <Link to="/complaints-policy" className="text-zinc-500 hover:text-gold-500 transition-colors">Complaints Policy</Link>
+            <Link to="/clinical-risk-assessment" className="text-zinc-500 hover:text-gold-500 transition-colors">Clinical Risk Assessment</Link>
           </div>
         </div>
       </div>
