@@ -12,6 +12,7 @@ import ContentCarousel from '@/components/content/ContentCarousel';
 import ContentGrid from '@/components/content/ContentGrid';
 import { PageSection } from '@/types/content';
 import SEO from '../components/SEO';
+import SignatureShowcase from '@/components/SignatureShowcase';
 
 const Index = () => {
   return (
@@ -47,6 +48,7 @@ const Index = () => {
       />
 
       <Services />
+      <SignatureShowcase />
 
       {/* Content grid showing featured items managed by admin */}
       <ContentGrid
