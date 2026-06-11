@@ -18,13 +18,13 @@ const Index = () => {
     <div className="bg-white">
       <SEO
         title="Premium Aesthetic Treatments & Beauty Training"
-        description="Transformed Academy & Salon offers premium aesthetic treatments and professional beauty training courses in Hereford. Book your appointment today for lip fillers, anti-wrinkle treatments, and more."
-        keywords="aesthetic treatments, beauty salon, training academy, facial treatments, lip fillers, anti-wrinkle treatments, beauty courses, Hereford salon"
+        description="Transformed Academy & Salon offers premium aesthetic treatments and professional beauty training courses in Cardiff. Book your appointment today for lip fillers, anti-wrinkle treatments, and more."
+        keywords="aesthetic treatments, beauty salon, training academy, facial treatments, lip fillers, anti-wrinkle treatments, beauty courses, Cardiff salon"
         schema={{
           "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "Transformed Academy & Salon - Home",
-          "description": "Premium aesthetic treatments and beauty training courses in Hereford",
+          "description": "Premium aesthetic treatments and beauty training courses in Cardiff",
           "url": "https://transformedacademyhq.co.uk",
           "mainEntity": {
             "@type": "BeautySalon",

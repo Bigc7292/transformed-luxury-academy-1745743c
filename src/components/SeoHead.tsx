@@ -18,7 +18,7 @@ interface SeoHeadProps {
 const SeoHead: React.FC<SeoHeadProps> = ({
   title = "Transformed Academy & Salon | Premium Advanced Aesthetics",
   description = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments And Fully Qualified Level 5 Educator at Transformed Academy and Salon.",
-  keywords = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments, Level 5 Educator, beauty salon, Hereford",
+  keywords = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments, Level 5 Educator, beauty salon, Cardiff",
   ogTitle = "Transformed Academy & Salon | Premium Advanced Aesthetics",
   ogDescription = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments And Fully Qualified Level 5 Educator at Transformed Academy and Salon.",
   ogImage = "https://transformedacademyhq.co.uk/logo-hq.jpg",

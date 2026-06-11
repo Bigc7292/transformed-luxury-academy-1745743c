@@ -7,7 +7,7 @@ const Header = () => {
             <nav>
                 <div className="social-icons">
                     <a
-                        href="https://www.instagram.com/aestheticstraininghereford?igsh=MWp1dzlmeHU4cXRmbw=="
+                        href="https://www.instagram.com/transformedacademy"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Visit our Instagram"

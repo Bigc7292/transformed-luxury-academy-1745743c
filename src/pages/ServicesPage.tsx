@@ -23,7 +23,7 @@ const ServicesPage = () => {
       <SEO
         title="Our Services - Beauty & Aesthetic Treatments"
         description="Explore our comprehensive range of beauty and aesthetic services including hair treatments, facials, lip fillers, anti-wrinkle treatments, and professional training courses."
-        keywords="beauty services, aesthetic treatments, hair salon, facial treatments, lip fillers, anti-wrinkle treatments, beauty training, Hereford salon"
+        keywords="beauty services, aesthetic treatments, hair salon, facial treatments, lip fillers, anti-wrinkle treatments, beauty training, Cardiff salon"
         schema={{
           "@context": "https://schema.org",
           "@type": "ItemList",

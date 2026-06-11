@@ -126,8 +126,8 @@ const Contact = () => {
     <div className="bg-white min-h-screen">
       <SeoHead
         title="Contact Us - Transformed Academy & Salon"
-        description="Get in touch with Transformed Academy & Salon. Contact us for appointments, inquiries, or information about our services and training programs in Hereford."
-        keywords="contact us, beauty salon contact, aesthetic clinic contact, salon appointment, beauty training inquiry, Hereford salon, contact form"
+        description="Get in touch with Transformed Academy & Salon. Contact us for appointments, inquiries, or information about our services and training programs in Cardiff."
+        keywords="contact us, beauty salon contact, aesthetic clinic contact, salon appointment, beauty training inquiry, Cardiff salon, contact form"
         schema={{
           "@context": "https://schema.org",
           "@type": "ContactPage",
@@ -139,9 +139,9 @@ const Contact = () => {
             "name": "Transformed Academy & Salon",
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "38 Widemarsh St",
-              "addressLocality": "Hereford",
-              "postalCode": "HR4 9EP",
+              "streetAddress": "Unit R05 Cardiff Bay Business Centre",
+              "addressLocality": "Cardiff",
+              "postalCode": "CF24 5BS",
               "addressCountry": "GB"
             },
             "telephone": "+44 7716 402303",
@@ -304,11 +304,10 @@ const Contact = () => {
                   <div className="flex items-start">
                     <MapPin size={24} className="text-gold-500 mr-3 mt-1 flex-shrink-0" />
                     <div>
-                      <h3 className="font-medium text-gray-800 mb-1">Our Locations</h3>
+                      <h3 className="font-medium text-gray-800 mb-1">Our Location</h3>
                       <p className="text-gray-600">
-                        SALONS IN HEREFORD AND CARDIFF<br />
-                        38 WIDEMARSH STREET<br />
-                        HEREFORD HR4 9EP
+                        Unit R05 Cardiff Bay Business Centre<br />
+                        Cardiff CF24 5BS
                       </p>
                     </div>
                   </div>
@@ -383,7 +382,7 @@ const Contact = () => {
             className="rounded-lg overflow-hidden h-96 shadow-lg"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2456.0988247211237!2d-2.7177494!3d52.0587377!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4870427e1b54d62f%3A0x9a1f9b9c0c25fb4c!2s38%20Widemarsh%20St%2C%20Hereford%20HR4%209EP!5e0!3m2!1sen!2suk!4v1712509321784!5m2!1sen!2suk"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.738151525287!2d-3.1537237842316374!3d51.46747807963365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x486e1ca8578635a9%3A0x6339007c0b050c99!2sCardiff%20Bay%20Business%20Centre!5e0!3m2!1sen!2suk!4v1718000000000!5m2!1sen!2suk"
               width="100%"
               height="100%"
               style={{ border: 0 }}

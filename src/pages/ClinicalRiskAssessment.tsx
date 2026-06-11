@@ -57,7 +57,7 @@ const ClinicalRiskAssessment: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white text-zinc-900">
       <SEO
         title="Clinical Risk Assessment - Transformed Academy & Salon"
         description="Review our CQC-aligned Aesthetic Clinic Risk Assessment for injectable treatments, outlining clinical controls and safety measures."
@@ -76,14 +76,14 @@ const ClinicalRiskAssessment: React.FC = () => {
         <h1 className="text-2xl md:text-4xl font-serif text-gold-700 mb-6 md:mb-8 text-center">Clinical Risk Assessment</h1>
         <h2 className="text-lg md:text-xl font-sans text-gray-500 mb-6 text-center uppercase tracking-wider">Injectable Treatments (CQC-Aligned)</h2>
 
-        <div className="prose prose-sm md:prose-lg max-w-none overflow-x-hidden">
+        <div className="prose prose-zinc prose-sm md:prose-lg max-w-none overflow-x-hidden">
           
           {/* Section 1: Overview */}
           <div className="bg-gold-50/50 border border-gold-200/50 rounded-lg p-6 mb-8 text-sm md:text-base">
             <h3 className="text-gold-700 font-serif font-medium mt-0 mb-3">Assessment Metadata</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div><strong>Clinic Name:</strong> Transformed Academy HQ</div>
-              <div><strong>Location:</strong> 38 Widemarsh St, Hereford, HR4 9EP</div>
+              <div><strong>Location:</strong> Unit R05 Cardiff Bay Business Centre, CF24 5BS</div>
               <div><strong>Registered Manager:</strong> Kayla (CEO)</div>
               <div><strong>Assessment Date:</strong> {currentDate}</div>
               <div><strong>Review Date:</strong> {reviewDate}</div>

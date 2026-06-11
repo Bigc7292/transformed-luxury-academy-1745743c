@@ -10,8 +10,8 @@ const About = () => {
     <div className="bg-white min-h-screen">
       <SeoHead
         title="About Us - Transformed Academy & Salon"
-        description="Learn about Transformed Academy & Salon, our mission, values, and commitment to excellence in beauty and aesthetics in Hereford."
-        keywords="about us, beauty salon, aesthetic clinic, beauty academy, Hereford salon, beauty training, salon history, beauty professionals"
+        description="Learn about Transformed Academy & Salon, our mission, values, and commitment to excellence in beauty and aesthetics in Cardiff."
+        keywords="about us, beauty salon, aesthetic clinic, beauty academy, Cardiff salon, beauty training, salon history, beauty professionals"
         schema={{
           "@context": "https://schema.org",
           "@type": "AboutPage",
@@ -21,16 +21,16 @@ const About = () => {
           "mainEntity": {
             "@type": "BeautySalon",
             "name": "Transformed Academy & Salon",
-            "description": "Premium beauty and aesthetic services and professional training in Hereford",
+            "description": "Premium beauty and aesthetic services and professional training in Cardiff",
             "url": "https://transformedacademyhq.co.uk",
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "38 Widemarsh St",
-              "addressLocality": "Hereford",
-              "postalCode": "HR4 9EP",
+              "streetAddress": "Unit R05 Cardiff Bay Business Centre",
+              "addressLocality": "Cardiff",
+              "postalCode": "CF24 5BS",
               "addressCountry": "GB"
             },
-            "telephone": "01432 278 174"
+            "telephone": "07716402303"
           }
         }}
       />
@@ -47,7 +47,7 @@ const About = () => {
               About Transformed Academy
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Your premier destination for beauty and aesthetics in Hereford.
+              Your premier destination for beauty and aesthetics in Cardiff.
             </p>
           </motion.div>
 

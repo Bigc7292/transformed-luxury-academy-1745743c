@@ -20,7 +20,7 @@ const ComplaintsPolicy: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white text-zinc-900">
       <SEO
         title="Complaints Procedure Policy - Transformed Academy & Salon"
         description="Read our Complaints Procedure Policy to understand how we handle and resolve client complaints fairly and efficiently."
@@ -38,12 +38,12 @@ const ComplaintsPolicy: React.FC = () => {
       <div className="container mx-auto px-4 py-8 md:py-12 pt-28 md:pt-32 max-w-4xl">
         <h1 className="text-2xl md:text-4xl font-serif text-gold-700 mb-6 md:mb-8 text-center">Complaints Procedure Policy</h1>
 
-        <div className="prose prose-sm md:prose-lg max-w-none overflow-x-hidden">
+        <div className="prose prose-zinc prose-sm md:prose-lg max-w-none overflow-x-hidden">
           <div className="bg-gold-50/50 border border-gold-200/50 rounded-lg p-6 mb-8 text-sm md:text-base">
             <h3 className="text-gold-700 font-serif font-medium mt-0 mb-3">Clinic & Policy Overview</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div><strong>Clinic Name:</strong> Transformed Academy HQ</div>
-              <div><strong>Address:</strong> 38 Widemarsh St, Hereford, HR4 9EP</div>
+              <div><strong>Address:</strong> Unit R05 Cardiff Bay Business Centre, CF24 5BS</div>
               <div><strong>Complaints Lead / Registered Manager:</strong> Kayla (CEO)</div>
               <div><strong>Effective Date:</strong> {currentDate}</div>
               <div><strong>Review Date:</strong> {reviewDate}</div>
@@ -63,10 +63,10 @@ const ComplaintsPolicy: React.FC = () => {
           <h2 className="text-xl md:text-2xl font-serif text-gold-600 mt-6 md:mt-8 mb-3 md:mb-4">3. How to Make a Complaint</h2>
           <p>Complaints can be made via:</p>
           <ul className="list-disc pl-6 mb-4">
-            <li><strong>In person:</strong> Visit our salon at 38 Widemarsh St, Hereford</li>
+            <li><strong>In person:</strong> Visit our salon at Unit R05 Cardiff Bay Business Centre, CF24 5BS</li>
             <li><strong>Telephone:</strong> +44 7716 402303</li>
             <li><strong>Email:</strong> info@transformedacademy.co.uk</li>
-            <li><strong>Written letter:</strong> Send to our Hereford clinic address</li>
+            <li><strong>Written letter:</strong> Send to our Cardiff clinic address</li>
           </ul>
 
           <h2 className="text-xl md:text-2xl font-serif text-gold-600 mt-6 md:mt-8 mb-3 md:mb-4">4. Complaints Lead</h2>

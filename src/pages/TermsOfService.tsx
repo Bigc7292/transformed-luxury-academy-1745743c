@@ -6,7 +6,7 @@ import SEO from '../components/SEO';
 
 const TermsOfService: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white text-zinc-900">
       <SEO
         title="Terms of Service - Transformed Academy & Salon"
         description="Read our Terms of Service to understand the terms and conditions that govern your use of Transformed Academy & Salon's services and website."
@@ -29,7 +29,7 @@ const TermsOfService: React.FC = () => {
       <div className="container mx-auto px-4 py-8 md:py-12 pt-28 md:pt-32 max-w-4xl">
         <h1 className="text-2xl md:text-4xl font-serif text-gold-700 mb-6 md:mb-8 text-center">Terms of Service</h1>
 
-        <div className="prose prose-sm md:prose-lg max-w-none overflow-x-hidden">
+        <div className="prose prose-zinc prose-sm md:prose-lg max-w-none overflow-x-hidden">
           <p className="text-gray-600">Last Updated: {new Date().toLocaleDateString()}</p>
 
           <h2 className="text-xl md:text-2xl font-serif text-gold-600 mt-6 md:mt-8 mb-3 md:mb-4">1. Introduction</h2>
@@ -113,10 +113,10 @@ const TermsOfService: React.FC = () => {
           </p>
           <p className="mb-6">
             <strong>Transformed Academy & Salon</strong><br />
-            38 Widemarsh St<br />
-            Hereford<br />
-            Email: info@transformedacademyhq.co.uk<br />
-            Phone: 01432 278 174
+            Unit R05 Cardiff Bay Business Centre<br />
+            Cardiff CF24 5BS<br />
+            Email: info@transformedacademy.co.uk<br />
+            Phone: 07716 402303
           </p>
         </div>
       </div>

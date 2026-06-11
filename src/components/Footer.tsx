@@ -21,7 +21,7 @@ const Footer = () => {
             </p>
             <div className="social-icons">
               <a
-                href="https://www.instagram.com/aestheticstraininghereford?igsh=MWp1dzlmeHU4cXRmbw=="
+                href="https://www.instagram.com/transformedacademy"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit our Instagram"
@@ -58,12 +58,11 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin size={20} className="text-gold-500 mr-2 mt-1 flex-shrink-0" />
-                <span className="text-zinc-400">SALONS IN HEREFORD AND CARDIFF
-                  38 WIDEMARSH STREET HEREFORD HR4 9EP</span>
+                <span className="text-zinc-400">Unit R05 Cardiff Bay Business Centre, CF24 5BS</span>
               </li>
               <li className="flex items-center">
                 <Phone size={20} className="text-gold-500 mr-2 flex-shrink-0" />
-                <a href="tel:+1234567890" className="text-zinc-400 hover:text-gold-500 transition-colors">+447716402303</a>
+                <a href="tel:+447716402303" className="text-zinc-400 hover:text-gold-500 transition-colors">+447716402303</a>
               </li>
               <li className="flex items-center">
                 <Mail size={20} className="text-gold-500 mr-2 flex-shrink-0" />
