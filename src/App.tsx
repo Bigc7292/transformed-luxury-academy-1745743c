@@ -21,10 +21,12 @@ import TermsOfService from './pages/TermsOfService';
 import ComplaintsPolicy from './pages/ComplaintsPolicy';
 import ClinicalRiskAssessment from './pages/ClinicalRiskAssessment';
 import { Toaster } from './components/ui/toaster';
+import SparkleCursor from './components/SparkleCursor';
 
 function App() {
   return (
       <HelmetProvider>
+        <SparkleCursor />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about-ceo" element={<AboutCeo />} />

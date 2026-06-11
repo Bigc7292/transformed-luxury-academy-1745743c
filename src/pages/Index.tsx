@@ -13,6 +13,8 @@ import ContentGrid from '@/components/content/ContentGrid';
 import { PageSection } from '@/types/content';
 import SEO from '../components/SEO';
 import SignatureShowcase from '@/components/SignatureShowcase';
+import TrustAccreditations from '@/components/TrustAccreditations';
+import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 
 const Index = () => {
   return (
@@ -36,6 +38,7 @@ const Index = () => {
       />
       <Navbar />
       <Hero />
+      <TrustAccreditations />
 
       {/* Dynamic featured section with content from admin */}
       <ContentCarousel
@@ -61,6 +64,7 @@ const Index = () => {
       />
 
       <Benefits />
+      <BeforeAfterSlider />
       <Testimonials />
       <Cta />
       <Footer />

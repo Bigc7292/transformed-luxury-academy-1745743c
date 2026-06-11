@@ -1,10 +1,34 @@
 
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { BOOKING_URL } from '../data/serviceCategories';
 import { Play, X, Sparkles, Award } from 'lucide-react';
+
+const AnimatedCounter = ({ value, duration = 1.5 }: { value: number; duration?: number }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime: number | null = null;
+    let animationFrameId: number;
+    
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+      setCount(Math.floor(progress * value));
+      
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    };
+    
+    animationFrameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [value, duration]);
+
+  return <>{count}</>;
+};
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -112,17 +136,23 @@ const Hero = () => {
               className="mt-12 flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-8"
             >
               <div className="text-center px-4">
-                <p className="text-3xl font-serif text-gold-500">500+</p>
+                <p className="text-3xl font-serif text-gold-500">
+                  <AnimatedCounter value={500} />+
+                </p>
                 <p className="text-sm text-gray-500">Happy Clients</p>
               </div>
               <div className="hidden sm:block h-10 w-px bg-gold-200"></div>
               <div className="text-center px-4">
-                <p className="text-3xl font-serif text-gold-500">15+</p>
+                <p className="text-3xl font-serif text-gold-500">
+                  <AnimatedCounter value={15} />+
+                </p>
                 <p className="text-sm text-gray-500">Expert Services</p>
               </div>
               <div className="hidden sm:block h-10 w-px bg-gold-200"></div>
               <div className="text-center px-4">
-                <p className="text-3xl font-serif text-gold-500">10+</p>
+                <p className="text-3xl font-serif text-gold-500">
+                  <AnimatedCounter value={10} />+
+                </p>
                 <p className="text-sm text-gray-500">Years Experience</p>
               </div>
             </motion.div>
