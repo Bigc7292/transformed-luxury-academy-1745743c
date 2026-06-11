@@ -209,7 +209,7 @@ const Hero = () => {
               <motion.div
                 animate={{ y: [0, -12, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-6 -left-2 sm:-top-10 sm:-left-12 z-20 w-24 sm:w-36 md:w-40 bg-black/80 backdrop-blur-md border border-gold-500/30 p-1.5 sm:p-2 rounded-xl shadow-xl hover:border-gold-500 hover:scale-105 transition-all duration-300"
+                className="absolute -top-10 -left-4 sm:-top-10 sm:-left-12 z-20 w-20 sm:w-36 md:w-40 bg-black/80 backdrop-blur-md border border-gold-500/30 p-1.5 sm:p-2 rounded-xl shadow-xl hover:border-gold-500 hover:scale-105 transition-all duration-300"
               >
                 <div className="relative aspect-[4/5] rounded-lg overflow-hidden bg-zinc-900 mb-1 sm:mb-1.5">
                   <img
@@ -219,7 +219,7 @@ const Hero = () => {
                   />
                 </div>
                 <div className="text-center">
-                  <span className="text-[9px] sm:text-xs font-semibold text-gold-400 tracking-wider flex items-center justify-center gap-0.5 sm:gap-1">
+                  <span className="text-[8px] sm:text-xs font-semibold text-gold-400 tracking-wider flex items-center justify-center gap-0.5 sm:gap-1">
                     <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-gold-500 inline" />
                     Signature Lips
                   </span>
@@ -230,7 +230,7 @@ const Hero = () => {
               <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="absolute -bottom-6 -right-2 sm:-bottom-8 sm:-right-10 z-20 w-24 sm:w-36 md:w-40 bg-black/80 backdrop-blur-md border border-gold-500/30 p-1.5 sm:p-2 rounded-xl shadow-xl hover:border-gold-500 hover:scale-105 transition-all duration-300"
+                className="absolute -bottom-12 -right-4 sm:-bottom-8 sm:-right-10 z-20 w-20 sm:w-36 md:w-40 bg-black/80 backdrop-blur-md border border-gold-500/30 p-1.5 sm:p-2 rounded-xl shadow-xl hover:border-gold-500 hover:scale-105 transition-all duration-300"
               >
                 <div className="relative aspect-[4/5] rounded-lg overflow-hidden bg-zinc-900 mb-1 sm:mb-1.5">
                   <img
@@ -240,7 +240,7 @@ const Hero = () => {
                   />
                 </div>
                 <div className="text-center">
-                  <span className="text-[9px] sm:text-xs font-semibold text-gold-400 tracking-wider flex items-center justify-center gap-0.5 sm:gap-1">
+                  <span className="text-[8px] sm:text-xs font-semibold text-gold-400 tracking-wider flex items-center justify-center gap-0.5 sm:gap-1">
                     <Award className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-gold-500 inline" />
                     Dermal Enhancements
                   </span>
