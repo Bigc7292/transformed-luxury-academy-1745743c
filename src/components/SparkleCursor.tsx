@@ -26,9 +26,7 @@ const SparkleCursor: React.FC = () => {
   ];
 
   useEffect(() => {
-    // Disable on mobile/touch screens for performance
     const isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
-    if (isMobile) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -40,7 +38,7 @@ const SparkleCursor: React.FC = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
     const sparkles: Sparkle[] = [];
-    const maxSparkles = 45; // Caps maximum sparkles to prevent rendering lag
+    const maxSparkles = isMobile ? 35 : 45; // slightly lower max on mobile for memory efficiency
 
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
@@ -75,7 +73,7 @@ const SparkleCursor: React.FC = () => {
       });
     };
 
-    // Track mouse position and throttle sparkle generation slightly
+    // Track mouse position and throttle sparkle generation slightly (desktop only)
     let lastTime = 0;
     const handleMouseMove = (e: MouseEvent) => {
       const currentTime = Date.now();
@@ -85,7 +83,30 @@ const SparkleCursor: React.FC = () => {
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    if (!isMobile) {
+      window.addEventListener('mousemove', handleMouseMove);
+    }
+
+    // Touch and Click bursts for interactive feel
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches && e.touches[0]) {
+        const touch = e.touches[0];
+        // Create a burst of 6 sparkles
+        for (let i = 0; i < 6; i++) {
+          createSparkle(touch.clientX, touch.clientY);
+        }
+      }
+    };
+
+    const handleClick = (e: MouseEvent) => {
+      // Create a burst of 6 sparkles on click
+      for (let i = 0; i < 6; i++) {
+        createSparkle(e.clientX, e.clientY);
+      }
+    };
+
+    window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener('click', handleClick);
 
     // Draw star shape on canvas
     const drawStar = (
@@ -151,7 +172,11 @@ const SparkleCursor: React.FC = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
+      if (!isMobile) {
+        window.removeEventListener('mousemove', handleMouseMove);
+      }
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('click', handleClick);
       cancelAnimationFrame(animationId);
     };
   }, []);

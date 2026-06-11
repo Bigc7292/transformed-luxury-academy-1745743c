@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { AwardType } from './types';
 
@@ -9,10 +9,33 @@ interface ProfileImageProps {
 }
 
 const ProfileImage: React.FC<ProfileImageProps> = ({ imgSrc, animatedAwards }) => {
+  const [distance, setDistance] = useState(350);
+  const [cardClass, setCardClass] = useState('w-40 h-40');
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setDistance(140);
+        setCardClass('w-24 h-24');
+      } else if (width < 1024) {
+        setDistance(230);
+        setCardClass('w-32 h-32');
+      } else {
+        setDistance(350);
+        setCardClass('w-40 h-40');
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Define the positions for each award image - we'll only use two for the rotation now
   const positions = [
-    { angle: 0, distance: 350 },    // North position
-    { angle: 180, distance: 350 },  // South position
+    { angle: 0, distance },    // East position
+    { angle: 180, distance },  // West position
   ];
 
   // Get the specific award images we want to display statically
@@ -28,11 +51,11 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ imgSrc, animatedAwards }) =
     award.image !== "/lovable-uploads/e5f63014-1269-4f57-9add-853a574d10b0.png");
 
   return (
-    <div className="relative mb-36"> {/* Increased bottom margin to prevent text overlap */}
+    <div className="relative mb-24 sm:mb-36">
       {/* Static award images that will be positioned at the top near the title */}
-      <div className="absolute -top-16 left-0 right-0 flex justify-center space-x-4 z-20">
+      <div className="absolute -top-12 sm:-top-16 left-0 right-0 flex justify-center space-x-3 sm:space-x-4 z-20">
         {trainingAcademyAward && (
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden w-24 h-24">
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden w-16 h-16 sm:w-24 sm:h-24 border border-gold-500/20">
             <img 
               src={trainingAcademyAward.image} 
               alt={trainingAcademyAward.title}
@@ -42,7 +65,7 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ imgSrc, animatedAwards }) =
         )}
         
         {blondeSpecialistAward && (
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden w-24 h-24">
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden w-16 h-16 sm:w-24 sm:h-24 border border-gold-500/20">
             <img 
               src={blondeSpecialistAward.image} 
               alt={blondeSpecialistAward.title}
@@ -57,10 +80,8 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ imgSrc, animatedAwards }) =
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="relative z-10 rounded-full overflow-hidden border-8 border-gold shadow-2xl"
+          className="relative z-10 rounded-full overflow-hidden border-4 sm:border-8 border-gold shadow-2xl w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80"
           style={{ 
-            width: '320px', 
-            height: '320px',
             borderColor: 'rgba(212, 175, 55, 0.8)'
           }}
         >
@@ -104,7 +125,7 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ imgSrc, animatedAwards }) =
             >
               <motion.div
                 whileHover={{ scale: 1.1, zIndex: 20 }}
-                className="bg-white rounded-lg shadow-lg overflow-hidden w-40 h-40"
+                className={`bg-white rounded-lg shadow-lg overflow-hidden border border-gold-500/10 ${cardClass}`}
               >
                 <img 
                   src={remainingAwards[awardIndex].image} 
