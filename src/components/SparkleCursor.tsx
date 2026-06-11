@@ -16,13 +16,14 @@ interface Sparkle {
 const SparkleCursor: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   
-  // Custom luxury gold color palette
+  // Custom luxury gold & diamond white color palette
   const goldShades = [
-    'rgba(255, 215, 0, ',   // Gold
-    'rgba(212, 175, 55, ',  // Metallic Gold
-    'rgba(245, 230, 200, ', // Champagne Gold
-    'rgba(197, 160, 89, ',  // Brushed Gold
-    'rgba(190, 151, 82, ',  // Luxury Gold
+    'rgba(255, 255, 255, ',   // Diamond White
+    'rgba(255, 215, 0, ',     // Pure Gold
+    'rgba(212, 175, 55, ',    // Metallic Gold
+    'rgba(255, 248, 220, ',   // Champagne White
+    'rgba(245, 230, 200, ',   // Champagne Gold
+    'rgba(255, 239, 155, ',   // Brilliant Gold
   ];
 
   useEffect(() => {
@@ -38,7 +39,7 @@ const SparkleCursor: React.FC = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
     const sparkles: Sparkle[] = [];
-    const maxSparkles = isMobile ? 35 : 45; // slightly lower max on mobile for memory efficiency
+    const maxSparkles = isMobile ? 80 : 180; // Significantly increased particle cap for rich glitter density
 
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
@@ -47,38 +48,40 @@ const SparkleCursor: React.FC = () => {
 
     window.addEventListener('resize', handleResize);
 
-    const createSparkle = (x: number, y: number) => {
+    const createSparkle = (x: number, y: number, speedMultiplier = 1.0) => {
       if (sparkles.length >= maxSparkles) {
         sparkles.shift(); // Remove oldest to maintain cap
       }
       
-      const size = 1.5 + Math.random() * 3.5;
+      const size = 1.0 + Math.random() * 4.5;
       const baseColor = goldShades[Math.floor(Math.random() * goldShades.length)];
       
       // Random velocity disperse
       const angle = Math.random() * Math.PI * 2;
-      const speed = 0.4 + Math.random() * 0.8;
+      const speed = (0.5 + Math.random() * 1.5) * speedMultiplier;
       
       sparkles.push({
         x,
         y,
         vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed + 0.3, // slight gravity pull down
+        vy: Math.sin(angle) * speed + 0.15, // lighter gravity pull for longer floating trails
         size,
         color: baseColor,
         alpha: 1.0,
-        decay: 0.012 + Math.random() * 0.015, // decay rate
+        decay: 0.007 + Math.random() * 0.010, // Slower decay rate for longer-lasting glittering trails
         rotation: Math.random() * Math.PI * 2,
-        rotationSpeed: -0.05 + Math.random() * 0.1,
+        rotationSpeed: -0.06 + Math.random() * 0.12,
       });
     };
 
-    // Track mouse position and throttle sparkle generation slightly (desktop only)
+    // Track mouse position and spawn multiple sparkles per step (desktop only)
     let lastTime = 0;
     const handleMouseMove = (e: MouseEvent) => {
       const currentTime = Date.now();
-      if (currentTime - lastTime > 15) { // 15ms throttle
+      if (currentTime - lastTime > 8) { // Reduced throttle to 8ms for smoother, denser trails
+        // Spawn 2 sparkles per mousemove event for a much thicker trail
         createSparkle(e.clientX, e.clientY);
+        createSparkle(e.clientX + (Math.random() - 0.5) * 5, e.clientY + (Math.random() - 0.5) * 5);
         lastTime = currentTime;
       }
     };
@@ -91,17 +94,17 @@ const SparkleCursor: React.FC = () => {
     const handleTouchStart = (e: TouchEvent) => {
       if (e.touches && e.touches[0]) {
         const touch = e.touches[0];
-        // Create a burst of 6 sparkles
-        for (let i = 0; i < 6; i++) {
-          createSparkle(touch.clientX, touch.clientY);
+        // Create a massive burst of 18 sparkles on touch
+        for (let i = 0; i < 18; i++) {
+          createSparkle(touch.clientX, touch.clientY, 1.8);
         }
       }
     };
 
     const handleClick = (e: MouseEvent) => {
-      // Create a burst of 6 sparkles on click
-      for (let i = 0; i < 6; i++) {
-        createSparkle(e.clientX, e.clientY);
+      // Create a massive burst of 20 sparkles on click
+      for (let i = 0; i < 20; i++) {
+        createSparkle(e.clientX, e.clientY, 2.0);
       }
     };
 
@@ -155,10 +158,18 @@ const SparkleCursor: React.FC = () => {
           continue;
         }
 
+        // Add twinkling fluctuation to opacity to create a shimmering glitter effect
+        const twinkle = 0.85 + Math.sin(Date.now() * 0.02 + s.size) * 0.15;
+        const currentAlpha = Math.max(0, Math.min(1.0, s.alpha * twinkle));
+
         ctx.save();
         ctx.translate(s.x, s.y);
         ctx.rotate(s.rotation);
-        ctx.fillStyle = `${s.color}${s.alpha})`;
+        
+        // Setup gold glow shadow effect on the canvas
+        ctx.shadowBlur = s.size * 2.0;
+        ctx.shadowColor = 'rgba(255, 215, 0, 0.7)';
+        ctx.fillStyle = `${s.color}${currentAlpha})`;
         
         // Draw 4-point star for sparkle effect
         drawStar(ctx, 0, 0, 4, s.size, s.size * 0.35);
