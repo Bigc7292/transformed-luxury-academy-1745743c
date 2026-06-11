@@ -213,7 +213,7 @@ const Hero = () => {
               >
                 <div className="relative aspect-[4/5] rounded-lg overflow-hidden bg-zinc-900 mb-1 sm:mb-1.5">
                   <img
-                    src="/WhatsApp Image 2026-06-09 at 12.15.45 AM.png"
+                    src="/luxury_lip_filler.png"
                     alt="Signature Lip Artistry"
                     className="w-full h-full object-cover"
                   />

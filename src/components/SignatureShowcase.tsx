@@ -28,10 +28,10 @@ const SignatureShowcase: React.FC = () => {
     {
       id: 2,
       type: 'image',
-      src: '/WhatsApp Image 2026-06-08 at 11.48.25 PM.png',
-      title: 'Precision Contouring',
-      subtitle: 'Sculpted cheekbones and defined jawlines achieved with premium dermal mapping.',
-      category: 'Dermal Fillers',
+      src: '/luxury_lip_filler.png',
+      title: 'Signature Lip Artistry',
+      subtitle: 'Custom-designed lips focusing on border crispness, symmetry, and natural volume.',
+      category: 'Lip Enhancements',
       spanClass: 'aspect-[4/5] sm:aspect-square lg:aspect-auto min-h-[240px]'
     },
     {
@@ -47,18 +47,18 @@ const SignatureShowcase: React.FC = () => {
       id: 4,
       type: 'image',
       src: '/WhatsApp Image 2026-06-09 at 12.15.07 AM.png',
-      title: 'Structural Harmony',
-      subtitle: 'Restoring facial balance and youthful volume with expert precision.',
-      category: 'Facial Rejuvenation',
+      title: 'Facial Contouring',
+      subtitle: 'Defining jawlines, lifting cheeks, and restoring facial balance for a sculpted profile.',
+      category: 'Facial Contouring',
       spanClass: 'aspect-[4/5] sm:aspect-square lg:aspect-auto min-h-[240px]'
     },
     {
       id: 5,
       type: 'image',
       src: '/WhatsApp Image 2026-06-09 at 12.15.45 AM.png',
-      title: 'Signature Lip Artistry',
-      subtitle: 'Custom-designed lips focusing on border crispness, symmetry, and natural volume.',
-      category: 'Lip Enhancements',
+      title: 'Liquid Rhinoplasty',
+      subtitle: 'Non-surgical profile correction to smooth bumps, elevate the tip, and refine symmetry.',
+      category: 'Liquid Rhinoplasty',
       spanClass: 'aspect-[4/5] sm:aspect-square lg:aspect-auto min-h-[240px]'
     }
   ];

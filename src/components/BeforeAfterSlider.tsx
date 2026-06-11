@@ -81,7 +81,7 @@ const BeforeAfterSlider: React.FC = () => {
           >
             {/* 1. Bottom Image (After - Full View) */}
             <img 
-              src="/WhatsApp Image 2026-06-09 at 12.15.45 AM.png" 
+              src="/luxury_lip_filler.png" 
               alt="After Treatment" 
               className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />
@@ -98,7 +98,7 @@ const BeforeAfterSlider: React.FC = () => {
             >
               {/* Image width matches parent container aspect, forced size to prevent stretch */}
               <img 
-                src="/WhatsApp Image 2026-06-09 at 12.15.45 AM.png" 
+                src="/luxury_lip_filler.png" 
                 alt="Before Treatment" 
                 className="absolute top-0 left-0 w-full h-full object-cover max-w-none filter saturate-[0.65] contrast-[0.92] brightness-[0.95]"
                 style={{ 
