@@ -199,7 +199,7 @@ const Hero = () => {
                     <div className="absolute -inset-2 rounded-full border-2 border-gold-500 animate-ping opacity-40" />
                     <Play className="w-6 h-6 fill-current ml-1" />
                   </div>
-                  <span className="text-sm font-medium tracking-widest text-gold-100 uppercase bg-black/40 backdrop-blur-sm px-4 py-1.5 rounded-full border border-gold-500/30">
+                  <span className="text-[10px] sm:text-sm font-medium tracking-wider sm:tracking-widest text-gold-100 uppercase bg-black/40 backdrop-blur-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-gold-500/30">
                     Watch Showreel
                   </span>
                 </button>
@@ -209,7 +209,7 @@ const Hero = () => {
               <motion.div
                 animate={{ y: [0, -12, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-10 -left-4 sm:-top-10 sm:-left-12 z-20 w-20 sm:w-36 md:w-40 bg-black/80 backdrop-blur-md border border-gold-500/30 p-1.5 sm:p-2 rounded-xl shadow-xl hover:border-gold-500 hover:scale-105 transition-all duration-300"
+                className="absolute -top-10 -left-4 sm:-top-10 sm:-left-12 z-20 w-20 sm:w-36 md:w-40 bg-black/80 backdrop-blur-md border border-gold-500/30 p-1.5 sm:p-2 rounded-xl shadow-xl hover:border-gold-500 hover:scale-105 transition-all duration-300 hidden sm:block"
               >
                 <div className="relative aspect-[4/5] rounded-lg overflow-hidden bg-zinc-900 mb-1 sm:mb-1.5">
                   <img
@@ -230,7 +230,7 @@ const Hero = () => {
               <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="absolute -bottom-12 -right-4 sm:-bottom-8 sm:-right-10 z-20 w-20 sm:w-36 md:w-40 bg-black/80 backdrop-blur-md border border-gold-500/30 p-1.5 sm:p-2 rounded-xl shadow-xl hover:border-gold-500 hover:scale-105 transition-all duration-300"
+                className="absolute -bottom-12 -right-4 sm:-bottom-8 sm:-right-10 z-20 w-20 sm:w-36 md:w-40 bg-black/80 backdrop-blur-md border border-gold-500/30 p-1.5 sm:p-2 rounded-xl shadow-xl hover:border-gold-500 hover:scale-105 transition-all duration-300 hidden sm:block"
               >
                 <div className="relative aspect-[4/5] rounded-lg overflow-hidden bg-zinc-900 mb-1 sm:mb-1.5">
                   <img

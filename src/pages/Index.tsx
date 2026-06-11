@@ -15,6 +15,7 @@ import SEO from '../components/SEO';
 import SignatureShowcase from '@/components/SignatureShowcase';
 import TrustAccreditations from '@/components/TrustAccreditations';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
+import PrecisionLiftLaunch from '@/components/PrecisionLiftLaunch';
 
 const Index = () => {
   return (
@@ -52,6 +53,7 @@ const Index = () => {
 
       <Services />
       <SignatureShowcase />
+      <PrecisionLiftLaunch />
 
       {/* Content grid showing featured items managed by admin */}
       <ContentGrid
