@@ -30,7 +30,7 @@ const PrecisionLiftLaunch: React.FC = () => {
   const videos: VideoAsset[] = [
     {
       id: 1,
-      title: 'Precision Lift Procedure Showcase',
+      title: 'Precision Lift: Laser Fiber Showcase',
       description: 'See the next-gen laser fiber technology in action, tightening and lifting facial structures.',
       src: '/mixture/WhatsApp Video 2026-06-11 at 9.51.09 AM.mp4',
       thumbnail: '/mixture/WhatsApp Image 2026-06-11 at 9.50.25 AM (4).jpeg'
@@ -41,6 +41,27 @@ const PrecisionLiftLaunch: React.FC = () => {
       description: 'A close-up look at the expert application of non-invasive laser fiber technology.',
       src: '/mixture/WhatsApp Video 2026-06-11 at 9.53.52 AM.mp4',
       thumbnail: '/mixture/WhatsApp Image 2026-06-11 at 9.50.25 AM (3).jpeg'
+    },
+    {
+      id: 3,
+      title: 'Advanced Fiber Lift Demonstration',
+      description: 'Step-by-step clinical walkthrough of the sub-dermal laser fiber lift treatment.',
+      src: '/mixture/attachments (1)/1000439044.mp4',
+      thumbnail: '/mixture/WhatsApp Image 2026-06-11 at 9.50.25 AM (2).jpeg'
+    },
+    {
+      id: 4,
+      title: 'Full Treatment Procedure Walkthrough',
+      description: 'Complete recording of the non-surgical laser lifting procedure for facial rejuvenation.',
+      src: '/mixture/attachments/1000597489.mp4',
+      thumbnail: '/mixture/WhatsApp Image 2026-06-11 at 9.50.25 AM.jpeg'
+    },
+    {
+      id: 5,
+      title: 'Precision Technique & Setup',
+      description: 'Kayla demonstrating the machine parameters and skin preparation for the Laser Lift.',
+      src: '/mixture/attachments/1000620988.mp4',
+      thumbnail: '/mixture/attachments (1)/1000530641.webp'
     }
   ];
 
