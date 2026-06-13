@@ -1,22 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Smartphone } from 'lucide-react';
 import { FaInstagram } from 'react-icons/fa'; // Import Instagram icon from react-icons
+import { usePWAInstall } from '../hooks/usePWAInstall';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { isInstallable, installApp } = usePWAInstall();
 
   return (
     <footer className="bg-black border-t border-gold-500/20">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           <div>
             <Link to="/" className="inline-block mb-6">
               <div className="text-2xl font-serif text-gold-500 tracking-wider">
                 Transformed<span className="font-cursive ml-1">Academy</span>
               </div>
             </Link>
-            <p className="text-zinc-400 mb-6">
+            <p className="text-zinc-400 mb-6 text-sm">
               Premium aesthetic treatments to enhance your natural beauty. Our salon combines artistry with medical expertise.
             </p>
             <div className="social-icons">
@@ -34,7 +36,7 @@ const Footer = () => {
 
           <div>
             <h3 className="text-lg font-serif text-gold-700 mb-6">Quick Links</h3>
-            <ul className="space-y-4">
+            <ul className="space-y-4 text-sm">
               <li>
                 <Link to="/" className="text-zinc-400 hover:text-gold-500 transition-colors">Home</Link>
               </li>
@@ -55,7 +57,7 @@ const Footer = () => {
 
           <div>
             <h3 className="text-lg font-serif text-gold-700 mb-6">Contact Us</h3>
-            <ul className="space-y-4">
+            <ul className="space-y-4 text-sm">
               <li className="flex items-start">
                 <MapPin size={20} className="text-gold-500 mr-2 mt-1 flex-shrink-0" />
                 <span className="text-zinc-400">Unit R05 Cardiff Bay Business Centre, CF24 5BS</span>
@@ -69,6 +71,36 @@ const Footer = () => {
                 <a href="mailto:info@transformedacademy.com" className="text-zinc-400 hover:text-gold-500 transition-colors">info@transformedacademy.com</a>
               </li>
             </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-serif text-gold-700 mb-6">Install Our App</h3>
+            <p className="text-zinc-400 mb-4 text-xs sm:text-sm leading-relaxed">
+              Scan the code below or tap to save Transformed Academy directly to your phone's home screen as a standalone application.
+            </p>
+            <div className="flex gap-3 items-center">
+              <button
+                type="button"
+                onClick={installApp}
+                className="w-20 h-20 bg-white p-1 rounded-lg border border-gold-500/20 shadow-md flex-shrink-0 cursor-pointer hover:scale-105 transition-transform duration-300 relative group"
+                aria-label="Install App"
+              >
+                <img src="/app-qrcode.png" alt="Scan to Install" className="w-full h-full object-contain" />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity rounded-lg">
+                  <Smartphone className="w-5 h-5 text-gold-400" />
+                </div>
+              </button>
+              <div className="text-[11px] text-zinc-400 space-y-1">
+                <button 
+                  onClick={installApp} 
+                  className="font-semibold text-gold-400 hover:text-gold-300 underline block text-left cursor-pointer"
+                >
+                  Scan or Tap to Install
+                </button>
+                <p>1. Scan or tap the QR code</p>
+                <p>2. Choose 'Install' or 'Add to Home screen'</p>
+              </div>
+            </div>
           </div>
         </div>
 
