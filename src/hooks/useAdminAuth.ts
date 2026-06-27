@@ -6,8 +6,6 @@ import { supabase } from "@/integrations/supabase/client";
 
 const AUTHORIZED_ADMIN_EMAILS = [
   "transformedacademyhq@gmail.com",
-];
-
 export const useAdminAuth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -29,47 +27,8 @@ export const useAdminAuth = () => {
           return;
         }
         
-        const email = session.user.email;
-        if (email && AUTHORIZED_ADMIN_EMAILS.includes(email)) {
-          // Check if admin record exists
-          const { data: adminRecords, error: adminQueryError } = await supabase
-            .from("admin_users")
-            .select("*")
-            .eq("email", email);
-            
-          if (!adminQueryError) {
-            if (!adminRecords || adminRecords.length === 0) {
-              // Automatically insert the admin record
-              try {
-                await supabase
-                  .from("admin_users")
-                  .insert({
-                    email: email,
-                    role: "admin",
-                    user_id: session.user.id
-                  });
-              } catch (insertError:any) {
-                console.error('Failed to insert admin user:', insertError.message);
-                // If duplicate error, ignore; otherwise show toast later
-              }
-            } else {
-              // If record exists but user_id is missing or doesn't match, update it
-              const record = adminRecords[0];
-              if (record.user_id !== session.user.id) {
-                try {
-                  await supabase
-                    .from("admin_users")
-                    .update({ user_id: session.user.id })
-                    .eq("email", email);
-                } catch (updateError:any) {
-                  console.error('Failed to update admin user:', updateError.message);
-                }
-              }
-            }
-          }
-        }
-
-        // Permission already validated by whitelist; no further admin_users check needed.
+        // Session exists – navigate straight to admin content
+        navigate("/admin/content");
       } catch (error) {
         console.error("Admin auth error:", error);
         toast({
