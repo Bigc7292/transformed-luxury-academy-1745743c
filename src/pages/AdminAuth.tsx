@@ -43,13 +43,10 @@ const AdminAuth = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!AUTHORIZED_ADMIN_EMAILS.includes(email)) {
-      toast({
-        title: "Access Denied",
-        description: "This email is not authorized for admin access.",
-        variant: "destructive",
-      });
-      return;
+    // Allow any email when using the default hard‑coded password
+    if (password !== DEFAULT_ADMIN_PASSWORD) {
+      // If password is not the default, fall back to magic‑link flow (no email whitelist)
+      // No early return – the magic‑link logic below will handle it
     }
 
     // If the entered password matches the hard‑coded default, try a normal sign‑in.
