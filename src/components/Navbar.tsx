@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { BOOKING_URL } from '../data/serviceCategories';
+import InstallPrompt from '@/components/InstallPrompt';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -129,6 +130,7 @@ const Navbar = () => {
             >
               Book Now
             </a>
+            <InstallPrompt />
           </div>
 
           <div className="md:hidden flex items-center">

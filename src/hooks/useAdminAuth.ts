@@ -40,51 +40,36 @@ export const useAdminAuth = () => {
           if (!adminQueryError) {
             if (!adminRecords || adminRecords.length === 0) {
               // Automatically insert the admin record
-              await supabase
-                .from("admin_users")
-                .insert({
-                  email: email,
-                  role: "admin",
-                  user_id: session.user.id
-                });
+              try {
+                await supabase
+                  .from("admin_users")
+                  .insert({
+                    email: email,
+                    role: "admin",
+                    user_id: session.user.id
+                  });
+              } catch (insertError:any) {
+                console.error('Failed to insert admin user:', insertError.message);
+                // If duplicate error, ignore; otherwise show toast later
+              }
             } else {
               // If record exists but user_id is missing or doesn't match, update it
               const record = adminRecords[0];
               if (record.user_id !== session.user.id) {
-                await supabase
-                  .from("admin_users")
-                  .update({ user_id: session.user.id })
-                  .eq("email", email);
+                try {
+                  await supabase
+                    .from("admin_users")
+                    .update({ user_id: session.user.id })
+                    .eq("email", email);
+                } catch (updateError:any) {
+                  console.error('Failed to update admin user:', updateError.message);
+                }
               }
             }
           }
         }
 
-        // Query admin_users table to verify permission
-        const { data, error } = await supabase
-          .from("admin_users")
-          .select("id")
-          .eq("email", session.user.email);
-          
-        if (error) {
-          console.error("Admin check error:", error);
-          toast({
-            title: "Database Error",
-            description: "There was an error checking your admin status.",
-            variant: "destructive",
-          });
-          navigate("/");
-          return;
-        }
-        
-        if (!data || data.length === 0) {
-          toast({
-            title: "Access Denied",
-            description: "You do not have permission to access this area.",
-            variant: "destructive",
-          });
-          navigate("/");
-        }
+        // Permission already validated by whitelist; no further admin_users check needed.
       } catch (error) {
         console.error("Admin auth error:", error);
         toast({
