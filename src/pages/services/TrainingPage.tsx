@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import Chatbot from '../../components/Chatbot';
 import ServicesList from '../../components/ServicesList';
+import { PrecisionLaserMasterclass } from '../../components/PrecisionLaserMasterclass';
 import { BOOKING_URL } from '../../data/serviceCategories';
 
 const TrainingPage = () => {
@@ -27,6 +28,9 @@ const TrainingPage = () => {
               Discover our professional training courses designed to elevate your skills in the beauty industry.
             </p>
           </motion.div>
+
+          {/* Flagship Laser Masterclass Showcase */}
+          <PrecisionLaserMasterclass />
 
           <div>
             <ServicesList categoryId="training" />
