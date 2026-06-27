@@ -5,10 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const AUTHORIZED_ADMIN_EMAILS = [
-  "drivendatadynamics@gmail.com",
-  "admin@test.com",
-  "transformedacademyandsalon@gmail.com",
-  "transformedacademyhq@gmail.com"
+  "transformedacademyhq@gmail.com",
 ];
 
 export const useAdminAuth = () => {

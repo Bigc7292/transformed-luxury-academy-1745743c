@@ -14,12 +14,9 @@ import { Eye, EyeOff, Lock, User } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const AUTHORIZED_ADMIN_EMAILS = [
-  "drivendatadynamics@gmail.com",
-  "admin@test.com",
-  "transformedacademyandsalon@gmail.com",
-  "transformedacademyhq@gmail.com"
+  "transformedacademyhq@gmail.com",
 ];
-
+const DEFAULT_ADMIN_PASSWORD = "Fresha123!**";
 const AdminAuth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,37 +52,40 @@ const AdminAuth = () => {
       return;
     }
 
-    setLoading(true);
-
-    try {
-      // Try to sign in with email and password
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        // If password login fails, fall back to magic link
-        const { error: magicLinkError } = await supabase.auth.signInWithOtp({
-          email: email,
-          options: {
-            emailRedirectTo: `${window.location.origin}/admin/content`,
-          },
+    // If the entered password matches the hard‑coded default, try a normal sign‑in.
+    // If that fails (e.g., user has never set this password), fall back to magic link.
+    if (password === DEFAULT_ADMIN_PASSWORD) {
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
         });
-
-        if (magicLinkError) throw magicLinkError;
-
-        toast({
-          title: "Magic link sent",
-          description: "Please check your email for the login link",
-        });
-      } else if (data.session) {
-        toast({
-          title: "Login successful",
-          description: "Welcome to the admin panel",
-        });
-        navigate("/admin/content");
+        if (error) throw error;
+        if (data.session) {
+          toast({
+            title: "Login successful",
+            description: "Welcome to the admin panel",
+          });
+          navigate("/admin/content");
+          return;
+        }
+      } catch (e) {
+        // ignore and fall back to magic link below
       }
+    }
+
+    // Fallback: magic link login (covers non‑default passwords or failed default login)
+    setLoading(true);
+    try {
+      const { error: magicLinkError } = await supabase.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: `${window.location.origin}/admin/content` },
+      });
+      if (magicLinkError) throw magicLinkError;
+      toast({
+        title: "Magic link sent",
+        description: "Please check your email for the login link",
+      });
     } catch (error: any) {
       toast({
         title: "Login failed",
