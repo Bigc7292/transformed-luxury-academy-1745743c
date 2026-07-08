@@ -32,24 +32,53 @@ const ADMIN_PASSWORD = 'Fresha123!**';
 
 async function ensureAdminAuthUser() {
   console.log('Ensuring admin auth user exists...');
-  // Create the user; if the user already exists Supabase will return an error we can ignore.
+  
+  // First try to create the user
   const { data: createData, error: createError } = await supabase.auth.admin.createUser({
     email: ADMIN_EMAIL,
     password: ADMIN_PASSWORD,
     email_confirm: true,
   });
-  if (createError && !createError.message?.includes('User already exists')) {
+  
+  let userId = null;
+  
+  if (createError && createError.message?.includes('User already exists')) {
+    console.log('User exists. Fetching and updating password...');
+    const { data: userData, error: fetchError } = await supabase.auth.admin.listUsers();
+    
+    if (fetchError) {
+      console.error('Could not fetch users list:', fetchError.message);
+      return null;
+    }
+    
+    const user = userData.users.find(u => u.email === ADMIN_EMAIL);
+    if (!user) {
+      console.error('Could not find user by email in listUsers.');
+      return null;
+    }
+    
+    userId = user.id;
+    
+    // Update the password
+    const { error: updateError } = await supabase.auth.admin.updateUserById(userId, {
+      password: ADMIN_PASSWORD
+    });
+    
+    if (updateError) {
+      console.error('Failed to update password:', updateError.message);
+      return null;
+    }
+    console.log('Password updated successfully.');
+  } else if (createError) {
     console.error('Failed to create admin auth user:', createError.message);
     return null;
+  } else {
+    userId = createData?.user?.id;
+    console.log('Admin user created newly.');
   }
-  // If user existed or was created, fetch the user ID.
-  const { data: userData, error: fetchError } = await supabase.auth.getUserByEmail(ADMIN_EMAIL);
-  if (fetchError) {
-    console.error('Could not fetch admin user ID:', fetchError.message);
-    return null;
-  }
-  console.log('Admin auth user ensured with ID:', userData?.user?.id);
-  return userData?.user?.id ?? null;
+  
+  console.log('Admin auth user ensured with ID:', userId);
+  return userId;
 }
 
 async function ensureAdminRecord(userId) {
