@@ -76,7 +76,10 @@ const AdminAuth = () => {
     try {
       const { error: magicLinkError } = await supabase.auth.signInWithOtp({
         email,
-        options: { emailRedirectTo: `${window.location.origin}/admin/content` },
+        options: {
+          emailRedirectTo: `${window.location.origin}/admin/content`,
+          shouldCreateUser: false,
+        },
       });
       if (magicLinkError) throw magicLinkError;
       toast({

@@ -5,6 +5,18 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 import { BOOKING_URL } from '../data/serviceCategories';
 import InstallPrompt from '@/components/InstallPrompt';
 
+interface SubItem {
+  name: string;
+  path: string;
+}
+
+interface NavItem {
+  name: string;
+  path: string;
+  hasSubmenu?: boolean;
+  submenu?: SubItem[];
+}
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -61,7 +73,7 @@ const Navbar = () => {
     document.body.style.overflow = '';
   };
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { name: "Home", path: "/" },
     { name: "Services", path: "/services" },
     { name: "Meet the CEO Kayla", path: "/about-ceo" },
