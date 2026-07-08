@@ -9,6 +9,7 @@ import Booking from './pages/Booking';
 import Gallery from './pages/Gallery';
 import PriceList from './pages/PriceList';
 import AdminAuth from './pages/AdminAuth';
+import AdminDashboard from './pages/AdminDashboard';
 import AdminContentPage from './pages/AdminContentPage';
 import AdminInbox from './pages/AdminInbox';
 import AdminMediaPage from './pages/AdminMediaPage';
@@ -42,6 +43,7 @@ function App() {
           <Route path="/clinical-risk-assessment" element={<ClinicalRiskAssessment />} />
           <Route path="/admin" element={<Navigate to="/admin/auth" replace />} />
           <Route path="/admin/auth" element={<AdminAuth />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/content" element={<AdminContentPage />} />
           <Route path="/admin/inbox" element={<AdminInbox />} />
           <Route path="/admin/media" element={<AdminMediaPage />} />

@@ -4,7 +4,7 @@ import ResponsiveTable from "@/components/admin/ResponsiveTable";
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { customerService, type CustomerInquiry } from "@/services/customerService";
-import { getAllChatSessions, getChatHistory } from "@/services/chatbotService";
+import { getAllChatSessions, getChatHistory, deleteChatSession } from "@/services/chatbotService";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
@@ -43,7 +43,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Mail, MessageSquare, Clock, CheckCircle, XCircle, RefreshCw, AlertCircle } from "lucide-react";
+import { Mail, MessageSquare, Clock, CheckCircle, XCircle, RefreshCw, AlertCircle, Trash2 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminInstructions from "@/components/admin/AdminInstructions";
 
@@ -58,6 +58,9 @@ const statusColors = {
 const ChatHistorySection: React.FC = () => {
   const [selectedSession, setSelectedSession] = useState<string | null>(null);
   const [chatMessages, setChatMessages] = useState<{user_message: string; bot_response: string; created_at: string}[]>([]);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   // Fetch all chat sessions
   const { data: chatSessions = [], isLoading: isLoadingSessions } = useQuery({
@@ -81,6 +84,22 @@ const ChatHistorySection: React.FC = () => {
   const formatChatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString();
+  };
+
+  const handleDeleteSession = async (sessionId: string) => {
+    if (!window.confirm("Are you sure you want to permanently delete this chat session?")) return;
+    
+    setIsDeleting(true);
+    const success = await deleteChatSession(sessionId);
+    setIsDeleting(false);
+    
+    if (success) {
+      toast({ title: "Session Deleted", description: "The chat session was removed successfully." });
+      setSelectedSession(null);
+      queryClient.invalidateQueries({ queryKey: ["chatSessions"] });
+    } else {
+      toast({ title: "Error", description: "Failed to delete chat session.", variant: "destructive" });
+    }
   };
 
   return (
@@ -122,14 +141,26 @@ const ChatHistorySection: React.FC = () => {
             <div className="border border-zinc-800 rounded-lg p-4 bg-zinc-950/40">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-medium text-zinc-100 font-serif">Chat Conversation</h3>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setSelectedSession(null)}
-                  className="border-zinc-800 text-zinc-400 hover:bg-zinc-900/50 hover:text-zinc-200"
-                >
-                  Close
-                </Button>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleDeleteSession(selectedSession)}
+                    disabled={isDeleting}
+                    className="border-red-500/40 text-red-400 hover:bg-red-500/10 hover:text-red-300"
+                  >
+                    {isDeleting ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4 mr-1" />}
+                    Delete
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setSelectedSession(null)}
+                    className="border-zinc-800 text-zinc-400 hover:bg-zinc-900/50 hover:text-zinc-200"
+                  >
+                    Close
+                  </Button>
+                </div>
               </div>
 
               {chatMessages.length === 0 ? (

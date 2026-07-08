@@ -32,8 +32,7 @@ const AdminAuth = () => {
     const checkSession = async () => {
       const { data } = await supabase.auth.getSession();
       if (data.session) {
-        // Redirect to admin content page by default
-        navigate("/admin/content");
+        navigate("/admin/dashboard");
       }
     };
 
@@ -60,10 +59,10 @@ const AdminAuth = () => {
         if (error) throw error;
         if (data.session) {
           toast({
-            title: "Login successful",
-            description: "Welcome to the admin panel",
+            title: "Welcome back!",
+            description: "Successfully logged in.",
           });
-          navigate("/admin/content");
+          navigate("/admin/dashboard");
           return;
         }
       } catch (e) {
@@ -77,7 +76,7 @@ const AdminAuth = () => {
       const { error: magicLinkError } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/admin/content`,
+          emailRedirectTo: `${window.location.origin}/admin/dashboard`,
           shouldCreateUser: false,
         },
       });
@@ -113,7 +112,7 @@ const AdminAuth = () => {
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
-        redirectTo: `${window.location.origin}/admin/content`,
+        redirectTo: `${window.location.origin}/admin/dashboard`,
       });
 
       if (error) throw error;

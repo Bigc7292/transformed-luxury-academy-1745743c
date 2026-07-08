@@ -80,6 +80,7 @@ const ContentList: React.FC<ContentListProps> = ({
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[180px] md:w-auto">Title</TableHead>
+                <TableHead className="w-[80px]">Preview</TableHead>
                 <TableHead className="hidden md:table-cell">Type</TableHead>
                 <TableHead className="hidden md:table-cell">Category</TableHead>
                 <TableHead className="hidden lg:table-cell">Placement</TableHead>
@@ -146,8 +147,21 @@ const ContentList: React.FC<ContentListProps> = ({
                         </div>
                       </div>
                     </TableCell>
+                    <TableCell>
+                      <div className="w-16 h-12 rounded overflow-hidden bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+                        {item.media_type === 'video' ? (
+                          <div className="relative w-full h-full">
+                            <video src={item.url} className="w-full h-full object-cover" muted poster={item.thumbnail_url || undefined} />
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                              <Video className="h-4 w-4 text-white opacity-80" />
+                            </div>
+                          </div>
+                        ) : (
+                          <img src={item.url} alt="Preview" className="w-full h-full object-cover" />
+                        )}
+                      </div>
+                    </TableCell>
                     <TableCell className="hidden md:table-cell">
-                      {item.media_type === "image" ? (
                         <span className="flex items-center">
                           <Image className="h-4 w-4 mr-1" /> Image
                         </span>

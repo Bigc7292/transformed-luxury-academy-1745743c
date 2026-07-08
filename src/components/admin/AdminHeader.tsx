@@ -91,6 +91,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ title, handleLogout }) => {
   };
 
   // Determine which page we're on to highlight the active nav item
+  const isDashboardPage = location.pathname === '/admin/dashboard';
   const isContentPage = location.pathname === '/admin/content';
   const isMediaPage = location.pathname === '/admin/media';
   const isInboxPage = location.pathname === '/admin/inbox';
@@ -120,6 +121,13 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ title, handleLogout }) => {
       </div>
 
       <div className="flex flex-wrap gap-2 border-b border-zinc-800 pb-2">
+        <Button
+          onClick={() => navigate("/admin/dashboard")}
+          variant={isDashboardPage ? "default" : "ghost"}
+          className={`flex items-center gap-2 ${isDashboardPage ? 'bg-gold-500 hover:bg-gold-400 text-black font-semibold' : 'text-zinc-400 hover:text-gold-500 hover:bg-zinc-900/50'}`}
+        >
+          <KeyRound size={16} /> Dashboard
+        </Button>
         <Button
           onClick={() => navigate("/admin/content")}
           variant={isContentPage ? "default" : "ghost"}

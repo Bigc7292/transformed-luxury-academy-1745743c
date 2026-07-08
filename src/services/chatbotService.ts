@@ -214,3 +214,18 @@ export const getAllChatSessions = async (): Promise<{ session_id: string; create
 
   return uniqueSessions;
 };
+
+// Delete a chat session
+export const deleteChatSession = async (sessionId: string): Promise<boolean> => {
+  const { error } = await supabase
+    .from("chat_history")
+    .delete()
+    .eq("session_id", sessionId);
+
+  if (error) {
+    console.error("Error deleting chat session:", error);
+    return false;
+  }
+
+  return true;
+};
