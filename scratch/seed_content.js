@@ -30,12 +30,11 @@ try {
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const defaultItems = [
-  // Carousel items
   {
     title: 'Signature Lip Fillers',
-    category: 'aesthetics',
+    category: 'promotional',
     media_type: 'image',
-    url: 'https://services-menu-chosen-by-nikki.s3.eu-north-1.amazonaws.com/advanced_lips+(2).jpeg',
+    url: '/claire-content/Lip filler signature lips.png',
     page_location: 'home',
     page_section: 'home_carousel',
     active: true,
@@ -43,9 +42,9 @@ const defaultItems = [
   },
   {
     title: 'Premium Hair Extensions',
-    category: 'hair',
+    category: 'promotional',
     media_type: 'image',
-    url: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/exstensions.jpeg',
+    url: '/claire-content/doing treatments (1).HEIC',
     page_location: 'home',
     page_section: 'home_carousel',
     active: true,
@@ -53,20 +52,19 @@ const defaultItems = [
   },
   {
     title: 'Non-Surgical Facial Sculpting',
-    category: 'non-surgical',
+    category: 'promotional',
     media_type: 'image',
-    url: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-20+at+10.38.38.jpeg',
+    url: '/claire-content/facial filler.png',
     page_location: 'home',
     page_section: 'home_carousel',
     active: true,
     display_order: 3
   },
-  // Featured grid items
   {
     title: 'Luxury Lash Extensions',
-    category: 'beauty-treatments',
+    category: 'promotional',
     media_type: 'image',
-    url: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/eyelashes.jpeg',
+    url: '/claire-content/signature lips.png',
     page_location: 'home',
     page_section: 'home_featured',
     active: true,
@@ -74,9 +72,9 @@ const defaultItems = [
   },
   {
     title: 'Bouncy Blowouts',
-    category: 'hair',
+    category: 'promotional',
     media_type: 'image',
-    url: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-08+at+18.22.45.jpeg',
+    url: '/claire-content/doing treatments.HEIC',
     page_location: 'home',
     page_section: 'home_featured',
     active: true,
@@ -84,13 +82,183 @@ const defaultItems = [
   },
   {
     title: 'Aesthetics Academy & Courses',
-    category: 'training',
+    category: 'promotional',
     media_type: 'image',
-    url: 'https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-24+at+21.12.36.jpeg',
+    url: '/claire-content/Transformed HQ Instagram (5).png',
     page_location: 'home',
     page_section: 'home_featured',
     active: true,
     display_order: 3
+  },
+  {
+    title: 'Jawline Definition',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Jaw filler.png',
+    page_location: 'home',
+    page_section: 'home_carousel',
+    active: true,
+    display_order: 4
+  },
+  {
+    title: 'Polynucleotides Treatment',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Polynucleotides.png',
+    page_location: 'services',
+    page_section: 'services_showcase',
+    active: true,
+    display_order: 1
+  },
+  {
+    title: 'Clinic Interior',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Transformed HQ Instagram (3).png',
+    page_location: 'about',
+    page_section: 'about_gallery',
+    active: true,
+    display_order: 1
+  },
+  {
+    title: 'Kayla Performing Treatment',
+    category: 'staff',
+    media_type: 'image',
+    url: '/claire-content/Kayla doing treatment.HEIC',
+    page_location: 'about',
+    page_section: 'about_gallery',
+    active: true,
+    display_order: 2
+  },
+  {
+    title: 'Natural Lip Filler Results',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Natural lip filler.png',
+    page_location: 'gallery',
+    page_section: 'gallery_featured',
+    active: true,
+    display_order: 1
+  },
+  {
+    title: 'Signature Lips Masterclass',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Signature lip filler.png',
+    page_location: 'gallery',
+    page_section: 'gallery_main',
+    active: true,
+    display_order: 1
+  },
+  {
+    title: 'Advanced Dermal Filler',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/facial filler.png',
+    page_location: 'gallery',
+    page_section: 'gallery_main',
+    active: true,
+    display_order: 2
+  },
+  {
+    title: 'Treatment in Progress',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/doing treatments (2).HEIC',
+    page_location: 'gallery',
+    page_section: 'gallery_main',
+    active: true,
+    display_order: 3
+  },
+  {
+    title: 'Clinic Environment',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Transformed HQ Instagram (4).png',
+    page_location: 'gallery',
+    page_section: 'gallery_main',
+    active: true,
+    display_order: 4
+  },
+  {
+    title: 'Training Academy',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Transformed HQ Instagram (6).png',
+    page_location: 'gallery',
+    page_section: 'gallery_main',
+    active: true,
+    display_order: 5
+  },
+  {
+    title: 'Transformed HQ',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Transformed HQ Instagram.png',
+    page_location: 'gallery',
+    page_section: 'gallery_main',
+    active: true,
+    display_order: 6
+  },
+  {
+    title: 'Lip Filler Signature Lips',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Lip filler signature lips (1).HEIC',
+    page_location: 'gallery',
+    page_section: 'gallery_featured',
+    active: true,
+    display_order: 2
+  },
+  {
+    title: 'Natural Lip Enhancement',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Natural lip filler.HEIC',
+    page_location: 'gallery',
+    page_section: 'gallery_main',
+    active: true,
+    display_order: 7
+  },
+  {
+    title: 'Advanced Treatment Room',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Transformed HQ Instagram (2).png',
+    page_location: 'about',
+    page_section: 'about_gallery',
+    active: true,
+    display_order: 3
+  },
+  {
+    title: 'Facial Filler Procedure',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/facial filler.png',
+    page_location: 'services',
+    page_section: 'services_showcase',
+    active: true,
+    display_order: 2
+  },
+  {
+    title: 'Signature Lip Artistry',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/signature lips.png',
+    page_location: 'gallery',
+    page_section: 'gallery_featured',
+    active: true,
+    display_order: 3
+  },
+  {
+    title: 'Cardiff Bay Clinic',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Transformed HQ Instagram (7).png',
+    page_location: 'home',
+    page_section: 'home_carousel',
+    active: true,
+    display_order: 5
   }
 ];
 
@@ -98,29 +266,53 @@ async function run() {
   console.log('Checking content table...');
   const { data: existing, error: checkError } = await supabase
     .from('content')
-    .select('id');
+    .select('id, page_location, page_section, title');
 
   if (checkError) {
     console.error('Error checking database:', checkError);
     process.exit(1);
   }
 
-  if (existing.length > 0) {
-    console.log('Database already has content items. Skipping seed.');
-    return;
+  console.log(`Found ${existing.length} existing content items.`);
+
+  for (const item of defaultItems) {
+    const match = existing.find(
+      (row) => row.page_location === item.page_location && row.page_section === item.page_section && row.title === item.title
+    );
+
+    if (match) {
+      console.log(`Updating existing item: ${item.title}`);
+      const { error: updateError } = await supabase
+        .from('content')
+        .update({
+          url: item.url,
+          category: item.category,
+          media_type: item.media_type,
+          active: item.active,
+          display_order: item.display_order
+        })
+        .eq('id', match.id);
+
+      if (updateError) {
+        console.error(`Failed to update ${item.title}:`, updateError);
+      } else {
+        console.log(`Updated: ${item.title}`);
+      }
+    } else {
+      console.log(`Inserting new item: ${item.title}`);
+      const { error: insertError } = await supabase
+        .from('content')
+        .insert(item);
+
+      if (insertError) {
+        console.error(`Failed to insert ${item.title}:`, insertError);
+      } else {
+        console.log(`Inserted: ${item.title}`);
+      }
+    }
   }
 
-  console.log('Database is empty. Inserting default content items...');
-  const { error: insertError } = await supabase
-    .from('content')
-    .insert(defaultItems);
-
-  if (insertError) {
-    console.error('Failed to seed database:', insertError);
-    process.exit(1);
-  }
-
-  console.log('SUCCESS: Seeded default items successfully!');
+  console.log('SUCCESS: Content seeding/update completed!');
 }
 
 run();
