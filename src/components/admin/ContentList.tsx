@@ -162,12 +162,13 @@ const ContentList: React.FC<ContentListProps> = ({
                       </div>
                     </TableCell>
                     <TableCell className="hidden md:table-cell">
+                      {item.media_type === 'video' ? (
                         <span className="flex items-center">
-                          <Image className="h-4 w-4 mr-1" /> Image
+                          <Video className="h-4 w-4 mr-1" /> Video
                         </span>
                       ) : (
                         <span className="flex items-center">
-                          <Video className="h-4 w-4 mr-1" /> Video
+                          <Image className="h-4 w-4 mr-1" /> Image
                         </span>
                       )}
                     </TableCell>

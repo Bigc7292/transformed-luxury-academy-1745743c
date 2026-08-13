@@ -595,7 +595,7 @@ const AdminInbox: React.FC = () => {
                             .map((inquiry) => (
                               <TableRow key={inquiry.id}>
                                 {/* biome-ignore lint/style/noNonNullAssertion: <explanation> */}
-<                      <TableCell>{formatDate(inquiry.created_at!)}</TableCell>
+                              <TableCell>{formatDate(inquiry.created_at!)}</TableCell>
                                 <TableCell className="font-medium">
                                   <div>{inquiry.name}</div>
                                   <div className="md:hidden text-xs text-gray-500 mt-1">
