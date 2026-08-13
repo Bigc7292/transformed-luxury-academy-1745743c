@@ -28,8 +28,9 @@ const MediaShowcase = () => {
   return (
     <div className="bg-white min-h-screen">
       <SeoHead 
-        title="Media Showcase - Transformed Academy & Salon"
-        description="Explore our media showcase featuring our best work, staff, awards, and promotional content."
+        title="Media Showcase - Aesthetics Cardiff | Transformed Academy & Salon"
+        description="Explore our media showcase featuring our best work, staff, awards, and promotional content from Transformed Academy & Salon in Cardiff, South Wales."
+        keywords="media showcase Cardiff, aesthetic clinic media Cardiff, beauty salon media South Wales, staff awards Cardiff, promotional content Cardiff, aesthetic training media"
       />
       <Navbar />
       

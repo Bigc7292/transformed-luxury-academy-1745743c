@@ -15,10 +15,38 @@ import {
   personalStatement, 
   ceoDetails 
 } from '../components/about-ceo/data';
+import SEO from '../components/SEO';
 
 const AboutCeo = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-gold-50/30 to-white">
+      <SEO
+        title="Meet Kayla - CEO & Level 5 Educator Cardiff | Transformed Academy & Salon"
+        description="Meet Kayla, CEO and fully qualified Level 5 educator at Transformed Academy & Salon in Cardiff, South Wales. Expert in medical aesthetics, skin analysis, and beauty training."
+        keywords="Kayla CEO Cardiff, Level 5 educator Cardiff, medical aesthetics trainer Cardiff, beauty academy founder Cardiff, skin analysis specialist Cardiff, aesthetic training Cardiff South Wales"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Kayla",
+          "jobTitle": "CEO and Level 5 Educator",
+          "worksFor": {
+            "@type": "MedicalClinic",
+            "name": "Transformed Academy & Salon",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Cardiff",
+              "addressRegion": "South Wales",
+              "addressCountry": "GB"
+            }
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Cardiff",
+            "addressRegion": "South Wales",
+            "addressCountry": "GB"
+          }
+        }}
+      />
       <Navbar />
       <GlitterHearts />
       

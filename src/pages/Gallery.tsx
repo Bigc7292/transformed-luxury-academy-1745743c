@@ -9,6 +9,7 @@ import ContentGrid from '@/components/content/ContentGrid';
 import { PageSection } from '@/types/content';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ContentCarousel from '@/components/content/ContentCarousel';
+import ClaireContentShowcase from '@/components/content/ClaireContentShowcase';
 
 const Gallery = () => {
   const [tabValue, setTabValue] = useState("all");
@@ -16,8 +17,9 @@ const Gallery = () => {
   return (
     <div className="bg-white min-h-screen">
       <SeoHead 
-        title="Gallery - Transformed Academy & Salon | Before & After Results"
-        description="Explore our gallery showcasing stunning transformations. See our client results and professional work at Transformed Academy & Salon."
+        title="Gallery - Before & After Results | Aesthetics Cardiff"
+        description="Explore our gallery showcasing stunning aesthetic transformations in Cardiff, South Wales. See before and after results for lip fillers, dermal fillers, and advanced skin treatments."
+        keywords="aesthetic transformations Cardiff, before after results Cardiff, lip filler results Cardiff, dermal filler results South Wales, skin treatment results Cardiff, polynucleotides results, signature lips Cardiff, non-surgical treatments gallery"
       />
       <Navbar />
       
@@ -58,6 +60,7 @@ const Gallery = () => {
                   <TabsTrigger value="face">Face</TabsTrigger>
                   <TabsTrigger value="body">Body</TabsTrigger>
                   <TabsTrigger value="training">Training</TabsTrigger>
+                  <TabsTrigger value="claire">Claire's Portfolio</TabsTrigger>
                 </TabsList>
               </div>
               
@@ -99,6 +102,10 @@ const Gallery = () => {
                     Content for this section is managed through the admin panel.
                   </p>
                 </div>
+              </TabsContent>
+
+              <TabsContent value="claire" className="mt-0">
+                <ClaireContentShowcase />
               </TabsContent>
             </Tabs>
           </div>

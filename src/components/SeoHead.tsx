@@ -16,11 +16,11 @@ interface SeoHeadProps {
  * Component to manage SEO metadata consistently across the site
  */
 const SeoHead: React.FC<SeoHeadProps> = ({
-  title = "Transformed Academy & Salon | Premium Advanced Aesthetics",
-  description = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments And Fully Qualified Level 5 Educator at Transformed Academy and Salon.",
-  keywords = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments, Level 5 Educator, beauty salon, Cardiff",
-  ogTitle = "Transformed Academy & Salon | Premium Advanced Aesthetics",
-  ogDescription = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments And Fully Qualified Level 5 Educator at Transformed Academy and Salon.",
+  title = "Transformed Academy & Salon | Premium Advanced Aesthetics Cardiff",
+  description = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments And Fully Qualified Level 5 Educator at Transformed Academy and Salon in Cardiff, South Wales.",
+  keywords = "Premium Advanced Aesthetics Cardiff, Aesthetics Clinic Cardiff, Non-surgical treatments Cardiff, Medical Aesthetics Cardiff, Aesthetics Training Academy Cardiff, Advanced aesthetic courses UK, Botox and Filler training Cardiff, lip fillers Cardiff, dermal fillers Cardiff, beauty salon Cardiff, skin analysis Cardiff, Level 5 educator Cardiff",
+  ogTitle = "Transformed Academy & Salon | Premium Advanced Aesthetics Cardiff",
+  ogDescription = "Premium Advanced Aesthetics Treatments, Skin Analysis Specialist, Hair Care Treatments And Fully Qualified Level 5 Educator at Transformed Academy and Salon in Cardiff, South Wales.",
   ogImage = "https://transformedacademyhq.co.uk/logo-hq.jpg",
   schema,
 }) => {

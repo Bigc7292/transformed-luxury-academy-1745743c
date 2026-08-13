@@ -1,5 +1,5 @@
-
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import ResponsiveTable from "@/components/admin/ResponsiveTable";
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -52,6 +52,17 @@ const statusColors = {
   inprogress: "bg-yellow-950/40 text-yellow-400 border border-yellow-500/20",
   completed: "bg-green-950/40 text-green-400 border border-green-500/20",
   cancelled: "bg-red-950/40 text-red-400 border border-red-500/20"
+};
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(date);
 };
 
 // Chat History Section Component
@@ -199,6 +210,8 @@ const ChatHistorySection: React.FC = () => {
 
 const AdminInbox: React.FC = () => {
   const [selectedInquiry, setSelectedInquiry] = useState<CustomerInquiry | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [emailFilter, setEmailFilter] = useState("");
   const { toast } = useToast();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -218,7 +231,6 @@ const AdminInbox: React.FC = () => {
         return;
       }
 
-      // Check if user is an admin
       const { data: adminData, error } = await supabase
         .from("admin_users")
         .select("*")
@@ -289,6 +301,103 @@ const AdminInbox: React.FC = () => {
   const inProgressInquiries = inquiries.filter(item => item.status === "inprogress");
   const completedInquiries = inquiries.filter(item => item.status === "completed");
   const cancelledInquiries = inquiries.filter(item => item.status === "cancelled");
+
+  // Apply search and email filter to all inquiries for the tab content
+  const activeTabInquiries = {
+    new: newInquiries,
+    inprogress: inProgressInquiries,
+    completed: completedInquiries,
+    cancelled: cancelledInquiries,
+  }[status] || [];
+
+  const filteredInquiries = activeTabInquiries.filter(item => {
+    const matchesSearch =
+      !searchTerm ||
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.topic.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesEmail =
+      !emailFilter ||
+      item.email.toLowerCase().includes(emailFilter.toLowerCase());
+
+    return matchesSearch && matchesEmail;
+  });
+
+  const filteredCount = filteredInquiries.length;
+  const totalCount = activeTabInquiries.length;
+
+  // Stats calculation
+  const newInquiriesStats = {
+    total: newInquiries.length,
+    byTimeOfDay: newInquiries.reduce((acc, item) => {
+      const hour = new Date(item.created_at!).getHours();
+      if (hour < 6) acc.night = (acc.night || 0) + 1;
+      else if (hour < 12) acc.morning = (acc.morning || 0) + 1;
+      else if (hour < 18) acc.afternoon = (acc.afternoon || 0) + 1;
+      else acc.evening = (acc.evening || 0) + 1;
+      return acc;
+    }, {}),
+  };
+
+  // FAQ toggle state
+  const [isFaqOpen, setIsFaqOpen] = useState(false);
+
+  // Quick action buttons
+  const handleBulkStatusUpdate = async (status: string) => {
+    if (!window.confirm(`Are you sure you want to mark all ${filteredInquiries.length} filtered inquiries as "${status}"?`)) return;
+
+    try {
+      await Promise.all(
+        filteredInquiries.map(item => 
+          customerService.updateInquiryStatus(item.id!, status)
+        )
+      );
+      
+      toast({
+        title: "Bulk Update Complete",
+        description: `All ${filteredInquiries.length} inquiries updated to "${status}".`,
+      });
+      refetch();
+    } catch (error) {
+      toast({
+        title: "Bulk Update Failed",
+        description: "Failed to update multiple inquiries. Please try again.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleExportCSV = () => {
+    const csvContent = [
+      ["Name", "Email", "Phone", "Topic", "Message", "Status", "Created Date"],
+      ...filteredInquiries.map(item => [
+        item.name,
+        item.email,
+        item.phone || "",
+        item.topic,
+        item.message,
+        item.status,
+        formatDate(item.created_at!)
+      ])
+    ].map(row => row.map(cell => `"${cell}"`).join(","))
+      .join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `inquiries_${status}_${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    toast({
+      title: "Export Complete",
+      description: `Exported ${filteredInquiries.length} inquiries to CSV.`
+    });
+  };
 
   if (error) {
     return (
@@ -486,7 +595,7 @@ const AdminInbox: React.FC = () => {
                             .map((inquiry) => (
                               <TableRow key={inquiry.id}>
                                 {/* biome-ignore lint/style/noNonNullAssertion: <explanation> */}
-<TableCell>{formatDate(inquiry.created_at!).split(',')[0]}</TableCell>
+<                      <TableCell>{formatDate(inquiry.created_at!)}</TableCell>
                                 <TableCell className="font-medium">
                                   <div>{inquiry.name}</div>
                                   <div className="md:hidden text-xs text-gray-500 mt-1">

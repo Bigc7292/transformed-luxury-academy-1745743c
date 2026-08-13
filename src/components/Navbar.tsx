@@ -78,6 +78,7 @@ const Navbar = () => {
     { name: "Services", path: "/services" },
     { name: "Meet the CEO Kayla", path: "/about-ceo" },
     { name: "Gallery", path: "/gallery" },
+    { name: "Claire's Work", path: "/claire-gallery" },
     { name: "About", path: "/about" },
     { name: "Contact Us", path: "/contact" },
     { name: "Admin Login", path: "/admin/auth" },

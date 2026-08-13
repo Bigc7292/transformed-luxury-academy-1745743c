@@ -125,42 +125,37 @@ const Contact = () => {
   return (
     <div className="bg-white min-h-screen">
       <SeoHead
-        title="Contact Us - Transformed Academy & Salon"
-        description="Get in touch with Transformed Academy & Salon. Contact us for appointments, inquiries, or information about our services and training programs in Cardiff."
-        keywords="contact us, beauty salon contact, aesthetic clinic contact, salon appointment, beauty training inquiry, Cardiff salon, contact form"
+        title="Contact Us - Aesthetics Clinic Cardiff | Transformed Academy & Salon"
+        description="Contact Transformed Academy & Salon in Cardiff, South Wales for aesthetic treatments, beauty training inquiries, and appointments. Expert lip fillers, dermal fillers, and advanced aesthetic courses."
+        keywords="contact aesthetics clinic Cardiff, beauty salon contact South Wales, aesthetic clinic contact Cardiff, salon appointment Cardiff, beauty training inquiry Cardiff, lip filler consultation Cardiff, dermal filler Cardiff, polynucleotides Cardiff"
         schema={{
           "@context": "https://schema.org",
-          "@type": "ContactPage",
-          "name": "Contact Transformed Academy & Salon",
-          "description": "Get in touch with Transformed Academy & Salon for appointments, inquiries, or information about our services and training programs.",
-          "url": "https://transformedacademyhq.co.uk/contact",
-          "mainEntity": {
-            "@type": "Organization",
-            "name": "Transformed Academy & Salon",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Unit R05 Cardiff Bay Business Centre",
-              "addressLocality": "Cardiff",
-              "postalCode": "CF24 5BS",
-              "addressCountry": "GB"
+          "@type": "MedicalOrganization",
+          "name": "Transformed Academy & Salon",
+          "url": "https://transformedacademyhq.co.uk",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Unit R05 Cardiff Bay Business Centre",
+            "addressLocality": "Cardiff",
+            "postalCode": "CF24 5BS",
+            "addressCountry": "GB"
+          },
+          "telephone": "+44 7716 402303",
+          "email": "info@transformedacademy.co.uk",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              "opens": "09:00",
+              "closes": "19:00"
             },
-            "telephone": "+44 7716 402303",
-            "email": "info@transformedacademy.co.uk",
-            "openingHoursSpecification": [
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                "opens": "09:00",
-                "closes": "19:00"
-              },
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": "Saturday",
-                "opens": "09:00",
-                "closes": "17:00"
-              }
-            ]
-          }
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Saturday",
+              "opens": "09:00",
+              "closes": "17:00"
+            }
+          ]
         }}
       />
       <Navbar />

@@ -9,19 +9,19 @@ const About = () => {
   return (
     <div className="bg-white min-h-screen">
       <SeoHead
-        title="About Us - Transformed Academy & Salon"
-        description="Learn about Transformed Academy & Salon, our mission, values, and commitment to excellence in beauty and aesthetics in Cardiff."
-        keywords="about us, beauty salon, aesthetic clinic, beauty academy, Cardiff salon, beauty training, salon history, beauty professionals"
+        title="About Us - Aesthetics & Beauty Training Cardiff | Transformed Academy & Salon"
+        description="Learn about Transformed Academy & Salon in Cardiff, South Wales. Our mission, values, and commitment to excellence in beauty and aesthetics. Home to expert practitioners and Level 5 educators."
+        keywords="about aesthetics clinic Cardiff, beauty salon Cardiff South Wales, aesthetic academy Cardiff, beauty training Cardiff, Level 5 educator Cardiff, medical aesthetics Cardiff, beauty professionals Cardiff, salon history Cardiff"
         schema={{
           "@context": "https://schema.org",
           "@type": "AboutPage",
           "name": "About Transformed Academy & Salon",
-          "description": "Learn about Transformed Academy & Salon, our mission, values, and commitment to excellence in beauty and aesthetics.",
+          "description": "Learn about Transformed Academy & Salon in Cardiff, South Wales. Our mission, values, and commitment to excellence in beauty and aesthetics.",
           "url": "https://transformedacademyhq.co.uk/about",
           "mainEntity": {
-            "@type": "BeautySalon",
+            "@type": "MedicalClinic",
             "name": "Transformed Academy & Salon",
-            "description": "Premium beauty and aesthetic services and professional training in Cardiff",
+            "description": "Premium beauty and aesthetic services and professional training in Cardiff, South Wales",
             "url": "https://transformedacademyhq.co.uk",
             "address": {
               "@type": "PostalAddress",

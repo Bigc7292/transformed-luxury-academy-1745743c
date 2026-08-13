@@ -16,25 +16,43 @@ import SignatureShowcase from '@/components/SignatureShowcase';
 import TrustAccreditations from '@/components/TrustAccreditations';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import PrecisionLiftLaunch from '@/components/PrecisionLiftLaunch';
+import ClaireContentShowcase from '@/components/content/ClaireContentShowcase';
 
 const Index = () => {
   return (
     <div className="bg-white">
       <SEO
-        title="Premium Aesthetic Treatments & Beauty Training"
-        description="Transformed Academy & Salon offers premium aesthetic treatments and professional beauty training courses in Cardiff. Book your appointment today for lip fillers, anti-wrinkle treatments, and more."
-        keywords="aesthetic treatments, beauty salon, training academy, facial treatments, lip fillers, anti-wrinkle treatments, beauty courses, Cardiff salon"
+        title="Premium Aesthetic Treatments & Beauty Training in Cardiff"
+        description="Transformed Academy & Salon offers premium aesthetic treatments and professional beauty training courses in Cardiff, South Wales. Expert lip fillers, dermal fillers, and advanced aesthetic training. Book your appointment today."
+        keywords="Aesthetics Clinic Cardiff, Non-surgical treatments Cardiff, Medical Aesthetics Cardiff, Aesthetics Training Academy Cardiff, Advanced aesthetic courses UK, Botox and Filler training Cardiff, lip fillers Cardiff, dermal fillers South Wales, polynucleotides Cardiff, beauty training Cardiff"
+        canonicalUrl="https://transformedacademyhq.co.uk"
         schema={{
           "@context": "https://schema.org",
-          "@type": "WebPage",
-          "name": "Transformed Academy & Salon - Home",
-          "description": "Premium aesthetic treatments and beauty training courses in Cardiff",
+          "@type": "MedicalClinic",
+          "name": "Transformed Academy & Salon",
+          "description": "Premium aesthetic treatments and beauty training courses in Cardiff, South Wales",
           "url": "https://transformedacademyhq.co.uk",
-          "mainEntity": {
-            "@type": "BeautySalon",
-            "name": "Transformed Academy & Salon",
-            "url": "https://transformedacademyhq.co.uk"
-          }
+          "telephone": "",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Cardiff",
+            "addressRegion": "South Wales",
+            "addressCountry": "GB"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "addressLocality": "Cardiff",
+            "addressRegion": "South Wales",
+            "addressCountry": "GB"
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          "priceRange": "£££",
+          "image": "https://transformedacademyhq.co.uk/logo-hq.jpg"
         }}
       />
       <Navbar />
@@ -67,6 +85,7 @@ const Index = () => {
 
       <Benefits />
       <BeforeAfterSlider />
+      <ClaireContentShowcase />
       <Testimonials />
       <Cta />
       <Footer />

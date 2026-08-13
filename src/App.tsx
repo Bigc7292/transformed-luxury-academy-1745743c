@@ -16,6 +16,7 @@ import AdminMediaPage from './pages/AdminMediaPage';
 import ContentPage from './pages/ContentPage';
 import NotFound from './pages/NotFound';
 import ServicesPage from './pages/ServicesPage';
+import ClaireGallery from './pages/ClaireGallery';
 // MediaShowcase is now only accessible through admin
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
@@ -37,6 +38,7 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/price-list" element={<PriceList />} />
           <Route path="/services" element={<ServicesPage />} />
+          <Route path="/claire-gallery" element={<ClaireGallery />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/complaints-policy" element={<ComplaintsPolicy />} />

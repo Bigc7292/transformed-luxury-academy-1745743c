@@ -21,9 +21,10 @@ const ServicesPage = () => {
   return (
     <div className="bg-white min-h-screen">
       <SEO
-        title="Our Services - Beauty & Aesthetic Treatments"
-        description="Explore our comprehensive range of beauty and aesthetic services including hair treatments, facials, lip fillers, anti-wrinkle treatments, and professional training courses."
-        keywords="beauty services, aesthetic treatments, hair salon, facial treatments, lip fillers, anti-wrinkle treatments, beauty training, Cardiff salon"
+        title="Our Services - Beauty & Aesthetic Treatments in Cardiff"
+        description="Explore our comprehensive range of beauty and aesthetic services in Cardiff, South Wales. Including lip fillers, anti-wrinkle treatments, dermal fillers, polynucleotides, and professional training courses."
+        keywords="beauty services Cardiff, aesthetic treatments South Wales, lip fillers Cardiff, anti-wrinkle treatments Cardiff, dermal fillers Cardiff, polynucleotides Cardiff, beauty training Cardiff, non-surgical treatments Cardiff, medical aesthetics Cardiff"
+        canonicalUrl="https://transformedacademyhq.co.uk/services"
         schema={{
           "@context": "https://schema.org",
           "@type": "ItemList",
@@ -33,11 +34,17 @@ const ServicesPage = () => {
             "item": {
               "@type": "Service",
               "name": category.name,
-              "description": category.description || `Premium ${category.name.toLowerCase()} services`,
+              "description": category.description || `Premium ${category.name.toLowerCase()} services in Cardiff`,
               "provider": {
-                "@type": "BeautySalon",
+                "@type": "MedicalClinic",
                 "name": "Transformed Academy & Salon",
-                "url": "https://transformedacademyhq.co.uk"
+                "url": "https://transformedacademyhq.co.uk",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Cardiff",
+                  "addressRegion": "South Wales",
+                  "addressCountry": "GB"
+                }
               },
               "url": `https://transformedacademyhq.co.uk/services#${category.id}`
             }
