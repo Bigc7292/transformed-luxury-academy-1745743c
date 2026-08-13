@@ -34,21 +34,11 @@ const defaultItems = [
     title: 'Signature Lip Fillers',
     category: 'promotional',
     media_type: 'image',
-    url: '/claire-content/Lip filler signature lips.png',
+    url: '/claire-content/Signature lip filler.png',
     page_location: 'home',
     page_section: 'home_carousel',
     active: true,
     display_order: 1
-  },
-  {
-    title: 'Premium Hair Extensions',
-    category: 'promotional',
-    media_type: 'image',
-    url: '/claire-content/doing treatments (1).HEIC',
-    page_location: 'home',
-    page_section: 'home_carousel',
-    active: true,
-    display_order: 2
   },
   {
     title: 'Non-Surgical Facial Sculpting',
@@ -58,7 +48,27 @@ const defaultItems = [
     page_location: 'home',
     page_section: 'home_carousel',
     active: true,
+    display_order: 2
+  },
+  {
+    title: 'Jawline Definition',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Jaw filler.png',
+    page_location: 'home',
+    page_section: 'home_carousel',
+    active: true,
     display_order: 3
+  },
+  {
+    title: 'Cardiff Bay Clinic',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Transformed HQ Instagram (7).png',
+    page_location: 'home',
+    page_section: 'home_carousel',
+    active: true,
+    display_order: 4
   },
   {
     title: 'Luxury Lash Extensions',
@@ -74,7 +84,7 @@ const defaultItems = [
     title: 'Bouncy Blowouts',
     category: 'promotional',
     media_type: 'image',
-    url: '/claire-content/doing treatments.HEIC',
+    url: '/claire-content/signature lips.png',
     page_location: 'home',
     page_section: 'home_featured',
     active: true,
@@ -91,16 +101,6 @@ const defaultItems = [
     display_order: 3
   },
   {
-    title: 'Jawline Definition',
-    category: 'promotional',
-    media_type: 'image',
-    url: '/claire-content/Jaw filler.png',
-    page_location: 'home',
-    page_section: 'home_carousel',
-    active: true,
-    display_order: 4
-  },
-  {
     title: 'Polynucleotides Treatment',
     category: 'promotional',
     media_type: 'image',
@@ -109,6 +109,16 @@ const defaultItems = [
     page_section: 'services_showcase',
     active: true,
     display_order: 1
+  },
+  {
+    title: 'Facial Filler Procedure',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/facial filler.png',
+    page_location: 'services',
+    page_section: 'services_showcase',
+    active: true,
+    display_order: 2
   },
   {
     title: 'Clinic Interior',
@@ -124,101 +134,11 @@ const defaultItems = [
     title: 'Kayla Performing Treatment',
     category: 'staff',
     media_type: 'image',
-    url: '/claire-content/Kayla doing treatment.HEIC',
+    url: '/claire-content/Transformed HQ Instagram (1).png',
     page_location: 'about',
     page_section: 'about_gallery',
     active: true,
     display_order: 2
-  },
-  {
-    title: 'Natural Lip Filler Results',
-    category: 'promotional',
-    media_type: 'image',
-    url: '/claire-content/Natural lip filler.png',
-    page_location: 'gallery',
-    page_section: 'gallery_featured',
-    active: true,
-    display_order: 1
-  },
-  {
-    title: 'Signature Lips Masterclass',
-    category: 'promotional',
-    media_type: 'image',
-    url: '/claire-content/Signature lip filler.png',
-    page_location: 'gallery',
-    page_section: 'gallery_main',
-    active: true,
-    display_order: 1
-  },
-  {
-    title: 'Advanced Dermal Filler',
-    category: 'promotional',
-    media_type: 'image',
-    url: '/claire-content/facial filler.png',
-    page_location: 'gallery',
-    page_section: 'gallery_main',
-    active: true,
-    display_order: 2
-  },
-  {
-    title: 'Treatment in Progress',
-    category: 'promotional',
-    media_type: 'image',
-    url: '/claire-content/doing treatments (2).HEIC',
-    page_location: 'gallery',
-    page_section: 'gallery_main',
-    active: true,
-    display_order: 3
-  },
-  {
-    title: 'Clinic Environment',
-    category: 'promotional',
-    media_type: 'image',
-    url: '/claire-content/Transformed HQ Instagram (4).png',
-    page_location: 'gallery',
-    page_section: 'gallery_main',
-    active: true,
-    display_order: 4
-  },
-  {
-    title: 'Training Academy',
-    category: 'promotional',
-    media_type: 'image',
-    url: '/claire-content/Transformed HQ Instagram (6).png',
-    page_location: 'gallery',
-    page_section: 'gallery_main',
-    active: true,
-    display_order: 5
-  },
-  {
-    title: 'Transformed HQ',
-    category: 'promotional',
-    media_type: 'image',
-    url: '/claire-content/Transformed HQ Instagram.png',
-    page_location: 'gallery',
-    page_section: 'gallery_main',
-    active: true,
-    display_order: 6
-  },
-  {
-    title: 'Lip Filler Signature Lips',
-    category: 'promotional',
-    media_type: 'image',
-    url: '/claire-content/Lip filler signature lips (1).HEIC',
-    page_location: 'gallery',
-    page_section: 'gallery_featured',
-    active: true,
-    display_order: 2
-  },
-  {
-    title: 'Natural Lip Enhancement',
-    category: 'promotional',
-    media_type: 'image',
-    url: '/claire-content/Natural lip filler.HEIC',
-    page_location: 'gallery',
-    page_section: 'gallery_main',
-    active: true,
-    display_order: 7
   },
   {
     title: 'Advanced Treatment Room',
@@ -231,12 +151,82 @@ const defaultItems = [
     display_order: 3
   },
   {
-    title: 'Facial Filler Procedure',
+    title: 'Training Academy',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Transformed HQ Instagram (6).png',
+    page_location: 'gallery',
+    page_section: 'gallery_main',
+    active: true,
+    display_order: 1
+  },
+  {
+    title: 'Signature Lips Masterclass',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Signature lip filler.png',
+    page_location: 'gallery',
+    page_section: 'gallery_main',
+    active: true,
+    display_order: 2
+  },
+  {
+    title: 'Advanced Dermal Filler',
     category: 'promotional',
     media_type: 'image',
     url: '/claire-content/facial filler.png',
-    page_location: 'services',
-    page_section: 'services_showcase',
+    page_location: 'gallery',
+    page_section: 'gallery_main',
+    active: true,
+    display_order: 3
+  },
+  {
+    title: 'Treatment in Progress',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Transformed HQ Instagram (4).png',
+    page_location: 'gallery',
+    page_section: 'gallery_main',
+    active: true,
+    display_order: 4
+  },
+  {
+    title: 'Clinic Environment',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Transformed HQ Instagram.png',
+    page_location: 'gallery',
+    page_section: 'gallery_main',
+    active: true,
+    display_order: 5
+  },
+  {
+    title: 'Natural Lip Enhancement',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Natural lip filler.png',
+    page_location: 'gallery',
+    page_section: 'gallery_main',
+    active: true,
+    display_order: 6
+  },
+  {
+    title: 'Natural Lip Filler Results',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Natural lip filler.png',
+    page_location: 'gallery',
+    page_section: 'gallery_featured',
+    active: true,
+    display_order: 1
+  },
+  {
+    title: 'Lip Filler Signature Lips',
+    category: 'promotional',
+    media_type: 'image',
+    url: '/claire-content/Signature lip filler.png',
+    page_location: 'gallery',
+    page_section: 'gallery_featured',
     active: true,
     display_order: 2
   },
@@ -249,16 +239,6 @@ const defaultItems = [
     page_section: 'gallery_featured',
     active: true,
     display_order: 3
-  },
-  {
-    title: 'Cardiff Bay Clinic',
-    category: 'promotional',
-    media_type: 'image',
-    url: '/claire-content/Transformed HQ Instagram (7).png',
-    page_location: 'home',
-    page_section: 'home_carousel',
-    active: true,
-    display_order: 5
   }
 ];
 
