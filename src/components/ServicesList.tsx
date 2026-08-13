@@ -62,64 +62,10 @@ const ServicesList: React.FC<ServicesListProps> = ({ categoryId }) => {
                 >
                   {service.image && (
                     <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
-                      {service.id === 'coloring' ? (
-                        <img
-                          src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/color_mixologist.png"
-                          alt="Color Mixologist Service"
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                          width="400"
-                          height="300"
-                        />
-                      ) : service.id === 'lip-filler' ? (
-                        <img
-                          src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/lip_fillers_image.jpg"
-                          alt="Lip Fillers Service"
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                          width="400"
-                          height="300"
-                        />
-                      ) : service.id === 'body-sculpting' ? (
-                        <img
-                          src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/body_sculpting.png"
-                          alt="Body Sculpting Service"
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                          width="400"
-                          height="300"
-                        />
-                      ) : service.id === 'facial-profiling' ? (
-                        <img
-                          src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/facial_profiling.jpg"
-                          alt="Facial Profiling Service"
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                          width="400"
-                          height="300"
-                        />
-                      ) : service.id === 'dermal-filler' ? (
-                        <img
-                          src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-08+at+18.22.46.jpeg"
-                          alt="Cannula Dermal Filler Service"
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                          width="400"
-                          height="300"
-                        />
-                      ) : service.id === 'skin' ? (
-                        <img
-                          src="https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/skin.png"
-                          alt="Skin Treatment Service"
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                          width="400"
-                          height="300"
-                        />
-                      ) : service.id === 'booty-lifts' ? (
+                      {service.isVideo ? (
                         <div className="relative w-full h-full">
                           <video
-                            src="https://transformed-academy-and-salon-videos.s3.eu-north-1.amazonaws.com/videos/WhatsApp+Video+2025-03-27+at+13.20.37.mp4"
+                            src={service.image}
                             className="w-full h-full object-cover"
                             autoPlay
                             loop

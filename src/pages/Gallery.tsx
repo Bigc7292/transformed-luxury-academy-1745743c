@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -9,11 +8,11 @@ import ContentGrid from '@/components/content/ContentGrid';
 import { PageSection } from '@/types/content';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ContentCarousel from '@/components/content/ContentCarousel';
-import ClaireContentShowcase from '@/components/content/ClaireContentShowcase';
+import SignaturePortfolioShowcase from '@/components/content/SignaturePortfolioShowcase';
 
 const Gallery = () => {
   const [tabValue, setTabValue] = useState("all");
-  
+
   return (
     <div className="bg-white min-h-screen">
       <SeoHead 
@@ -60,7 +59,7 @@ const Gallery = () => {
                   <TabsTrigger value="face">Face</TabsTrigger>
                   <TabsTrigger value="body">Body</TabsTrigger>
                   <TabsTrigger value="training">Training</TabsTrigger>
-                  <TabsTrigger value="claire">Claire's Portfolio</TabsTrigger>
+                  <TabsTrigger value="signature">Signature Portfolio</TabsTrigger>
                 </TabsList>
               </div>
               
@@ -104,8 +103,8 @@ const Gallery = () => {
                 </div>
               </TabsContent>
 
-              <TabsContent value="claire" className="mt-0">
-                <ClaireContentShowcase />
+              <TabsContent value="signature" className="mt-0">
+                <SignaturePortfolioShowcase />
               </TabsContent>
             </Tabs>
           </div>

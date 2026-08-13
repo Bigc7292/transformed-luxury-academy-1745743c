@@ -77,7 +77,7 @@ export const trainingCourses: CourseType[] = [
     id: 1,
     title: "Start From Scratch One to One Training",
     description: "Personalized training for beginners looking to enter the aesthetics industry. Get hands-on experience with expert guidance.",
-    image: "https://content-for-services-chose-by-nik.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2025-04-24+at+21.12.36+(2).jpeg",
+    image: "/lovable-uploads/e39c38e5-88c2-4732-aff5-8e3561694f5b.png",
     contact: "07716402303"
   },
   {

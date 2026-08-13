@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { claireContentItems } from '@/data/claireContent';
+import { portfolioContentItems } from '@/data/portfolioContent';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -21,7 +21,7 @@ const itemVariants = {
   }
 };
 
-const ClaireContentShowcase: React.FC = () => {
+const SignaturePortfolioShowcase: React.FC = () => {
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -31,9 +31,9 @@ const ClaireContentShowcase: React.FC = () => {
           viewport={{ once: true, amount: 0.3 }}
           className="text-center mb-16"
         >
-          <span className="text-gold-400 font-medium">Claire's Portfolio</span>
+          <span className="text-gold-400 font-medium">Signature Portfolio</span>
           <h2 className="text-3xl md:text-4xl font-serif text-gold-800 mt-2">
-            Recent Transformations
+            Signature Transformations
           </h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
             Explore our latest work showcasing advanced aesthetic treatments and beautiful results from our Cardiff clinic.
@@ -47,7 +47,7 @@ const ClaireContentShowcase: React.FC = () => {
           viewport={{ once: true, amount: 0.1 }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
-          {claireContentItems.map((item) => (
+          {portfolioContentItems.map((item) => (
             <motion.div key={item.id} variants={itemVariants} className="group">
               <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                 <div className="relative aspect-[4/5] overflow-hidden bg-gold-100">
@@ -94,4 +94,4 @@ const ClaireContentShowcase: React.FC = () => {
   );
 };
 
-export default ClaireContentShowcase;
+export default SignaturePortfolioShowcase;

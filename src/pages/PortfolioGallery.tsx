@@ -3,21 +3,21 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Chatbot from '../components/Chatbot';
 import SEO from '../components/SEO';
-import ClaireContentShowcase from '@/components/content/ClaireContentShowcase';
+import SignaturePortfolioShowcase from '@/components/content/SignaturePortfolioShowcase';
 
-const ClaireGallery = () => {
+const PortfolioGallery = () => {
   return (
     <div className="bg-white min-h-screen">
       <SEO
-        title="Claire's Portfolio - Aesthetic Transformations Cardiff"
-        description="Explore Claire's recent aesthetic transformations at Transformed Academy & Salon in Cardiff. Advanced dermal fillers, lip fillers, polynucleotides, and signature lip artistry results."
-        keywords="aesthetic transformations, lip filler results, dermal filler Cardiff, polynucleotides results, signature lips, aesthetic clinic Cardiff, South Wales aesthetics"
+        title="Signature Portfolio - Aesthetic Transformations Cardiff"
+        description="Explore our signature aesthetic transformations at Transformed Academy & Salon in Cardiff. Advanced dermal fillers, lip fillers, polynucleotides, and signature lip artistry results."
+        keywords="aesthetic transformations Cardiff, lip filler results Cardiff, dermal filler Cardiff, polynucleotides results, signature lips Cardiff, aesthetic clinic Cardiff, South Wales aesthetics"
         schema={{
           "@context": "https://schema.org",
           "@type": "ImageGallery",
-          "name": "Claire's Aesthetic Portfolio - Transformed Academy & Salon",
+          "name": "Signature Portfolio - Transformed Academy & Salon",
           "description": "Recent aesthetic transformations and treatment results from our Cardiff clinic",
-          "url": "https://transformedacademyhq.co.uk/claire-gallery",
+          "url": "https://transformedacademyhq.co.uk/portfolio",
           "location": {
             "@type": "Place",
             "name": "Transformed Academy & Salon",
@@ -37,7 +37,7 @@ const ClaireGallery = () => {
           <div className="text-center mb-16">
             <span className="text-gold-400 font-medium">Portfolio</span>
             <h1 className="text-4xl md:text-5xl font-serif text-gold-700 mb-4">
-              Claire's Recent Transformations
+              Signature Transformations
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               A curated collection of our latest aesthetic treatments and results from our Cardiff clinic.
@@ -45,7 +45,7 @@ const ClaireGallery = () => {
             </p>
           </div>
 
-          <ClaireContentShowcase />
+          <SignaturePortfolioShowcase />
 
           <div className="text-center mt-16 bg-gold-50 rounded-lg p-8">
             <h2 className="text-2xl font-serif text-gold-700 mb-4">
@@ -73,4 +73,4 @@ const ClaireGallery = () => {
   );
 };
 
-export default ClaireGallery;
+export default PortfolioGallery;

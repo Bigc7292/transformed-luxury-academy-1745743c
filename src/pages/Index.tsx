@@ -16,7 +16,7 @@ import SignatureShowcase from '@/components/SignatureShowcase';
 import TrustAccreditations from '@/components/TrustAccreditations';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import PrecisionLiftLaunch from '@/components/PrecisionLiftLaunch';
-import ClaireContentShowcase from '@/components/content/ClaireContentShowcase';
+import SignaturePortfolioShowcase from '@/components/content/SignaturePortfolioShowcase';
 
 const Index = () => {
   return (
@@ -85,7 +85,7 @@ const Index = () => {
 
       <Benefits />
       <BeforeAfterSlider />
-      <ClaireContentShowcase />
+      <SignaturePortfolioShowcase />
       <Testimonials />
       <Cta />
       <Footer />

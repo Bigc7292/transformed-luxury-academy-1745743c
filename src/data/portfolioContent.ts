@@ -1,4 +1,4 @@
-export interface ClaireContentItem {
+export interface PortfolioContentItem {
   id: string;
   title: string;
   description: string;
@@ -10,7 +10,7 @@ export interface ClaireContentItem {
   ctaLink: string;
 }
 
-export const claireContentItems: ClaireContentItem[] = [
+export const portfolioContentItems: PortfolioContentItem[] = [
   {
     id: "claire-1",
     title: "Aesthetic Treatments in Progress",
