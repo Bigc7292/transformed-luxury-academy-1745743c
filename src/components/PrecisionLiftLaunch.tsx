@@ -30,7 +30,7 @@ const PrecisionLiftLaunch: React.FC = () => {
   const videos: VideoAsset[] = [
     {
       id: 1,
-      title: 'Precision Lift: Laser Fiber Showcase',
+      title: 'Prescision Laser: Laser Fiber Showcase',
       description: 'See the next-gen laser fiber technology in action, tightening and lifting facial structures.',
       src: '/mixture/WhatsApp Video 2026-06-11 at 9.51.09 AM.mp4',
       thumbnail: '/mixture/WhatsApp Image 2026-06-11 at 9.50.25 AM (4).jpeg'
